@@ -119,6 +119,7 @@ namespace Puddle
             soundFiles.Add("Sounds/Shot3.wav");
             soundFiles.Add("Sounds/Shot4.wav");
             soundFiles.Add("Sounds/Powerup.wav");
+            soundFiles.Add("Sounds/Death.wav");
         }
 
         // Property determining if the character can act
@@ -517,6 +518,7 @@ namespace Puddle
             puddled = false;
             hydration = maxHydration;
 			piped = false;
+            soundList["Sounds/Death.wav"].Play();
         }
 
         private void Animate(Controls controls, Level level, GameTime gameTime)

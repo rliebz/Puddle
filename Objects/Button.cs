@@ -27,6 +27,8 @@ namespace Puddle
 			activated = false;
 			pressed = false;
             soundFiles.Add("Sounds/button.wav");
+            soundFiles.Add("Sounds/HoldButtonPress.wav");
+            soundFiles.Add("Sounds/HoldButtonRel.wav");
             name = obj.Name;
 			collisionWidth = 20;
             collisionHeight = 30;
@@ -101,8 +103,11 @@ namespace Puddle
         {
             if (activated)
                 return;
-				
-			soundList["Sounds/button.wav"].Play();
+			
+	        if(holdButton)
+                soundList["Sounds/HoldButtonPress.wav"].Play();
+            else
+			    soundList["Sounds/button.wav"].Play();
 
 			int number = int.Parse(name.Split(' ')[1]);
 
@@ -138,7 +143,7 @@ namespace Puddle
 				}
 			}
 			activated = false;
-
+            soundList["Sounds/HoldButtonRel.wav"].Play();
 		}
 
 		public void Animate(Level level)
