@@ -34,7 +34,7 @@ namespace Puddle
             frameIndex = 0;
         }
 
-        public void Update(Controls controls, Physics physics, ContentManager content)
+        public void Update(Controls controls, Physics physics)
         {
             // Move
             Move(physics);
@@ -101,6 +101,11 @@ namespace Puddle
                 left ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
                 0
             );
+        }
+
+        public new void LoadContent(ContentManager content)
+        {
+            image = content.Load<Texture2D>(imageFile);
         }
     }
 

@@ -25,16 +25,12 @@ namespace Puddle
             this.gpo = GamePad.GetState(PlayerIndex.One);
         }
 
-        public void Start()
-        {
-            this.kb = Keyboard.GetState();
-            this.gp = GamePad.GetState(PlayerIndex.One);
-        }
-
-        public void Finish()
+        public void Update()
         {
             kbo = kb;
             gpo = gp;
+            kb = Keyboard.GetState();
+            this.gp = GamePad.GetState(PlayerIndex.One);
         }
 
         public bool isPressed(Keys key, Buttons button)

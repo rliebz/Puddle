@@ -77,7 +77,7 @@ namespace Puddle
         protected override void Update(GameTime gameTime)
         {
             //set our keyboardstate tracker update can change the gamestate on every cycle
-            controls.Start();
+            controls.Update();
 
             if (controls.onPress(Keys.Escape, Buttons.Back))
                 Exit();
@@ -89,10 +89,9 @@ namespace Puddle
             
             foreach (Enemy e in physics.enemies)
             {
-                e.Update(controls, physics, this.Content);
+                e.Update(controls, physics);
             }
             
-            controls.Finish();
             base.Update(gameTime);
         }
 

@@ -22,6 +22,7 @@ namespace Puddle
         // Movement
         private int speed;
         private int x_accel;
+        private double friction;
         public double x_vel;
         public int y_vel;
 
@@ -53,6 +54,7 @@ namespace Puddle
 
             // Movement
             speed = 7;
+            friction = .15;
             x_accel = 0;
             x_vel = 0;
             y_vel = 0;
@@ -86,7 +88,8 @@ namespace Puddle
                 x_accel += speed;
 
             // Movement
-            x_vel = x_vel * .85 + (frozen() ? 0 : x_accel * .10);
+            x_vel = x_vel * (1 - friction) 
+                + (frozen() ? 0 : x_accel * .10);
             spriteX += Convert.ToInt32(x_vel);
             
             // Direction
@@ -118,7 +121,7 @@ namespace Puddle
                 shooting = false;
             }
 
-            if (controls.onPress(Keys.S, Buttons.A))
+            if (controls.onPress(Keys.S, Buttons.A) && grounded)
             {
                 jump_point = physics.count;
             }
@@ -179,9 +182,34 @@ namespace Puddle
 
 
 
+            Animate(controls, physics, content);
+            
 
-            //  -- Sprite logic -- //
+            CheckCollisions(physics);
+        }
 
+
+        public void CheckCollisions(Physics physics)
+        {
+            if (!puddled)
+            {
+                foreach (Enemy e in physics.enemies)
+                {
+                    if (Math.Sqrt(Math.Pow(spriteX - e.spriteX, 2) +
+                        Math.Pow(spriteY - e.spriteY, 2)) < 32)
+                    {
+                        spriteX = 400;
+                        spriteY = -32;
+                        y_vel = 0;
+                        grounded = false;
+                    }
+                }
+            }
+        }
+
+        private void Animate(Controls controls, Physics physics, 
+            ContentManager content)
+        {
             // Check for standing still
             if (!frozen())
             {
@@ -249,27 +277,6 @@ namespace Puddle
             else
             {
                 frameIndex = 0;
-            }
-
-            CheckCollisions(physics);
-        }
-
-
-        public void CheckCollisions(Physics physics)
-        {
-            if (!puddled)
-            {
-                foreach (Enemy e in physics.enemies)
-                {
-                    if (Math.Sqrt(Math.Pow(spriteX - e.spriteX, 2) +
-                        Math.Pow(spriteY - e.spriteY, 2)) < 32)
-                    {
-                        spriteX = 400;
-                        spriteY = -32;
-                        y_vel = 0;
-                        grounded = false;
-                    }
-                }
             }
         }
 

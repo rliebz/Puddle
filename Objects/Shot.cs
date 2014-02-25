@@ -14,7 +14,6 @@ namespace Puddle
         public string dir;
         public int speed;
         public int x_vel;
-        public int y_speed;
 
         public Shot(Player p, string dir = "none")
             : base(p.getX(), p.getY() - 10, 32, 32)
