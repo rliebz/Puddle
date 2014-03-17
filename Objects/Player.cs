@@ -38,8 +38,6 @@ namespace Puddle
 
         public Player(int x, int y, int width, int height) : base(x, y, width, height)
         {
-            this.imageFile = "PC/stand.png";
-            
             // Objects
             powerup = new Dictionary<string, bool>();
 
@@ -65,6 +63,8 @@ namespace Puddle
             shot_point = 0;
             puddle_point = 0;
             jump_point = 0;
+
+            // Sprite Business
             frameIndex = 0;
         }
 
@@ -103,8 +103,7 @@ namespace Puddle
                 controls.isPressed(Keys.Down, Buttons.DPadDown))
             {
                 puddled = true;
-                imageFile = "PC/collapse.png";
-                LoadContent(content);
+                image = images["puddle"];
                 if (controls.onPress(Keys.Down, Buttons.DPadDown))
                     puddle_point = physics.count;
             }
@@ -216,36 +215,33 @@ namespace Puddle
                 // Jumping
                 if (!grounded)
                 {
-                    if (this.imageFile != "PC/jump.png")
+                    if (image != images["jump"])
                     {
                         frameIndex = 0;
-                        this.imageFile = "PC/jump.png";
-                        LoadContent(content);
+                        image = images["jump"];
                     }
                 }
                 // Not Moving
                 else if (Math.Abs(x_vel) < .5)
                 {
-                    if (this.imageFile != "PC/stand.png")
+                    if (image != images["stand"])
                     {
                         frameIndex = 0;
-                        this.imageFile = "PC/stand.png";
-                        LoadContent(content);
+                        image = images["stand"];
                     }
                 }
 
                 // Yes moving
-                else if (this.imageFile != "PC/sheet.png")
+                else if (image != images["walk"])
                 {
                     frameIndex = 0;
-                    this.imageFile = "PC/sheet.png";
-                    LoadContent(content);
+                    image = images["walk"];
                 }
             }
 
 
             // Puddle sprite logic
-            if (this.imageFile == "PC/collapse.png")
+            if (image == images["puddle"])
             {
                 if (controls.isPressed(Keys.Down, Buttons.DPadDown))
                 {
@@ -261,13 +257,13 @@ namespace Puddle
             }
 
             // Walking sprite frames
-            else if (this.imageFile == "PC/sheet.png")
+            else if (image == images["walk"])
             {
                 frameIndex = (physics.count / 8 % 4) * 32;
             }
 
             // Jumping sprite frames
-            else if (this.imageFile == "PC/jump.png")
+            else if (image == images["jump"])
             {
                 if (frameIndex < 2 * 32)
                     frameIndex += 32;
@@ -278,6 +274,15 @@ namespace Puddle
             {
                 frameIndex = 0;
             }
+        }
+
+        public new void LoadContent(ContentManager content)
+        {
+            images["stand"] = content.Load<Texture2D>("PC/stand.png");
+            images["jump"] = content.Load<Texture2D>("PC/jump.png");
+            images["walk"] = content.Load<Texture2D>("PC/walk.png");
+            images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
+            image = images["stand"];
         }
 
         public new void Draw(SpriteBatch sb)

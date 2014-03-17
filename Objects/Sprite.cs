@@ -14,8 +14,9 @@ namespace Puddle
         public int spriteX, spriteY;
         public int spriteWidth, spriteHeight;
         public bool destroyed;
-        protected Texture2D image;
         public string imageFile;
+        protected Texture2D image;
+        protected Dictionary<string, Texture2D> images;
 
         public Sprite(int x, int y, int width, int height)
         {
@@ -24,6 +25,7 @@ namespace Puddle
             this.spriteWidth = width;
             this.spriteHeight = height;
             this.imageFile = "bubble.png";
+            this.images = new Dictionary<string, Texture2D>();
         }
 
         public int getX(){

@@ -68,7 +68,7 @@
     <Content Include="Content\bubble.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PC\collapse.png">
+    <Content Include="Content\PC\puddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PC\jump.png">
@@ -77,7 +77,7 @@
     <Content Include="Content\PC\stand.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PC\sheet.png">
+    <Content Include="Content\PC\walk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\rat.png">
