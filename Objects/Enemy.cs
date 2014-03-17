@@ -39,8 +39,8 @@ namespace Puddle
             // Move
             Move(physics);
 
-            // Update sprite
-            frameIndex = ((physics.count + seed) / 8 % 4) * 32;
+            // Animate sprite
+            Animate(physics);
 
             // Be killed if necessary
             destroyed = (health <= 0);
@@ -49,7 +49,8 @@ namespace Puddle
         public void Move(Physics physics)
         {
 
-            // Change directions maybe
+            // Turn around near the edges of the screen
+            // TODO: Replace with collision detection
             if (spriteX > 750)
             {
                 x_vel = -3;
@@ -60,6 +61,8 @@ namespace Puddle
                 x_vel = 3;
                 left = false;
             }
+
+            // Turn around maybe
             else if (physics.count % (30 + rnd.Next(1, 600)) == 0)
             {
                 x_vel = -x_vel;
@@ -69,7 +72,7 @@ namespace Puddle
             // Move horizontally
             spriteX += x_vel;
 
-            // Fall (with grace!)
+            // Fall if airborne
             if (spriteY < physics.ground)
             {
                 spriteY += y_vel;
@@ -89,6 +92,11 @@ namespace Puddle
             }
         }
 
+        public void Animate(Physics physics)
+        {
+            frameIndex = ((physics.count + seed) / 8 % 4) * 32;
+        }
+
         public new void Draw(SpriteBatch sb)
         {
             sb.Draw(
@@ -103,10 +111,5 @@ namespace Puddle
             );
         }
 
-        public new void LoadContent(ContentManager content)
-        {
-            image = content.Load<Texture2D>(imageFile);
-        }
     }
-
 }
