@@ -70,6 +70,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Button.png" />
+    <Content Include="Content\cannon.png" />
     <Content Include="Content\fireball.png" />
     <Content Include="Content\geyser.png" />
     <Content Include="Content\PC\puddle.png">
