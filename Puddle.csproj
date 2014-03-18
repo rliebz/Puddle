@@ -65,9 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\brick.png" />
     <Content Include="Content\bubble.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Button.png" />
+    <Content Include="Content\fireball.png" />
+    <Content Include="Content\geyser.png" />
     <Content Include="Content\PC\puddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -80,6 +84,8 @@
     <Content Include="Content\PC\walk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\pipe.png" />
+    <Content Include="Content\push_block.png" />
     <Content Include="Content\rat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
