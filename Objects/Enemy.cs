@@ -20,7 +20,7 @@ namespace Puddle
         Random rnd;
 
         public Enemy(int x, int y)
-            : base(x, y, 50, 50)
+            : base(x, y, 32, 32)
         {
             this.imageFile = "rat.png";
             left = true;

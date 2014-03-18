@@ -39,6 +39,7 @@
     <Compile Include="Objects\Enemy.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Objects\PushBlock.cs" />
     <Compile Include="Objects\Shot.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Program.cs" />
@@ -65,14 +66,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\brick.png" />
+    <Content Include="Content\brick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\bubble.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Button.png" />
-    <Content Include="Content\cannon.png" />
-    <Content Include="Content\fireball.png" />
-    <Content Include="Content\geyser.png" />
+    <Content Include="Content\Button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\cannon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fireball.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\geyser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\PC\puddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -85,8 +96,12 @@
     <Content Include="Content\PC\walk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\pipe.png" />
-    <Content Include="Content\push_block.png" />
+    <Content Include="Content\pipe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\push_block.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\rat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

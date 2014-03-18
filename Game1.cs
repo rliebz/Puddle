@@ -40,7 +40,7 @@ namespace Puddle
         {
             // TODO: Add your initialization logic here
             //Initialize all your objects here
-            player1 = new Player(400, -32, 50, 50);
+            player1 = new Player(400, -32, 32, 32);
             physics = new Physics();
             controls = new Controls();
             base.Initialize();            
@@ -56,6 +56,8 @@ namespace Puddle
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player1.LoadContent(this.Content);
+            foreach (PushBlock b in physics.pushBlocks)
+                b.LoadContent(this.Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -121,6 +123,8 @@ namespace Puddle
                 e.Draw(spriteBatch);
             foreach (Shot s in physics.shots)
                 s.Draw(spriteBatch);
+            foreach (PushBlock b in physics.pushBlocks)
+                b.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
