@@ -20,6 +20,9 @@ namespace Puddle
         {
             imageFile = "push_block.png";
 
+            this.left = left;
+            this.right = right;
+
             // Determine block image
             if (right && !left)
                 frameIndex = 0;

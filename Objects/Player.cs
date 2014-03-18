@@ -20,6 +20,7 @@ namespace Puddle
         public Dictionary<string, bool> powerup;
 
         bool pushing;
+        bool wall;
 
         // Movement
         private int speed;
@@ -52,6 +53,7 @@ namespace Puddle
             shooting = false;
 
             pushing = false;
+            wall = false;
 
             // Movement
             speed = 7;
@@ -142,15 +144,31 @@ namespace Puddle
                     // Left push
                     if (spriteX < b.spriteX && x_vel > 0)
                     {
-                        b.spriteX += Convert.ToInt32(x_vel);
-                        pushing = true;
+                        if (b.left)
+                        {
+                            b.spriteX += Convert.ToInt32(x_vel);
+                            pushing = true;
+                        }
+                        else
+                        {
+                            wall = true;
+                            spriteX -= 1;
+                        }
                     }
 
                     // Right push
                     else if (spriteX > b.spriteX && x_vel < 0)
                     {
-                        b.spriteX += Convert.ToInt32(x_vel);
-                        pushing = true;
+                        if (b.right)
+                        {
+                            b.spriteX += Convert.ToInt32(x_vel);
+                            pushing = true;
+                        }
+                        else
+                        {
+                            wall = true;
+                            spriteX += 1;
+                        }
                     }
                 }
             }
@@ -169,10 +187,18 @@ namespace Puddle
                 x_accel += speed;
 
             // Sideways Movement
-            double playerFriction = pushing ? (friction * 3) : friction;
-            x_vel = x_vel * (1 - playerFriction)
-                + (frozen() ? 0 : x_accel * .10);
-            spriteX += Convert.ToInt32(x_vel);
+            if (wall)
+            {
+                x_vel = 0;
+                wall = false;
+            }
+            else
+            {
+                double playerFriction = pushing ? (friction * 3) : friction;
+                x_vel = x_vel * (1 - playerFriction)
+                    + (frozen() ? 0 : x_accel * .10);
+                spriteX += Convert.ToInt32(x_vel);
+            }
 
             // Determine direction
             if (x_vel > 0.1)
