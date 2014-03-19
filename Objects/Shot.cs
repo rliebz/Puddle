@@ -16,11 +16,13 @@ namespace Puddle
         public int x_vel;
 
         public Shot(Player p, string dir = "none")
-            : base(p.getX(), p.getY() - 10, 24, 24)
+            : base(p.getX(), p.getY() - 6, 24, 24)
         {
             this.imageFile = "bubble.png";
             this.dir = dir;
-            speed = 10;
+            sizeX = 8;
+            sizeY = 8;
+            speed = 6;
             x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.left ? -1 : 1));
         }
 
@@ -28,15 +30,21 @@ namespace Puddle
         {
             Move();
 
-            // Check collisions
+            // Check collisions with enemies
             foreach (Enemy e in physics.enemies)
             {
-                if (Math.Sqrt(Math.Pow(spriteX - e.spriteX, 2) +
-                    Math.Pow(spriteY - e.spriteY, 2)) < 20)
+                if (Intersects(e))
                 {
                     this.destroyed = true;
                     e.health--;
                 }
+            }
+
+            // check collisions with blocks
+            foreach (PushBlock b in physics.pushBlocks)
+            {
+                if (Intersects(b))
+                    this.destroyed = true;
             }
 
 

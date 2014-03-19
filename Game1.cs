@@ -88,11 +88,12 @@ namespace Puddle
 
             player1.Update(controls, physics, this.Content);
             physics.Update(this.Content);
-            
+
+            foreach (PushBlock b in physics.pushBlocks)
+                b.Update(physics);
+
             foreach (Enemy e in physics.enemies)
-            {
-                e.Update(controls, physics);
-            }
+                e.Update(physics);
             
             base.Update(gameTime);
         }

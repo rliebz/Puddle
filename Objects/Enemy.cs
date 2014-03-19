@@ -34,7 +34,7 @@ namespace Puddle
             frameIndex = 0;
         }
 
-        public void Update(Controls controls, Physics physics)
+        public void Update(Physics physics)
         {
             // Move
             Move(physics);

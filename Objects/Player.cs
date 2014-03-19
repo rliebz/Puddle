@@ -51,6 +51,7 @@ namespace Puddle
             puddled = false;
             left = false;
             shooting = false;
+            sizeX = 16;
 
             pushing = false;
             wall = false;
@@ -119,8 +120,7 @@ namespace Puddle
             {
                 foreach (Enemy e in physics.enemies)
                 {
-                    if (Math.Sqrt(Math.Pow(spriteX - e.spriteX, 2) +
-                        Math.Pow(spriteY - e.spriteY, 2)) < 32)
+                    if (this.Intersects(e))
                     {
                         spriteX = 400;
                         spriteY = -32;
@@ -136,23 +136,17 @@ namespace Puddle
             // Check solid collisions
             foreach (PushBlock b in physics.pushBlocks)
             {
-                // If colided with player
-                if (Math.Sqrt(Math.Pow(spriteX - b.spriteX, 2) +
-                    Math.Pow(spriteY - b.spriteY, 2)) < 24)
+                if (Intersects(b))
                 {
-
-                    b.CheckCollisions(physics);
-
                     // Push to the right
                     if (spriteX < b.spriteX && x_vel > 0)
                     {
                         if (b.right && !b.rCol)
                         {
                             b.x_vel = x_vel;
-                            b.Move(physics);
                             pushing = true;
                         }
-                        else
+                        else if (!pushing)
                         {
                             wall = true;
                             spriteX -= Convert.ToInt32(x_vel);
@@ -166,13 +160,13 @@ namespace Puddle
                         if (b.left && !b.lCol)
                         {
                             b.x_vel = x_vel;
-                            b.Move(physics);
                             pushing = true;
                         }
-                        else
+                        else if (!pushing)
                         {
                             wall = true;
                             spriteX -= Convert.ToInt32(x_vel);
+                            x_vel = 0;
                             x_vel = 0;
                         }
                     }

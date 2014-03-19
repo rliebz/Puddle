@@ -53,9 +53,10 @@ namespace Puddle
                 frameIndex = 96;
         }
 
-        public void Update(Player player, Physics physics)
+        public void Update(Physics physics)
         {
-
+            Move(physics);
+            CheckCollisions(physics);
         }
 
         public void CheckCollisions(Physics physics)
@@ -72,8 +73,7 @@ namespace Puddle
                 if (this == b)
                     continue;
 
-                if (Math.Sqrt(Math.Pow(spriteX - b.spriteX, 2) +
-                    Math.Pow(spriteY - b.spriteY, 2)) <= 32)
+                if (Intersects(b))
                 {
                     // Determine direction
                     if (spriteX < b.spriteX)
@@ -97,9 +97,9 @@ namespace Puddle
             if (uCol)
             {
                 uBlock.x_vel = x_vel;
-                uBlock.CheckCollisions(physics);
                 uBlock.Move(physics);
             }
+            x_vel = 0;
         }
 
         public new void Draw(SpriteBatch sb)

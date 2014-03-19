@@ -15,6 +15,8 @@ namespace Puddle
         public int spriteWidth, spriteHeight;
         public bool destroyed;
         public string imageFile;
+        public int sizeX;
+        public int sizeY;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
 
@@ -24,8 +26,40 @@ namespace Puddle
             this.spriteY = y;
             this.spriteWidth = width;
             this.spriteHeight = height;
+            this.sizeX = width;
+            this.sizeY = height;
             this.imageFile = "bubble.png";
             this.images = new Dictionary<string, Texture2D>();
+        }
+
+        public int leftWall
+        {
+            get { return spriteX - sizeX / 2; }
+        }
+
+        public int rightWall
+        {
+            get { return spriteX + sizeX / 2; }
+        }
+
+        public int topWall
+        {
+            get { return spriteY - sizeY / 2; }
+        }
+
+        public int bottomWall
+        {
+            get { return spriteY + sizeY / 2; }
+        }
+
+        public bool Intersects(Sprite s)
+        {
+            bool iv = ( (topWall >= s.topWall && topWall <= s.bottomWall) || 
+                (bottomWall >= s.topWall && bottomWall <= s.bottomWall) );
+            bool ih = ((leftWall >= s.leftWall && leftWall <= s.rightWall) ||
+                (rightWall >= s.leftWall && rightWall <= s.rightWall));
+
+            return iv && ih;
         }
 
         public int getX(){
