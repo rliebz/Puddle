@@ -19,6 +19,9 @@ namespace Puddle
         public bool shooting;
         public Dictionary<string, bool> powerup;
 
+        bool pushing;
+        bool wall;
+
         // Movement
         private int speed;
         private int x_accel;
@@ -48,9 +51,13 @@ namespace Puddle
             puddled = false;
             left = false;
             shooting = false;
+            sizeX = 16;
+
+            pushing = false;
+            wall = false;
 
             // Movement
-            speed = 7;
+            speed = 6;
             friction = .15;
             x_accel = 0;
             x_vel = 0;
@@ -81,6 +88,7 @@ namespace Puddle
         public void Update(Controls controls, Physics physics, 
             ContentManager content)
         {
+
             // Move based on controls and physics
             Move(controls, physics);
 
@@ -112,14 +120,55 @@ namespace Puddle
             {
                 foreach (Enemy e in physics.enemies)
                 {
-                    if (Math.Sqrt(Math.Pow(spriteX - e.spriteX, 2) +
-                        Math.Pow(spriteY - e.spriteY, 2)) < 32)
+                    if (this.Intersects(e))
                     {
                         spriteX = 400;
                         spriteY = -32;
                         y_vel = 0;
                         grounded = false;
                         puddled = false;
+                    }
+                }
+            }
+
+            pushing = false;
+
+            // Check solid collisions
+            foreach (PushBlock b in physics.pushBlocks)
+            {
+                if (Intersects(b))
+                {
+                    // Push to the right
+                    if (spriteX < b.spriteX && x_vel > 0)
+                    {
+                        if (b.right && !b.rCol)
+                        {
+                            b.x_vel = x_vel;
+                            pushing = true;
+                        }
+                        else if (!pushing)
+                        {
+                            wall = true;
+                            spriteX -= Convert.ToInt32(x_vel);
+                            x_vel = 0;
+                        }
+                    }
+
+                    // Push to the left
+                    else if (spriteX > b.spriteX && x_vel < 0)
+                    {
+                        if (b.left && !b.lCol)
+                        {
+                            b.x_vel = x_vel;
+                            pushing = true;
+                        }
+                        else if (!pushing)
+                        {
+                            wall = true;
+                            spriteX -= Convert.ToInt32(x_vel);
+                            x_vel = 0;
+                            x_vel = 0;
+                        }
                     }
                 }
             }
@@ -138,9 +187,17 @@ namespace Puddle
                 x_accel += speed;
 
             // Sideways Movement
-            x_vel = x_vel * (1 - friction)
-                + (frozen() ? 0 : x_accel * .10);
-            spriteX += Convert.ToInt32(x_vel);
+            if (wall)
+            {
+                wall = false;
+            }
+            else
+            {
+                double playerFriction = pushing ? (friction * 3) : friction;
+                x_vel = x_vel * (1 - playerFriction)
+                    + (frozen() ? 0 : x_accel * .10);
+                spriteX += Convert.ToInt32(x_vel);
+            }
 
             // Determine direction
             if (x_vel > 0.1)

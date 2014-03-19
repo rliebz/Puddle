@@ -17,11 +17,21 @@ namespace Puddle
 
         public List<Enemy> enemies;
         public List<Shot> shots;
+        public List<PushBlock> pushBlocks;
 
         public Physics()
         {
             enemies = new List<Enemy>();
             shots = new List<Shot>();
+            pushBlocks = new List<PushBlock>();
+
+            pushBlocks.Add(new PushBlock(400, 300, true, true));
+            pushBlocks.Add(new PushBlock(400, 268, false, false));
+            pushBlocks.Add(new PushBlock(400, 236, false, false));
+            pushBlocks.Add(new PushBlock(400, 204, false, false));
+
+            pushBlocks.Add(new PushBlock(564, 300, true, true));
+            pushBlocks.Add(new PushBlock(628, 300, false, true));
         }
 
         public void Update(ContentManager content) 
@@ -31,7 +41,7 @@ namespace Puddle
             count++;
 
             // Generate enemies
-            if (count % 100 == 0)
+            if (count % 100 == -1) // Change -1 to 0 to spawn enemies
             {
                 Enemy e = (rnd.NextDouble() > .5) ? 
                     new Enemy(900, 300) : new Enemy (-32, 300);
