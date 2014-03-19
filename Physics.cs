@@ -26,8 +26,12 @@ namespace Puddle
             pushBlocks = new List<PushBlock>();
 
             pushBlocks.Add(new PushBlock(500, 300, true, true));
-            pushBlocks.Add(new PushBlock(564, 300, false, false));
+            pushBlocks.Add(new PushBlock(500, 268, false, false));
+            pushBlocks.Add(new PushBlock(500, 236, false, false));
+            pushBlocks.Add(new PushBlock(500, 204, false, false));
 
+            pushBlocks.Add(new PushBlock(564, 300, true, true));
+            pushBlocks.Add(new PushBlock(628, 300, false, true));
         }
 
         public void Update(ContentManager content) 

@@ -56,7 +56,7 @@ namespace Puddle
             wall = false;
 
             // Movement
-            speed = 7;
+            speed = 6;
             friction = .15;
             x_accel = 0;
             x_vel = 0;
@@ -88,10 +88,6 @@ namespace Puddle
             ContentManager content)
         {
 
-
-            // Check for collisions
-            CheckCollisions(physics);
-
             // Move based on controls and physics
             Move(controls, physics);
 
@@ -108,7 +104,8 @@ namespace Puddle
             // Jump based on controls
             Jump(controls, physics);
 
-            pushing = false;
+            // Check for collisions
+            CheckCollisions(physics);
 
             // Animate sprite
             Animate(controls, physics);
@@ -134,40 +131,49 @@ namespace Puddle
                 }
             }
 
+            pushing = false;
+
             // Check solid collisions
             foreach (PushBlock b in physics.pushBlocks)
             {
-                // If colided
+                // If colided with player
                 if (Math.Sqrt(Math.Pow(spriteX - b.spriteX, 2) +
-                   Math.Pow(spriteY - b.spriteY, 2)) < 28)
+                    Math.Pow(spriteY - b.spriteY, 2)) < 24)
                 {
-                    // Left push
+
+                    b.CheckCollisions(physics);
+
+                    // Push to the right
                     if (spriteX < b.spriteX && x_vel > 0)
                     {
-                        if (b.left)
+                        if (b.right && !b.rCol)
                         {
-                            b.spriteX += Convert.ToInt32(x_vel);
+                            b.x_vel = x_vel;
+                            b.Move(physics);
                             pushing = true;
                         }
                         else
                         {
                             wall = true;
-                            spriteX -= 1;
+                            spriteX -= Convert.ToInt32(x_vel);
+                            x_vel = 0;
                         }
                     }
 
-                    // Right push
+                    // Push to the left
                     else if (spriteX > b.spriteX && x_vel < 0)
                     {
-                        if (b.right)
+                        if (b.left && !b.lCol)
                         {
-                            b.spriteX += Convert.ToInt32(x_vel);
+                            b.x_vel = x_vel;
+                            b.Move(physics);
                             pushing = true;
                         }
                         else
                         {
                             wall = true;
-                            spriteX += 1;
+                            spriteX -= Convert.ToInt32(x_vel);
+                            x_vel = 0;
                         }
                     }
                 }
@@ -189,7 +195,6 @@ namespace Puddle
             // Sideways Movement
             if (wall)
             {
-                x_vel = 0;
                 wall = false;
             }
             else
