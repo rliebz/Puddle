@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using TiledSharp;
 #endregion
 
 namespace Puddle
@@ -23,11 +24,15 @@ namespace Puddle
         Player player1;
         Enemy enemy1;
         Controls controls;
+        TmxMap map;
+
         public Game1()
             : base()
         {
-            graphics = new GraphicsDeviceManager(this);
+            graphics  = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //new Scenegraph(this);
         }
 
         /// <summary>
@@ -56,7 +61,9 @@ namespace Puddle
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player1.LoadContent(this.Content);
+            map = new TmxMap("Content/Level1.tmx");
             // TODO: use this.Content to load your game content here
+            //new TileMap(this, Registry.Lookup<Scenegraph>(), @"Content\Level1.tmx");
         }
 
         /// <summary>
@@ -101,7 +108,8 @@ namespace Puddle
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+  /*          GraphicsDevice.Clear(Color.CornflowerBlue);
+
 
             spriteBatch.Begin();
             // BG
@@ -115,6 +123,7 @@ namespace Puddle
             );
 
 
+            var block = map.ObjectGroups["Blocks"].Objects["Block 1"];
             // Draw here
             player1.Draw(spriteBatch);
             foreach (Enemy e in physics.enemies)
@@ -123,7 +132,14 @@ namespace Puddle
                 s.Draw(spriteBatch);
 
             spriteBatch.End();
+   * */
             base.Draw(gameTime);
         }
+
+       /* protected override void Draw(GameTime gameTime)
+        {
+
+            base.Draw(gameTime);
+        }*/
     }
 }
