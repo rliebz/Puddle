@@ -6,13 +6,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-
+using TiledSharp;
 namespace Puddle
 {
     class PushBlock : Sprite
     {
         public bool left;
         public bool right;
+        public bool gravity;
 
         public bool rCol;
         public bool lCol;
@@ -26,14 +27,15 @@ namespace Puddle
 
         public int frameIndex;
 
-        public PushBlock(int x, int y, bool left, bool right)
+        public PushBlock(int x, int y, bool left=false, bool right=false, bool gravity=false)
             : base(x, y, 32, 32)
         {
             imageFile = "push_block.png";
 
             this.left = left;
             this.right = right;
-
+            this.gravity = gravity;
+       
             this.rCol = false;
             this.lCol = false;
             this.dCol = false;
@@ -49,6 +51,36 @@ namespace Puddle
             else if (left && !right)
                 frameIndex = 32;
             else if (left && right)
+                frameIndex = 64;
+            else
+                frameIndex = 96;
+        }
+
+        public PushBlock(TmxObjectGroup.TmxObject obj)
+            : base(obj.X, obj.Y, 32, 32)
+        {
+            imageFile = "push_block.png";
+
+            this.left = (obj.Properties.ContainsKey("left")) ? Boolean.Parse(obj.Properties["left"]) : false;
+            this.right = (obj.Properties.ContainsKey("right")) ? Boolean.Parse(obj.Properties["right"]) : false;
+            this.gravity = (obj.Properties.ContainsKey("gravity")) ? Boolean.Parse(obj.Properties["gravity"]) : false;
+            
+     
+            this.rCol = false;
+            this.lCol = false;
+            this.dCol = false;
+            this.uCol = false;
+
+            this.x_vel = 0;
+
+            uBlock = null;
+
+            // Determine block image
+            if (this.right && !this.left)
+                frameIndex = 0;
+            else if (this.left && !this.right)
+                frameIndex = 32;
+            else if (this.left && this.right)
                 frameIndex = 64;
             else
                 frameIndex = 96;
@@ -105,7 +137,7 @@ namespace Puddle
         public void Move(Physics physics)
         {
             // Gravity
-            if (left || right)
+            if (gravity)
             {
                 y_vel += physics.gravity;
                 spriteY += y_vel;
