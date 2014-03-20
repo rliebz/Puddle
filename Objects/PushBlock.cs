@@ -76,13 +76,13 @@ namespace Puddle
                 if (Intersects(b))
                 {
                     // Determine direction
-                    if (spriteX < b.spriteX)
+                    if (spriteX < b.spriteX - sizeX / 2)
                         rCol = true;
-                    if (spriteX > b.spriteX)
+                    if (spriteX > b.spriteX + sizeX / 2)
                         lCol = true;
-                    if (spriteY < b.spriteY)
+                    if (spriteY < b.spriteY - sizeX / 2)
                         dCol = true;
-                    if (spriteY > b.spriteY)
+                    if (spriteY > b.spriteY + sizeX / 2)
                     {
                         uCol = true;
                         uBlock = b;
