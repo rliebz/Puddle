@@ -209,9 +209,9 @@ namespace Puddle
 
             foreach (Sprite item in physics.items)
             {
-                if (item is Jetpack && Intersects(item))
+                if (item is PowerUp && Intersects(item))
                 {
-                    powerup["jetpack"] = true;
+                    powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
                 }
             }

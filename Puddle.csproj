@@ -37,7 +37,7 @@
   <ItemGroup>
     <Compile Include="Controls.cs" />
     <Compile Include="Objects\Enemy.cs" />
-    <Compile Include="Objects\Jetpack.cs" />
+    <Compile Include="Objects\PowerUp.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Objects\Block.cs" />

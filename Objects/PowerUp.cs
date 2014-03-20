@@ -10,13 +10,16 @@ using TiledSharp;
 
 namespace Puddle
 {
-    class Jetpack : Sprite
+    class PowerUp : Sprite
     {
 
-        public Jetpack(TmxObjectGroup.TmxObject obj) :
+        public string name;
+
+        public PowerUp(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
-            this.imageFile = "jetpack.png";
+            this.name = obj.Name.ToLower();
+            this.imageFile = obj.Name + ".png";
         }
 
     }
