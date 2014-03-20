@@ -32,6 +32,13 @@ namespace Puddle
             this.images = new Dictionary<string, Texture2D>();
         }
 
+        // Properties
+        public bool offScreen
+        {
+            get { return (spriteX < -32 || spriteY < -32 || 
+                spriteX > 1000 || spriteY > 1000); }
+        }
+
         public int leftWall
         {
             get { return spriteX - sizeX / 2; }
@@ -54,12 +61,17 @@ namespace Puddle
 
         public bool Intersects(Sprite s)
         {
-            bool iv = ( (topWall >= s.topWall && topWall <= s.bottomWall) || 
+            bool intersect_vertical = ( (topWall >= s.topWall && topWall <= s.bottomWall) || 
                 (bottomWall >= s.topWall && bottomWall <= s.bottomWall) );
-            bool ih = ((leftWall >= s.leftWall && leftWall <= s.rightWall) ||
+            bool intersect_horizontal = ((leftWall >= s.leftWall && leftWall <= s.rightWall) ||
                 (rightWall >= s.leftWall && rightWall <= s.rightWall));
 
-            return iv && ih;
+            return intersect_vertical && intersect_horizontal;
+        }
+
+        public void Update(Physics physics)
+        {
+
         }
 
         public int getX(){
@@ -78,11 +90,6 @@ namespace Puddle
             spriteY = y;
         }
 
-        // Properties
-        public bool offscreen() 
-        {
-            return (spriteX < -32 || spriteY < -32 || spriteX > 1000 || spriteY > 1000);
-        }
 
         public void LoadContent(ContentManager content)
         {

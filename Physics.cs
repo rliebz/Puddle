@@ -72,7 +72,7 @@ namespace Puddle
             for (int i = shots.Count - 1; i >= 0; i--)
             {
                 shots[i].Update(this);
-                if (shots[i].offscreen())
+                if (shots[i].offScreen)
                     shots.RemoveAt(i);
             }
 

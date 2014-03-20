@@ -66,8 +66,9 @@ namespace Puddle
             }
             foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Items"].Objects)
             {
-                Jetpack jetpack = new Jetpack(obj);
-                physics.items.Add(jetpack);
+                Type t = Type.GetType(obj.Type);
+                object item = Activator.CreateInstance(t, obj);
+                physics.items.Add((Sprite)item);
             }
             base.Initialize();            
         }
@@ -124,6 +125,9 @@ namespace Puddle
 
             foreach (Enemy e in physics.enemies)
                 e.Update(physics);
+
+            foreach (Sprite s in physics.items)
+                s.Update(physics);
             
             base.Update(gameTime);
         }
