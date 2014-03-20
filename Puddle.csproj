@@ -66,7 +66,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="TiledSharp, Version=1.0.5191.24202, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Z:\Share\TiledSharp-master\TiledSharp\bin\Debug\TiledSharp.dll</HintPath>
+      <HintPath>.\TiledSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +115,7 @@
     <Content Include="Content\rat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TiledSharp.dll" />
     <Content Include="Icon.ico" />
     <EmbeddedResource Include="SDL.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
