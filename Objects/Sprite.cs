@@ -39,7 +39,7 @@ namespace Puddle
 
         public int rightWall
         {
-            get { return spriteX + sizeX / 2; }
+            get { return spriteX + sizeX / 2 - 1; }
         }
 
         public int topWall
@@ -49,7 +49,7 @@ namespace Puddle
 
         public int bottomWall
         {
-            get { return spriteY + sizeY / 2; }
+            get { return spriteY + sizeY / 2 - 1; }
         }
 
         public bool Intersects(Sprite s)

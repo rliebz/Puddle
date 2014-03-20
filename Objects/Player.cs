@@ -52,8 +52,7 @@ namespace Puddle
             puddled = false;
             left = false;
             shooting = false;
-            sizeX = 14;
-            sizeY = 30;
+            sizeX = 16;
 
             pushing = false;
             wall = false;
@@ -111,12 +110,15 @@ namespace Puddle
             // Check for collisions
             CheckCollisions(physics);
 
+            // Handle those collisions
+            HandleCollisions(physics);
+
             // Animate sprite
             Animate(controls, physics);
         }
 
 
-        public void CheckCollisions(Physics physics)
+        private void CheckCollisions(Physics physics)
         {
             pushing = false;
             grounded = false;
@@ -170,7 +172,6 @@ namespace Puddle
                         rightWall - Convert.ToInt32(x_vel) < b.leftWall &&
                         x_vel > 0)  
                     {
-                        Console.WriteLine("here");
                         // Push
                         if (b.right && !b.rCol)
                         {
@@ -184,8 +185,6 @@ namespace Puddle
                             wall = true;
                             while (rightWall >= b.leftWall)
                                 spriteX--;
-                            // spriteX -= Convert.ToInt32(x_vel);
-                            // x_vel = 0;
                         }
                     }
 
@@ -207,14 +206,17 @@ namespace Puddle
                             wall = true;
                             while (leftWall <= b.rightWall)
                                 spriteX++;
-                            // spriteX -= Convert.ToInt32(x_vel);
-                            // x_vel = 0;
                         }
                     }
 
 
                 }
             }
+        }
+
+        private void HandleCollisions(Physics physics)
+        {
+
         }
 
         private void Move(Controls controls, Physics physics)
