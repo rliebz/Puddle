@@ -103,7 +103,7 @@ namespace Puddle
             uCol = false;
 
             // Check collisions with other blocks
-            foreach (Block b in physics.pushBlocks)
+            foreach (Block b in physics.blocks)
             {
                 if (this != b)
                 {

@@ -24,6 +24,9 @@
  <tileset firstgid="58" name="pipe" tilewidth="32" tileheight="32">
   <image source="pipe.png" width="128" height="64"/>
  </tileset>
+ <tileset firstgid="66" name="jetpack" tilewidth="32" tileheight="32">
+  <image source="jetpack.png" width="32" height="32"/>
+ </tileset>
  <layer name="Background" width="20" height="13">
   <data>
    <tile gid="19"/>
@@ -743,7 +746,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1080,7 +1083,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="Ground" width="20" height="13">
+ <objectgroup name="Ground" width="20" height="13" visible="0">
   <object name="Ground Left" x="0" y="256" width="32" height="32"/>
   <object name="Ground Left" x="0" y="288" width="32" height="32"/>
   <object name="Ground Left" x="0" y="320" width="32" height="32"/>
@@ -1160,7 +1163,7 @@
   <object name="Ground Left" x="480" y="384" width="32" height="32"/>
   <object name="Ground Left" x="512" y="384" width="32" height="32"/>
  </objectgroup>
- <objectgroup name="Blocks" width="20" height="13">
+ <objectgroup name="Blocks" width="20" height="13" visible="0">
   <object name="Block 3" type="Puddle.PushBlock" x="288" y="64" width="32" height="32">
    <properties>
     <property name="left" value="False"/>
@@ -1212,5 +1215,8 @@
   <object name="Button 3" type="Puddle.Button" x="371" y="194" width="12" height="30"/>
   <object name="Button 1" type="Puddle.Button" x="372" y="353" width="11" height="29"/>
   <object name="Button 2" type="Puddle.Button" x="225" y="257" width="10" height="30"/>
+ </objectgroup>
+ <objectgroup name="Items" width="20" height="13">
+  <object name="Jetpack" type="Puddle.Jetpack" x="288" y="288" width="32" height="32"/>
  </objectgroup>
 </map>

@@ -144,7 +144,7 @@ namespace Puddle
             }
 
             // Check solid collisions
-            foreach (Block b in physics.pushBlocks)
+            foreach (Block b in physics.blocks)
             {
                 if (Intersects(b))
                 {

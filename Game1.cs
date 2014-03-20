@@ -57,12 +57,17 @@ namespace Puddle
             foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Blocks"].Objects)
             {
                 Block block = new Block(obj);
-                physics.pushBlocks.Add(block);
+                physics.blocks.Add(block);
             }
             foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Ground"].Objects)
             {
                 Block block = new Block(obj);
-                physics.pushBlocks.Add(block);
+                physics.blocks.Add(block);
+            }
+            foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Items"].Objects)
+            {
+                Jetpack jetpack = new Jetpack(obj);
+                physics.items.Add(jetpack);
             }
             base.Initialize();            
         }
@@ -78,7 +83,7 @@ namespace Puddle
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player1.LoadContent(this.Content);
 
-            foreach (Block b in physics.pushBlocks)
+            foreach (Block b in physics.blocks)
                 b.LoadContent(this.Content);
             foreach (Sprite item in physics.items)
                 item.LoadContent(this.Content);
@@ -114,7 +119,7 @@ namespace Puddle
             player1.Update(controls, physics, this.Content);
             physics.Update(this.Content);
 
-            foreach (Block b in physics.pushBlocks)
+            foreach (Block b in physics.blocks)
                 b.Update(physics);
 
             foreach (Enemy e in physics.enemies)
@@ -150,7 +155,7 @@ namespace Puddle
                 e.Draw(spriteBatch);
             foreach (Shot s in physics.shots)
                 s.Draw(spriteBatch);
-            foreach (Block b in physics.pushBlocks)
+            foreach (Block b in physics.blocks)
                 b.Draw(spriteBatch);
             foreach (Sprite item in physics.items)
                 item.Draw(spriteBatch);
