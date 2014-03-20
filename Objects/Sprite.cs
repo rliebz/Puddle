@@ -22,8 +22,8 @@ namespace Puddle
 
         public Sprite(int x, int y, int width, int height)
         {
-            this.spriteX = x;
-            this.spriteY = y;
+            this.spriteX = x+16;
+            this.spriteY = y+16;
             this.spriteWidth = width;
             this.spriteHeight = height;
             this.sizeX = width;
