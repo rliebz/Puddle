@@ -26,8 +26,9 @@ namespace Puddle
         private int speed;
         private int x_accel;
         private double friction;
-        public double x_vel;
+        public double x_vel; // Changes before movement
         public int y_vel;
+        public int y_vel_old; // Changes after movement
 
         // Internal calculations
         private int shot_point;
@@ -45,7 +46,7 @@ namespace Puddle
 
             // Properties
             powerup["puddle"] = true;
-            powerup["jetpack"] = true;
+            powerup["jetpack"] = false;
             moving = false;
             grounded = false;
             puddled = false;
@@ -62,6 +63,7 @@ namespace Puddle
             x_accel = 0;
             x_vel = 0;
             y_vel = 0;
+            y_vel_old = 0;
 
             // Internal calculations
             shot_delay = 10;
@@ -108,13 +110,19 @@ namespace Puddle
             // Check for collisions
             CheckCollisions(physics);
 
+            // Handle those collisions
+            HandleCollisions(physics);
+
             // Animate sprite
             Animate(controls, physics);
         }
 
 
-        public void CheckCollisions(Physics physics)
+        private void CheckCollisions(Physics physics)
         {
+            pushing = false;
+            grounded = false;
+
             // Check enemy collisions
             if (!invulnerable())
             {
@@ -125,57 +133,95 @@ namespace Puddle
                         spriteX = 400;
                         spriteY = -32;
                         y_vel = 0;
-                        grounded = false;
                         puddled = false;
                     }
                 }
             }
 
-            pushing = false;
+            // Reached ground (temporary solution for no floor)
+            if (spriteY >= physics.ground)
+            {
+                grounded = true;
+                spriteY = physics.ground;
+            }
 
             // Check solid collisions
             foreach (PushBlock b in physics.pushBlocks)
             {
                 if (Intersects(b))
                 {
-                    // Push to the right
-                    if (spriteX < b.spriteX && x_vel > 0)
+                    // Up collision
+                    if (topWall - y_vel_old > b.bottomWall)
                     {
+                        while (topWall < b.bottomWall)
+                            spriteY++;
+                        y_vel = 0;
+                    }
+
+                    // Down collision
+                    if ( !grounded && 
+                        (bottomWall - y_vel_old) < b.topWall )
+                    {
+                        grounded = true;
+                        while (bottomWall > b.topWall)
+                            spriteY--;
+                    }
+
+                    // Collision with right block
+                    else if (bottomWall > b.topWall &&
+                        rightWall - Convert.ToInt32(x_vel) < b.leftWall &&
+                        x_vel > 0)  
+                    {
+                        // Push
                         if (b.right && !b.rCol)
                         {
                             b.x_vel = x_vel;
                             pushing = true;
                         }
-                        else if (!pushing)
+
+                        // Hit the wall
+                        else if (!wall)
                         {
                             wall = true;
-                            spriteX -= Convert.ToInt32(x_vel);
-                            x_vel = 0;
+                            while (rightWall >= b.leftWall)
+                                spriteX--;
                         }
                     }
 
                     // Push to the left
-                    else if (spriteX > b.spriteX && x_vel < 0)
+                    else if (bottomWall > b.topWall &&
+                        leftWall - Convert.ToInt32(x_vel) > b.rightWall &&
+                        x_vel < 0)
                     {
+                        // Push
                         if (b.left && !b.lCol)
                         {
                             b.x_vel = x_vel;
                             pushing = true;
                         }
-                        else if (!pushing)
+
+                        // Hit the wall
+                        else if (!wall)
                         {
                             wall = true;
-                            spriteX -= Convert.ToInt32(x_vel);
-                            x_vel = 0;
-                            x_vel = 0;
+                            while (leftWall <= b.rightWall)
+                                spriteX++;
                         }
                     }
+
+
                 }
             }
         }
 
+        private void HandleCollisions(Physics physics)
+        {
+
+        }
+
         private void Move(Controls controls, Physics physics)
         {
+            y_vel_old = y_vel;
             // Sideways Acceleration
             if (controls.onPress(Keys.Right, Buttons.DPadRight))
                 x_accel += speed;
@@ -191,7 +237,7 @@ namespace Puddle
             {
                 wall = false;
             }
-            else
+            // else
             {
                 double playerFriction = pushing ? (friction * 3) : friction;
                 x_vel = x_vel * (1 - playerFriction)
@@ -206,16 +252,14 @@ namespace Puddle
                 left = true;
 
             // Gravity
-            if (spriteY < physics.ground)
+            if (!grounded)
             {
                 spriteY += y_vel;
                 y_vel += physics.gravity;
             }
             else
             {
-                spriteY = physics.ground;
-                y_vel = 0;
-                grounded = true;
+                y_vel = 1;
             }
         }
 
@@ -267,7 +311,7 @@ namespace Puddle
             {
                 spriteY -= 1;
                 y_vel = -15;
-                grounded = false;
+//                grounded = false;
                 jump_point = physics.count;
             }
 

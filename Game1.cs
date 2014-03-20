@@ -50,15 +50,18 @@ namespace Puddle
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
             
-            player1 = new Player(400, 500, 32, 32);
+            player1 = new Player(400, 0, 32, 32);
             physics = new Physics();
             controls = new Controls();
 
             foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Blocks"].Objects)
             {
                 PushBlock block = new PushBlock(obj);
-                Console.WriteLine(block.getX());
-                Console.WriteLine(block.getY());
+                physics.pushBlocks.Add(block);
+            }
+            foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Ground"].Objects)
+            {
+                PushBlock block = new PushBlock(obj);
                 physics.pushBlocks.Add(block);
             }
             base.Initialize();            

@@ -11,7 +11,7 @@ namespace Puddle
 {
     class Physics
     {
-        public int ground = 224;
+        public int ground = 900;
         public int gravity = 1;
         public int count = 0;
 
@@ -24,11 +24,28 @@ namespace Puddle
             enemies = new List<Enemy>();
             shots = new List<Shot>();
             pushBlocks = new List<PushBlock>();
+            /*int floor_index = 16;
+            while (floor_index < 700)
+            {
+                pushBlocks.Add(new PushBlock(floor_index, 332, false, false));
+                floor_index += 32;
+            }
+            floor_index = 16;
+            while (floor_index < 900)
+            {
+                pushBlocks.Add(new PushBlock(floor_index, 364, false, false));
+                floor_index += 32;
+            }*/
 
             /*pushBlocks.Add(new PushBlock(400, 300, true, true));
             pushBlocks.Add(new PushBlock(400, 268, false, false));
             pushBlocks.Add(new PushBlock(400, 236, false, false));
             pushBlocks.Add(new PushBlock(400, 204, false, false));
+
+            pushBlocks.Add(new PushBlock(300, 204, false, false));
+            pushBlocks.Add(new PushBlock(300, 236, false, false));
+            pushBlocks.Add(new PushBlock(300, 268, false, false));
+            pushBlocks.Add(new PushBlock(300, 300, true, true));
 
             pushBlocks.Add(new PushBlock(564, 300, true, true));
             pushBlocks.Add(new PushBlock(628, 300, false, true));*/

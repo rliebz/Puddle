@@ -13,6 +13,7 @@ namespace Puddle
     {
         public bool left;
         public bool right;
+        public bool gravity;
 
         public bool rCol;
         public bool lCol;
@@ -20,19 +21,21 @@ namespace Puddle
         public bool uCol;
 
         public double x_vel;
+        public int y_vel;
 
         private PushBlock uBlock;
 
         public int frameIndex;
 
-        public PushBlock(int x, int y, bool left, bool right)
+        public PushBlock(int x, int y, bool left=false, bool right=false, bool gravity=false)
             : base(x, y, 32, 32)
         {
             imageFile = "push_block.png";
 
             this.left = left;
             this.right = right;
-
+            this.gravity = gravity;
+       
             this.rCol = false;
             this.lCol = false;
             this.dCol = false;
@@ -57,9 +60,12 @@ namespace Puddle
             : base(obj.X, obj.Y, 32, 32)
         {
             imageFile = "push_block.png";
-            this.left = Boolean.Parse(obj.Properties["left"]);
-            this.right = Boolean.Parse(obj.Properties["right"]);
 
+            this.left = (obj.Properties.ContainsKey("left")) ? Boolean.Parse(obj.Properties["left"]) : false;
+            this.right = (obj.Properties.ContainsKey("right")) ? Boolean.Parse(obj.Properties["right"]) : false;
+            this.gravity = (obj.Properties.ContainsKey("gravity")) ? Boolean.Parse(obj.Properties["gravity"]) : false;
+            
+     
             this.rCol = false;
             this.lCol = false;
             this.dCol = false;
@@ -83,7 +89,9 @@ namespace Puddle
         public void Update(Physics physics)
         {
             Move(physics);
+
             CheckCollisions(physics);
+            
         }
 
         public void CheckCollisions(Physics physics)
@@ -97,22 +105,30 @@ namespace Puddle
             // Check collisions with other blocks
             foreach (PushBlock b in physics.pushBlocks)
             {
-                if (this == b)
-                    continue;
-
-                if (Intersects(b))
+                if (this != b)
                 {
-                    // Determine direction
-                    if (spriteX < b.spriteX)
-                        rCol = true;
-                    if (spriteX > b.spriteX)
-                        lCol = true;
-                    if (spriteY < b.spriteY)
-                        dCol = true;
-                    if (spriteY > b.spriteY)
+                    if (Intersects(b))
                     {
-                        uCol = true;
-                        uBlock = b;
+                        // Determine direction
+                        // Downward Collisions
+                        while (bottomWall >= b.topWall &&
+                            Math.Abs(spriteY - b.spriteY) > 16)
+                        {
+                            spriteY--;
+                            y_vel = 0;
+                            dCol = true;
+                        }
+
+                        // Sideways collisions
+                        if (!dCol)
+                        {
+                            if (rightWall >= b.leftWall)
+                                rCol = true;
+                            if (leftWall <= b.rightWall)
+                                lCol = true;
+                        }
+
+                        dCol = false;
                     }
                 }
             }
@@ -120,12 +136,22 @@ namespace Puddle
 
         public void Move(Physics physics)
         {
+            // Gravity
+            if (gravity)
+            {
+                y_vel += physics.gravity;
+                spriteY += y_vel;
+            }
+
+            // Move sideways
             spriteX += Convert.ToInt32(x_vel);
             if (uCol)
             {
                 uBlock.x_vel = x_vel;
                 uBlock.Move(physics);
             }
+
+            // Reset x velocity
             x_vel = 0;
         }
 
