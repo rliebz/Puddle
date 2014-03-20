@@ -11,7 +11,7 @@ namespace Puddle
 {
     class Physics
     {
-        public int ground = 300;
+        public int ground = 224;
         public int gravity = 1;
         public int count = 0;
 
@@ -25,13 +25,13 @@ namespace Puddle
             shots = new List<Shot>();
             pushBlocks = new List<PushBlock>();
 
-            pushBlocks.Add(new PushBlock(400, 300, true, true));
+            /*pushBlocks.Add(new PushBlock(400, 300, true, true));
             pushBlocks.Add(new PushBlock(400, 268, false, false));
             pushBlocks.Add(new PushBlock(400, 236, false, false));
             pushBlocks.Add(new PushBlock(400, 204, false, false));
 
             pushBlocks.Add(new PushBlock(564, 300, true, true));
-            pushBlocks.Add(new PushBlock(628, 300, false, true));
+            pushBlocks.Add(new PushBlock(628, 300, false, true));*/
         }
 
         public void Update(ContentManager content) 

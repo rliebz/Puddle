@@ -45,9 +45,22 @@ namespace Puddle
         {
             // TODO: Add your initialization logic here
             //Initialize all your objects here
-            player1 = new Player(400, -32, 32, 32);
+            map = new TmxMap("Content/Level1.tmx");
+
+            graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
+            graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
+            
+            player1 = new Player(400, 500, 32, 32);
             physics = new Physics();
             controls = new Controls();
+
+            foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Blocks"].Objects)
+            {
+                PushBlock block = new PushBlock(obj);
+                Console.WriteLine(block.getX());
+                Console.WriteLine(block.getY());
+                physics.pushBlocks.Add(block);
+            }
             base.Initialize();            
         }
 
@@ -61,7 +74,7 @@ namespace Puddle
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player1.LoadContent(this.Content);
-            map = new TmxMap("Content/Level1.tmx");
+
             foreach (PushBlock b in physics.pushBlocks)
                 b.LoadContent(this.Content);
             // TODO: use this.Content to load your game content here
@@ -111,22 +124,21 @@ namespace Puddle
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-  /*          GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
             spriteBatch.Begin();
             // BG
-            Texture2D tt = new Texture2D(GraphicsDevice, 1, 1);
+            /*Texture2D tt = new Texture2D(GraphicsDevice, 1, 1);
             tt.SetData(new Color[] { Color.ForestGreen });
 
             spriteBatch.Draw(
                 tt,
                 new Rectangle(0, 308, 900, 300),
                 Color.White
-            );
-
-
-            var block = map.ObjectGroups["Blocks"].Objects["Block 1"];
+            );*/
+            //Texture2D background = Content.Load<Texture2D>("background.png");
+            //spriteBatch.Draw(background, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
             // Draw here
             player1.Draw(spriteBatch);
             foreach (Enemy e in physics.enemies)
@@ -137,7 +149,6 @@ namespace Puddle
                 b.Draw(spriteBatch);
 
             spriteBatch.End();
-   * */
             base.Draw(gameTime);
         }
 

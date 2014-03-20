@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-
+using TiledSharp;
 namespace Puddle
 {
     class PushBlock : Sprite
@@ -48,6 +48,33 @@ namespace Puddle
             else if (left && !right)
                 frameIndex = 32;
             else if (left && right)
+                frameIndex = 64;
+            else
+                frameIndex = 96;
+        }
+
+        public PushBlock(TmxObjectGroup.TmxObject obj)
+            : base(obj.X, obj.Y, 32, 32)
+        {
+            imageFile = "push_block.png";
+            this.left = Boolean.Parse(obj.Properties["left"]);
+            this.right = Boolean.Parse(obj.Properties["right"]);
+
+            this.rCol = false;
+            this.lCol = false;
+            this.dCol = false;
+            this.uCol = false;
+
+            this.x_vel = 0;
+
+            uBlock = null;
+
+            // Determine block image
+            if (this.right && !this.left)
+                frameIndex = 0;
+            else if (this.left && !this.right)
+                frameIndex = 32;
+            else if (this.left && this.right)
                 frameIndex = 64;
             else
                 frameIndex = 96;
