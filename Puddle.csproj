@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Controls.cs" />
     <Compile Include="Objects\Enemy.cs" />
+    <Compile Include="Objects\Jetpack.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Objects\Block.cs" />
@@ -126,6 +127,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Content\jetpack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

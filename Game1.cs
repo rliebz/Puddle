@@ -80,6 +80,8 @@ namespace Puddle
 
             foreach (Block b in physics.pushBlocks)
                 b.LoadContent(this.Content);
+            foreach (Sprite item in physics.items)
+                item.LoadContent(this.Content);
             // TODO: use this.Content to load your game content here
             //new TileMap(this, Registry.Lookup<Scenegraph>(), @"Content\Level1.tmx");
         }
@@ -150,6 +152,8 @@ namespace Puddle
                 s.Draw(spriteBatch);
             foreach (Block b in physics.pushBlocks)
                 b.Draw(spriteBatch);
+            foreach (Sprite item in physics.items)
+                item.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);

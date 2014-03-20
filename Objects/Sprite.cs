@@ -91,7 +91,16 @@ namespace Puddle
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
+            sb.Draw(
+                image, 
+                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), 
+                new Rectangle(0, 0, 32, 32),
+                Color.White,
+                0,
+                new Vector2(spriteWidth / 2, spriteHeight / 2),
+                SpriteEffects.None,
+                0
+            );
         }
 
 

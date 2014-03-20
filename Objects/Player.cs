@@ -204,8 +204,15 @@ namespace Puddle
                                 spriteX++;
                         }
                     }
+                }
+            }
 
-
+            foreach (Sprite item in physics.items)
+            {
+                if (item is Jetpack && Intersects(item))
+                {
+                    powerup["jetpack"] = true;
+                    item.destroyed = true;
                 }
             }
         }
@@ -392,7 +399,7 @@ namespace Puddle
                 new Rectangle(frameIndex, 0, 32, 32),
                 Color.White,
                 0,
-                new Vector2(16, 16),
+                new Vector2(spriteWidth / 2, spriteHeight / 2),
                 left ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                 0
             );

@@ -18,12 +18,15 @@ namespace Puddle
         public List<Enemy> enemies;
         public List<Shot> shots;
         public List<Block> pushBlocks;
+        public List<Sprite> items;
 
         public Physics()
         {
             enemies = new List<Enemy>();
             shots = new List<Shot>();
             pushBlocks = new List<Block>();
+            items = new List<Sprite>();
+            items.Add(new Jetpack(300, 300));
             /*int floor_index = 16;
             while (floor_index < 700)
             {
@@ -77,6 +80,7 @@ namespace Puddle
             // DESTROY
             enemies.RemoveAll(enemy => enemy.destroyed);
             shots.RemoveAll(shot => shot.destroyed);
+            items.RemoveAll(item => item.destroyed);
         }
 
 
