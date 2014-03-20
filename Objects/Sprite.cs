@@ -81,7 +81,7 @@ namespace Puddle
         // Properties
         public bool offscreen() 
         {
-            return (spriteX < -32 || spriteY < -32 || spriteX > 800 || spriteY > 330);
+            return (spriteX < -32 || spriteY < -32 || spriteX > 1000 || spriteY > 1000);
         }
 
         public void LoadContent(ContentManager content)

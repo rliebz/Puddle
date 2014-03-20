@@ -30,6 +30,11 @@ namespace Puddle
         {
             Move();
 
+            CheckCollisions(physics);
+        }
+
+        public void CheckCollisions(Physics physics)
+        {
             // Check collisions with enemies
             foreach (Enemy e in physics.enemies)
             {
@@ -46,8 +51,6 @@ namespace Puddle
                 if (Intersects(b))
                     this.destroyed = true;
             }
-
-
         }
 
         public void Move()
