@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="13" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
-  <image source="tileset/background.png" width="199" height="165"/>
+  <image source="background.png" width="199" height="165"/>
  </tileset>
  <tileset firstgid="31" name="brick" tilewidth="32" tileheight="32">
-  <image source="tileset/brick.png" width="32" height="32"/>
+  <image source="brick.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="32" name="button" tilewidth="32" tileheight="32">
-  <image source="tileset/button.png" width="256" height="32"/>
+  <image source="button.png" width="256" height="32"/>
  </tileset>
  <tileset firstgid="40" name="button-left" tilewidth="32" tileheight="32">
-  <image source="tileset/button-left.png" width="256" height="32"/>
+  <image source="button-left.png" width="256" height="32"/>
  </tileset>
  <tileset firstgid="48" name="push_block" tilewidth="32" tileheight="32">
-  <image source="tileset/push_block.png" width="128" height="32"/>
+  <image source="push_block.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="52" name="fireball" tilewidth="32" tileheight="32">
-  <image source="tileset/fireball.png" width="64" height="32"/>
+  <image source="fireball.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="54" name="geyser" tilewidth="32" tileheight="32">
-  <image source="Puddle/Content/geyser.png" width="32" height="128"/>
+  <image source="geyser.png" width="32" height="128"/>
  </tileset>
  <tileset firstgid="58" name="pipe" tilewidth="32" tileheight="32">
-  <image source="Puddle/Content/pipe.png" width="128" height="64"/>
+  <image source="pipe.png" width="128" height="64"/>
  </tileset>
  <layer name="Background" width="20" height="13">
   <data>
@@ -1196,6 +1196,7 @@
   </object>
   <object name="Block 3" type="Puddle.PushBlock" x="160" y="64" width="32" height="32">
    <properties>
+    <property name="" value=""/>
     <property name="left" value="False"/>
     <property name="right" value="True"/>
    </properties>

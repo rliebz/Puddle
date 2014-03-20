@@ -41,7 +41,7 @@ namespace Puddle
             }
 
             // check collisions with blocks
-            foreach (PushBlock b in physics.pushBlocks)
+            foreach (Block b in physics.pushBlocks)
             {
                 if (Intersects(b))
                     this.destroyed = true;

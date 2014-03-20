@@ -56,12 +56,12 @@ namespace Puddle
 
             foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Blocks"].Objects)
             {
-                PushBlock block = new PushBlock(obj);
+                Block block = new Block(obj);
                 physics.pushBlocks.Add(block);
             }
             foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Ground"].Objects)
             {
-                PushBlock block = new PushBlock(obj);
+                Block block = new Block(obj);
                 physics.pushBlocks.Add(block);
             }
             base.Initialize();            
@@ -78,7 +78,7 @@ namespace Puddle
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player1.LoadContent(this.Content);
 
-            foreach (PushBlock b in physics.pushBlocks)
+            foreach (Block b in physics.pushBlocks)
                 b.LoadContent(this.Content);
             // TODO: use this.Content to load your game content here
             //new TileMap(this, Registry.Lookup<Scenegraph>(), @"Content\Level1.tmx");
@@ -112,7 +112,7 @@ namespace Puddle
             player1.Update(controls, physics, this.Content);
             physics.Update(this.Content);
 
-            foreach (PushBlock b in physics.pushBlocks)
+            foreach (Block b in physics.pushBlocks)
                 b.Update(physics);
 
             foreach (Enemy e in physics.enemies)
@@ -148,7 +148,7 @@ namespace Puddle
                 e.Draw(spriteBatch);
             foreach (Shot s in physics.shots)
                 s.Draw(spriteBatch);
-            foreach (PushBlock b in physics.pushBlocks)
+            foreach (Block b in physics.pushBlocks)
                 b.Draw(spriteBatch);
 
             spriteBatch.End();

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using TiledSharp;
 namespace Puddle
 {
-    class PushBlock : Sprite
+    class Block : Sprite
     {
         public bool left;
         public bool right;
@@ -23,11 +23,11 @@ namespace Puddle
         public double x_vel;
         public int y_vel;
 
-        private PushBlock uBlock;
+        private Block uBlock;
 
         public int frameIndex;
 
-        public PushBlock(int x, int y, bool left=false, bool right=false, bool gravity=false)
+        public Block(int x, int y, bool left=false, bool right=false, bool gravity=false)
             : base(x, y, 32, 32)
         {
             imageFile = "push_block.png";
@@ -56,7 +56,7 @@ namespace Puddle
                 frameIndex = 96;
         }
 
-        public PushBlock(TmxObjectGroup.TmxObject obj)
+        public Block(TmxObjectGroup.TmxObject obj)
             : base(obj.X, obj.Y, 32, 32)
         {
             imageFile = "push_block.png";
@@ -103,7 +103,7 @@ namespace Puddle
             uCol = false;
 
             // Check collisions with other blocks
-            foreach (PushBlock b in physics.pushBlocks)
+            foreach (Block b in physics.pushBlocks)
             {
                 if (this != b)
                 {

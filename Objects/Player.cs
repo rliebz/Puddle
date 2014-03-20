@@ -20,7 +20,6 @@ namespace Puddle
         public Dictionary<string, bool> powerup;
 
         bool pushing;
-        bool wall;
 
         // Movement
         private int speed;
@@ -55,7 +54,6 @@ namespace Puddle
             sizeX = 16;
 
             pushing = false;
-            wall = false;
 
             // Movement
             speed = 6;
@@ -146,7 +144,7 @@ namespace Puddle
             }
 
             // Check solid collisions
-            foreach (PushBlock b in physics.pushBlocks)
+            foreach (Block b in physics.pushBlocks)
             {
                 if (Intersects(b))
                 {
@@ -180,9 +178,8 @@ namespace Puddle
                         }
 
                         // Hit the wall
-                        else if (!wall)
+                        else
                         {
-                            wall = true;
                             while (rightWall >= b.leftWall)
                                 spriteX--;
                         }
@@ -201,9 +198,8 @@ namespace Puddle
                         }
 
                         // Hit the wall
-                        else if (!wall)
+                        else 
                         {
-                            wall = true;
                             while (leftWall <= b.rightWall)
                                 spriteX++;
                         }
@@ -233,17 +229,10 @@ namespace Puddle
                 x_accel += speed;
 
             // Sideways Movement
-            if (wall)
-            {
-                wall = false;
-            }
-            // else
-            {
-                double playerFriction = pushing ? (friction * 3) : friction;
-                x_vel = x_vel * (1 - playerFriction)
-                    + (frozen() ? 0 : x_accel * .10);
-                spriteX += Convert.ToInt32(x_vel);
-            }
+            double playerFriction = pushing ? (friction * 3) : friction;
+            x_vel = x_vel * (1 - playerFriction)
+                + (frozen() ? 0 : x_accel * .10);
+            spriteX += Convert.ToInt32(x_vel);
 
             // Determine direction
             if (x_vel > 0.1)
@@ -311,7 +300,6 @@ namespace Puddle
             {
                 spriteY -= 1;
                 y_vel = -15;
-//                grounded = false;
                 jump_point = physics.count;
             }
 

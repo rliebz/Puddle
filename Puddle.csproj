@@ -39,7 +39,7 @@
     <Compile Include="Objects\Enemy.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Objects\PushBlock.cs" />
+    <Compile Include="Objects\Block.cs" />
     <Compile Include="Objects\Shot.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Program.cs" />
@@ -127,6 +127,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -17,38 +17,38 @@ namespace Puddle
 
         public List<Enemy> enemies;
         public List<Shot> shots;
-        public List<PushBlock> pushBlocks;
+        public List<Block> pushBlocks;
 
         public Physics()
         {
             enemies = new List<Enemy>();
             shots = new List<Shot>();
-            pushBlocks = new List<PushBlock>();
+            pushBlocks = new List<Block>();
             /*int floor_index = 16;
             while (floor_index < 700)
             {
-                pushBlocks.Add(new PushBlock(floor_index, 332, false, false));
+                pushBlocks.Add(new Block(floor_index, 332, false, false));
                 floor_index += 32;
             }
             floor_index = 16;
             while (floor_index < 900)
             {
-                pushBlocks.Add(new PushBlock(floor_index, 364, false, false));
+                pushBlocks.Add(new Block(floor_index, 364, false, false));
                 floor_index += 32;
             }*/
 
-            /*pushBlocks.Add(new PushBlock(400, 300, true, true));
-            pushBlocks.Add(new PushBlock(400, 268, false, false));
-            pushBlocks.Add(new PushBlock(400, 236, false, false));
-            pushBlocks.Add(new PushBlock(400, 204, false, false));
+            /*pushBlocks.Add(new Block(400, 300, true, true));
+            pushBlocks.Add(new Block(400, 268, false, false));
+            pushBlocks.Add(new Block(400, 236, false, false));
+            pushBlocks.Add(new Block(400, 204, false, false));
 
-            pushBlocks.Add(new PushBlock(300, 204, false, false));
-            pushBlocks.Add(new PushBlock(300, 236, false, false));
-            pushBlocks.Add(new PushBlock(300, 268, false, false));
-            pushBlocks.Add(new PushBlock(300, 300, true, true));
+            pushBlocks.Add(new Block(300, 204, false, false));
+            pushBlocks.Add(new Block(300, 236, false, false));
+            pushBlocks.Add(new Block(300, 268, false, false));
+            pushBlocks.Add(new Block(300, 300, true, true));
 
-            pushBlocks.Add(new PushBlock(564, 300, true, true));
-            pushBlocks.Add(new PushBlock(628, 300, false, true));*/
+            pushBlocks.Add(new Block(564, 300, true, true));
+            pushBlocks.Add(new Block(628, 300, false, true));*/
         }
 
         public void Update(ContentManager content) 
