@@ -311,7 +311,7 @@
    <tile gid="2"/>
   </data>
  </layer>
- <layer name="Foreground" width="20" height="14" visible="0">
+ <layer name="Foreground" width="20" height="14">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1212,20 +1212,20 @@
   </object>
  </objectgroup>
  <objectgroup name="Items" width="20" height="14">
-  <object name="Jetpack" type="Puddle.Jetpack" x="288" y="320" width="32" height="32"/>
-  <object name="Button 3" type="Puddle.Button" x="369" y="223" width="18" height="33">
-   <properties>
-    <property name="direction" value="left"/>
-   </properties>
-  </object>
-  <object name="Button 3" type="Puddle.Button" x="368" y="383" width="18" height="33">
-   <properties>
-    <property name="direction" value="left"/>
-   </properties>
-  </object>
-  <object name="Button 3" type="Puddle.Button" x="222" y="287" width="18" height="33">
+  <object name="Jetpack" type="Puddle.PowerUp" x="288" y="320" width="32" height="32"/>
+  <object name="Button 3" type="Puddle.Button" x="352" y="224" width="32" height="32">
    <properties>
     <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object name="Button 3" type="Puddle.Button" x="352" y="384" width="32" height="32">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object name="Button 3" type="Puddle.Button" x="222" y="287" width="32" height="32">
+   <properties>
+    <property name="direction" value="left"/>
    </properties>
   </object>
  </objectgroup>

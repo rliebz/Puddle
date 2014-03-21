@@ -15,7 +15,6 @@ namespace Puddle
         public bool moving;
         public bool grounded;
         public bool puddled;
-        public bool faceLeft;
         public bool shooting;
         public Dictionary<string, bool> powerup;
 

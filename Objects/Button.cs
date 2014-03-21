@@ -12,7 +12,6 @@ namespace Puddle
 {
     class Button : Sprite
     {
-        public int frameIndex;
         public bool activating;
         public bool activated;
 
@@ -22,14 +21,18 @@ namespace Puddle
         {
             this.imageFile = "button.png";
             faceLeft = false;
+            sizeX = 24;
             if (obj.Properties["direction"].Equals("left"))
             {
                 faceLeft = true;
+                spriteX -= 9;
             }
+            else
+                spriteX += 9;
             
         }
 
-        public void Update(Physics physics)
+        public override void Update(Physics physics)
         {
             Animate(physics);
         }
@@ -48,22 +51,5 @@ namespace Puddle
             activated = true;
             //Do some action
         }
-
-/*        public new void Draw(SpriteBatch sb)
-        {
-            // Draw the button
-            sb.Draw(
-                image,
-                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
-                new Rectangle(frameIndex, 0, 32, 32),
-                Color.White,
-                0,
-                new Vector2(spriteWidth / 2, spriteHeight / 2),
-                SpriteEffects.FlipHorizontally,
-                0
-            );
-
-        }
- * */
     }
 }
