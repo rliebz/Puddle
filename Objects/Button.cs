@@ -22,6 +22,7 @@ namespace Puddle
             this.imageFile = "button.png";
             faceLeft = false;
             sizeX = 24;
+            sizeY = 18;
             if (obj.Properties["direction"].Equals("left"))
             {
                 faceLeft = true;
