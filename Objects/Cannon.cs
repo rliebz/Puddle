@@ -10,43 +10,35 @@ using TiledSharp;
 
 namespace Puddle
 {
-    class Button : Sprite
+    class Cannon : Sprite
     {
-        public bool activating;
-        public bool activated;
         public string name;
 
         //TODO: add in function passing for individual button actions
-        public Button(TmxObjectGroup.TmxObject obj) :
+        public Cannon(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
-            this.imageFile = "button.png";
+            this.imageFile = "cannon.png";
             this.name = obj.Name;
+            frameWidth = 64;
             faceLeft = false;
-            sizeX = 24;
-            sizeY = 30;
             if (obj.Properties["direction"].Equals("left"))
             {
                 faceLeft = true;
-                spriteX -= 9;
             }
-            else
-                spriteX += 9;
             
         }
 
-        public override void Update(Physics physics)
+        public void Update(Physics physics, ContentManager content)
         {
-            Animate(physics);
+            Fireball fireball = new Fireball(this);
+            fireball.LoadContent(content);
+            physics.fireballs.Add(fireball);
+            Console.WriteLine("One added.");
         }
 
-        public void Animate(Physics physics)
-        {
-            if (activating && frameIndex < (32 * 7))
-                frameIndex += 32;
-        }
 
-        public void Action(Physics physics)
+        /*public void Action(Physics physics)
         {
             if (activated)
                 return;
@@ -93,6 +85,6 @@ namespace Puddle
                 }
             }
 
-        }
+        }*/
     }
 }

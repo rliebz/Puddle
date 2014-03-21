@@ -24,6 +24,7 @@ namespace Puddle
         public int y_vel;
 
         public string blockType;
+        public string name;
 
         private Block uBlock;
 
@@ -72,7 +73,8 @@ namespace Puddle
             this.gravity = (obj.Properties.ContainsKey("gravity")) ? Boolean.Parse(obj.Properties["gravity"]) : false;
 
             this.blockType = "push";
-     
+            this.name = obj.Name;
+
             this.rCol = false;
             this.lCol = false;
             this.dCol = false;
@@ -96,6 +98,12 @@ namespace Puddle
                 frameIndex = 64;
             else
                 frameIndex = 96;
+        }
+
+        public void changeType(string newType)
+        {
+            this.blockType = newType;
+            image = images[newType];
         }
 
         public void Update(Physics physics)

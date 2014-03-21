@@ -127,10 +127,7 @@ namespace Puddle
                 {
                     if (this.Intersects(e))
                     {
-                        spriteX = 400;
-                        spriteY = -32;
-                        y_vel = 0;
-                        puddled = false;
+                        Death();
                     }
                 }
             }
@@ -320,6 +317,14 @@ namespace Puddle
             {
                 y_vel /= 2;
             }
+        }
+
+        public void Death()
+        {
+            spriteX = 50;
+            spriteY = 200;
+            y_vel = 0;
+            puddled = false;
         }
 
         private void Animate(Controls controls, Physics physics)
