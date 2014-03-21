@@ -58,7 +58,7 @@ namespace Puddle
             controls = new Controls();
 
             
-            foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Blocks"].Objects)
+            /*foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Blocks"].Objects)
             {
                 Block block = new Block(obj);
                 physics.blocks.Add(block);
@@ -68,11 +68,18 @@ namespace Puddle
                 Block block = new Block(obj);
                 physics.blocks.Add(block);
             }
-            foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Items"].Objects)
+             * */
+            foreach (TmxObjectGroup group in map.ObjectGroups)
             {
-                Type t = Type.GetType(obj.Type);
-                object item = Activator.CreateInstance(t, obj);
-                physics.items.Add((Sprite)item);
+                foreach (TmxObjectGroup.TmxObject obj in group.Objects)
+                {
+                    Type t = Type.GetType(obj.Type);
+                    object item = Activator.CreateInstance(t, obj);
+                    if (item is Block)
+                        physics.blocks.Add((Block)item);
+                    else
+                        physics.items.Add((Sprite)item);
+                }
             }
             base.Initialize();            
         }

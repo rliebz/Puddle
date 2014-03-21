@@ -143,6 +143,7 @@ namespace Puddle
                 spriteY = physics.ground;
             }
 
+
             // Check solid collisions
             foreach (Block b in physics.blocks)
             {
@@ -213,6 +214,11 @@ namespace Puddle
                 {
                     powerup["jetpack"] = true;
                     item.destroyed = true;
+                }
+                if (item is Button && Intersects(item))
+                {
+                    Button but = (Button)item;
+                    but.Action(physics);
                 }
             }
         }
@@ -390,7 +396,7 @@ namespace Puddle
             image = images["stand"];
         }
 
-        public new void Draw(SpriteBatch sb)
+    /*    public new void Draw(SpriteBatch sb)
         {
             // Draw the player
             sb.Draw(
@@ -405,6 +411,7 @@ namespace Puddle
             );
 
         }
+     */
 
     }
 }

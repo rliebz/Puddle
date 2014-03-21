@@ -14,9 +14,11 @@ namespace Puddle
         public int spriteX, spriteY;
         public int spriteWidth, spriteHeight;
         public bool destroyed;
+        public bool faceLeft;
         public string imageFile;
         public int sizeX;
         public int sizeY;
+        public int frameIndex;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
 
@@ -30,6 +32,8 @@ namespace Puddle
             this.sizeY = height;
             this.imageFile = "bubble.png";
             this.images = new Dictionary<string, Texture2D>();
+            this.faceLeft = false;
+            this.frameIndex = 0;
         }
 
         // Properties
@@ -99,13 +103,13 @@ namespace Puddle
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(
-                image, 
-                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), 
-                new Rectangle(0, 0, 32, 32),
+                image,
+                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
+                new Rectangle(frameIndex, 0, 32, 32),
                 Color.White,
                 0,
                 new Vector2(spriteWidth / 2, spriteHeight / 2),
-                SpriteEffects.None,
+                faceLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                 0
             );
         }
