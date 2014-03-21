@@ -25,6 +25,7 @@ namespace Puddle
         Enemy enemy1;
         Controls controls;
         TmxMap map;
+        Texture2D background;
 
         public Game1()
             : base()
@@ -49,12 +50,15 @@ namespace Puddle
 
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
-            
+
+            background = Content.Load<Texture2D>("background.png");
+
             player1 = new Player(400, 0, 32, 32);
             physics = new Physics();
             controls = new Controls();
 
-            foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Blocks"].Objects)
+            
+            /*foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Blocks"].Objects)
             {
                 Block block = new Block(obj);
                 physics.blocks.Add(block);
@@ -64,11 +68,18 @@ namespace Puddle
                 Block block = new Block(obj);
                 physics.blocks.Add(block);
             }
-            foreach (TmxObjectGroup.TmxObject obj in map.ObjectGroups["Items"].Objects)
+             * */
+            foreach (TmxObjectGroup group in map.ObjectGroups)
             {
-                Type t = Type.GetType(obj.Type);
-                object item = Activator.CreateInstance(t, obj);
-                physics.items.Add((Sprite)item);
+                foreach (TmxObjectGroup.TmxObject obj in group.Objects)
+                {
+                    Type t = Type.GetType(obj.Type);
+                    object item = Activator.CreateInstance(t, obj);
+                    if (item is Block)
+                        physics.blocks.Add((Block)item);
+                    else
+                        physics.items.Add((Sprite)item);
+                }
             }
             base.Initialize();            
         }
@@ -142,6 +153,9 @@ namespace Puddle
 
 
             spriteBatch.Begin();
+
+            spriteBatch.Draw(background, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+
             // BG
             /*Texture2D tt = new Texture2D(GraphicsDevice, 1, 1);
             tt.SetData(new Color[] { Color.ForestGreen });

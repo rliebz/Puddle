@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Controls.cs" />
+    <Compile Include="Objects\Button.cs" />
     <Compile Include="Objects\Enemy.cs" />
     <Compile Include="Objects\PowerUp.cs" />
     <Compile Include="Objects\Player.cs" />

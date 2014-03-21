@@ -23,6 +23,8 @@ namespace Puddle
         public double x_vel;
         public int y_vel;
 
+        public string blockType;
+
         private Block uBlock;
 
         public int frameIndex;
@@ -30,7 +32,6 @@ namespace Puddle
         public Block(int x, int y, bool left=false, bool right=false, bool gravity=false)
             : base(x, y, 32, 32)
         {
-            imageFile = "push_block.png";
 
             this.left = left;
             this.right = right;
@@ -44,9 +45,15 @@ namespace Puddle
             this.x_vel = 0;
 
             uBlock = null;
+            this.blockType = "push";
 
             // Determine block image
-            if (right && !left)
+            if (!this.gravity)
+            {
+                frameIndex = 0;
+                this.blockType = "metal";
+            }
+            else if (right && !left)
                 frameIndex = 0;
             else if (left && !right)
                 frameIndex = 32;
@@ -59,12 +66,12 @@ namespace Puddle
         public Block(TmxObjectGroup.TmxObject obj)
             : base(obj.X, obj.Y, 32, 32)
         {
-            imageFile = "push_block.png";
 
             this.left = (obj.Properties.ContainsKey("left")) ? Boolean.Parse(obj.Properties["left"]) : false;
             this.right = (obj.Properties.ContainsKey("right")) ? Boolean.Parse(obj.Properties["right"]) : false;
             this.gravity = (obj.Properties.ContainsKey("gravity")) ? Boolean.Parse(obj.Properties["gravity"]) : false;
-            
+
+            this.blockType = "push";
      
             this.rCol = false;
             this.lCol = false;
@@ -76,11 +83,16 @@ namespace Puddle
             uBlock = null;
 
             // Determine block image
-            if (this.right && !this.left)
+            if (!this.gravity)
+            {
                 frameIndex = 0;
-            else if (this.left && !this.right)
+                this.blockType = "metal";
+            }
+            else if (right && !left)
+                frameIndex = 0;
+            else if (left && !right)
                 frameIndex = 32;
-            else if (this.left && this.right)
+            else if (left && right)
                 frameIndex = 64;
             else
                 frameIndex = 96;
@@ -91,7 +103,7 @@ namespace Puddle
             Move(physics);
 
             CheckCollisions(physics);
-            
+
         }
 
         public void CheckCollisions(Physics physics)
@@ -153,6 +165,13 @@ namespace Puddle
 
             // Reset x velocity
             x_vel = 0;
+        }
+
+        public new void LoadContent(ContentManager content)
+        {
+            images["push"] = content.Load<Texture2D>("push_block.png");
+            images["metal"] = content.Load<Texture2D>("brick.png");
+            image = images[this.blockType];
         }
 
         public new void Draw(SpriteBatch sb)
