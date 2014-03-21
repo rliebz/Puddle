@@ -93,7 +93,7 @@ namespace Puddle
         }
 
         public void Update(Controls controls, Physics physics, 
-            ContentManager content)
+            ContentManager content, GameTime gameTime)
         {
             if (hydration + regenRate <= maxHydration)
                 hydration += regenRate;
@@ -117,10 +117,10 @@ namespace Puddle
             }
 
             // Shoot based on controls
-            Shoot(controls, physics, content);
+            Shoot(controls, physics, content ,gameTime);
 
             // Jump based on controls
-            Jump(controls, physics);
+            Jump(controls, physics, gameTime);
 
             // Check for collisions
             CheckCollisions(physics);
@@ -129,7 +129,7 @@ namespace Puddle
             HandleCollisions(physics);
 
             // Animate sprite
-            Animate(controls, physics);
+            Animate(controls, physics, gameTime);
 
         }
 
@@ -279,13 +279,14 @@ namespace Puddle
             }
         }
 
-        private void Shoot(Controls controls, Physics physics, ContentManager content)
+        private void Shoot(Controls controls, Physics physics, ContentManager content, GameTime gameTime)
         {
             // New shots
             if (controls.onPress(Keys.D, Buttons.RightShoulder))
             {
                 shooting = true;
-                shot_point = physics.count;
+                //shot_point = physics.count;
+                shot_point = (int)(gameTime.TotalGameTime.TotalMilliseconds);
             }
             else if (controls.onRelease(Keys.D, Buttons.RightShoulder))
             {
@@ -296,8 +297,11 @@ namespace Puddle
             if (!frozen())
             {
                 // Generate regular shots
-                if ((physics.count - shot_point) % shot_delay == 0 && shooting && hydration >= shotCost)
+                int currentTime1 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                //if ((physics.count - shot_point) % shot_delay == 0 && shooting && hydration >= shotCost)
+                if ((currentTime1 - shot_point) >= 160f && shooting)
                 {
+                    shot_point = currentTime1;
                     string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
                     Shot s = new Shot(this, dir);
                     s.LoadContent(content);
@@ -306,10 +310,13 @@ namespace Puddle
                 }
 
                 // Jetpack (Midair jump and downward shots)
-                if ((physics.count - jump_point) % jump_delay == 0 && powerup["jetpack"] &&
+                int currentTime2 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                //if ((physics.count - jump_point) % jump_delay == 0 && powerup["jetpack"] &&
+                if ((currentTime2 - jump_point) >= 282 && y_vel > 3 && powerup["jetpack"] &&
                     hydration >= jetpackCost && !grounded && controls.isPressed(Keys.S, Buttons.A))
                 {
                     // New shot
+                    jump_point = currentTime2;
                     Shot s = new Shot(this, "down");
                     s.LoadContent(content);
                     physics.shots.Add(s);
@@ -322,14 +329,15 @@ namespace Puddle
             }
         }
 
-        private void Jump(Controls controls, Physics physics)
+        private void Jump(Controls controls, Physics physics, GameTime gameTime)
         {
             // Jump on press
             if (controls.isPressed(Keys.S, Buttons.A) && !frozen() && grounded)
             {
                 spriteY -= 1;
                 y_vel = -15;
-                jump_point = physics.count;
+                //jump_point = physics.count;
+                jump_point = (int)(gameTime.TotalGameTime.TotalMilliseconds);
             }
 
             // Cut jump short on release
@@ -347,7 +355,7 @@ namespace Puddle
             puddled = false;
         }
 
-        private void Animate(Controls controls, Physics physics)
+        private void Animate(Controls controls, Physics physics, GameTime gameTime)
         {
             // Determine type of movement
             if (!frozen())
@@ -382,7 +390,8 @@ namespace Puddle
                     if (image != images["walk"])
                         image = images["walk"];
                     // Animate
-                    frameIndex = (physics.count / 8 % 4) * 32;
+                    //frameIndex = (physics.count / 8 % 4) * 32;
+                    frameIndex = ((int)(gameTime.TotalGameTime.TotalMilliseconds)/128 % 4)*32;
                 }
             }
 
