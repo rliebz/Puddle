@@ -138,7 +138,10 @@ namespace Puddle
                 e.Update(physics);
 
             foreach (Sprite s in physics.items)
+            {
                 s.Update(physics);
+                s.Update(physics, this.Content);
+            }
             
             base.Update(gameTime);
         }
@@ -180,7 +183,6 @@ namespace Puddle
             foreach (Fireball f in physics.fireballs)
             {
                 f.Draw(spriteBatch);
-                Console.WriteLine("It's somewhere, kid.");
             }
 
             spriteBatch.End();

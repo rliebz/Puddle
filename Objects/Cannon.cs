@@ -21,6 +21,8 @@ namespace Puddle
             this.imageFile = "cannon.png";
             this.name = obj.Name;
             frameWidth = 64;
+            spriteWidth = 64;
+            sizeX = 64;
             faceLeft = false;
             if (obj.Properties["direction"].Equals("left"))
             {
@@ -29,12 +31,14 @@ namespace Puddle
             
         }
 
-        public void Update(Physics physics, ContentManager content)
+        public override void Update(Physics physics, ContentManager content)
         {
-            Fireball fireball = new Fireball(this);
-            fireball.LoadContent(content);
-            physics.fireballs.Add(fireball);
-            Console.WriteLine("One added.");
+            if (physics.count % 100 == 0)
+            {
+                Fireball fireball = new Fireball(this);
+                fireball.LoadContent(content);
+                physics.fireballs.Add(fireball);
+            }
         }
 
 

@@ -83,8 +83,8 @@ namespace Puddle
             for (int i = fireballs.Count - 1; i >= 0; i--)
             {
                 fireballs[i].Update(this);
-                //if (fireballs[i].offScreen)
-                //    fireballs.RemoveAt(i);
+                if (fireballs[i].offScreen)
+                    fireballs.RemoveAt(i);
             }
 
             // DESTROY

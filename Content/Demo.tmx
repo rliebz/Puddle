@@ -1346,14 +1346,14 @@
     <property name="right" value="False"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="384" y="288" width="32" height="32">
+  <object name="Block 3" type="Puddle.Block" x="320" y="448" width="32" height="32">
    <properties>
     <property name="gravity" value="True"/>
     <property name="left" value="False"/>
     <property name="right" value="False"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="384" y="256" width="32" height="32">
+  <object name="Block 3" type="Puddle.Block" x="320" y="416" width="32" height="32">
    <properties>
     <property name="gravity" value="True"/>
     <property name="left" value="False"/>
@@ -1497,5 +1497,10 @@
   <object name="Ground" type="Puddle.Block" x="0" y="128" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="256" y="128" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="352" y="128" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="608" y="320" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="608" y="288" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="608" y="256" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="512" y="224" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="576" y="288" width="32" height="32"/>
  </objectgroup>
 </map>

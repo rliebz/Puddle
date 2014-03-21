@@ -82,6 +82,11 @@ namespace Puddle
 
         }
 
+        public virtual void Update(Physics physics, ContentManager content)
+        {
+
+        }
+
         public void LoadContent(ContentManager content)
         {
             image = content.Load<Texture2D>(imageFile);
