@@ -15,7 +15,7 @@ namespace Puddle
         public bool moving;
         public bool grounded;
         public bool puddled;
-        public bool left;
+        public bool faceLeft;
         public bool shooting;
         public Dictionary<string, bool> powerup;
 
@@ -49,7 +49,7 @@ namespace Puddle
             moving = false;
             grounded = false;
             puddled = false;
-            left = false;
+            faceLeft = false;
             shooting = false;
             sizeX = 16;
 
@@ -210,9 +210,9 @@ namespace Puddle
 
             foreach (Sprite item in physics.items)
             {
-                if (item is Jetpack && Intersects(item))
+                if (item is PowerUp && Intersects(item))
                 {
-                    powerup["jetpack"] = true;
+                    powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
                 }
                 if (item is Button && Intersects(item))
@@ -249,9 +249,9 @@ namespace Puddle
 
             // Determine direction
             if (x_vel > 0.1)
-                left = false;
+                faceLeft = false;
             else if (x_vel < -0.1)
-                left = true;
+                faceLeft = true;
 
             // Gravity
             if (!grounded)
@@ -406,7 +406,7 @@ namespace Puddle
                 Color.White,
                 0,
                 new Vector2(spriteWidth / 2, spriteHeight / 2),
-                left ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
+                faceLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                 0
             );
 
