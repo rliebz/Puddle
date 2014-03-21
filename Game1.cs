@@ -128,7 +128,7 @@ namespace Puddle
 
             // TODO: Add your update logic here
 
-            player1.Update(controls, physics, this.Content);
+            player1.Update(controls, physics, this.Content, gameTime);
             physics.Update(this.Content);
 
             foreach (Block b in physics.blocks)
