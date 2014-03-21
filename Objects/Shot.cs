@@ -16,14 +16,14 @@ namespace Puddle
         public int x_vel;
 
         public Shot(Player p, string dir = "none")
-            : base(p.getX(), p.getY() - 6, 24, 24)
+            : base(p.spriteX, p.spriteY - 6, 24, 24)
         {
             this.imageFile = "bubble.png";
             this.dir = dir;
             sizeX = 8;
             sizeY = 8;
             speed = 6;
-            x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.left ? -1 : 1));
+            x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.faceLeft ? -1 : 1));
         }
 
         public void Update(Physics physics)
