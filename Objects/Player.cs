@@ -16,17 +16,24 @@ namespace Puddle
         public bool grounded;
         public bool puddled;
         public bool shooting;
+        public bool pushing;
         public Dictionary<string, bool> powerup;
 
-        bool pushing;
+        // Stats
+        public double maxHydration;
+        public double hydration;
+        private double shotCost = 10;
+        private double jetpackCost = 20;
+        private double puddleCost = .75;
+        private double regenRate = .25;
+
 
         // Movement
         private int speed;
         private int x_accel;
         private double friction;
-        public double x_vel; // Changes before movement
+        public double x_vel;
         public int y_vel;
-        public int y_vel_old; // Changes after movement
 
         // Internal calculations
         private int shot_point;
@@ -49,9 +56,12 @@ namespace Puddle
             puddled = false;
             faceLeft = false;
             shooting = false;
+            pushing = false;
             sizeX = 16;
 
-            pushing = false;
+            // Stats
+            maxHydration = 100;
+            hydration = maxHydration;
 
             // Movement
             speed = 6;
@@ -59,7 +69,6 @@ namespace Puddle
             x_accel = 0;
             x_vel = 0;
             y_vel = 0;
-            y_vel_old = 0;
 
             // Internal calculations
             shot_delay = 10;
@@ -86,6 +95,8 @@ namespace Puddle
         public void Update(Controls controls, Physics physics, 
             ContentManager content)
         {
+            if (hydration + regenRate <= maxHydration)
+                hydration += regenRate;
 
             // Move based on controls and physics
             Move(controls, physics);
@@ -95,6 +106,14 @@ namespace Puddle
                 !frozen() && grounded && powerup["puddle"])
             {
                 puddled = true;
+            }
+
+            if (puddled)
+            {
+                if (hydration >= puddleCost)
+                    hydration -= puddleCost;
+                else
+                    puddled = false;
             }
 
             // Shoot based on controls
@@ -111,6 +130,7 @@ namespace Puddle
 
             // Animate sprite
             Animate(controls, physics);
+
         }
 
 
@@ -228,7 +248,6 @@ namespace Puddle
 
         private void Move(Controls controls, Physics physics)
         {
-            y_vel_old = y_vel;
             // Sideways Acceleration
             if (controls.onPress(Keys.Right, Buttons.DPadRight))
                 x_accel += speed;
@@ -280,22 +299,24 @@ namespace Puddle
             if (!frozen())
             {
                 // Generate regular shots
-                if ((physics.count - shot_point) % shot_delay == 0 && shooting)
+                if ((physics.count - shot_point) % shot_delay == 0 && shooting && hydration >= shotCost)
                 {
                     string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
                     Shot s = new Shot(this, dir);
                     s.LoadContent(content);
                     physics.shots.Add(s);
+                    hydration -= shotCost;
                 }
 
-                // Generate downward shots
+                // Jetpack (Midair jump and downward shots)
                 if ((physics.count - jump_point) % jump_delay == 0 && powerup["jetpack"] &&
-                    !grounded && controls.isPressed(Keys.S, Buttons.A))
+                    hydration >= jetpackCost && !grounded && controls.isPressed(Keys.S, Buttons.A))
                 {
                     // New shot
                     Shot s = new Shot(this, "down");
                     s.LoadContent(content);
                     physics.shots.Add(s);
+                    hydration -= jetpackCost;
 
                     // Slight upward boost
                     spriteY -= 1;
@@ -391,25 +412,28 @@ namespace Puddle
             images["jump"] = content.Load<Texture2D>("PC/jump.png");
             images["walk"] = content.Load<Texture2D>("PC/walk.png");
             images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
+            images["block"] = content.Load<Texture2D>("blank.png");
             image = images["stand"];
         }
 
-    /*    public new void Draw(SpriteBatch sb)
+        public new void Draw(SpriteBatch sb)
         {
             // Draw the player
+            base.Draw(sb);
+
+            // Draw health
             sb.Draw(
-                image, 
-                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), 
-                new Rectangle(frameIndex, 0, 32, 32),
-                Color.White,
-                0,
-                new Vector2(spriteWidth / 2, spriteHeight / 2),
-                faceLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
-                0
+                images["block"],
+                new Rectangle(8, 8, Convert.ToInt32(maxHydration * 1.5), 16),
+                Color.Navy
             );
 
+            sb.Draw(
+                images["block"],
+                new Rectangle(8, 8, Convert.ToInt32(hydration * 1.5), 16),
+                Color.Cyan
+            );
         }
-     */
 
     }
 }
