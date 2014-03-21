@@ -22,10 +22,10 @@ namespace Puddle
         // Stats
         public double maxHydration;
         public double hydration;
-        private double shotCost = 10;
-        private double jetpackCost = 20;
-        private double puddleCost = .75;
-        private double regenRate = .25;
+        private double shotCost;
+        private double jetpackCost;
+        private double puddleCost;
+        private double regenRate;
 
 
         // Movement
@@ -62,6 +62,10 @@ namespace Puddle
             // Stats
             maxHydration = 100;
             hydration = maxHydration;
+            shotCost = 10;
+            jetpackCost = 20;
+            puddleCost = 1;
+            regenRate = .25;
 
             // Movement
             speed = 6;
@@ -299,7 +303,8 @@ namespace Puddle
                 // Generate regular shots
                 int currentTime1 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                 //if ((physics.count - shot_point) % shot_delay == 0 && shooting && hydration >= shotCost)
-                if ((currentTime1 - shot_point) >= 160f && shooting)
+                if (((currentTime1 - shot_point) >= 160f || (currentTime1 - shot_point) == 0)
+                    && shooting && hydration >= shotCost)
                 {
                     shot_point = currentTime1;
                     string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
