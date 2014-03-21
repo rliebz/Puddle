@@ -28,8 +28,6 @@ namespace Puddle
 
         private Block uBlock;
 
-        public int frameIndex;
-
         public Block(int x, int y, bool left=false, bool right=false, bool gravity=false)
             : base(x, y, 32, 32)
         {
@@ -104,6 +102,24 @@ namespace Puddle
         {
             this.blockType = newType;
             image = images[newType];
+            if (newType == "metal")
+            {
+                gravity = false;
+                frameIndex = 0;
+            }
+            else
+            {
+                gravity = true;
+
+                if (right && !left)
+                    frameIndex = 0;
+                else if (left && !right)
+                    frameIndex = 32;
+                else if (left && right)
+                    frameIndex = 64;
+                else
+                    frameIndex = 96;
+            }
         }
 
         public void Update(Physics physics)

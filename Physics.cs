@@ -91,6 +91,7 @@ namespace Puddle
             enemies.RemoveAll(enemy => enemy.destroyed);
             shots.RemoveAll(shot => shot.destroyed);
             items.RemoveAll(item => item.destroyed);
+            fireballs.RemoveAll(fireball => fireball.destroyed);
         }
 
 

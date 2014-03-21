@@ -56,10 +56,9 @@ namespace Puddle
             {
                 foreach (Block b in physics.blocks)
                 {
-                    if (b.name == "Block 1")
+                    if (b.name == "Block 3")
                     {
                         b.changeType("push");
-                        b.gravity = true;//Do some action
                     }
                 }
             }
@@ -70,7 +69,6 @@ namespace Puddle
                     if (b.name == "Block 2")
                     {
                         b.changeType("push");
-                        b.gravity = true;//Do some action
                     }
                 }
             }
@@ -78,17 +76,9 @@ namespace Puddle
             {
                 foreach (Block b in physics.blocks)
                 {
-                    if (b.name == "Block 10")
+                    if (b.name == "Block 4")
                     {
-                        b.changeType("push");
-                        b.gravity = true;
-                        
-                    }
-                    else if (b.name == "Block 11")
-                    {
-                        b.changeType("push");
-                        b.gravity = true;
-                        b.y_vel = 2;
+                        b.changeType("push");                        
                     }
                 }
             }
