@@ -19,6 +19,8 @@ namespace Puddle
         public int sizeX;
         public int sizeY;
         public int frameIndex;
+        public int frameWidth;
+        public int frameHeight;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
 
@@ -28,6 +30,8 @@ namespace Puddle
             this.spriteY = y+16;
             this.spriteWidth = width;
             this.spriteHeight = height;
+            this.frameWidth = 32;
+            this.frameHeight = 32;
             this.sizeX = width;
             this.sizeY = height;
             this.imageFile = "bubble.png";
@@ -76,6 +80,9 @@ namespace Puddle
         public virtual void Update(Physics physics)
         { }
 
+        public virtual void Update(Physics physics, ContentManager content)
+        { }
+
         public virtual void LoadContent(ContentManager content)
         {
             image = content.Load<Texture2D>(imageFile);
@@ -86,7 +93,7 @@ namespace Puddle
             sb.Draw(
                 image,
                 new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
-                new Rectangle(frameIndex, 0, 32, 32),
+                new Rectangle(frameIndex, 0, frameWidth, frameHeight),
                 Color.White,
                 0,
                 new Vector2(spriteWidth / 2, spriteHeight / 2),

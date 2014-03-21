@@ -37,7 +37,9 @@
   <ItemGroup>
     <Compile Include="Controls.cs" />
     <Compile Include="Objects\Button.cs" />
+    <Compile Include="Objects\Cannon.cs" />
     <Compile Include="Objects\Enemy.cs" />
+    <Compile Include="Objects\Fireball.cs" />
     <Compile Include="Objects\PowerUp.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Game1.cs" />
@@ -127,6 +129,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Demo.tmx">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Level1.tmx">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -18,12 +18,16 @@ namespace Puddle
         public List<Enemy> enemies;
         public List<Shot> shots;
         public List<Block> blocks;
+        public List<Fireball> fireballs;
         public List<Sprite> items;
+        public Player player;
 
-        public Physics()
+        public Physics(Player p)
         {
+            player = p;
             enemies = new List<Enemy>();
             shots = new List<Shot>();
+            fireballs = new List<Fireball>();
             blocks = new List<Block>();
             items = new List<Sprite>();
             /*int floor_index = 16;
@@ -74,6 +78,13 @@ namespace Puddle
                 shots[i].Update(this);
                 if (shots[i].offScreen)
                     shots.RemoveAt(i);
+            }
+
+            for (int i = fireballs.Count - 1; i >= 0; i--)
+            {
+                fireballs[i].Update(this);
+                if (fireballs[i].offScreen)
+                    fireballs.RemoveAt(i);
             }
 
             // DESTROY

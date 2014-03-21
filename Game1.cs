@@ -46,15 +46,15 @@ namespace Puddle
         {
             // TODO: Add your initialization logic here
             //Initialize all your objects here
-            map = new TmxMap("Content/Level1.tmx");
+            map = new TmxMap("Content/Demo.tmx");
 
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 
             background = Content.Load<Texture2D>("background.png");
 
-            player1 = new Player(400, 0, 32, 32);
-            physics = new Physics();
+            player1 = new Player(50, 200, 32, 32);
+            physics = new Physics(player1);
             controls = new Controls();
 
             
@@ -128,7 +128,7 @@ namespace Puddle
 
             // TODO: Add your update logic here
 
-            player1.Update(controls, physics, this.Content);
+            player1.Update(controls, physics, this.Content, gameTime);
             physics.Update(this.Content);
 
             foreach (Block b in physics.blocks)
@@ -138,7 +138,10 @@ namespace Puddle
                 e.Update(physics);
 
             foreach (Sprite s in physics.items)
+            {
                 s.Update(physics);
+                s.Update(physics, this.Content);
+            }
             
             base.Update(gameTime);
         }
@@ -177,6 +180,10 @@ namespace Puddle
                 b.Draw(spriteBatch);
             foreach (Sprite item in physics.items)
                 item.Draw(spriteBatch);
+            foreach (Fireball f in physics.fireballs)
+            {
+                f.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
             base.Draw(gameTime);
