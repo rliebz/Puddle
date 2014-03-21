@@ -16,7 +16,7 @@ namespace Puddle
         public int x_vel;
 
         public Shot(Player p, string dir = "none")
-            : base(p.spriteX, p.spriteY - 6, 24, 24)
+            : base(p.spriteX - 16, p.spriteY - 16, 24, 24)
         {
             this.imageFile = "bubble.png";
             this.dir = dir;
