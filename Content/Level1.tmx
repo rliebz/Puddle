@@ -1163,8 +1163,8 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="Blocks" width="20" height="14" visible="0">
-  <object name="Block 3" type="Puddle.Block" x="288" y="96" width="32" height="32">
+ <objectgroup name="Blocks" width="20" height="14">
+  <object name="Block 11" type="Puddle.Block" x="288" y="96" width="32" height="32">
    <properties>
     <property name="left" value="False"/>
     <property name="right" value="False"/>
@@ -1177,7 +1177,7 @@
     <property name="right" value="True"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="288" y="128" width="32" height="32">
+  <object name="Block 10" type="Puddle.Block" x="288" y="128" width="32" height="32">
    <properties>
     <property name="left" value="False"/>
     <property name="right" value="False"/>
@@ -1197,14 +1197,14 @@
     <property name="right" value="False"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="160" y="96" width="32" height="32">
+  <object name="Block 1" type="Puddle.Block" x="160" y="96" width="32" height="32">
    <properties>
     <property name="" value=""/>
     <property name="left" value="False"/>
     <property name="right" value="True"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="192" y="96" width="32" height="32">
+  <object name="Block 2" type="Puddle.Block" x="192" y="96" width="32" height="32">
    <properties>
     <property name="left" value="False"/>
     <property name="right" value="True"/>
@@ -1218,12 +1218,12 @@
     <property name="direction" value="right"/>
    </properties>
   </object>
-  <object name="Button 3" type="Puddle.Button" x="352" y="384" width="32" height="32">
+  <object name="Button 1" type="Puddle.Button" x="352" y="384" width="32" height="32">
    <properties>
     <property name="direction" value="right"/>
    </properties>
   </object>
-  <object name="Button 3" type="Puddle.Button" x="222" y="287" width="32" height="32">
+  <object name="Button 2" type="Puddle.Button" x="222" y="287" width="32" height="32">
    <properties>
     <property name="direction" value="left"/>
    </properties>

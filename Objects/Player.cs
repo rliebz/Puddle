@@ -33,7 +33,6 @@ namespace Puddle
         private int jump_point;
         private int jump_delay;
         private int shot_delay;
-        private int frameIndex;
 
         // TODO: Move this
 
@@ -149,7 +148,7 @@ namespace Puddle
                 if (Intersects(b))
                 {
                     // Up collision
-                    if (topWall - y_vel_old > b.bottomWall)
+                    if (topWall - y_vel > b.bottomWall)
                     {
                         while (topWall < b.bottomWall)
                             spriteY++;
@@ -158,7 +157,7 @@ namespace Puddle
 
                     // Down collision
                     if ( !grounded && 
-                        (bottomWall - y_vel_old) < b.topWall )
+                        (bottomWall - y_vel) < b.topWall )
                     {
                         grounded = true;
                         while (bottomWall > b.topWall)
@@ -255,8 +254,8 @@ namespace Puddle
             // Gravity
             if (!grounded)
             {
-                spriteY += y_vel;
                 y_vel += physics.gravity;
+                spriteY += y_vel;
             }
             else
             {
@@ -300,7 +299,7 @@ namespace Puddle
 
                     // Slight upward boost
                     spriteY -= 1;
-                    y_vel = -8;
+                    y_vel = -9;
                 }
             }
         }
