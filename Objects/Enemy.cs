@@ -14,7 +14,6 @@ namespace Puddle
         public bool left;
         public int x_vel;
         public int y_vel;
-        public int frameIndex;
         public int seed;
         public int health;
         Random rnd;
@@ -34,7 +33,7 @@ namespace Puddle
             frameIndex = 0;
         }
 
-        public void Update(Physics physics)
+        public override void Update(Physics physics)
         {
             // Move
             Move(physics);
@@ -75,8 +74,8 @@ namespace Puddle
             // Fall if airborne
             if (spriteY < physics.ground)
             {
-                spriteY += y_vel;
                 y_vel += physics.gravity;
+                spriteY += y_vel;
             }
             else
             {
@@ -95,20 +94,6 @@ namespace Puddle
         public void Animate(Physics physics)
         {
             frameIndex = ((physics.count + seed) / 8 % 4) * 32;
-        }
-
-        public new void Draw(SpriteBatch sb)
-        {
-            sb.Draw(
-                image,
-                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
-                new Rectangle(frameIndex, 0, 32, 32),
-                Color.White,
-                0,
-                new Vector2(16, 16),
-                left ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
-                0
-            );
         }
 
     }

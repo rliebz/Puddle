@@ -25,7 +25,7 @@ namespace Puddle
         private double shotCost;
         private double jetpackCost;
         private double puddleCost;
-        private double regenRate;
+        private double hydrationRegen;
 
 
         // Movement
@@ -36,10 +36,10 @@ namespace Puddle
         public int y_vel;
 
         // Internal calculations
-        private int shot_point;
-        private int jump_point;
-        private int jump_delay;
-        private int shot_delay;
+        private int shotPoint;
+        private int jumpPoint;
+        private int jumpDelay;
+        private int shotDelay;
 
         // TODO: Move this
 
@@ -57,15 +57,15 @@ namespace Puddle
             faceLeft = false;
             shooting = false;
             pushing = false;
-            sizeX = 16;
+            collisionWidth = 16;
 
             // Stats
             maxHydration = 100;
             hydration = maxHydration;
+            hydrationRegen = maxHydration / 400;
             shotCost = 10;
             jetpackCost = 20;
-            puddleCost = 1;
-            regenRate = .25;
+            puddleCost = 1.0;
 
             // Movement
             speed = 6;
@@ -75,39 +75,88 @@ namespace Puddle
             y_vel = 0;
 
             // Internal calculations
-            shot_delay = 10;
-            jump_delay = 17;
-            shot_point = 0;
-            jump_point = 0;
+            shotDelay = 160;
+            jumpDelay = 282;
+            shotPoint = 0;
+            jumpPoint = 0;
 
             // Sprite Information
             frameIndex = 0;
         }
 
         // Property determining if the character can act
-        public bool frozen()
+        public bool frozen
         {
-            return (puddled);
+            get { return (puddled); }
         }
 
         // Property determining if the character can be hurt
-        public bool invulnerable()
+        public bool invulnerable
         {
-            return (puddled && frameIndex == 5 * 32);
+            get { return (puddled && frameIndex == 5 * 32); }
         }
 
         public void Update(Controls controls, Physics physics, 
             ContentManager content, GameTime gameTime)
         {
-            if (hydration + regenRate <= maxHydration)
-                hydration += regenRate;
+            if (hydration + hydrationRegen <= maxHydration)
+                hydration += hydrationRegen;
 
-            // Move based on controls and physics
             Move(controls, physics);
 
-            // Puddle based on controls
+            Puddle(controls);
+
+            Shoot(controls, physics, content ,gameTime);
+
+            Jump(controls, physics, gameTime);
+
+            CheckCollisions(physics);
+
+            HandleCollisions(physics);
+
+            Animate(controls, physics, gameTime);
+        }
+
+        private void Move(Controls controls, Physics physics)
+        {
+            // Sideways Acceleration
+            if (controls.onPress(Keys.Right, Buttons.DPadRight))
+                x_accel += speed;
+            else if (controls.onRelease(Keys.Right, Buttons.DPadRight))
+                x_accel -= speed;
+            if (controls.onPress(Keys.Left, Buttons.DPadLeft))
+                x_accel -= speed;
+            else if (controls.onRelease(Keys.Left, Buttons.DPadLeft))
+                x_accel += speed;
+
+            // Sideways Movement
+            double playerFriction = pushing ? (friction * 3) : friction;
+            x_vel = x_vel * (1 - playerFriction)
+                + (frozen ? 0 : x_accel * .10);
+            spriteX += Convert.ToInt32(x_vel);
+
+            // Determine direction
+            if (x_vel > 0.1)
+                faceLeft = false;
+            else if (x_vel < -0.1)
+                faceLeft = true;
+
+            // Gravity
+            if (!grounded)
+            {
+                y_vel += physics.gravity;
+                spriteY += y_vel;
+            }
+            else
+            {
+                y_vel = 1;
+            }
+        }
+
+        private void Puddle(Controls controls)
+        {
             if (controls.isPressed(Keys.Down, Buttons.DPadDown) &&
-                !frozen() && grounded && powerup["puddle"])
+                !frozen && grounded && powerup["puddle"])
             {
                 puddled = true;
             }
@@ -119,24 +168,73 @@ namespace Puddle
                 else
                     puddled = false;
             }
-
-            // Shoot based on controls
-            Shoot(controls, physics, content ,gameTime);
-
-            // Jump based on controls
-            Jump(controls, physics, gameTime);
-
-            // Check for collisions
-            CheckCollisions(physics);
-
-            // Handle those collisions
-            HandleCollisions(physics);
-
-            // Animate sprite
-            Animate(controls, physics, gameTime);
-
         }
 
+        private void Shoot(Controls controls, Physics physics, ContentManager content, GameTime gameTime)
+        {
+            // New shots
+            if (controls.onPress(Keys.D, Buttons.RightShoulder))
+            {
+                shooting = true;
+                //shotPoint = physics.count;
+                shotPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+            }
+            else if (controls.onRelease(Keys.D, Buttons.RightShoulder))
+            {
+                shooting = false;
+            }
+
+            // Deal with shot creation and delay
+            if (!frozen)
+            {
+                // Generate regular shots
+                int currentTime1 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                if (((currentTime1 - shotPoint) >= shotDelay || (currentTime1 - shotPoint) == 0)
+                    && shooting && hydration >= shotCost)
+                {
+                    shotPoint = currentTime1;
+                    string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
+                    Shot s = new Shot(this, dir);
+                    s.LoadContent(content);
+                    physics.shots.Add(s);
+                    hydration -= shotCost;
+                }
+
+                // Jetpack (Midair jump and downward shots)
+                int currentTime2 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                if ((currentTime2 - jumpPoint) >= jumpDelay && y_vel > 3 && powerup["jetpack"] &&
+                    hydration >= jetpackCost && !grounded && controls.isPressed(Keys.S, Buttons.A))
+                {
+                    // New shot
+                    jumpPoint = currentTime2;
+                    Shot s = new Shot(this, "down");
+                    s.LoadContent(content);
+                    physics.shots.Add(s);
+                    hydration -= jetpackCost;
+
+                    // Slight upward boost
+                    spriteY -= 1;
+                    y_vel = -9;
+                }
+            }
+        }
+
+        private void Jump(Controls controls, Physics physics, GameTime gameTime)
+        {
+            // Jump on button press
+            if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
+            {
+                spriteY -= 1;
+                y_vel = -15;
+                jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+            }
+
+            // Cut jump short on button release
+            else if (controls.onRelease(Keys.S, Buttons.A) && y_vel < 0)
+            {
+                y_vel /= 2;
+            }
+        }
 
         private void CheckCollisions(Physics physics)
         {
@@ -144,7 +242,7 @@ namespace Puddle
             grounded = false;
 
             // Check enemy collisions
-            if (!invulnerable())
+            if (!invulnerable)
             {
                 foreach (Enemy e in physics.enemies)
                 {
@@ -177,8 +275,8 @@ namespace Puddle
                     }
 
                     // Down collision
-                    if ( !grounded && 
-                        (bottomWall - y_vel) < b.topWall )
+                    if (!grounded &&
+                        (bottomWall - y_vel) < b.topWall)
                     {
                         grounded = true;
                         while (bottomWall > b.topWall)
@@ -188,10 +286,10 @@ namespace Puddle
                     // Collision with right block
                     else if (bottomWall > b.topWall &&
                         rightWall - Convert.ToInt32(x_vel) < b.leftWall &&
-                        x_vel > 0)  
+                        x_vel > 0)
                     {
                         // Push
-                        if (b.right && !b.rCol)
+                        if (b.pushRight && !b.rCol)
                         {
                             b.x_vel = x_vel;
                             pushing = true;
@@ -211,14 +309,14 @@ namespace Puddle
                         x_vel < 0)
                     {
                         // Push
-                        if (b.left && !b.lCol)
+                        if (b.pushLeft && !b.lCol)
                         {
                             b.x_vel = x_vel;
                             pushing = true;
                         }
 
                         // Hit the wall
-                        else 
+                        else
                         {
                             while (leftWall <= b.rightWall)
                                 spriteX++;
@@ -247,115 +345,10 @@ namespace Puddle
 
         }
 
-        private void Move(Controls controls, Physics physics)
-        {
-            // Sideways Acceleration
-            if (controls.onPress(Keys.Right, Buttons.DPadRight))
-                x_accel += speed;
-            else if (controls.onRelease(Keys.Right, Buttons.DPadRight))
-                x_accel -= speed;
-            if (controls.onPress(Keys.Left, Buttons.DPadLeft))
-                x_accel -= speed;
-            else if (controls.onRelease(Keys.Left, Buttons.DPadLeft))
-                x_accel += speed;
-
-            // Sideways Movement
-            double playerFriction = pushing ? (friction * 3) : friction;
-            x_vel = x_vel * (1 - playerFriction)
-                + (frozen() ? 0 : x_accel * .10);
-            spriteX += Convert.ToInt32(x_vel);
-
-            // Determine direction
-            if (x_vel > 0.1)
-                faceLeft = false;
-            else if (x_vel < -0.1)
-                faceLeft = true;
-
-            // Gravity
-            if (!grounded)
-            {
-                y_vel += physics.gravity;
-                spriteY += y_vel;
-            }
-            else
-            {
-                y_vel = 1;
-            }
-        }
-
-        private void Shoot(Controls controls, Physics physics, ContentManager content, GameTime gameTime)
-        {
-            // New shots
-            if (controls.onPress(Keys.D, Buttons.RightShoulder))
-            {
-                shooting = true;
-                //shot_point = physics.count;
-                shot_point = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-            }
-            else if (controls.onRelease(Keys.D, Buttons.RightShoulder))
-            {
-                shooting = false;
-            }
-
-            // Deal with shot creation and delay
-            if (!frozen())
-            {
-                // Generate regular shots
-                int currentTime1 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-                //if ((physics.count - shot_point) % shot_delay == 0 && shooting && hydration >= shotCost)
-                if (((currentTime1 - shot_point) >= 160f || (currentTime1 - shot_point) == 0)
-                    && shooting && hydration >= shotCost)
-                {
-                    shot_point = currentTime1;
-                    string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
-                    Shot s = new Shot(this, dir);
-                    s.LoadContent(content);
-                    physics.shots.Add(s);
-                    hydration -= shotCost;
-                }
-
-                // Jetpack (Midair jump and downward shots)
-                int currentTime2 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-                //if ((physics.count - jump_point) % jump_delay == 0 && powerup["jetpack"] &&
-                if ((currentTime2 - jump_point) >= 282 && y_vel > 3 && powerup["jetpack"] &&
-                    hydration >= jetpackCost && !grounded && controls.isPressed(Keys.S, Buttons.A))
-                {
-                    // New shot
-                    jump_point = currentTime2;
-                    Shot s = new Shot(this, "down");
-                    s.LoadContent(content);
-                    physics.shots.Add(s);
-                    hydration -= jetpackCost;
-
-                    // Slight upward boost
-                    spriteY -= 1;
-                    y_vel = -9;
-                }
-            }
-        }
-
-        private void Jump(Controls controls, Physics physics, GameTime gameTime)
-        {
-            // Jump on press
-            if (controls.isPressed(Keys.S, Buttons.A) && !frozen() && grounded)
-            {
-                spriteY -= 1;
-                y_vel = -15;
-                //jump_point = physics.count;
-                jump_point = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-            }
-
-            // Cut jump short on release
-            else if (controls.onRelease(Keys.S, Buttons.A) && y_vel < 0)
-            {
-                y_vel /= 2;
-            }
-        }
-
         public void Death()
         {
             spriteX = 50;
-            spriteY = 200;
+            spriteY = 250;
             y_vel = 0;
             puddled = false;
         }
@@ -363,7 +356,7 @@ namespace Puddle
         private void Animate(Controls controls, Physics physics, GameTime gameTime)
         {
             // Determine type of movement
-            if (!frozen())
+            if (!frozen)
             {
                 // Jumping
                 if (!grounded)
@@ -446,7 +439,6 @@ namespace Puddle
                 new Rectangle(8, 8, Convert.ToInt32(maxHydration * 1.5), 16),
                 Color.Navy
             );
-
             sb.Draw(
                 images["block"],
                 new Rectangle(8, 8, Convert.ToInt32(hydration * 1.5), 16),

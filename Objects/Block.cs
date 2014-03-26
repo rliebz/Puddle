@@ -11,8 +11,8 @@ namespace Puddle
 {
     class Block : Sprite
     {
-        public bool left;
-        public bool right;
+        public bool pushLeft;
+        public bool pushRight;
         public bool gravity;
 
         public bool rCol;
@@ -32,8 +32,8 @@ namespace Puddle
             : base(x, y, 32, 32)
         {
 
-            this.left = left;
-            this.right = right;
+            this.pushLeft = left;
+            this.pushRight = right;
             this.gravity = gravity;
        
             this.rCol = false;
@@ -66,8 +66,8 @@ namespace Puddle
             : base(obj.X, obj.Y, 32, 32)
         {
 
-            this.left = (obj.Properties.ContainsKey("left")) ? Boolean.Parse(obj.Properties["left"]) : false;
-            this.right = (obj.Properties.ContainsKey("right")) ? Boolean.Parse(obj.Properties["right"]) : false;
+            this.pushLeft = (obj.Properties.ContainsKey("left")) ? Boolean.Parse(obj.Properties["left"]) : false;
+            this.pushRight = (obj.Properties.ContainsKey("right")) ? Boolean.Parse(obj.Properties["right"]) : false;
             this.gravity = (obj.Properties.ContainsKey("gravity")) ? Boolean.Parse(obj.Properties["gravity"]) : false;
 
             this.blockType = "push";
@@ -88,11 +88,11 @@ namespace Puddle
                 frameIndex = 0;
                 this.blockType = "metal";
             }
-            else if (right && !left)
+            else if (pushRight && !pushLeft)
                 frameIndex = 0;
-            else if (left && !right)
+            else if (pushLeft && !pushRight)
                 frameIndex = 32;
-            else if (left && right)
+            else if (pushLeft && pushRight)
                 frameIndex = 64;
             else
                 frameIndex = 96;
@@ -111,23 +111,44 @@ namespace Puddle
             {
                 gravity = true;
 
-                if (right && !left)
+                if (pushRight && !pushLeft)
                     frameIndex = 0;
-                else if (left && !right)
+                else if (pushLeft && !pushRight)
                     frameIndex = 32;
-                else if (left && right)
+                else if (pushLeft && pushRight)
                     frameIndex = 64;
                 else
                     frameIndex = 96;
             }
         }
 
-        public void Update(Physics physics)
+        public override void Update(Physics physics)
         {
             Move(physics);
 
             CheckCollisions(physics);
 
+        }
+
+        public void Move(Physics physics)
+        {
+            // Gravity
+            if (gravity)
+            {
+                y_vel += physics.gravity;
+                spriteY += y_vel;
+            }
+
+            // Move sideways
+            spriteX += Convert.ToInt32(x_vel);
+            if (uCol)
+            {
+                uBlock.x_vel = x_vel;
+                uBlock.Move(physics);
+            }
+
+            // Reset x velocity
+            x_vel = 0;
         }
 
         public void CheckCollisions(Physics physics)
@@ -168,27 +189,6 @@ namespace Puddle
                     }
                 }
             }
-        }
-
-        public void Move(Physics physics)
-        {
-            // Gravity
-            if (gravity)
-            {
-                y_vel += physics.gravity;
-                spriteY += y_vel;
-            }
-
-            // Move sideways
-            spriteX += Convert.ToInt32(x_vel);
-            if (uCol)
-            {
-                uBlock.x_vel = x_vel;
-                uBlock.Move(physics);
-            }
-
-            // Reset x velocity
-            x_vel = 0;
         }
 
         public new void LoadContent(ContentManager content)

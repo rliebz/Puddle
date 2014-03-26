@@ -18,8 +18,8 @@ namespace Puddle
         public PowerUp(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
-            this.name = obj.Name.ToLower();
-            this.imageFile = obj.Name + ".png";
+            imageFile = obj.Name + ".png";
+            name = obj.Name.ToLower();
         }
 
     }

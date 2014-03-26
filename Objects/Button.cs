@@ -16,23 +16,26 @@ namespace Puddle
         public bool activated;
         public string name;
 
-        //TODO: add in function passing for individual button actions
+        // TODO: add in function passing for individual button actions
         public Button(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
-            this.imageFile = "button.png";
-            this.name = obj.Name;
-            faceLeft = false;
-            sizeX = 24;
-            sizeY = 30;
+            imageFile = "button.png";
+
+            name = obj.Name;
+            collisionWidth = 24;
+            collisionHeight = 30;
+
             if (obj.Properties["direction"].Equals("left"))
             {
                 faceLeft = true;
                 spriteX -= 9;
             }
             else
+            {
+                faceLeft = false;
                 spriteX += 9;
-            
+            }
         }
 
         public override void Update(Physics physics)
@@ -50,8 +53,10 @@ namespace Puddle
         {
             if (activated)
                 return;
+
             activating = true;
             activated = true;
+
             if (this.name == "Button 1")
             {
                 foreach (Block b in physics.blocks)

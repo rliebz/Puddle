@@ -13,28 +13,26 @@ namespace Puddle
     {
         public int spriteX, spriteY;
         public int spriteWidth, spriteHeight;
+        public int collisionWidth, collisionHeight;
+        public int frameWidth, frameHeight;
+        public int frameIndex;
         public bool destroyed;
         public bool faceLeft;
         public string imageFile;
-        public int sizeX;
-        public int sizeY;
-        public int frameIndex;
-        public int frameWidth;
-        public int frameHeight;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
 
         public Sprite(int x, int y, int width, int height)
         {
-            this.spriteX = x+16;
-            this.spriteY = y+16;
+            this.spriteX = x + 16;
+            this.spriteY = y + 16;
             this.spriteWidth = width;
             this.spriteHeight = height;
             this.frameWidth = 32;
             this.frameHeight = 32;
-            this.sizeX = width;
-            this.sizeY = height;
-            this.imageFile = "bubble.png";
+            this.collisionWidth = width;
+            this.collisionHeight = height;
+            this.imageFile = "blank.png";
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;
             this.frameIndex = 0;
@@ -49,22 +47,22 @@ namespace Puddle
 
         public int leftWall
         {
-            get { return spriteX - sizeX / 2; }
+            get { return spriteX - collisionWidth / 2; }
         }
 
         public int rightWall
         {
-            get { return spriteX + sizeX / 2 - 1; }
+            get { return spriteX + collisionWidth / 2 - 1; }
         }
 
         public int topWall
         {
-            get { return spriteY - sizeY / 2; }
+            get { return spriteY - collisionHeight / 2; }
         }
 
         public int bottomWall
         {
-            get { return spriteY + sizeY / 2 - 1; }
+            get { return spriteY + collisionHeight / 2 - 1; }
         }
 
         public bool Intersects(Sprite s)

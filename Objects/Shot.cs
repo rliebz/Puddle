@@ -19,14 +19,15 @@ namespace Puddle
             : base(p.spriteX - 16, p.spriteY - 16, 24, 24)
         {
             this.imageFile = "bubble.png";
+            
             this.dir = dir;
-            sizeX = 8;
-            sizeY = 8;
+            collisionWidth = 8;
+            collisionHeight = 8;
             speed = 6;
             x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.faceLeft ? -1 : 1));
         }
 
-        public void Update(Physics physics)
+        public override void Update(Physics physics)
         {
             Move();
 
@@ -40,7 +41,7 @@ namespace Puddle
             {
                 if (Intersects(e))
                 {
-                    this.destroyed = true;
+                    destroyed = true;
                     e.health--;
                 }
             }
@@ -49,7 +50,7 @@ namespace Puddle
             foreach (Block b in physics.blocks)
             {
                 if (Intersects(b))
-                    this.destroyed = true;
+                    destroyed = true;
             }
         }
 
