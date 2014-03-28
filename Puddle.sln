@@ -14,9 +14,6 @@ Global
 		{6CE04041-C290-43CC-AC68-78216EC55FB0}.Release|x86.ActiveCfg = Release|x86
 		{6CE04041-C290-43CC-AC68-78216EC55FB0}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Puddle.csproj
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

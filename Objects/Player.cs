@@ -51,7 +51,6 @@ namespace Puddle
             // Properties
             powerup["puddle"] = true;
             powerup["jetpack"] = false;
-            powerup["chargedshot"] = true;
             moving = false;
             grounded = false;
             puddled = false;
@@ -225,14 +224,9 @@ namespace Puddle
             // Jump on button press
             if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
             {
-               if((powerup["jetpack"]==false && !controls.isHeld(Keys.S, Buttons.A))
-                   || (powerup["jetpack"] == true && hydration >= jetpackCost && !controls.isHeld(Keys.S, Buttons.A)))
-               {
-                           
                 spriteY -= 1;
                 y_vel = -15;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-               }
             }
 
             // Cut jump short on button release
@@ -357,7 +351,6 @@ namespace Puddle
             spriteY = 250;
             y_vel = 0;
             puddled = false;
-            hydration = maxHydration;
         }
 
         private void Animate(Controls controls, Physics physics, GameTime gameTime)
