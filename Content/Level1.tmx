@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="14" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="startX" value="75"/>
+  <property name="startY" value="250"/>
+ </properties>
  <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
   <image source="background.png" width="640" height="448"/>
  </tileset>
@@ -27,7 +31,7 @@
  <tileset firstgid="316" name="jetpack" tilewidth="32" tileheight="32">
   <image source="jetpack.png" width="32" height="32"/>
  </tileset>
- <layer name="Background" width="20" height="14" visible="0">
+ <layer name="Background" width="20" height="14">
   <data>
    <tile gid="1"/>
    <tile gid="2"/>
@@ -595,7 +599,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Objects" width="20" height="14" visible="0">
+ <layer name="Objects" width="20" height="14">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -879,7 +883,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Geysers" width="20" height="14" visible="0">
+ <layer name="Geysers" width="20" height="14">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1229,7 +1233,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Ground" width="20" height="14" visible="0">
+ <objectgroup name="Ground" width="20" height="14">
   <object name="Ground" type="Puddle.Block" x="0" y="384" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="0" y="352" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="0" y="320" width="32" height="32"/>

@@ -32,30 +32,12 @@ namespace Puddle
 
         protected override void Initialize()
         {
-            // Read Level Info From Map
-            map = new TmxMap("Content/Demo.tmx");
-            graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
-            graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
-            background = Content.Load<Texture2D>("background.png");
 
             // Create built-in objects
             player1 = new Player(50, 250, 32, 32);
             physics = new Physics(player1);
             controls = new Controls();
-
-            // Create map objects
-            foreach (TmxObjectGroup group in map.ObjectGroups)
-            {
-                foreach (TmxObjectGroup.TmxObject obj in group.Objects)
-                {
-                    Type t = Type.GetType(obj.Type);
-                    object item = Activator.CreateInstance(t, obj);
-                    if (item is Block)
-                        physics.blocks.Add((Block)item);
-                    else
-                        physics.items.Add((Sprite)item);
-                }
-            }
+            LoadMap("Content/Demo.tmx");
 
             base.Initialize();            
         }
@@ -73,8 +55,42 @@ namespace Puddle
                 item.LoadContent(this.Content);
         }
 
+        protected void LoadMap(string name)
+        {
+            map = new TmxMap(name);
+            background = Content.Load<Texture2D>("background.png");
+            // Read Level Info From Map
+            graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
+            graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
+           
+            Debug.WriteLine(map.Properties["startX"]);
+            player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
+            player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
+
+            // Create map objects
+            physics = new Physics(player1);
+
+            foreach (TmxObjectGroup group in map.ObjectGroups)
+            {
+                foreach (TmxObjectGroup.TmxObject obj in group.Objects)
+                {
+                    Type t = Type.GetType(obj.Type);
+                    object item = Activator.CreateInstance(t, obj);
+                    if (item is Block)
+                        physics.blocks.Add((Block)item);
+                    else
+                        physics.items.Add((Sprite)item);
+                }
+            }
+            player1.newMap = "";
+            LoadContent();
+            base.Initialize();
+        }
+
         protected override void UnloadContent()
-        { }
+        {
+ 
+        }
 
         protected override void Update(GameTime gameTime)
         {
@@ -85,6 +101,8 @@ namespace Puddle
 
             // TODO: Level.Update() should cover all objects in that level
             player1.Update(controls, physics, this.Content, gameTime);
+            if (!player1.newMap.Equals(""))
+                LoadMap(player1.newMap);
             physics.Update(this.Content);
 
             foreach (Block b in physics.blocks)

@@ -18,6 +18,7 @@ namespace Puddle
         public bool shooting;
         public bool pushing;
         public Dictionary<string, bool> powerup;
+        public string newMap;
 
         // Stats
         public double maxHydration;
@@ -331,6 +332,7 @@ namespace Puddle
                 {
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
+                    newMap = "Content/Level1.tmx";
                 }
                 if (item is Button && Intersects(item))
                 {
