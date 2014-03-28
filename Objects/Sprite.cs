@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Puddle
 {
@@ -21,6 +22,8 @@ namespace Puddle
         public string imageFile;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
+        protected List<string> soundFiles;
+        protected Dictionary<string, SoundEffect> soundList;
 
         public Sprite(int x, int y, int width, int height)
         {
@@ -36,6 +39,8 @@ namespace Puddle
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;
             this.frameIndex = 0;
+            this.soundFiles = new List<string>();
+            this.soundList = new Dictionary<string, SoundEffect>();
         }
 
         // Properties
@@ -84,6 +89,11 @@ namespace Puddle
         public virtual void LoadContent(ContentManager content)
         {
             image = content.Load<Texture2D>(imageFile);
+            foreach (string file in soundFiles)
+            {
+                SoundEffect effect = content.Load<SoundEffect>(file);
+                soundList.Add(file, effect);
+            }
         }
 
         public virtual void Draw(SpriteBatch sb)
