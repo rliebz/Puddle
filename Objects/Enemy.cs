@@ -13,7 +13,7 @@ namespace Puddle
     {
         public bool left;
         public int x_vel;
-        public int y_vel;
+		public double y_vel;
         public int seed;
         public int health;
         Random rnd;
@@ -74,8 +74,10 @@ namespace Puddle
             // Fall if airborne
             if (spriteY < physics.ground)
             {
-                y_vel += physics.gravity;
-                spriteY += y_vel;
+				y_vel += physics.gravity;
+				if (y_vel > physics.maxFallSpeed)
+					y_vel = physics.maxFallSpeed;
+				spriteY += Convert.ToInt32(y_vel);
             }
             else
             {

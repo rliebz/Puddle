@@ -33,7 +33,7 @@ namespace Puddle
         private int x_accel;
         private double friction;
         public double x_vel;
-        public int y_vel;
+		public double y_vel;
 
         // Internal calculations
         private int shotPoint;
@@ -68,7 +68,7 @@ namespace Puddle
             puddleCost = 1.0;
 
             // Movement
-            speed = 6;
+			speed = 5;
             friction = .15;
             x_accel = 0;
             x_vel = 0;
@@ -144,12 +144,14 @@ namespace Puddle
             // Gravity
             if (!grounded)
             {
-                y_vel += physics.gravity;
-                spriteY += y_vel;
+				y_vel += physics.gravity;
+				if (y_vel > physics.maxFallSpeed)
+					y_vel = physics.maxFallSpeed;
+				spriteY += Convert.ToInt32(y_vel);
             }
             else
             {
-                y_vel = 1;
+				y_vel = 1;
             }
         }
 
@@ -214,7 +216,7 @@ namespace Puddle
 
                     // Slight upward boost
                     spriteY -= 1;
-                    y_vel = -9;
+					y_vel = -4.5;
                 }
             }
         }
@@ -225,7 +227,7 @@ namespace Puddle
             if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
             {
                 spriteY -= 1;
-                y_vel = -15;
+				y_vel = -11;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
             }
 
@@ -267,7 +269,7 @@ namespace Puddle
                 if (Intersects(b))
                 {
                     // Up collision
-                    if (topWall - y_vel > b.bottomWall)
+					if (topWall - Convert.ToInt32(y_vel) > b.bottomWall)
                     {
                         while (topWall < b.bottomWall)
                             spriteY++;
@@ -276,7 +278,7 @@ namespace Puddle
 
                     // Down collision
                     if (!grounded &&
-                        (bottomWall - y_vel) < b.topWall)
+						(bottomWall - Convert.ToInt32(y_vel)) < b.topWall)
                     {
                         grounded = true;
                         while (bottomWall > b.topWall)
