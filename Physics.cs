@@ -39,7 +39,7 @@ namespace Puddle
 			if (count % 500 == 0) // Change -1 to 0 to spawn enemies
             {
                 Enemy e = (rnd.NextDouble() > .5) ? 
-					new Enemy(300, 300) : new Enemy (100, 0);
+					new Rat(300, 300) : new Rat (100, 0);
                 e.LoadContent(content);
                 enemies.Add(e);
             }

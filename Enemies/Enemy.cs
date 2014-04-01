@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Puddle
 {
-    class Enemy : Sprite
+	abstract class Enemy : Sprite
     {
 		public double x_vel;
 		public double y_vel;
@@ -17,13 +17,12 @@ namespace Puddle
 		public int speed;
         public int health;
 		public bool grounded;
-        Random rnd;
+		protected Random rnd;
 
         public Enemy(int x, int y)
             : base(x, y, 32, 32)
         {
             this.imageFile = "rat.png";
-			faceLeft = false;
 			speed = 2;
 			x_vel = speed;
             y_vel = 0;
@@ -33,13 +32,15 @@ namespace Puddle
             // Sprite business
             rnd = new Random();
             seed = rnd.Next(0, 3);
-            frameIndex = 0;
         }
 
         public override void Update(Physics physics)
         {
             // Move
             Move(physics);
+
+			// Fall
+			Fall(physics);
 
 			// Maybe jump
 			Jump(physics);
@@ -71,7 +72,10 @@ namespace Puddle
 					}
 				}
 			}
+        }
 
+		public void Fall(Physics physics)
+		{
 			// Fall if airborne
 			if (!grounded)
 			{
@@ -110,7 +114,7 @@ namespace Puddle
 					}
 				}
 			}
-        }
+		}
 
 		public void Jump(Physics physics)
 		{
@@ -120,7 +124,7 @@ namespace Puddle
 			}
 		}
 
-        public void Animate(Physics physics)
+		public virtual void Animate(Physics physics)
         {
             frameIndex = ((physics.count + seed) / 8 % 4) * 32;
         }
