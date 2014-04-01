@@ -33,7 +33,7 @@ namespace Puddle
             {
                 Fireball fireball = new Fireball(this);
                 fireball.LoadContent(content);
-                physics.fireballs.Add(fireball);
+				physics.projectiles.Add((Sprite)fireball);
             }
         }
     }

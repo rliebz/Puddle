@@ -265,7 +265,6 @@ namespace Puddle
             if (controls.onPress(Keys.D, Buttons.RightShoulder))
             {
                 shooting = true;
-                //shotPoint = physics.count;
                 shotPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
             }
             else if (controls.onRelease(Keys.D, Buttons.RightShoulder))
@@ -285,7 +284,7 @@ namespace Puddle
                     string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
                     Shot s = new Shot(this, dir);
                     s.LoadContent(content);
-                    physics.shots.Add(s);
+                    physics.projectiles.Add(s);
                     hydration -= shotCost;
                 }
 
@@ -298,7 +297,7 @@ namespace Puddle
                     jumpPoint = currentTime2;
                     Shot s = new Shot(this, "down");
                     s.LoadContent(content);
-                    physics.shots.Add(s);
+                    physics.projectiles.Add(s);
                     hydration -= jetpackCost;
 
                     // Slight upward boost
