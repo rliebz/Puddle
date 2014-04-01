@@ -380,7 +380,6 @@ namespace Puddle
 
         public void Death()
         {
-            Console.WriteLine("Death");
             spriteX = checkpointXPos;
             spriteY = checkpointYPos;
             y_vel = 0;

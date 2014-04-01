@@ -39,14 +39,14 @@ namespace Puddle
 
             count++;
 
-            // Generate enemies
-			if (count % 500 == 0) // Change -1 to 0 to spawn enemies
-            {
-                Enemy e = (rnd.NextDouble() > .5) ? 
-					new Enemy(300, 300) : new Enemy (100, 0);
-                e.LoadContent(content);
-                enemies.Add(e);
-            }
+            //// Generate enemies
+            //if (count % 500 == 0) // Change -1 to 0 to spawn enemies
+            //{
+            //    Enemy e = (rnd.NextDouble() > .5) ? 
+            //        new Enemy(300, 300) : new Enemy (100, 0);
+            //    e.LoadContent(content);
+            //    enemies.Add(e);
+            //}
 
             // Move shots
             for (int i = shots.Count - 1; i >= 0; i--)

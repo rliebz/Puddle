@@ -42,7 +42,10 @@ namespace Puddle
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 
             // Create built-in objects
-            player1 = new Player(0, 0, 32, 32);
+            player1 = new Player(
+                Convert.ToInt32(map.Properties["startX"]),
+                Convert.ToInt32(map.Properties["startY"]),
+                32, 32);
             physics = new Physics(player1);
             controls = new Controls();
             newMapLoad = true;
@@ -97,7 +100,6 @@ namespace Puddle
             player1.newMap = "";
 			LoadContent();
             newMapLoad = false;
-			Console.WriteLine("BASE!");
         }
 
         protected override void UnloadContent()
