@@ -41,6 +41,7 @@
     <Compile Include="Objects\Enemy.cs" />
     <Compile Include="Objects\Fireball.cs" />
     <Compile Include="Objects\Frog.cs" />
+    <Compile Include="Objects\Pipe.cs" />
     <Compile Include="Objects\PowerUp.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Game1.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Sprite.cs" />
+    <Compile Include="TextField.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FarseerPhysics MonoGame">
@@ -134,11 +136,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Demo.tmx">
+    <None Include="Content\Arial.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Level1.tmx">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Level1.tmx">
+    <None Include="Content\Level2.tmx">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

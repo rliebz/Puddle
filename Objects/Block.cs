@@ -21,7 +21,7 @@ namespace Puddle
         public bool uCol;
 
         public double x_vel;
-        public int y_vel;
+		public double y_vel;
 
         public string blockType;
         public string name;
@@ -135,8 +135,10 @@ namespace Puddle
             // Gravity
             if (gravity)
             {
-                y_vel += physics.gravity;
-                spriteY += y_vel;
+				y_vel += physics.gravity;
+				if (y_vel > physics.maxFallSpeed)
+					y_vel = physics.maxFallSpeed;
+				spriteY += Convert.ToInt32(y_vel);
             }
 
             // Move sideways
@@ -147,8 +149,7 @@ namespace Puddle
                 uBlock.Move(physics);
             }
 
-            // Reset x velocity
-            x_vel = 0;
+			x_vel = 0;
         }
 
         public void CheckCollisions(Physics physics)
@@ -159,6 +160,9 @@ namespace Puddle
             dCol = false;
             uCol = false;
 
+			if (blockType != "push")
+				return;
+
             // Check collisions with other blocks
             foreach (Block b in physics.blocks)
             {
@@ -166,26 +170,34 @@ namespace Puddle
                 {
                     if (Intersects(b))
                     {
-                        // Determine direction
-                        // Downward Collisions
-                        while (bottomWall >= b.topWall &&
-                            Math.Abs(spriteY - b.spriteY) > 16)
-                        {
-                            spriteY--;
-                            y_vel = 0;
-                            dCol = true;
-                        }
+						// Collide with block below
+						if (spriteY < b.spriteY && bottomWall >= b.topWall) 
+						{
+							dCol = true;
+							y_vel = 0;
+							while (bottomWall >= b.topWall)
+								spriteY--;
+						}
 
-                        // Sideways collisions
-                        if (!dCol)
-                        {
-                            if (rightWall >= b.leftWall)
-                                rCol = true;
-                            if (leftWall <= b.rightWall)
-                                lCol = true;
-                        }
+						// Collide with block on right
+						else if (spriteX < b.spriteX && rightWall >= b.leftWall) 
+						{
+							rCol = true;
+							while (Intersects(b))
+								spriteX--;
+							while (Intersects(physics.player))
+								physics.player.spriteX--;
+						}
 
-                        dCol = false;
+						// Collide with block on left
+						else if (spriteX > b.spriteX && leftWall <= b.rightWall) 
+						{
+							lCol = true;
+							while (Intersects(b))
+								spriteX++;
+							while (Intersects(physics.player))
+								physics.player.spriteX++;
+						}
                     }
                 }
             }
