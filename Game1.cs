@@ -96,7 +96,6 @@ namespace Puddle
             player1.newMap = "";
             LoadContent();
             newMapLoad = false;
-            base.Initialize();
         }
 
         protected override void UnloadContent()

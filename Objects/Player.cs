@@ -342,12 +342,17 @@ namespace Puddle
                 {
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
-                   // newMap = "Content/Level2.tmx";
                 }
                 if (item is Button && Intersects(item))
                 {
                     Button but = (Button)item;
                     but.Action(physics);
+                }
+
+                if (item is NextLevel && Intersects(item))
+                {
+                    NextLevel n = (NextLevel)item;
+                    newMap = String.Format("Content/{0}.tmx", n.levelDestination);
                 }
 
                 if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32))
