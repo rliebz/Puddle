@@ -39,7 +39,7 @@ namespace Puddle
             background = Content.Load<Texture2D>("background.png");
 
             // Create built-in objects
-            player1 = new Player(50, 250, 32, 32);
+			player1 = new Player(50, 100, 32, 32);
             physics = new Physics(player1);
             controls = new Controls();
 

@@ -31,31 +31,6 @@ namespace Puddle
             fireballs = new List<Fireball>();
             blocks = new List<Block>();
             items = new List<Sprite>();
-            /*int floor_index = 16;
-            while (floor_index < 700)
-            {
-                blocks.Add(new Block(floor_index, 332, false, false));
-                floor_index += 32;
-            }
-            floor_index = 16;
-            while (floor_index < 900)
-            {
-                blocks.Add(new Block(floor_index, 364, false, false));
-                floor_index += 32;
-            }*/
-
-            /*blocks.Add(new Block(400, 300, true, true));
-            blocks.Add(new Block(400, 268, false, false));
-            blocks.Add(new Block(400, 236, false, false));
-            blocks.Add(new Block(400, 204, false, false));
-
-            blocks.Add(new Block(300, 204, false, false));
-            blocks.Add(new Block(300, 236, false, false));
-            blocks.Add(new Block(300, 268, false, false));
-            blocks.Add(new Block(300, 300, true, true));
-
-            blocks.Add(new Block(564, 300, true, true));
-            blocks.Add(new Block(628, 300, false, true));*/
         }
 
         public void Update(ContentManager content) 
