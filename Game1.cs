@@ -35,14 +35,20 @@ namespace Puddle
 
         protected override void Initialize()
         {
+            map = new TmxMap("Content/Level1.tmx");
+
+            // Read Level Size From Map
+            graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
+            graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 
             // Create built-in objects
-            player1 = new Player(50, 250, 32, 32);
+            player1 = new Player(0, 0, 32, 32);
             physics = new Physics(player1);
             controls = new Controls();
             newMapLoad = true;
             newMapTimer = LOAD_SCREEN_TIME;
             player1.newMap = "Content/Level1.tmx";
+
 
             base.Initialize();            
         }

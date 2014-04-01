@@ -36,6 +36,10 @@ namespace Puddle
         public double x_vel;
 		public double y_vel;
 
+        //Checkpoint positions, defaulted to initial
+        private int checkpointXPos;
+        private int checkpointYPos;
+
         // Internal calculations
         private int shotPoint;
         private int jumpPoint;
@@ -80,6 +84,10 @@ namespace Puddle
             jumpDelay = 282;
             shotPoint = 0;
             jumpPoint = 0;
+
+            //Initial position information
+            checkpointXPos = x;
+            checkpointYPos = y;
 
             // Sprite Information
             frameIndex = 0;
@@ -334,7 +342,7 @@ namespace Puddle
                 {
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
-                    newMap = "Content/Level2.tmx";
+                   // newMap = "Content/Level2.tmx";
                 }
                 if (item is Button && Intersects(item))
                 {
@@ -362,8 +370,9 @@ namespace Puddle
 
         public void Death()
         {
-            spriteX = 50;
-            spriteY = 250;
+            Console.WriteLine("Death");
+            spriteX = checkpointXPos;
+            spriteY = checkpointYPos;
             y_vel = 0;
             puddled = false;
         }
