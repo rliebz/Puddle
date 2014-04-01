@@ -18,7 +18,6 @@ namespace Puddle
 
         public List<Enemy> enemies;
         public List<Shot> shots;
-        public List<Block> blocks;
         public List<Fireball> fireballs;
         public List<Sprite> items;
         public Player player;
@@ -29,7 +28,6 @@ namespace Puddle
             enemies = new List<Enemy>();
             shots = new List<Shot>();
             fireballs = new List<Fireball>();
-            blocks = new List<Block>();
             items = new List<Sprite>();
         }
 
@@ -49,19 +47,20 @@ namespace Puddle
             }
 
             // Move shots
-            for (int i = shots.Count - 1; i >= 0; i--)
-            {
-                shots[i].Update(this);
-                if (shots[i].offScreen)
-                    shots.RemoveAt(i);
-            }
+			foreach (Shot s in shots)
+				s.Update(this);
 
-            for (int i = fireballs.Count - 1; i >= 0; i--)
-            {
-                fireballs[i].Update(this);
-                if (fireballs[i].offScreen)
-                    fireballs.RemoveAt(i);
-            }
+			foreach (Fireball f in fireballs)
+				f.Update(this);
+
+			foreach (Enemy e in enemies)
+				e.Update(this);
+
+			foreach (Sprite s in items)
+			{
+				s.Update(this);
+				s.Update(this, content);
+			}
 
             // DESTROY
             enemies.RemoveAll(enemy => enemy.destroyed);
