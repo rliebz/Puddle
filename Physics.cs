@@ -12,7 +12,8 @@ namespace Puddle
     class Physics
     {
         public int ground = 900;
-        public int gravity = 1;
+		public double gravity = .5;
+		public int maxFallSpeed = 10;
         public int count = 0;
 
         public List<Enemy> enemies;
