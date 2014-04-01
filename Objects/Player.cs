@@ -18,6 +18,7 @@ namespace Puddle
         public bool shooting;
         public bool pushing;
         public Dictionary<string, bool> powerup;
+        public string newMap;
 
         // Stats
         public double maxHydration;
@@ -34,6 +35,10 @@ namespace Puddle
         private double friction;
         public double x_vel;
 		public double y_vel;
+
+        //Checkpoint positions, defaulted to initial
+        private int checkpointXPos;
+        private int checkpointYPos;
 
         // Internal calculations
         private int shotPoint;
@@ -79,6 +84,10 @@ namespace Puddle
             jumpDelay = 282;
             shotPoint = 0;
             jumpPoint = 0;
+
+            //Initial position information
+            checkpointXPos = x;
+            checkpointYPos = y;
 
             // Sprite Information
             frameIndex = 0;
@@ -337,12 +346,24 @@ namespace Puddle
                 {
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
+                   // newMap = "Content/Level2.tmx";
                 }
 				// Press buttons
                 if (item is Button && Intersects(item))
                 {
                     Button but = (Button)item;
                     but.Action(physics);
+                }
+
+                if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32))
+                {
+                    Pipe p = (Pipe)item;
+                    if (p.direction == "down")
+                    {
+                        p.Action(physics);
+                        //Death ();
+                    }
+
                 }
             }
         }
@@ -354,8 +375,9 @@ namespace Puddle
 
         public void Death()
         {
-            spriteX = 50;
-            spriteY = 250;
+            Console.WriteLine("Death");
+            spriteX = checkpointXPos;
+            spriteY = checkpointYPos;
             y_vel = 0;
             puddled = false;
         }
