@@ -18,6 +18,7 @@ namespace Puddle
         public int frameIndex;
         public bool destroyed;
         public bool faceLeft;
+		public bool isSolid;
         public string imageFile;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
@@ -36,6 +37,7 @@ namespace Puddle
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;
             this.frameIndex = 0;
+			this.isSolid = false;
         }
 
         // Properties
