@@ -35,7 +35,9 @@ namespace Puddle
             this.pushLeft = left;
             this.pushRight = right;
             this.gravity = gravity;
-       
+       		
+			this.isSolid = true;
+
             this.rCol = false;
             this.lCol = false;
             this.dCol = false;

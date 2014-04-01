@@ -138,46 +138,46 @@ namespace Puddle
 			pushing = false;
 
 			// Check left/right collisions
-			foreach (Block b in physics.blocks)
+			foreach (Block s in physics.blocks)
 			{
-				if (Intersects(b))
+				if (Intersects(s))
 				{
 					// Collision with right block
-					if (bottomWall > b.topWall &&
-						rightWall - Convert.ToInt32(x_vel) < b.leftWall &&
+					if (bottomWall > s.topWall &&
+						rightWall - Convert.ToInt32(x_vel) < s.leftWall &&
 						x_vel > 0)
 					{
 						// Push
-						if (b.blockType == "push" && b.pushRight && !b.rCol)
+						if (s.blockType == "push" && s.pushRight && !s.rCol)
 						{
-							b.x_vel = x_vel;
+							s.x_vel = x_vel;
 							pushing = true;
 						}
 
 						// Hit the wall
 						else
 						{
-							while (rightWall >= b.leftWall)
+							while (rightWall >= s.leftWall)
 								spriteX--;
 						}
 					}
 
 					// Push to the left
-					else if (bottomWall > b.topWall &&
-						leftWall - Convert.ToInt32(x_vel) > b.rightWall &&
+					else if (bottomWall > s.topWall &&
+						leftWall - Convert.ToInt32(x_vel) > s.rightWall &&
 						x_vel < 0)
 					{
 						// Push
-						if (b.blockType == "push" && b.pushLeft && !b.lCol)
+						if (s.blockType == "push" && s.pushLeft && !s.lCol)
 						{
-							b.x_vel = x_vel;
+							s.x_vel = x_vel;
 							pushing = true;
 						}
 
 						// Hit the wall
 						else
 						{
-							while (leftWall <= b.rightWall)
+							while (leftWall <= s.rightWall)
 								spriteX++;
 						}
 					}
@@ -200,24 +200,24 @@ namespace Puddle
 			grounded = false;
 
 			// Check up/down collisions
-			foreach (Block b in physics.blocks)
+			foreach (Sprite s in physics.blocks)
 			{
-				if (Intersects(b))
+				if (Intersects(s))
 				{
 					// Up collision
-					if (topWall - Convert.ToInt32(y_vel) > b.bottomWall)
+					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
 					{
 						y_vel = 0;
-						while (topWall < b.bottomWall)
+						while (topWall < s.bottomWall)
 							spriteY++;
 					}
 
 					// Down collision
 					else if (!grounded &&
-						(bottomWall - Convert.ToInt32(y_vel)) < b.topWall)
+						(bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
 					{
 						grounded = true;
-						while (bottomWall > b.topWall)
+						while (bottomWall > s.topWall)
 							spriteY--;
 					}
 				}

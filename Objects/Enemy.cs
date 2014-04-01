@@ -61,7 +61,7 @@ namespace Puddle
 			{
 				if (Intersects(b))
 				{
-					// Collide with block on side
+					// Collide with block on side, turn around
 					if (bottomWall > b.topWall &&
 						(rightWall - Convert.ToInt32(x_vel) < b.leftWall && x_vel > 0 ||
 							leftWall - Convert.ToInt32(x_vel) > b.rightWall && x_vel < 0))
