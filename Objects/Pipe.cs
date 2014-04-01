@@ -14,8 +14,6 @@ namespace Puddle
     {
         //		public bool activating;
         //		public bool activated;
-        public string name;
-
         public string direction;
 
 

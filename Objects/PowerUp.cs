@@ -12,9 +12,6 @@ namespace Puddle
 {
     class PowerUp : Sprite
     {
-
-        public string name;
-
         public PowerUp(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {

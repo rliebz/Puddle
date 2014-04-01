@@ -24,7 +24,7 @@ namespace Puddle
         Texture2D background;
         bool newMapLoad;
         float newMapTimer;
-        const float LOAD_SCREEN_TIME = 3.0f;
+		const float LOAD_SCREEN_TIME = 1.0f;
 
         public Game1()
             : base()
@@ -42,7 +42,12 @@ namespace Puddle
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 
             // Create built-in objects
-            player1 = new Player(0, 0, 32, 32);
+			player1 = new Player(
+				Convert.ToInt32(map.Properties["startX"]), 
+				Convert.ToInt32(map.Properties["startY"]),
+				32, 
+				32
+			);
             physics = new Physics(player1);
             controls = new Controls();
             newMapLoad = true;
@@ -59,8 +64,8 @@ namespace Puddle
             // TODO: Load all content in level class
             player1.LoadContent(this.Content);
 
-            foreach (Block b in physics.blocks)
-                b.LoadContent(this.Content);
+//            foreach (Block b in physics.items)
+//                b.LoadContent(this.Content);
             foreach (Sprite item in physics.items)
                 item.LoadContent(this.Content);
         }
@@ -87,9 +92,9 @@ namespace Puddle
                 {
                     Type t = Type.GetType(obj.Type);
                     object item = Activator.CreateInstance(t, obj);
-                    if (item is Block)
-                        physics.blocks.Add((Block)item);
-                    else
+//                    if (item is Block)
+//                        physics.items.Add((Block)item);
+//                    else
                         physics.items.Add((Sprite)item);
                 }
             }
@@ -97,7 +102,6 @@ namespace Puddle
             player1.newMap = "";
 			LoadContent();
             newMapLoad = false;
-			Console.WriteLine("BASE!");
         }
 
         protected override void UnloadContent()
@@ -120,17 +124,6 @@ namespace Puddle
             }
             physics.Update(this.Content);
 
-            foreach (Block b in physics.blocks)
-                b.Update(physics);
-
-            foreach (Enemy e in physics.enemies)
-                e.Update(physics);
-
-            foreach (Sprite s in physics.items)
-            {
-                s.Update(physics);
-                s.Update(physics, this.Content);
-            }
             
             base.Update(gameTime);
         }
@@ -179,8 +172,6 @@ namespace Puddle
                     e.Draw(spriteBatch);
                 foreach (Shot s in physics.shots)
                     s.Draw(spriteBatch);
-                foreach (Block b in physics.blocks)
-                    b.Draw(spriteBatch);
                 foreach (Sprite item in physics.items)
                     item.Draw(spriteBatch);
                 foreach (Fireball f in physics.fireballs)

@@ -147,9 +147,9 @@ namespace Puddle
 			pushing = false;
 
 			// Check left/right collisions
-			foreach (Block s in physics.blocks)
+			foreach (Sprite s in physics.items)
 			{
-				if (Intersects(s))
+				if (s.isSolid && Intersects(s))
 				{
 					// Collision with right block
 					if (bottomWall > s.topWall &&
@@ -157,9 +157,10 @@ namespace Puddle
 						x_vel > 0)
 					{
 						// Push
-						if (s.blockType == "push" && s.pushRight && !s.rCol)
+						if (s is Block && ((Block)s).blockType == "push" && 
+							((Block)s).pushRight && !((Block)s).rCol)
 						{
-							s.x_vel = x_vel;
+							((Block)s).x_vel = x_vel;
 							pushing = true;
 						}
 
@@ -177,9 +178,10 @@ namespace Puddle
 						x_vel < 0)
 					{
 						// Push
-						if (s.blockType == "push" && s.pushLeft && !s.lCol)
+						if (s is Block && ((Block)s).blockType == "push" && 
+							((Block)s).pushLeft && !((Block)s).lCol)
 						{
-							s.x_vel = x_vel;
+							((Block)s).x_vel = x_vel;
 							pushing = true;
 						}
 
@@ -209,9 +211,9 @@ namespace Puddle
 			grounded = false;
 
 			// Check up/down collisions
-			foreach (Sprite s in physics.blocks)
+			foreach (Sprite s in physics.items)
 			{
-				if (Intersects(s))
+				if (s.isSolid && Intersects(s))
 				{
 					// Up collision
 					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
@@ -375,7 +377,6 @@ namespace Puddle
 
         public void Death()
         {
-            Console.WriteLine("Death");
             spriteX = checkpointXPos;
             spriteY = checkpointYPos;
             y_vel = 0;

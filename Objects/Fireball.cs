@@ -16,7 +16,7 @@ namespace Puddle
         public int seed;
 
         public Fireball(Cannon c, string dir = "none")
-            : base(c.spriteX + 16, c.spriteY - 16, 32, 32)
+			: base(c.spriteX + 32, c.spriteY - 16, 32, 32)
         {
             this.imageFile = "fireball.png";
             
@@ -63,11 +63,14 @@ namespace Puddle
             }
 
             // check collisions with blocks
-            foreach (Block b in physics.blocks)
+			foreach (Sprite s in physics.items)
             {
-                if (Intersects(b))
+				if (s.isSolid && Intersects(s))
                     destroyed = true;
             }
+
+			if (offScreen)
+				destroyed = true;
         }
 
         public void Animate(Physics physics)

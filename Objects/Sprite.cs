@@ -20,6 +20,7 @@ namespace Puddle
         public bool faceLeft;
 		public bool isSolid;
         public string imageFile;
+		public string name;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
 
