@@ -49,7 +49,6 @@ namespace Puddle
             newMapTimer = LOAD_SCREEN_TIME;
             player1.newMap = "Content/Level1.tmx";
 
-
             base.Initialize();            
         }
 
@@ -78,6 +77,7 @@ namespace Puddle
             player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
             player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
 
+
             // Create map objects
             physics = new Physics(player1);
 
@@ -93,9 +93,11 @@ namespace Puddle
                         physics.items.Add((Sprite)item);
                 }
             }
+
             player1.newMap = "";
-            LoadContent();
+			LoadContent();
             newMapLoad = false;
+			Console.WriteLine("BASE!");
         }
 
         protected override void UnloadContent()

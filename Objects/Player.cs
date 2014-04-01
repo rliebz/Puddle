@@ -144,11 +144,54 @@ namespace Puddle
                 + (frozen ? 0 : x_accel * .10);
             spriteX += Convert.ToInt32(x_vel);
 
-            // Determine direction
-            if (x_vel > 0.1)
-                faceLeft = false;
-            else if (x_vel < -0.1)
-                faceLeft = true;
+			pushing = false;
+
+			// Check left/right collisions
+			foreach (Block s in physics.blocks)
+			{
+				if (Intersects(s))
+				{
+					// Collision with right block
+					if (bottomWall > s.topWall &&
+						rightWall - Convert.ToInt32(x_vel) < s.leftWall &&
+						x_vel > 0)
+					{
+						// Push
+						if (s.blockType == "push" && s.pushRight && !s.rCol)
+						{
+							s.x_vel = x_vel;
+							pushing = true;
+						}
+
+						// Hit the wall
+						else
+						{
+							while (rightWall >= s.leftWall)
+								spriteX--;
+						}
+					}
+
+					// Push to the left
+					else if (bottomWall > s.topWall &&
+						leftWall - Convert.ToInt32(x_vel) > s.rightWall &&
+						x_vel < 0)
+					{
+						// Push
+						if (s.blockType == "push" && s.pushLeft && !s.lCol)
+						{
+							s.x_vel = x_vel;
+							pushing = true;
+						}
+
+						// Hit the wall
+						else
+						{
+							while (leftWall <= s.rightWall)
+								spriteX++;
+						}
+					}
+				}
+			}
 
             // Gravity
             if (!grounded)
@@ -162,6 +205,39 @@ namespace Puddle
             {
 				y_vel = 1;
             }
+
+			grounded = false;
+
+			// Check up/down collisions
+			foreach (Sprite s in physics.blocks)
+			{
+				if (Intersects(s))
+				{
+					// Up collision
+					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
+					{
+						y_vel = 0;
+						while (topWall < s.bottomWall)
+							spriteY++;
+					}
+
+					// Down collision
+					else if (!grounded &&
+						(bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
+					{
+						grounded = true;
+						while (bottomWall > s.topWall)
+							spriteY--;
+					}
+				}
+			}
+				
+			// Determine direction
+			if (x_vel > 0.1)
+				faceLeft = false;
+			else if (x_vel < -0.1)
+				faceLeft = true;
+
         }
 
         private void Puddle(Controls controls)
@@ -235,9 +311,9 @@ namespace Puddle
             // Jump on button press
             if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
             {
-                spriteY -= 1;
 				y_vel = -11;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+				grounded = false;
             }
 
             // Cut jump short on button release
@@ -249,8 +325,6 @@ namespace Puddle
 
         private void CheckCollisions(Physics physics)
         {
-            pushing = false;
-            grounded = false;
 
             // Check enemy collisions
             if (!invulnerable)
@@ -264,85 +338,16 @@ namespace Puddle
                 }
             }
 
-            // Reached ground (temporary solution for no floor)
-            if (spriteY >= physics.ground)
-            {
-                grounded = true;
-                spriteY = physics.ground;
-            }
-
-
-            // Check solid collisions
-            foreach (Block b in physics.blocks)
-            {
-                if (Intersects(b))
-                {
-                    // Up collision
-					if (topWall - Convert.ToInt32(y_vel) > b.bottomWall)
-                    {
-                        while (topWall < b.bottomWall)
-                            spriteY++;
-                        y_vel = 0;
-                    }
-
-                    // Down collision
-                    if (!grounded &&
-						(bottomWall - Convert.ToInt32(y_vel)) < b.topWall)
-                    {
-                        grounded = true;
-                        while (bottomWall > b.topWall)
-                            spriteY--;
-                    }
-
-                    // Collision with right block
-                    else if (bottomWall > b.topWall &&
-                        rightWall - Convert.ToInt32(x_vel) < b.leftWall &&
-                        x_vel > 0)
-                    {
-                        // Push
-                        if (b.pushRight && !b.rCol)
-                        {
-                            b.x_vel = x_vel;
-                            pushing = true;
-                        }
-
-                        // Hit the wall
-                        else
-                        {
-                            while (rightWall >= b.leftWall)
-                                spriteX--;
-                        }
-                    }
-
-                    // Push to the left
-                    else if (bottomWall > b.topWall &&
-                        leftWall - Convert.ToInt32(x_vel) > b.rightWall &&
-                        x_vel < 0)
-                    {
-                        // Push
-                        if (b.pushLeft && !b.lCol)
-                        {
-                            b.x_vel = x_vel;
-                            pushing = true;
-                        }
-
-                        // Hit the wall
-                        else
-                        {
-                            while (leftWall <= b.rightWall)
-                                spriteX++;
-                        }
-                    }
-                }
-            }
-
+			// Check misc. collisions
             foreach (Sprite item in physics.items)
             {
+				// Pick up powerups 
                 if (item is PowerUp && Intersects(item))
                 {
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
                 }
+				// Press buttons
                 if (item is Button && Intersects(item))
                 {
                     Button but = (Button)item;
