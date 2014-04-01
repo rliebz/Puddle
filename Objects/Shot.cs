@@ -47,11 +47,14 @@ namespace Puddle
             }
 
             // check collisions with blocks
-            foreach (Block b in physics.blocks)
+			foreach (Sprite s in physics.items)
             {
-                if (Intersects(b))
+				if (s.isSolid && Intersects(s))
                     destroyed = true;
             }
+
+			if (offScreen)
+				destroyed = true;
         }
 
         public void Move()

@@ -24,7 +24,6 @@ namespace Puddle
 		public double y_vel;
 
         public string blockType;
-        public string name;
 
         private Block uBlock;
 
@@ -74,6 +73,8 @@ namespace Puddle
 
             this.blockType = "push";
             this.name = obj.Name;
+
+			this.isSolid = true;
 
             this.rCol = false;
             this.lCol = false;
@@ -166,53 +167,50 @@ namespace Puddle
 				return;
 
             // Check collisions with other blocks
-            foreach (Block b in physics.blocks)
+			foreach (Sprite s in physics.items)
             {
-                if (this != b)
+				if (this != s && s.isSolid && Intersects(s))
                 {
-                    if (Intersects(b))
-                    {
-						// Collide with block below
-						if (spriteY < b.spriteY && bottomWall >= b.topWall) 
-						{
-							dCol = true;
-							y_vel = 0;
-							while (bottomWall >= b.topWall)
-								spriteY--;
-						}
+					// Collide with block below
+					if (spriteY < s.spriteY && bottomWall >= s.topWall) 
+					{
+						dCol = true;
+						y_vel = 0;
+						while (bottomWall >= s.topWall)
+							spriteY--;
+					}
 
-						// Collide with block on right
-						else if (spriteX < b.spriteX && rightWall >= b.leftWall) 
-						{
-							rCol = true;
-							while (Intersects(b))
-								spriteX--;
-							while (Intersects(physics.player))
-								physics.player.spriteX--;
-						}
+					// Collide with block on right
+					else if (spriteX < s.spriteX && rightWall >= s.leftWall) 
+					{
+						rCol = true;
+						while (Intersects(s))
+							spriteX--;
+						while (Intersects(physics.player))
+							physics.player.spriteX--;
+					}
 
-						// Collide with block on left
-						else if (spriteX > b.spriteX && leftWall <= b.rightWall) 
-						{
-							lCol = true;
-							while (Intersects(b))
-								spriteX++;
-							while (Intersects(physics.player))
-								physics.player.spriteX++;
-						}
-                    }
+					// Collide with block on left
+					else if (spriteX > s.spriteX && leftWall <= s.rightWall) 
+					{
+						lCol = true;
+						while (Intersects(s))
+							spriteX++;
+						while (Intersects(physics.player))
+							physics.player.spriteX++;
+					}
                 }
             }
         }
 
-        public new void LoadContent(ContentManager content)
+		public override void LoadContent(ContentManager content)
         {
             images["push"] = content.Load<Texture2D>("push_block.png");
             images["metal"] = content.Load<Texture2D>("brick.png");
             image = images[this.blockType];
         }
 
-        public new void Draw(SpriteBatch sb)
+		public override void Draw(SpriteBatch sb)
         {
             sb.Draw(
                 image,

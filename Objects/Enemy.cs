@@ -57,14 +57,14 @@ namespace Puddle
 			// Move horizontally
 			spriteX += Convert.ToInt32(x_vel);
 
-			foreach (Block b in physics.blocks)
+			foreach (Sprite s in physics.items)
 			{
-				if (Intersects(b))
+				if (s.isSolid && Intersects(s))
 				{
 					// Collide with block on side, turn around
-					if (bottomWall > b.topWall &&
-						(rightWall - Convert.ToInt32(x_vel) < b.leftWall && x_vel > 0 ||
-							leftWall - Convert.ToInt32(x_vel) > b.rightWall && x_vel < 0))
+					if (bottomWall > s.topWall &&
+						(rightWall - Convert.ToInt32(x_vel) < s.leftWall && x_vel > 0 ||
+							leftWall - Convert.ToInt32(x_vel) > s.rightWall && x_vel < 0))
 					{
 						x_vel = - x_vel;
 						faceLeft = !faceLeft;
@@ -88,24 +88,24 @@ namespace Puddle
 			grounded = false;
 
 			// Downward collisions
-			foreach (Block b in physics.blocks)
+			foreach (Sprite s in physics.items)
 			{
-				if (Intersects(b))
+				if (Intersects(s))
 				{
 					// Up collision
-					if (topWall - Convert.ToInt32(y_vel) > b.bottomWall)
+					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
 					{
 						y_vel = 0;
-						while (topWall < b.bottomWall)
+						while (topWall < s.bottomWall)
 							spriteY++;
 					}
 
 					// Down collision
 					else if (!grounded &&
-						(bottomWall - Convert.ToInt32(y_vel)) < b.topWall)
+						(bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
 					{
 						grounded = true;
-						while (bottomWall > b.topWall)
+						while (bottomWall > s.topWall)
 							spriteY--;
 					}
 				}
