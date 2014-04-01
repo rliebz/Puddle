@@ -40,10 +40,10 @@ namespace Puddle
             count++;
 
             // Generate enemies
-            if (count % 100 == -1) // Change -1 to 0 to spawn enemies
+			if (count % 500 == 0) // Change -1 to 0 to spawn enemies
             {
                 Enemy e = (rnd.NextDouble() > .5) ? 
-                    new Enemy(900, 300) : new Enemy (-32, 300);
+					new Enemy(300, 300) : new Enemy (100, 0);
                 e.LoadContent(content);
                 enemies.Add(e);
             }

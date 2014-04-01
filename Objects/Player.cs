@@ -142,7 +142,6 @@ namespace Puddle
 			{
 				if (Intersects(b))
 				{
-
 					// Collision with right block
 					if (bottomWall > b.topWall &&
 						rightWall - Convert.ToInt32(x_vel) < b.leftWall &&
@@ -201,7 +200,7 @@ namespace Puddle
 			grounded = false;
 
 			// Check up/down collisions
-			foreach (Sprite b in physics.blocks)
+			foreach (Block b in physics.blocks)
 			{
 				if (Intersects(b))
 				{
