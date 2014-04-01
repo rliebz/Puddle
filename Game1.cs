@@ -123,7 +123,6 @@ namespace Puddle
                 newMapLoad = true;
             }
             physics.Update(this.Content);
-
             
             base.Update(gameTime);
         }
@@ -170,12 +169,10 @@ namespace Puddle
                 // TODO: Level.Draw() should cover all this
                 foreach (Enemy e in physics.enemies)
                     e.Draw(spriteBatch);
-                foreach (Shot s in physics.shots)
+				foreach (Sprite s in physics.projectiles)
                     s.Draw(spriteBatch);
                 foreach (Sprite item in physics.items)
                     item.Draw(spriteBatch);
-                foreach (Fireball f in physics.fireballs)
-                    f.Draw(spriteBatch);
                 player1.Draw(spriteBatch);
             }
             spriteBatch.End();

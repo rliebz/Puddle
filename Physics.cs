@@ -17,8 +17,7 @@ namespace Puddle
         public int count = 0;
 
         public List<Enemy> enemies;
-        public List<Shot> shots;
-        public List<Fireball> fireballs;
+		public List<Sprite> projectiles;
         public List<Sprite> items;
         public Player player;
 
@@ -26,8 +25,7 @@ namespace Puddle
         {
             player = p;
             enemies = new List<Enemy>();
-            shots = new List<Shot>();
-            fireballs = new List<Fireball>();
+			projectiles = new List<Sprite>();
             items = new List<Sprite>();
         }
 
@@ -47,11 +45,8 @@ namespace Puddle
             }
 
             // Move shots
-			foreach (Shot s in shots)
+			foreach (Sprite s in projectiles)
 				s.Update(this);
-
-			foreach (Fireball f in fireballs)
-				f.Update(this);
 
 			foreach (Enemy e in enemies)
 				e.Update(this);
@@ -64,12 +59,9 @@ namespace Puddle
 
             // DESTROY
             enemies.RemoveAll(enemy => enemy.destroyed);
-            shots.RemoveAll(shot => shot.destroyed);
+            projectiles.RemoveAll(shot => shot.destroyed);
             items.RemoveAll(item => item.destroyed);
-            fireballs.RemoveAll(fireball => fireball.destroyed);
         }
-
-
 
     }
 }
