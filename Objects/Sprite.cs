@@ -91,8 +91,11 @@ namespace Puddle
             image = content.Load<Texture2D>(imageFile);
             foreach (string file in soundFiles)
             {
-                SoundEffect effect = content.Load<SoundEffect>(file);
-                soundList.Add(file, effect);
+                if (!soundList.ContainsKey(file))
+                {
+                    SoundEffect effect = content.Load<SoundEffect>(file);
+                    soundList.Add(file, effect);
+                }               
             }
         }
 

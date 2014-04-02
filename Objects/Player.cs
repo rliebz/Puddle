@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Puddle
 {
@@ -45,6 +46,8 @@ namespace Puddle
         private int jumpPoint;
         private int jumpDelay;
         private int shotDelay;
+        Random rand;
+        int index;
 
         // TODO: Move this
 
@@ -56,7 +59,6 @@ namespace Puddle
             // Properties
             powerup["puddle"] = true;
             powerup["jetpack"] = false;
-            powerup["chargedshot"] = true;
             moving = false;
             grounded = false;
             puddled = false;
@@ -85,6 +87,8 @@ namespace Puddle
             jumpDelay = 282;
             shotPoint = 0;
             jumpPoint = 0;
+            rand = new Random();
+            index = 0;
 
             //Initial position information
             checkpointXPos = x;
@@ -92,6 +96,14 @@ namespace Puddle
 
             // Sprite Information
             frameIndex = 0;
+
+            //Sounds
+            soundFiles.Add("Jump.wav");
+            soundFiles.Add("Shot1.wav");
+            soundFiles.Add("Shot2.wav");
+            soundFiles.Add("Shot3.wav");
+            soundFiles.Add("Shot4.wav");
+            soundFiles.Add("Powerup.wav");
         }
 
         // Property determining if the character can act
@@ -184,6 +196,7 @@ namespace Puddle
 
         private void Shoot(Controls controls, Physics physics, ContentManager content, GameTime gameTime)
         {
+            index = rand.Next(4);
             // New shots
             if (controls.onPress(Keys.D, Buttons.RightShoulder))
             {
@@ -207,6 +220,22 @@ namespace Puddle
                     shotPoint = currentTime1;
                     string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
                     Shot s = new Shot(this, dir);
+                    if(index==0) 
+                    {
+                        soundList["Shot1.wav"].Play();
+                    }
+                    else if (index == 1)
+                    {
+                        soundList["Shot2.wav"].Play();
+                    }
+                    else if (index == 2)
+                    {
+                        soundList["Shot3.wav"].Play();
+                    }
+                    else
+                    {
+                        soundList["Shot4.wav"].Play();
+                    }
                     s.LoadContent(content);
                     physics.shots.Add(s);
                     hydration -= shotCost;
@@ -220,6 +249,22 @@ namespace Puddle
                     // New shot
                     jumpPoint = currentTime2;
                     Shot s = new Shot(this, "down");
+                    if (index == 0)
+                    {
+                        soundList["Shot1.wav"].Play();
+                    }
+                    else if (index == 1)
+                    {
+                        soundList["Shot2.wav"].Play();
+                    }
+                    else if (index == 2)
+                    {
+                        soundList["Shot3.wav"].Play();
+                    }
+                    else
+                    {
+                        soundList["Shot4.wav"].Play();
+                    }
                     s.LoadContent(content);
                     physics.shots.Add(s);
                     hydration -= jetpackCost;
@@ -239,10 +284,12 @@ namespace Puddle
                if((powerup["jetpack"]==false && !controls.isHeld(Keys.S, Buttons.A))
                    || (powerup["jetpack"] == true && hydration >= jetpackCost && !controls.isHeld(Keys.S, Buttons.A)))
                {
-                           
-                spriteY -= 1;
-				y_vel = -11;
-                jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                   SoundEffectInstance instance = soundList["Jump.wav"].CreateInstance();
+                   instance.Volume = 0.2f;
+                   instance.Play();           
+                   spriteY -= 1;
+				   y_vel = -11;
+                   jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                }
             }
 
@@ -348,6 +395,9 @@ namespace Puddle
                 {
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
+                    SoundEffectInstance instance = soundList["Powerup.wav"].CreateInstance();
+                    instance.Volume = 0.4f;
+                    instance.Play();
                    // newMap = "Content/Level2.tmx";
                 }
                 if (item is Button && Intersects(item))
@@ -457,6 +507,14 @@ namespace Puddle
             images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
             images["block"] = content.Load<Texture2D>("blank.png");
             image = images["stand"];
+            foreach (string file in soundFiles)
+            {
+                if (!soundList.ContainsKey(file))
+                {
+                    SoundEffect effect = content.Load<SoundEffect>(file);
+                    soundList.Add(file, effect);
+                }
+            }
         }
 
         public new void Draw(SpriteBatch sb)
