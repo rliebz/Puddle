@@ -12,84 +12,151 @@ namespace Puddle
 {
     class Pipe : Sprite
     {
-        //		public bool activating;
-        //		public bool activated;
+
+        public string name;
+
         public string direction;
 
 
-        // TODO: add in function passing for individual button actions
+
         public Pipe(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
             imageFile = "pipe.png";
+			isSolid = true;
 
             name = obj.Name;
             collisionWidth = 32;
-            collisionHeight = 24;
-            //this.direction ="down";
-            if (obj.Properties["direction"].Equals("down"))
+			collisionHeight = 32;
+			this.direction = obj.Properties.ContainsKey ("direction") ?
+				(obj.Properties ["direction"]) : "up";
+
+			if (this.direction == "up")
             {
-                this.direction = "down";
+
+				frameIndex = 0;
+			
             }
-            else if (obj.Properties["direction"].Equals("up"))
+			else if (this.direction == "down")
             {
-                this.direction = "up";
-                //faceLeft = false;
-                //spriteX += 9;
+
+				frameIndex = 32;
+                
             }
-            else if (obj.Properties["direction"].Equals("cornerLeft"))
+			else if (this.direction == "vertical") {
+
+				frameIndex = 32*2;
+
+			}
+			else if (this.direction == "horizontal")
+			{
+
+				frameIndex = 32*3;
+			}
+
+			else if (this.direction == "cornerLeft")
             {
-                this.direction = "cornerLeft";
-                frameIndex = 0;
-                //frameIndexY = 32;
+                
+				frameIndex = 32*4;
+
             }
-            else if (obj.Properties["direction"].Equals("cornerRight"))
+			else if (this.direction == "cornerLeftR")
+			{
+			
+				frameIndex = 32*5;
+
+			}
+			else if (this.direction == "cornerRightR")
+			{
+
+				frameIndex = 32*6;
+			}
+
+			else if (this.direction == "cornerRight")
             {
-                this.direction = "cornerRight";
-                frameIndex = 0;
-                //frameIndexY = 32;
+                
+				frameIndex = 32*7;
             }
-            else if (obj.Properties["direction"].Equals("horizontal"))
-            {
-                this.direction = "horizontal";
-                frameIndex = 96;
-            }
+           
+
+			else if (obj.Properties["direction"].Equals("end"))
+			{
+				this.direction = "end";
+				frameIndex = 0;
+
+			}
+
 
         }
 
-        public void Action(Level level)
+
+		public void Action(Level level)
         {
 
-            if (this.name == "Pipe1")
+			if (this is Pipe )
             {
                 int x = 0;
                 int y = 0;
-                foreach (Sprite i in level.items)
-                {
-                    if (i is Pipe)
-                    {
-                        Pipe p = (Pipe)i;
-                        if (p.name == "Pipe2")
-                        {
-                            x = p.spriteX;
-                            y = p.spriteY;
-                        }
-                    }
-                }
+				String pipeName = this.name.Remove(this.name.Length-1); 
+				if(this.name.EndsWith("1")){
+					foreach (Sprite i in level.items)
+	                {
+	                    if (i is Pipe)
+	                    {
 
-                Transport(level, x, y);
+	                        Pipe p = (Pipe)i;
+							if (p.name == pipeName.Insert(pipeName.Length,"2"))
+	                        {
+	                            x = p.spriteX;
+	                            y = p.spriteY;
+								Transport(level, x, y);
+	                        }
+	                    }
+	                }
+				}
+				else if(this.name.EndsWith("2")){
+					foreach (Sprite i in level.items)
+					{
+						if (i is Pipe)
+						{
+
+							Pipe p = (Pipe)i;
+							if (p.name == pipeName.Insert(pipeName.Length,"1"))
+							{
+								x = p.spriteX;
+								y = p.spriteY;
+								Transport(level, x, y);
+							}
+						}
+					}
+				}
             }
 
-            //if (this.end) 
+
 
 
         }
         public void Transport(Level level, int x, int y)
         {
             level.player.spriteX = x;
-            level.player.spriteY = y - level.player.spriteHeight;
+			level.player.spriteY = y - level.player.collisionHeight;
 
         }
-        //		
+		public override void Draw(SpriteBatch sb)
+		{
+
+			sb.Draw(
+				image,
+				new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
+				new Rectangle(frameIndex, 0, frameWidth, frameHeight),
+				name.Contains("endPipe")?Color.Gold: Color.White,
+				0,
+				new Vector2(spriteWidth / 2, spriteHeight / 2),
+				faceLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
+				0
+			);
+		}
+
+        	
     }
 }
