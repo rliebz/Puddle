@@ -118,28 +118,28 @@ namespace Puddle
             get { return (puddled && frameIndex == 5 * 32); }
         }
 
-        public void Update(Controls controls, Physics physics, 
+        public void Update(Controls controls, Level level, 
             ContentManager content, GameTime gameTime)
         {
             if (hydration + hydrationRegen <= maxHydration)
                 hydration += hydrationRegen;
 
-            Move(controls, physics);
+            Move(controls, level);
 
             Puddle(controls);
 
-            Shoot(controls, physics, content ,gameTime);
+            Shoot(controls, level, content ,gameTime);
 
-            Jump(controls, physics, gameTime);
+            Jump(controls, level, gameTime);
 
-            CheckCollisions(physics);
+            CheckCollisions(level);
 
-            HandleCollisions(physics);
+            HandleCollisions(level);
 
-            Animate(controls, physics, gameTime);
+            Animate(controls, level, gameTime);
         }
 
-        private void Move(Controls controls, Physics physics)
+        private void Move(Controls controls, Level level)
         {
             // Sideways Acceleration
             if (controls.onPress(Keys.Right, Buttons.DPadRight))
@@ -157,24 +157,102 @@ namespace Puddle
                 + (frozen ? 0 : x_accel * .10);
             spriteX += Convert.ToInt32(x_vel);
 
-            // Determine direction
-            if (x_vel > 0.1)
-                faceLeft = false;
-            else if (x_vel < -0.1)
-                faceLeft = true;
+			pushing = false;
+
+			// Check left/right collisions
+			foreach (Sprite s in level.items)
+			{
+				if (s.isSolid && Intersects(s))
+				{
+					// Collision with right block
+					if (bottomWall > s.topWall &&
+						rightWall - Convert.ToInt32(x_vel) < s.leftWall &&
+						x_vel > 0)
+					{
+						// Push
+						if (s is Block && ((Block)s).blockType == "push" && 
+							((Block)s).pushRight && !((Block)s).rCol)
+						{
+							((Block)s).x_vel = x_vel;
+							pushing = true;
+						}
+
+						// Hit the wall
+						else
+						{
+							while (rightWall >= s.leftWall)
+								spriteX--;
+						}
+					}
+
+					// Push to the left
+					else if (bottomWall > s.topWall &&
+						leftWall - Convert.ToInt32(x_vel) > s.rightWall &&
+						x_vel < 0)
+					{
+						// Push
+						if (s is Block && ((Block)s).blockType == "push" && 
+							((Block)s).pushLeft && !((Block)s).lCol)
+						{
+							((Block)s).x_vel = x_vel;
+							pushing = true;
+						}
+
+						// Hit the wall
+						else
+						{
+							while (leftWall <= s.rightWall)
+								spriteX++;
+						}
+					}
+				}
+			}
 
             // Gravity
             if (!grounded)
             {
-				y_vel += physics.gravity;
-				if (y_vel > physics.maxFallSpeed)
-					y_vel = physics.maxFallSpeed;
+				y_vel += level.gravity;
+				if (y_vel > level.maxFallSpeed)
+					y_vel = level.maxFallSpeed;
 				spriteY += Convert.ToInt32(y_vel);
             }
             else
             {
 				y_vel = 1;
             }
+
+			grounded = false;
+
+			// Check up/down collisions
+			foreach (Sprite s in level.items)
+			{
+				if (s.isSolid && Intersects(s))
+				{
+					// Up collision
+					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
+					{
+						y_vel = 0;
+						while (topWall < s.bottomWall)
+							spriteY++;
+					}
+
+					// Down collision
+					else if (!grounded &&
+						(bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
+					{
+						grounded = true;
+						while (bottomWall > s.topWall)
+							spriteY--;
+					}
+				}
+			}
+				
+			// Determine direction
+			if (x_vel > 0.1)
+				faceLeft = false;
+			else if (x_vel < -0.1)
+				faceLeft = true;
+
         }
 
         private void Puddle(Controls controls)
@@ -194,14 +272,13 @@ namespace Puddle
             }
         }
 
-        private void Shoot(Controls controls, Physics physics, ContentManager content, GameTime gameTime)
+        private void Shoot(Controls controls, Level level, ContentManager content, GameTime gameTime)
         {
             index = rand.Next(4);
             // New shots
             if (controls.onPress(Keys.D, Buttons.RightShoulder))
             {
                 shooting = true;
-                //shotPoint = physics.count;
                 shotPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
             }
             else if (controls.onRelease(Keys.D, Buttons.RightShoulder))
@@ -237,7 +314,7 @@ namespace Puddle
                         soundList["Shot4.wav"].Play();
                     }
                     s.LoadContent(content);
-                    physics.shots.Add(s);
+                    level.projectiles.Add(s);
                     hydration -= shotCost;
                 }
 
@@ -266,7 +343,7 @@ namespace Puddle
                         soundList["Shot4.wav"].Play();
                     }
                     s.LoadContent(content);
-                    physics.shots.Add(s);
+                    level.projectiles.Add(s);
                     hydration -= jetpackCost;
 
                     // Slight upward boost
@@ -276,22 +353,18 @@ namespace Puddle
             }
         }
 
-        private void Jump(Controls controls, Physics physics, GameTime gameTime)
+        private void Jump(Controls controls, Level level, GameTime gameTime)
         {
             SoundEffectInstance instance = soundList["Jump.wav"].CreateInstance();
             instance.Volume = 0.1f;
             // Jump on button press
-            if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
-            {
-               if((powerup["jetpack"]==false && !controls.isHeld(Keys.S, Buttons.A))
-                   || (powerup["jetpack"] == true && hydration >= jetpackCost && !controls.isHeld(Keys.S, Buttons.A)))
-               {                  
-                   if(instance.State != SoundState.Playing)
-                        instance.Play();           
-                   spriteY -= 1;
-				   y_vel = -11;
-                   jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-               }
+            if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
+            {       
+                if(instance.State != SoundState.Playing)
+                    instance.Play();
+				y_vel = -11;
+                jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+				grounded = false;
             }
 
             // Cut jump short on button release
@@ -301,15 +374,13 @@ namespace Puddle
             }
         }
 
-        private void CheckCollisions(Physics physics)
+        private void CheckCollisions(Level level)
         {
-            pushing = false;
-            grounded = false;
 
             // Check enemy collisions
             if (!invulnerable)
             {
-                foreach (Enemy e in physics.enemies)
+                foreach (Enemy e in level.enemies)
                 {
                     if (this.Intersects(e))
                     {
@@ -318,80 +389,10 @@ namespace Puddle
                 }
             }
 
-            // Reached ground (temporary solution for no floor)
-            if (spriteY >= physics.ground)
+			// Check misc. collisions
+            foreach (Sprite item in level.items)
             {
-                grounded = true;
-                spriteY = physics.ground;
-            }
-
-
-            // Check solid collisions
-            foreach (Block b in physics.blocks)
-            {
-                if (Intersects(b))
-                {
-                    // Up collision
-					if (topWall - Convert.ToInt32(y_vel) > b.bottomWall)
-                    {
-                        while (topWall < b.bottomWall)
-                            spriteY++;
-                        y_vel = 0;
-                    }
-
-                    // Down collision
-                    if (!grounded &&
-						(bottomWall - Convert.ToInt32(y_vel)) < b.topWall)
-                    {
-                        grounded = true;
-                        while (bottomWall > b.topWall)
-                            spriteY--;
-                    }
-
-                    // Collision with right block
-                    else if (bottomWall > b.topWall &&
-                        rightWall - Convert.ToInt32(x_vel) < b.leftWall &&
-                        x_vel > 0)
-                    {
-                        // Push
-                        if (b.pushRight && !b.rCol)
-                        {
-                            b.x_vel = x_vel;
-                            pushing = true;
-                        }
-
-                        // Hit the wall
-                        else
-                        {
-                            while (rightWall >= b.leftWall)
-                                spriteX--;
-                        }
-                    }
-
-                    // Push to the left
-                    else if (bottomWall > b.topWall &&
-                        leftWall - Convert.ToInt32(x_vel) > b.rightWall &&
-                        x_vel < 0)
-                    {
-                        // Push
-                        if (b.pushLeft && !b.lCol)
-                        {
-                            b.x_vel = x_vel;
-                            pushing = true;
-                        }
-
-                        // Hit the wall
-                        else
-                        {
-                            while (leftWall <= b.rightWall)
-                                spriteX++;
-                        }
-                    }
-                }
-            }
-
-            foreach (Sprite item in physics.items)
-            {
+				// Pick up powerups 
                 if (item is PowerUp && Intersects(item))
                 {
                     powerup[((PowerUp)item).name] = true;
@@ -401,10 +402,11 @@ namespace Puddle
                     instance.Play();
                    // newMap = "Content/Level2.tmx";
                 }
+				// Press buttons
                 if (item is Button && Intersects(item))
                 {
                     Button but = (Button)item;
-                    but.Action(physics);
+                    but.Action(level);
                 }
 
                 if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32))
@@ -412,7 +414,7 @@ namespace Puddle
                     Pipe p = (Pipe)item;
                     if (p.direction == "down")
                     {
-                        p.Action(physics);
+                        p.Action(level);
                         //Death ();
                     }
 
@@ -420,14 +422,13 @@ namespace Puddle
             }
         }
 
-        private void HandleCollisions(Physics physics)
+        private void HandleCollisions(Level level)
         {
 
         }
 
         public void Death()
         {
-            Console.WriteLine("Death");
             spriteX = checkpointXPos;
             spriteY = checkpointYPos;
             y_vel = 0;
@@ -435,7 +436,7 @@ namespace Puddle
             hydration = maxHydration;
         }
 
-        private void Animate(Controls controls, Physics physics, GameTime gameTime)
+        private void Animate(Controls controls, Level level, GameTime gameTime)
         {
             // Determine type of movement
             if (!frozen)
@@ -470,7 +471,7 @@ namespace Puddle
                     if (image != images["walk"])
                         image = images["walk"];
                     // Animate
-                    //frameIndex = (physics.count / 8 % 4) * 32;
+                    //frameIndex = (level.count / 8 % 4) * 32;
                     frameIndex = ((int)(gameTime.TotalGameTime.TotalMilliseconds)/128 % 4)*32;
                 }
             }

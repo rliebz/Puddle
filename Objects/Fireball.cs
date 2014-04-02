@@ -16,7 +16,7 @@ namespace Puddle
         public int seed;
 
         public Fireball(Cannon c, string dir = "none")
-            : base(c.spriteX + 16, c.spriteY - 16, 32, 32)
+			: base(c.spriteX + 32, c.spriteY - 16, 32, 32)
         {
             this.imageFile = "fireball.png";
             
@@ -32,13 +32,13 @@ namespace Puddle
             seed = rnd.Next(20); // For animation
         }
 
-        public override void Update(Physics physics)
+        public override void Update(Level level)
         {
             Move();
 
-            CheckCollisions(physics);
+            CheckCollisions(level);
 
-            Animate(physics);
+            Animate(level);
         }
 
         public void Move()
@@ -53,26 +53,29 @@ namespace Puddle
                 spriteX += speed;
         }
 
-        public void CheckCollisions(Physics physics)
+        public void CheckCollisions(Level level)
         {
             // check collisions with player
-            if (Intersects(physics.player) && !physics.player.invulnerable)
+            if (Intersects(level.player) && !level.player.invulnerable)
             {
                 destroyed = true;
-                physics.player.Death();
+                level.player.Death();
             }
 
             // check collisions with blocks
-            foreach (Block b in physics.blocks)
+			foreach (Sprite s in level.items)
             {
-                if (Intersects(b))
+				if (s.isSolid && Intersects(s))
                     destroyed = true;
             }
+
+			if (offScreen)
+				destroyed = true;
         }
 
-        public void Animate(Physics physics)
+        public void Animate(Level level)
         {
-            frameIndex = ((physics.count + seed) / 12) % 2 * 32;
+            frameIndex = ((level.count + seed) / 12) % 2 * 32;
         }
     }
 }

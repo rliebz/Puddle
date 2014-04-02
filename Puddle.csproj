@@ -36,9 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Controls.cs" />
+    <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\Rat.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Objects\Button.cs" />
     <Compile Include="Objects\Cannon.cs" />
-    <Compile Include="Objects\Enemy.cs" />
     <Compile Include="Objects\Fireball.cs" />
     <Compile Include="Objects\Frog.cs" />
     <Compile Include="Objects\Pipe.cs" />
@@ -47,16 +49,12 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Objects\Block.cs" />
     <Compile Include="Objects\Shot.cs" />
-    <Compile Include="Physics.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Sprite.cs" />
     <Compile Include="TextField.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FarseerPhysics MonoGame">
-      <HintPath>..\..\..\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics MonoGame.dll</HintPath>
-    </Reference>
     <Reference Include="OpenTK">
       <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\OpenTK.dll</HintPath>
     </Reference>

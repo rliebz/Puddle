@@ -27,17 +27,17 @@ namespace Puddle
             x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.faceLeft ? -1 : 1));
         }
 
-        public override void Update(Physics physics)
+        public override void Update(Level level)
         {
             Move();
 
-            CheckCollisions(physics);
+            CheckCollisions(level);
         }
 
-        public void CheckCollisions(Physics physics)
+        public void CheckCollisions(Level level)
         {
             // Check collisions with enemies
-            foreach (Enemy e in physics.enemies)
+            foreach (Enemy e in level.enemies)
             {
                 if (Intersects(e))
                 {
@@ -47,11 +47,14 @@ namespace Puddle
             }
 
             // check collisions with blocks
-            foreach (Block b in physics.blocks)
+			foreach (Sprite s in level.items)
             {
-                if (Intersects(b))
+				if (s.isSolid && Intersects(s))
                     destroyed = true;
             }
+
+			if (offScreen)
+				destroyed = true;
         }
 
         public void Move()

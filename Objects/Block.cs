@@ -24,7 +24,6 @@ namespace Puddle
 		public double y_vel;
 
         public string blockType;
-        public string name;
 
         private Block uBlock;
 
@@ -35,7 +34,9 @@ namespace Puddle
             this.pushLeft = left;
             this.pushRight = right;
             this.gravity = gravity;
-       
+       		
+			this.isSolid = true;
+
             this.rCol = false;
             this.lCol = false;
             this.dCol = false;
@@ -72,6 +73,8 @@ namespace Puddle
 
             this.blockType = "push";
             this.name = obj.Name;
+
+			this.isSolid = true;
 
             this.rCol = false;
             this.lCol = false;
@@ -122,22 +125,22 @@ namespace Puddle
             }
         }
 
-        public override void Update(Physics physics)
+        public override void Update(Level level)
         {
-            Move(physics);
+            Move(level);
 
-            CheckCollisions(physics);
+            CheckCollisions(level);
 
         }
 
-        public void Move(Physics physics)
+        public void Move(Level level)
         {
             // Gravity
             if (gravity)
             {
-				y_vel += physics.gravity;
-				if (y_vel > physics.maxFallSpeed)
-					y_vel = physics.maxFallSpeed;
+				y_vel += level.gravity;
+				if (y_vel > level.maxFallSpeed)
+					y_vel = level.maxFallSpeed;
 				spriteY += Convert.ToInt32(y_vel);
             }
 
@@ -146,13 +149,13 @@ namespace Puddle
             if (uCol)
             {
                 uBlock.x_vel = x_vel;
-                uBlock.Move(physics);
+                uBlock.Move(level);
             }
 
 			x_vel = 0;
         }
 
-        public void CheckCollisions(Physics physics)
+        public void CheckCollisions(Level level)
         {
             // Assume no collisions
             rCol = false;
@@ -164,53 +167,50 @@ namespace Puddle
 				return;
 
             // Check collisions with other blocks
-            foreach (Block b in physics.blocks)
+			foreach (Sprite s in level.items)
             {
-                if (this != b)
+				if (this != s && s.isSolid && Intersects(s))
                 {
-                    if (Intersects(b))
-                    {
-						// Collide with block below
-						if (spriteY < b.spriteY && bottomWall >= b.topWall) 
-						{
-							dCol = true;
-							y_vel = 0;
-							while (bottomWall >= b.topWall)
-								spriteY--;
-						}
+					// Collide with block below
+					if (spriteY < s.spriteY && bottomWall >= s.topWall) 
+					{
+						dCol = true;
+						y_vel = 0;
+						while (bottomWall >= s.topWall)
+							spriteY--;
+					}
 
-						// Collide with block on right
-						else if (spriteX < b.spriteX && rightWall >= b.leftWall) 
-						{
-							rCol = true;
-							while (Intersects(b))
-								spriteX--;
-							while (Intersects(physics.player))
-								physics.player.spriteX--;
-						}
+					// Collide with block on right
+					else if (spriteX < s.spriteX && rightWall >= s.leftWall) 
+					{
+						rCol = true;
+						while (Intersects(s))
+							spriteX--;
+						while (Intersects(level.player))
+							level.player.spriteX--;
+					}
 
-						// Collide with block on left
-						else if (spriteX > b.spriteX && leftWall <= b.rightWall) 
-						{
-							lCol = true;
-							while (Intersects(b))
-								spriteX++;
-							while (Intersects(physics.player))
-								physics.player.spriteX++;
-						}
-                    }
+					// Collide with block on left
+					else if (spriteX > s.spriteX && leftWall <= s.rightWall) 
+					{
+						lCol = true;
+						while (Intersects(s))
+							spriteX++;
+						while (Intersects(level.player))
+							level.player.spriteX++;
+					}
                 }
             }
         }
 
-        public new void LoadContent(ContentManager content)
+		public override void LoadContent(ContentManager content)
         {
             images["push"] = content.Load<Texture2D>("push_block.png");
             images["metal"] = content.Load<Texture2D>("brick.png");
             image = images[this.blockType];
         }
 
-        public new void Draw(SpriteBatch sb)
+		public override void Draw(SpriteBatch sb)
         {
             sb.Draw(
                 image,

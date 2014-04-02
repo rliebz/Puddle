@@ -15,7 +15,6 @@ namespace Puddle
         public bool activating;
         public bool activated;
         public bool played; //If sound has been played
-        public string name;
 
         // TODO: add in function passing for individual button actions
         public Button(TmxObjectGroup.TmxObject obj) :
@@ -40,12 +39,12 @@ namespace Puddle
             }
         }
 
-        public override void Update(Physics physics)
+        public override void Update(Level level)
         {
-            Animate(physics);
+            Animate(level);
         }
 
-        public void Animate(Physics physics)
+        public void Animate(Level level)
         {
             if (activating && frameIndex < (32 * 7))
             {
@@ -58,7 +57,7 @@ namespace Puddle
             }
         }
 
-        public void Action(Physics physics)
+        public void Action(Level level)
         {
             if (activated)
                 return;
@@ -68,31 +67,31 @@ namespace Puddle
 
             if (this.name == "Button 1")
             {
-                foreach (Block b in physics.blocks)
+				foreach (Sprite s in level.items)
                 {
-                    if (b.name == "Block 3")
+                    if (s.name == "Block 3")
                     {
-                        b.changeType("push");
+						((Block)s).changeType("push");
                     }
                 }
             }
             else if (this.name == "Button 2")
             {
-                foreach (Block b in physics.blocks)
+				foreach (Sprite s in level.items)
                 {
-                    if (b.name == "Block 2")
+                    if (s.name == "Block 2")
                     {
-                        b.changeType("push");
+						((Block)s).changeType("push");
                     }
                 }
             }
             else if (this.name == "Button 3")
             {
-                foreach (Block b in physics.blocks)
+				foreach (Sprite s in level.items)
                 {
-                    if (b.name == "Block 4")
+                    if (s.name == "Block 4")
                     {
-                        b.changeType("push");                        
+						((Block)s).changeType("push");                        
                     }
                 }
             }

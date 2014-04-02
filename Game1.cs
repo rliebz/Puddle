@@ -19,7 +19,7 @@ namespace Puddle
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Physics physics;
+        Level level;
         Player player1;
         Controls controls;
         TmxMap map;
@@ -28,7 +28,7 @@ namespace Puddle
         SoundEffectInstance instance;
         bool newMapLoad;
         float newMapTimer;
-        const float LOAD_SCREEN_TIME = 3.0f;
+		const float LOAD_SCREEN_TIME = 1.0f;
 
         public Game1()
             : base()
@@ -47,17 +47,24 @@ namespace Puddle
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 
             // Create built-in objects
-            player1 = new Player(0, 0, 32, 32);
-            physics = new Physics(player1);
+			player1 = new Player(
+				Convert.ToInt32(map.Properties["startX"]), 
+				Convert.ToInt32(map.Properties["startY"]),
+				32, 
+				32
+			);
+            level = new Level(player1);
             controls = new Controls();
             newMapLoad = true;
             newMapTimer = LOAD_SCREEN_TIME;
             player1.newMap = "Content/Level1.tmx";
+
             song = Content.Load<SoundEffect>("InGame.wav");
             instance = song.CreateInstance();
             instance.IsLooped = true;
             if (instance.State == SoundState.Stopped)
                 instance.Play();
+
             base.Initialize();            
         }
 
@@ -68,9 +75,9 @@ namespace Puddle
             // TODO: Load all content in level class
             player1.LoadContent(this.Content);
 
-            foreach (Block b in physics.blocks)
-                b.LoadContent(this.Content);
-            foreach (Sprite item in physics.items)
+//            foreach (Block b in level.items)
+//                b.LoadContent(this.Content);
+            foreach (Sprite item in level.items)
                 item.LoadContent(this.Content);
 
             
@@ -89,8 +96,9 @@ namespace Puddle
             player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
             player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
 
+
             // Create map objects
-            physics = new Physics(player1);
+            level = new Level(player1);
 
             foreach (TmxObjectGroup group in map.ObjectGroups)
             {
@@ -98,16 +106,16 @@ namespace Puddle
                 {
                     Type t = Type.GetType(obj.Type);
                     object item = Activator.CreateInstance(t, obj);
-                    if (item is Block)
-                        physics.blocks.Add((Block)item);
-                    else
-                        physics.items.Add((Sprite)item);
+//                    if (item is Block)
+//                        level.items.Add((Block)item);
+//                    else
+                        level.items.Add((Sprite)item);
                 }
             }
+
             player1.newMap = "";
-            LoadContent();
+			LoadContent();
             newMapLoad = false;
-            base.Initialize();
         }
 
         protected override void UnloadContent()
@@ -123,25 +131,13 @@ namespace Puddle
                 Exit();
 
             // TODO: Level.Update() should cover all objects in that level
-            player1.Update(controls, physics, this.Content, gameTime);
+            player1.Update(controls, level, this.Content, gameTime);
             if (!player1.newMap.Equals(""))
             {
                 newMapLoad = true;
             }
-            physics.Update(this.Content);
-
-            foreach (Block b in physics.blocks)
-                b.Update(physics);
-
-            foreach (Enemy e in physics.enemies)
-                e.Update(physics);
-
-            foreach (Sprite s in physics.items)
-            {
-                s.Update(physics);
-                s.Update(physics, this.Content);
-            }
-
+            level.Update(this.Content);
+            
             base.Update(gameTime);
         }
 
@@ -185,16 +181,12 @@ namespace Puddle
                 );
 
                 // TODO: Level.Draw() should cover all this
-                foreach (Enemy e in physics.enemies)
+                foreach (Enemy e in level.enemies)
                     e.Draw(spriteBatch);
-                foreach (Shot s in physics.shots)
+				foreach (Sprite s in level.projectiles)
                     s.Draw(spriteBatch);
-                foreach (Block b in physics.blocks)
-                    b.Draw(spriteBatch);
-                foreach (Sprite item in physics.items)
+                foreach (Sprite item in level.items)
                     item.Draw(spriteBatch);
-                foreach (Fireball f in physics.fireballs)
-                    f.Draw(spriteBatch);
                 player1.Draw(spriteBatch);
             }
             spriteBatch.End();

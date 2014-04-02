@@ -19,7 +19,9 @@ namespace Puddle
         public int frameIndex;
         public bool destroyed;
         public bool faceLeft;
+		public bool isSolid;
         public string imageFile;
+		public string name;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
         protected List<string> soundFiles;
@@ -39,6 +41,8 @@ namespace Puddle
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;
             this.frameIndex = 0;
+            this.isSolid = false;
+
             this.soundFiles = new List<string>();
             this.soundList = new Dictionary<string, SoundEffect>();
         }
@@ -80,10 +84,10 @@ namespace Puddle
             return intersect_vertical && intersect_horizontal;
         }
 
-        public virtual void Update(Physics physics)
+        public virtual void Update(Level level)
         { }
 
-        public virtual void Update(Physics physics, ContentManager content)
+        public virtual void Update(Level level, ContentManager content)
         { }
 
         public virtual void LoadContent(ContentManager content)
