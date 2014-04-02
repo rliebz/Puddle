@@ -63,5 +63,15 @@ namespace Puddle
             items.RemoveAll(item => item.destroyed);
         }
 
+		public virtual void Draw(SpriteBatch sb)
+		{
+			foreach (Sprite s in projectiles)
+				s.Draw(sb);
+			foreach (Enemy e in enemies)
+				e.Draw(sb);
+			foreach (Sprite item in items)
+				item.Draw(sb);
+			player.Draw(sb);
+		}
     }
 }

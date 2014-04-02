@@ -168,6 +168,7 @@ namespace Puddle
             }
             else
             {
+				// Draw background
                 spriteBatch.Draw(
                     background,
                     new Rectangle(
@@ -178,14 +179,8 @@ namespace Puddle
                     Color.White
                 );
 
-                // TODO: Level.Draw() should cover all this
-                foreach (Enemy e in level.enemies)
-                    e.Draw(spriteBatch);
-				foreach (Sprite s in level.projectiles)
-                    s.Draw(spriteBatch);
-                foreach (Sprite item in level.items)
-                    item.Draw(spriteBatch);
-                player1.Draw(spriteBatch);
+				// Draw contents of the level
+				level.Draw(spriteBatch);
             }
             spriteBatch.End();
             base.Draw(gameTime);

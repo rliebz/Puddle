@@ -168,8 +168,7 @@ namespace Puddle
 						x_vel > 0)
 					{
 						// Push
-						if (s is Block && ((Block)s).blockType == "push" && 
-							((Block)s).pushRight && !((Block)s).rCol)
+						if (s is Block && ((Block)s).rightPushable)
 						{
 							((Block)s).x_vel = x_vel;
 							pushing = true;
@@ -189,8 +188,7 @@ namespace Puddle
 						x_vel < 0)
 					{
 						// Push
-						if (s is Block && ((Block)s).blockType == "push" && 
-							((Block)s).pushLeft && !((Block)s).lCol)
+						if (s is Block && ((Block)s).leftPushable)
 						{
 							((Block)s).x_vel = x_vel;
 							pushing = true;
@@ -356,7 +354,7 @@ namespace Puddle
             SoundEffectInstance instance = soundList["Sounds/Jump.wav"].CreateInstance();
             instance.Volume = 0.1f;
             // Jump on button press
-            if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
+			if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
             {       
                 if(instance.State != SoundState.Playing)
                     instance.Play();

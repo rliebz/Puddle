@@ -11,14 +11,14 @@ namespace Puddle
 {
     class Block : Sprite
     {
-        public bool pushLeft;
-        public bool pushRight;
-        public bool gravity;
+		private bool pushLeft;
+		private bool pushRight;
+		private bool gravity;
 
-        public bool rCol;
-        public bool lCol;
-        public bool dCol;
-        public bool uCol;
+		private bool rCol;
+		private bool lCol;
+		private bool dCol;
+		private bool uCol;
 
         public double x_vel;
 		public double y_vel;
@@ -100,6 +100,16 @@ namespace Puddle
             else
                 frameIndex = 96;
         }
+
+		public bool rightPushable
+		{
+			get{ return (blockType == "push" && pushRight && !rCol); }
+		}
+
+		public bool leftPushable
+		{
+			get{ return (blockType == "push" && pushLeft && !lCol); }
+		}
 
         public void changeType(string newType)
         {
