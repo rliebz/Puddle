@@ -13,11 +13,7 @@ namespace Puddle
     class Pipe : Sprite
     {
 
-        public string name;
-
         public string direction;
-
-
 
         public Pipe(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)

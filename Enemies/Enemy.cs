@@ -42,9 +42,6 @@ namespace Puddle
 			// Fall
 			Fall(level);
 
-			// Maybe jump
-			Jump(level);
-
             // Animate sprite
             Animate(level);
 
@@ -118,10 +115,8 @@ namespace Puddle
 
 		public void Jump(Level level)
 		{
-			if (grounded && rnd.NextDouble() > .95){
-				y_vel = -11;
-				grounded = false;
-			}
+			y_vel = -11;
+			grounded = false;
 		}
 
 		public virtual void Animate(Level level)

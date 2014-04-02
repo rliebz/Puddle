@@ -31,18 +31,17 @@ namespace Puddle
 
         public void Update(ContentManager content) 
         {
-            Random rnd = new Random();
+			count++;
 
-            count++;
-
+			// Random rnd = new Random();
             // Generate enemies
-			if (count % 500 == 0) // Change -1 to 0 to spawn enemies
-            {
-                Enemy e = (rnd.NextDouble() > .5) ? 
-					new Rat(300, 300) : new Rat (100, 0);
-                e.LoadContent(content);
-                enemies.Add(e);
-            }
+//			if (count % 500 == 0 && enemies.Count < 5) // Change -1 to 0 to spawn enemies
+//            {
+//                Enemy e = (rnd.NextDouble() > .5) ? 
+//					new Rat(500, 0) : new Rat (100, 0);
+//                e.LoadContent(content);
+//                enemies.Add(e);
+//            }
 
             // Move shots
 			foreach (Sprite s in projectiles)

@@ -77,8 +77,8 @@ namespace Puddle
 
             foreach (Sprite item in level.items)
                 item.LoadContent(this.Content);
-
-            
+			foreach (Enemy enemy in level.enemies)
+				enemy.LoadContent(this.Content);      
             
         }
 
