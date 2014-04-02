@@ -121,8 +121,6 @@ namespace Puddle
 
             CheckCollisions(level);
 
-            HandleCollisions(level);
-
             Animate(controls, level, gameTime);
         }
 
@@ -347,7 +345,7 @@ namespace Puddle
                 {
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
-                   // newMap = "Content/Level2.tmx";
+					// newMap = "Content/Level2.tmx";
                 }
 				// Press buttons
                 if (item is Button && Intersects(item))
@@ -367,11 +365,6 @@ namespace Puddle
 
                 }
             }
-        }
-
-        private void HandleCollisions(Level level)
-        {
-
         }
 
         public void Death()

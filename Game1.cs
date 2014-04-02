@@ -64,8 +64,6 @@ namespace Puddle
             // TODO: Load all content in level class
             player1.LoadContent(this.Content);
 
-//            foreach (Block b in level.items)
-//                b.LoadContent(this.Content);
             foreach (Sprite item in level.items)
                 item.LoadContent(this.Content);
         }
@@ -82,20 +80,20 @@ namespace Puddle
             player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
             player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
 
-
-            // Create map objects
+			// Create new level object
             level = new Level(player1);
 
+			// Create all objects from tmx and place them in level
             foreach (TmxObjectGroup group in map.ObjectGroups)
             {
                 foreach (TmxObjectGroup.TmxObject obj in group.Objects)
                 {
                     Type t = Type.GetType(obj.Type);
                     object item = Activator.CreateInstance(t, obj);
-//                    if (item is Block)
-//                        level.items.Add((Block)item);
-//                    else
-                        level.items.Add((Sprite)item);
+					if (item is Enemy)
+						level.enemies.Add((Enemy)item);
+					else
+                    	level.items.Add((Sprite)item);
                 }
             }
 
