@@ -1,7 +1,7 @@
 Puddle
 ======
 
-* Current goals for beta:
+##Current goals for beta:
 
 * 3 levels and a boss: Alan and Trevor
 * Held buttons: Jake
