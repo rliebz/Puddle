@@ -14,13 +14,15 @@ namespace Puddle
     {
         public bool activating;
         public bool activated;
+        public bool played; //If sound has been played
 
         // TODO: add in function passing for individual button actions
         public Button(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
             imageFile = "button.png";
-
+            played = false;
+            soundFiles.Add("button.wav");
             name = obj.Name;
             collisionWidth = 24;
             collisionHeight = 30;
@@ -45,7 +47,14 @@ namespace Puddle
         public void Animate(Level level)
         {
             if (activating && frameIndex < (32 * 7))
+            {
                 frameIndex += 32;
+            }
+            if (activating && !played)
+            {
+                soundList["button.wav"].Play();
+                played = true;
+            }
         }
 
         public void Action(Level level)
