@@ -27,14 +27,26 @@ namespace Puddle
 
         private Block uBlock;
 
-        public Block(int x, int y, bool left=false, bool right=false, bool gravity=false)
+		// Tiled constructor
+		public Block(TmxObjectGroup.TmxObject obj)
+			: this(
+				obj.X, obj.Y, 
+				obj.Properties.ContainsKey("left") ? Boolean.Parse(obj.Properties["left"]) : false, 
+				obj.Properties.ContainsKey("right") ? Boolean.Parse(obj.Properties["right"]) : false,
+				obj.Properties.ContainsKey("gravity") ? Boolean.Parse(obj.Properties["gravity"]) : false,
+				obj.Name
+			)
+		{ }
+
+		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, string name="Block 0")
             : base(x, y, 32, 32)
         {
 
             this.pushLeft = left;
             this.pushRight = right;
             this.gravity = gravity;
-       		
+			this.name = name;
+
 			this.isSolid = true;
 
             this.rCol = false;
@@ -58,44 +70,6 @@ namespace Puddle
             else if (left && !right)
                 frameIndex = 32;
             else if (left && right)
-                frameIndex = 64;
-            else
-                frameIndex = 96;
-        }
-
-        public Block(TmxObjectGroup.TmxObject obj)
-            : base(obj.X, obj.Y, 32, 32)
-        {
-
-            this.pushLeft = (obj.Properties.ContainsKey("left")) ? Boolean.Parse(obj.Properties["left"]) : false;
-            this.pushRight = (obj.Properties.ContainsKey("right")) ? Boolean.Parse(obj.Properties["right"]) : false;
-            this.gravity = (obj.Properties.ContainsKey("gravity")) ? Boolean.Parse(obj.Properties["gravity"]) : false;
-
-            this.blockType = "push";
-            this.name = obj.Name;
-
-			this.isSolid = true;
-
-            this.rCol = false;
-            this.lCol = false;
-            this.dCol = false;
-            this.uCol = false;
-
-            this.x_vel = 0;
-
-            uBlock = null;
-
-            // Determine block image
-            if (!this.gravity)
-            {
-                frameIndex = 0;
-                this.blockType = "metal";
-            }
-            else if (pushRight && !pushLeft)
-                frameIndex = 0;
-            else if (pushLeft && !pushRight)
-                frameIndex = 32;
-            else if (pushLeft && pushRight)
                 frameIndex = 64;
             else
                 frameIndex = 96;

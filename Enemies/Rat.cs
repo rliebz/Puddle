@@ -15,9 +15,7 @@ namespace Puddle
 	
 		public Rat(TmxObjectGroup.TmxObject obj)
 			: this(obj.X, obj.Y)
-        {
-
-        }
+		{ }
 
 		public Rat(int x, int y)
 			: base(x, y)
