@@ -49,5 +49,11 @@ namespace Puddle
             return (kb.IsKeyUp(key) && kbo.IsKeyDown(key)) ||
                 (gp.IsButtonUp(button) && gpo.IsButtonDown(button));
         }
+
+        public bool isHeld(Keys key, Buttons button)
+        {
+            return (kb.IsKeyDown(key) && kbo.IsKeyDown(key)) ||
+                (gp.IsButtonDown(button) && gpo.IsButtonDown(button));
+        }
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using TiledSharp;
 #endregion
 
@@ -22,6 +24,8 @@ namespace Puddle
         Controls controls;
         TmxMap map;
         Texture2D background;
+        SoundEffect song;
+        SoundEffectInstance instance;
         bool newMapLoad;
         float newMapTimer;
 		const float LOAD_SCREEN_TIME = 1.0f;
@@ -31,6 +35,7 @@ namespace Puddle
         {
             graphics  = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            
         }
 
         protected override void Initialize()
@@ -54,6 +59,12 @@ namespace Puddle
             newMapTimer = LOAD_SCREEN_TIME;
             player1.newMap = "Content/Level1.tmx";
 
+            song = Content.Load<SoundEffect>("InGame.wav");
+            instance = song.CreateInstance();
+            instance.IsLooped = true;
+            if (instance.State == SoundState.Stopped)
+                instance.Play();
+
             base.Initialize();            
         }
 
@@ -68,6 +79,9 @@ namespace Puddle
 //                b.LoadContent(this.Content);
             foreach (Sprite item in level.items)
                 item.LoadContent(this.Content);
+
+            
+            
         }
 
         protected void LoadMap(string name)
