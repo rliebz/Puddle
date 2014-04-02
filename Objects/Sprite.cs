@@ -78,10 +78,10 @@ namespace Puddle
             return intersect_vertical && intersect_horizontal;
         }
 
-        public virtual void Update(Physics physics)
+        public virtual void Update(Level level)
         { }
 
-        public virtual void Update(Physics physics, ContentManager content)
+        public virtual void Update(Level level, ContentManager content)
         { }
 
         public virtual void LoadContent(ContentManager content)

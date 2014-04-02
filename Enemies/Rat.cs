@@ -25,28 +25,28 @@ namespace Puddle
             seed = rnd.Next(0, 3);
         }
 
-        public override void Update(Physics physics)
+        public override void Update(Level level)
         {
             // Move
-            Move(physics);
+            Move(level);
 
 			// Fall
-			Fall(physics);
+			Fall(level);
 
 			// Maybe jump
-			Jump(physics);
+			Jump(level);
 
             // Animate sprite
-            Animate(physics);
+            Animate(level);
 
             // Be killed if necessary
             destroyed = (health <= 0);
         }
 			
 
-		public override void Animate(Physics physics)
+		public override void Animate(Level level)
         {
-            frameIndex = ((physics.count + seed) / 8 % 4) * 32;
+            frameIndex = ((level.count + seed) / 8 % 4) * 32;
         }
 
     }

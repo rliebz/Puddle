@@ -34,31 +34,31 @@ namespace Puddle
             seed = rnd.Next(0, 3);
         }
 
-        public override void Update(Physics physics)
+        public override void Update(Level level)
         {
             // Move
-            Move(physics);
+            Move(level);
 
 			// Fall
-			Fall(physics);
+			Fall(level);
 
 			// Maybe jump
-			Jump(physics);
+			Jump(level);
 
             // Animate sprite
-            Animate(physics);
+            Animate(level);
 
             // Be killed if necessary
             destroyed = (health <= 0);
         }
 
-        public void Move(Physics physics)
+        public void Move(Level level)
         {
 
 			// Move horizontally
 			spriteX += Convert.ToInt32(x_vel);
 
-			foreach (Sprite s in physics.items)
+			foreach (Sprite s in level.items)
 			{
 				if (s.isSolid && Intersects(s))
 				{
@@ -74,14 +74,14 @@ namespace Puddle
 			}
         }
 
-		public void Fall(Physics physics)
+		public void Fall(Level level)
 		{
 			// Fall if airborne
 			if (!grounded)
 			{
-				y_vel += physics.gravity;
-				if (y_vel > physics.maxFallSpeed)
-					y_vel = physics.maxFallSpeed;
+				y_vel += level.gravity;
+				if (y_vel > level.maxFallSpeed)
+					y_vel = level.maxFallSpeed;
 				spriteY += Convert.ToInt32(y_vel);
 			}
 			else
@@ -92,7 +92,7 @@ namespace Puddle
 			grounded = false;
 
 			// Downward collisions
-			foreach (Sprite s in physics.items)
+			foreach (Sprite s in level.items)
 			{
 				if (Intersects(s))
 				{
@@ -116,7 +116,7 @@ namespace Puddle
 			}
 		}
 
-		public void Jump(Physics physics)
+		public void Jump(Level level)
 		{
 			if (grounded && rnd.NextDouble() > .95){
 				y_vel = -11;
@@ -124,9 +124,9 @@ namespace Puddle
 			}
 		}
 
-		public virtual void Animate(Physics physics)
+		public virtual void Animate(Level level)
         {
-            frameIndex = ((physics.count + seed) / 8 % 4) * 32;
+            frameIndex = ((level.count + seed) / 8 % 4) * 32;
         }
 
     }

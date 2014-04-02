@@ -32,13 +32,13 @@ namespace Puddle
             seed = rnd.Next(20); // For animation
         }
 
-        public override void Update(Physics physics)
+        public override void Update(Level level)
         {
             Move();
 
-            CheckCollisions(physics);
+            CheckCollisions(level);
 
-            Animate(physics);
+            Animate(level);
         }
 
         public void Move()
@@ -53,17 +53,17 @@ namespace Puddle
                 spriteX += speed;
         }
 
-        public void CheckCollisions(Physics physics)
+        public void CheckCollisions(Level level)
         {
             // check collisions with player
-            if (Intersects(physics.player) && !physics.player.invulnerable)
+            if (Intersects(level.player) && !level.player.invulnerable)
             {
                 destroyed = true;
-                physics.player.Death();
+                level.player.Death();
             }
 
             // check collisions with blocks
-			foreach (Sprite s in physics.items)
+			foreach (Sprite s in level.items)
             {
 				if (s.isSolid && Intersects(s))
                     destroyed = true;
@@ -73,9 +73,9 @@ namespace Puddle
 				destroyed = true;
         }
 
-        public void Animate(Physics physics)
+        public void Animate(Level level)
         {
-            frameIndex = ((physics.count + seed) / 12) % 2 * 32;
+            frameIndex = ((level.count + seed) / 12) % 2 * 32;
         }
     }
 }

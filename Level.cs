@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Puddle
 {
-    class Physics
+    class Level
     {
         public int ground = 900;
 		public double gravity = .5;
@@ -21,7 +21,7 @@ namespace Puddle
         public List<Sprite> items;
         public Player player;
 
-        public Physics(Player p)
+        public Level(Player p)
         {
             player = p;
             enemies = new List<Enemy>();

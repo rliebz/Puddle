@@ -105,28 +105,28 @@ namespace Puddle
             get { return (puddled && frameIndex == 5 * 32); }
         }
 
-        public void Update(Controls controls, Physics physics, 
+        public void Update(Controls controls, Level level, 
             ContentManager content, GameTime gameTime)
         {
             if (hydration + hydrationRegen <= maxHydration)
                 hydration += hydrationRegen;
 
-            Move(controls, physics);
+            Move(controls, level);
 
             Puddle(controls);
 
-            Shoot(controls, physics, content ,gameTime);
+            Shoot(controls, level, content ,gameTime);
 
-            Jump(controls, physics, gameTime);
+            Jump(controls, level, gameTime);
 
-            CheckCollisions(physics);
+            CheckCollisions(level);
 
-            HandleCollisions(physics);
+            HandleCollisions(level);
 
-            Animate(controls, physics, gameTime);
+            Animate(controls, level, gameTime);
         }
 
-        private void Move(Controls controls, Physics physics)
+        private void Move(Controls controls, Level level)
         {
             // Sideways Acceleration
             if (controls.onPress(Keys.Right, Buttons.DPadRight))
@@ -147,7 +147,7 @@ namespace Puddle
 			pushing = false;
 
 			// Check left/right collisions
-			foreach (Sprite s in physics.items)
+			foreach (Sprite s in level.items)
 			{
 				if (s.isSolid && Intersects(s))
 				{
@@ -198,9 +198,9 @@ namespace Puddle
             // Gravity
             if (!grounded)
             {
-				y_vel += physics.gravity;
-				if (y_vel > physics.maxFallSpeed)
-					y_vel = physics.maxFallSpeed;
+				y_vel += level.gravity;
+				if (y_vel > level.maxFallSpeed)
+					y_vel = level.maxFallSpeed;
 				spriteY += Convert.ToInt32(y_vel);
             }
             else
@@ -211,7 +211,7 @@ namespace Puddle
 			grounded = false;
 
 			// Check up/down collisions
-			foreach (Sprite s in physics.items)
+			foreach (Sprite s in level.items)
 			{
 				if (s.isSolid && Intersects(s))
 				{
@@ -259,7 +259,7 @@ namespace Puddle
             }
         }
 
-        private void Shoot(Controls controls, Physics physics, ContentManager content, GameTime gameTime)
+        private void Shoot(Controls controls, Level level, ContentManager content, GameTime gameTime)
         {
             // New shots
             if (controls.onPress(Keys.D, Buttons.RightShoulder))
@@ -284,7 +284,7 @@ namespace Puddle
                     string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
                     Shot s = new Shot(this, dir);
                     s.LoadContent(content);
-                    physics.projectiles.Add(s);
+                    level.projectiles.Add(s);
                     hydration -= shotCost;
                 }
 
@@ -297,7 +297,7 @@ namespace Puddle
                     jumpPoint = currentTime2;
                     Shot s = new Shot(this, "down");
                     s.LoadContent(content);
-                    physics.projectiles.Add(s);
+                    level.projectiles.Add(s);
                     hydration -= jetpackCost;
 
                     // Slight upward boost
@@ -307,7 +307,7 @@ namespace Puddle
             }
         }
 
-        private void Jump(Controls controls, Physics physics, GameTime gameTime)
+        private void Jump(Controls controls, Level level, GameTime gameTime)
         {
             // Jump on button press
             if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
@@ -324,13 +324,13 @@ namespace Puddle
             }
         }
 
-        private void CheckCollisions(Physics physics)
+        private void CheckCollisions(Level level)
         {
 
             // Check enemy collisions
             if (!invulnerable)
             {
-                foreach (Enemy e in physics.enemies)
+                foreach (Enemy e in level.enemies)
                 {
                     if (this.Intersects(e))
                     {
@@ -340,7 +340,7 @@ namespace Puddle
             }
 
 			// Check misc. collisions
-            foreach (Sprite item in physics.items)
+            foreach (Sprite item in level.items)
             {
 				// Pick up powerups 
                 if (item is PowerUp && Intersects(item))
@@ -353,7 +353,7 @@ namespace Puddle
                 if (item is Button && Intersects(item))
                 {
                     Button but = (Button)item;
-                    but.Action(physics);
+                    but.Action(level);
                 }
 
                 if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32))
@@ -361,7 +361,7 @@ namespace Puddle
                     Pipe p = (Pipe)item;
                     if (p.direction == "down")
                     {
-                        p.Action(physics);
+                        p.Action(level);
                         //Death ();
                     }
 
@@ -369,7 +369,7 @@ namespace Puddle
             }
         }
 
-        private void HandleCollisions(Physics physics)
+        private void HandleCollisions(Level level)
         {
 
         }
@@ -382,7 +382,7 @@ namespace Puddle
             puddled = false;
         }
 
-        private void Animate(Controls controls, Physics physics, GameTime gameTime)
+        private void Animate(Controls controls, Level level, GameTime gameTime)
         {
             // Determine type of movement
             if (!frozen)
@@ -417,7 +417,7 @@ namespace Puddle
                     if (image != images["walk"])
                         image = images["walk"];
                     // Animate
-                    //frameIndex = (physics.count / 8 % 4) * 32;
+                    //frameIndex = (level.count / 8 % 4) * 32;
                     frameIndex = ((int)(gameTime.TotalGameTime.TotalMilliseconds)/128 % 4)*32;
                 }
             }

@@ -37,18 +37,18 @@ namespace Puddle
             }
         }
 
-        public override void Update(Physics physics)
+        public override void Update(Level level)
         {
-            Animate(physics);
+            Animate(level);
         }
 
-        public void Animate(Physics physics)
+        public void Animate(Level level)
         {
             if (activating && frameIndex < (32 * 7))
                 frameIndex += 32;
         }
 
-        public void Action(Physics physics)
+        public void Action(Level level)
         {
             if (activated)
                 return;
@@ -58,7 +58,7 @@ namespace Puddle
 
             if (this.name == "Button 1")
             {
-				foreach (Sprite s in physics.items)
+				foreach (Sprite s in level.items)
                 {
                     if (s.name == "Block 3")
                     {
@@ -68,7 +68,7 @@ namespace Puddle
             }
             else if (this.name == "Button 2")
             {
-				foreach (Sprite s in physics.items)
+				foreach (Sprite s in level.items)
                 {
                     if (s.name == "Block 2")
                     {
@@ -78,7 +78,7 @@ namespace Puddle
             }
             else if (this.name == "Button 3")
             {
-				foreach (Sprite s in physics.items)
+				foreach (Sprite s in level.items)
                 {
                     if (s.name == "Block 4")
                     {

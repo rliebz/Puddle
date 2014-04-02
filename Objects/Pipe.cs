@@ -57,14 +57,14 @@ namespace Puddle
 
         }
 
-        public void Action(Physics physics)
+        public void Action(Level level)
         {
 
             if (this.name == "Pipe1")
             {
                 int x = 0;
                 int y = 0;
-                foreach (Sprite i in physics.items)
+                foreach (Sprite i in level.items)
                 {
                     if (i is Pipe)
                     {
@@ -77,17 +77,17 @@ namespace Puddle
                     }
                 }
 
-                Transport(physics, x, y);
+                Transport(level, x, y);
             }
 
             //if (this.end) 
 
 
         }
-        public void Transport(Physics physics, int x, int y)
+        public void Transport(Level level, int x, int y)
         {
-            physics.player.spriteX = x;
-            physics.player.spriteY = y - physics.player.spriteHeight;
+            level.player.spriteX = x;
+            level.player.spriteY = y - level.player.spriteHeight;
 
         }
         //		
