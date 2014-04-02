@@ -278,15 +278,16 @@ namespace Puddle
 
         private void Jump(Controls controls, Physics physics, GameTime gameTime)
         {
+            SoundEffectInstance instance = soundList["Jump.wav"].CreateInstance();
+            instance.Volume = 0.1f;
             // Jump on button press
             if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
             {
                if((powerup["jetpack"]==false && !controls.isHeld(Keys.S, Buttons.A))
                    || (powerup["jetpack"] == true && hydration >= jetpackCost && !controls.isHeld(Keys.S, Buttons.A)))
-               {
-                   SoundEffectInstance instance = soundList["Jump.wav"].CreateInstance();
-                   instance.Volume = 0.2f;
-                   instance.Play();           
+               {                  
+                   if(instance.State != SoundState.Playing)
+                        instance.Play();           
                    spriteY -= 1;
 				   y_vel = -11;
                    jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
@@ -396,7 +397,7 @@ namespace Puddle
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
                     SoundEffectInstance instance = soundList["Powerup.wav"].CreateInstance();
-                    instance.Volume = 0.4f;
+                    instance.Volume = 0.3f;
                     instance.Play();
                    // newMap = "Content/Level2.tmx";
                 }
