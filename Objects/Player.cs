@@ -98,12 +98,12 @@ namespace Puddle
             frameIndex = 0;
 
             //Sounds
-            soundFiles.Add("Jump.wav");
-            soundFiles.Add("Shot1.wav");
-            soundFiles.Add("Shot2.wav");
-            soundFiles.Add("Shot3.wav");
-            soundFiles.Add("Shot4.wav");
-            soundFiles.Add("Powerup.wav");
+            soundFiles.Add("Sounds/Jump.wav");
+            soundFiles.Add("Sounds/Shot1.wav");
+            soundFiles.Add("Sounds/Shot2.wav");
+            soundFiles.Add("Sounds/Shot3.wav");
+            soundFiles.Add("Sounds/Shot4.wav");
+            soundFiles.Add("Sounds/Powerup.wav");
         }
 
         // Property determining if the character can act
@@ -297,19 +297,19 @@ namespace Puddle
                     Shot s = new Shot(this, dir);
                     if(index==0) 
                     {
-                        soundList["Shot1.wav"].Play();
+                        soundList["Sounds/Shot1.wav"].Play();
                     }
                     else if (index == 1)
                     {
-                        soundList["Shot2.wav"].Play();
+                        soundList["Sounds/Shot2.wav"].Play();
                     }
                     else if (index == 2)
                     {
-                        soundList["Shot3.wav"].Play();
+                        soundList["Sounds/Shot3.wav"].Play();
                     }
                     else
                     {
-                        soundList["Shot4.wav"].Play();
+                        soundList["Sounds/Shot4.wav"].Play();
                     }
                     s.LoadContent(content);
                     level.projectiles.Add(s);
@@ -326,19 +326,19 @@ namespace Puddle
                     Shot s = new Shot(this, "down");
                     if (index == 0)
                     {
-                        soundList["Shot1.wav"].Play();
+                        soundList["Sounds/Shot1.wav"].Play();
                     }
                     else if (index == 1)
                     {
-                        soundList["Shot2.wav"].Play();
+                        soundList["Sounds/Shot2.wav"].Play();
                     }
                     else if (index == 2)
                     {
-                        soundList["Shot3.wav"].Play();
+                        soundList["Sounds/Shot3.wav"].Play();
                     }
                     else
                     {
-                        soundList["Shot4.wav"].Play();
+                        soundList["Sounds/Shot4.wav"].Play();
                     }
                     s.LoadContent(content);
                     level.projectiles.Add(s);
@@ -353,7 +353,7 @@ namespace Puddle
 
         private void Jump(Controls controls, Level level, GameTime gameTime)
         {
-            SoundEffectInstance instance = soundList["Jump.wav"].CreateInstance();
+            SoundEffectInstance instance = soundList["Sounds/Jump.wav"].CreateInstance();
             instance.Volume = 0.1f;
             // Jump on button press
             if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
@@ -396,7 +396,7 @@ namespace Puddle
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
 
-                    SoundEffectInstance instance = soundList["Powerup.wav"].CreateInstance();
+                    SoundEffectInstance instance = soundList["Sounds/Powerup.wav"].CreateInstance();
                     instance.Volume = 0.3f;
                     instance.Play();
                    	// newMap = "Content/Level2.tmx";
