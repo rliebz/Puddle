@@ -22,7 +22,7 @@ namespace Puddle
         {
             imageFile = "button.png";
             played = false;
-            soundFiles.Add("button.wav");
+            soundFiles.Add("Sounds/button.wav");
             name = obj.Name;
             collisionWidth = 24;
             collisionHeight = 30;
@@ -52,7 +52,7 @@ namespace Puddle
             }
             if (activating && !played)
             {
-                soundList["button.wav"].Play();
+                soundList["Sounds/button.wav"].Play();
                 played = true;
             }
         }

@@ -59,7 +59,7 @@ namespace Puddle
             newMapTimer = LOAD_SCREEN_TIME;
             player1.newMap = "Content/Level1.tmx";
 
-            song = Content.Load<SoundEffect>("InGame.wav");
+            song = Content.Load<SoundEffect>("Sounds/InGame.wav");
             instance = song.CreateInstance();
             instance.IsLooped = true;
             if (instance.State == SoundState.Stopped)
