@@ -20,6 +20,7 @@ namespace Puddle
         public bool pushing;
         public Dictionary<string, bool> powerup;
         public string newMap;
+		public bool piped;
 
         // Stats
         public double maxHydration;
@@ -66,7 +67,7 @@ namespace Puddle
             shooting = false;
             pushing = false;
             collisionWidth = 16;
-
+			piped = false;
             // Stats
             maxHydration = 100;
             hydration = maxHydration;
@@ -134,6 +135,8 @@ namespace Puddle
 
             CheckCollisions(level);
 
+            HandleCollisions(level);
+
             Animate(controls, level, gameTime);
         }
 
@@ -168,7 +171,8 @@ namespace Puddle
 						x_vel > 0)
 					{
 						// Push
-						if (s is Block && ((Block)s).rightPushable)
+						if (s is Block && ((Block)s).blockType == "push" && 
+							((Block)s).pushRight && !((Block)s).rCol)
 						{
 							((Block)s).x_vel = x_vel;
 							pushing = true;
@@ -188,7 +192,8 @@ namespace Puddle
 						x_vel < 0)
 					{
 						// Push
-						if (s is Block && ((Block)s).leftPushable)
+						if (s is Block && ((Block)s).blockType == "push" && 
+							((Block)s).pushLeft && !((Block)s).lCol)
 						{
 							((Block)s).x_vel = x_vel;
 							pushing = true;
@@ -261,10 +266,13 @@ namespace Puddle
 
             if (puddled)
             {
-                if (hydration >= puddleCost)
-                    hydration -= puddleCost;
-                else
-                    puddled = false;
+				if (hydration >= puddleCost)
+					hydration -= puddleCost;
+				else 
+				{
+					puddled = false;
+					piped = false;
+				}
             }
         }
 
@@ -354,7 +362,7 @@ namespace Puddle
             SoundEffectInstance instance = soundList["Sounds/Jump.wav"].CreateInstance();
             instance.Volume = 0.1f;
             // Jump on button press
-			if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
+            if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
             {       
                 if(instance.State != SoundState.Playing)
                     instance.Play();
@@ -393,11 +401,10 @@ namespace Puddle
                 {
                     powerup[((PowerUp)item).name] = true;
                     item.destroyed = true;
-
                     SoundEffectInstance instance = soundList["Sounds/Powerup.wav"].CreateInstance();
                     instance.Volume = 0.3f;
                     instance.Play();
-                   	// newMap = "Content/Level2.tmx";
+                   // newMap = "Content/Level2.tmx";
                 }
 				// Press buttons
                 if (item is Button && Intersects(item))
@@ -406,17 +413,27 @@ namespace Puddle
                     but.Action(level);
                 }
 
-                if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32))
+				if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32) && 
+					!piped && Math.Abs(spriteX - item.spriteX) < 12)
+
                 {
-                    Pipe p = (Pipe)item;
-                    if (p.direction == "down")
-                    {
-                        p.Action(level);
-                        //Death ();
-                    }
+
+					Pipe p = (Pipe)item;
+					if(p.name.Contains("endPipe"))
+					{
+						newMap = "Content/Level2.tmx";
+					}
+					p.Action(level);
+					piped = true;
 
                 }
+
             }
+        }
+
+        private void HandleCollisions(Level level)
+        {
+
         }
 
         public void Death()
@@ -426,6 +443,7 @@ namespace Puddle
             y_vel = 0;
             puddled = false;
             hydration = maxHydration;
+			piped = false;
         }
 
         private void Animate(Controls controls, Level level, GameTime gameTime)
@@ -487,8 +505,11 @@ namespace Puddle
                 else
                 {
                     frameIndex -= 32;
-                    if (frameIndex <= 0)
-                        puddled = false;
+					if (frameIndex <= 0)
+					{
+						puddled = false;
+						piped = false;
+					}
                 }
             }
         }
