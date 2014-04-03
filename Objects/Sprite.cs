@@ -92,10 +92,19 @@ namespace Puddle
 
         public bool Intersects(Sprite s)
         {
-            bool intersect_vertical = ( (topWall >= s.topWall && topWall <= s.bottomWall) || 
-                (bottomWall >= s.topWall && bottomWall <= s.bottomWall) );
-            bool intersect_horizontal = ((leftWall >= s.leftWall && leftWall <= s.rightWall) ||
-                (rightWall >= s.leftWall && rightWall <= s.rightWall));
+            bool intersect_vertical = ( 
+				(topWall >= s.topWall && topWall <= s.bottomWall) || 
+				(bottomWall >= s.topWall && bottomWall <= s.bottomWall) ||
+				(s.topWall >= topWall && s.topWall <= bottomWall) || 
+				(s.bottomWall >= topWall && s.bottomWall <= bottomWall) 
+			);
+
+            bool intersect_horizontal = (
+				(leftWall >= s.leftWall && leftWall <= s.rightWall) ||
+				(rightWall >= s.leftWall && rightWall <= s.rightWall) ||
+				(s.leftWall >= leftWall && s.leftWall <= rightWall) ||
+				(s.rightWall >= leftWall && s.rightWall <= rightWall)
+			);
 
             return intersect_vertical && intersect_horizontal;
         }
