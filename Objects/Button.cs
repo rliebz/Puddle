@@ -88,6 +88,7 @@ namespace Puddle
 					pressed = true;
                     Action(level);
                 }
+
             }
 
 			// Hold button is no longer held
@@ -106,10 +107,19 @@ namespace Puddle
 
 			foreach (Sprite s in level.items)
 			{
-				if (s.name.Contains("Block") && int.Parse(s.name.Split(' ')[1]) == number)
+				if (s.name.Contains("Block") && int.Parse(s.name.Split(' ')[1]) == number )
 				{
-					Console.WriteLine(number);
+
+					//Console.WriteLine(number);
 					((Block)s).changeType("push");
+
+				}
+				if (s.name.Contains("Gate") && int.Parse(s.name.Split(' ')[1]) == number )
+				{
+					s.isSolid = false;
+					//Console.WriteLine(number);
+					((Block)s).changeType("transparent");
+
 				}
 			}
 
@@ -118,7 +128,18 @@ namespace Puddle
 
 		public void UnAction(Level level)
 		{
+			foreach (Sprite s in level.items)
+			{
+				int number = int.Parse(name.Split(' ')[1]);
+				if (s.name.Contains("Gate") && int.Parse(s.name.Split(' ')[1]) == number)
+				{
+					s.isSolid = true;
+					((Block)s).changeType("metal");
+
+				}
+			}
 			activated = false;
+
 		}
 
 		public void Animate(Level level)
