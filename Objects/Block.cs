@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
 using TiledSharp;
 namespace Puddle
 {
@@ -26,6 +27,7 @@ namespace Puddle
         public string blockType;
 
         private Block uBlock;
+        private SoundEffectInstance sound;
 
 		// Tiled constructor
 		public Block(TmxObjectGroup.TmxObject obj)
@@ -53,6 +55,8 @@ namespace Puddle
             this.lCol = false;
             this.dCol = false;
             this.uCol = false;
+            soundFiles.Add("Sounds/Slide.wav");
+
 
             this.x_vel = 0;
 
@@ -112,7 +116,6 @@ namespace Puddle
         public override void Update(Level level)
         {
             Move(level);
-
             CheckCollisions(level);
 
         }
@@ -134,6 +137,19 @@ namespace Puddle
             {
                 uBlock.x_vel = x_vel;
                 uBlock.Move(level);
+            }
+
+            if (x_vel != 0)
+            {
+                if (sound.State != SoundState.Playing)
+                {
+                    sound.Volume = 0.2f;
+                    sound.Play();
+                }
+            }
+            else
+            {
+                sound.Stop();
             }
 
 			x_vel = 0;
@@ -192,6 +208,15 @@ namespace Puddle
             images["push"] = content.Load<Texture2D>("push_block.png");
             images["metal"] = content.Load<Texture2D>("brick.png");
             image = images[this.blockType];
+            foreach (string file in soundFiles)
+            {
+                if (!soundList.ContainsKey(file))
+                {
+                    SoundEffect effect = content.Load<SoundEffect>(file);
+                    soundList.Add(file, effect);
+                    this.sound = soundList["Sounds/Slide.wav"].CreateInstance();
+                }
+            }
         }
 
 		public override void Draw(SpriteBatch sb)
