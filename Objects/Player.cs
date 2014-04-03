@@ -491,7 +491,7 @@ namespace Puddle
 					Pipe p = (Pipe)item;
 					if(p.name.Contains("endPipe"))
 					{
-						newMap = "Content/Level2.tmx";
+						newMap = String.Format("Content/Level{0}.tmx", p.destination);
 					}
 					p.Action(level);
 					piped = true;

@@ -14,6 +14,7 @@ namespace Puddle
     {
 
         public string direction;
+        public string destination;
 
         public Pipe(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
@@ -26,6 +27,8 @@ namespace Puddle
 			collisionHeight = 32;
 			this.direction = obj.Properties.ContainsKey ("direction") ?
 				(obj.Properties ["direction"]) : "up";
+
+            this.destination = obj.Properties.ContainsKey("destination") ? obj.Properties["destination"] : "";
 
 			if (this.direction == "up")
             {
