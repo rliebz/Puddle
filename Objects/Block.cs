@@ -104,6 +104,9 @@ namespace Puddle
                 gravity = false;
                 frameIndex = 0;
             }
+			else if(newType == "transparent"){
+				frameIndex = 0;
+			}
             else
             {
                 gravity = true;
@@ -118,6 +121,7 @@ namespace Puddle
                     frameIndex = 96;
             }
         }
+
 
         public override void Update(Level level)
         {
@@ -214,6 +218,7 @@ namespace Puddle
             images["push"] = content.Load<Texture2D>("push_block.png");
             images["metal"] = content.Load<Texture2D>("brick.png");
             images["break"] = content.Load<Texture2D>("break.png");
+			images["transparent"] = content.Load<Texture2D>("background.png");
             image = images[this.blockType];
             foreach (string file in soundFiles)
             {

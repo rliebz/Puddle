@@ -1018,13 +1018,6 @@
     <property name="right" value="True"/>
    </properties>
   </object>
-  <object name="Block 1" type="Puddle.Block" x="96" y="416" width="32" height="32">
-   <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="True"/>
-   </properties>
-  </object>
   <object name="Block 2" type="Puddle.Block" x="384" y="544" width="32" height="32">
    <properties>
     <property name="gravity" value="False"/>
@@ -1046,15 +1039,19 @@
     <property name="right" value="False"/>
    </properties>
   </object>
-  <object name="Ground" type="Puddle.Block" x="192" y="480" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="448" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="416" width="32" height="32"/>
+  <object name="Block 6" type="Puddle.Block" x="96" y="512" width="32" height="32">
+   <properties>
+    <property name="gravity" value="True"/>
+    <property name="left" value="False"/>
+    <property name="right" value="True"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Items" width="22" height="22">
-  <object name="Button 3" type="Puddle.Button" x="160" y="352" width="32" height="32">
+  <object name="Button 3" type="Puddle.Button" x="384" y="608" width="32" height="32">
    <properties>
-    <property name="" value="Block 1"/>
-    <property name="direction" value=""/>
+    <property name="" value=""/>
+    <property name="direction" value="right"/>
    </properties>
   </object>
   <object name="Button 2" type="Puddle.Button" x="32" y="352" width="32" height="32">
@@ -1073,6 +1070,12 @@
    </properties>
   </object>
   <object name="Jetpack" type="Puddle.PowerUp" x="32" y="256" width="32" height="32"/>
+  <object name="Button 5" type="Puddle.Button" x="160" y="512" width="32" height="32">
+   <properties>
+    <property name="direction" value="right"/>
+    <property name="hold" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Ground" width="22" height="22">
   <object name="Ground" type="Puddle.Block" x="32" y="640" width="32" height="32"/>
@@ -1207,11 +1210,7 @@
   <object name="Ground" type="Puddle.Block" x="384" y="640" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="192" y="352" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="192" y="384" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="512" width="32" height="32">
-   <properties>
-    <property name="canBreak" value="True"/>
-   </properties>
-  </object>
+  <object name="Ground" type="Puddle.Block" x="192" y="512" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="416" y="352" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="416" y="384" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="416" y="416" width="32" height="32"/>
@@ -1345,6 +1344,7 @@
   <object name="Ground" type="Puddle.Block" x="224" y="352" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="224" y="416" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="256" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="192" y="416" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Pipe" width="22" height="22">
   <object name="Pipe1_1" type="Puddle.Pipe" x="96" y="320" width="32" height="32">
@@ -1377,5 +1377,17 @@
   <object name="Ground" type="Puddle.Block" x="640" y="128" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="576" y="128" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="608" y="128" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="Gate" width="22" height="22">
+  <object name="Gate 5" type="Puddle.Block" x="192" y="480" width="32" height="32">
+   <properties>
+    <property name="gate" value="close"/>
+   </properties>
+  </object>
+  <object name="Gate 5" type="Puddle.Block" x="192" y="448" width="32" height="32">
+   <properties>
+    <property name="gate" value="close"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
