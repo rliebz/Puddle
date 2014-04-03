@@ -39,8 +39,8 @@ namespace Puddle
 		public double y_vel;
 
         //Checkpoint positions, defaulted to initial
-        private int checkpointXPos;
-        private int checkpointYPos;
+        public int checkpointXPos;
+        public int checkpointYPos;
 
         // Internal calculations
         private int shotPoint;
@@ -320,6 +320,8 @@ namespace Puddle
                     hydration -= shotCost;
                 }
 
+                //need a new if statement for big shots. the if will be current time, shot point, and charge time, bigShooting, amd hydration
+
                 // Jetpack (Midair jump and downward shots)
                 int currentTime2 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                 if ((currentTime2 - jumpPoint) >= jumpDelay && y_vel > 3 && powerup["jetpack"] &&
@@ -397,7 +399,7 @@ namespace Puddle
 				// Pick up powerups 
                 if (item is PowerUp && Intersects(item))
                 {
-                    powerup[((PowerUp)item).name] = true;
+                    ((PowerUp)item).Action(this);
                     item.destroyed = true;
                     SoundEffectInstance instance = soundList["Sounds/Powerup.wav"].CreateInstance();
                     instance.Volume = 0.3f;

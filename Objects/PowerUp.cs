@@ -12,11 +12,26 @@ namespace Puddle
 {
     class PowerUp : Sprite
     {
+
         public PowerUp(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
             imageFile = obj.Name + ".png";
             name = obj.Name.ToLower();
+        }
+
+        public void Action(Player player)
+        {
+            if (name == "checkpoint")
+            {
+                player.checkpointXPos = spriteX;
+                player.checkpointYPos = spriteY;
+            }
+            else
+            {
+                player.powerup[name] = true;
+            }
+
         }
 
     }

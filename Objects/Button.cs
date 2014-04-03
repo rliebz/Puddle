@@ -15,12 +15,19 @@ namespace Puddle
         public bool activating;
         public bool activated;
         public bool played; //If sound has been played
+        public bool holdButton;
 
         // TODO: add in function passing for individual button actions
         public Button(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
             imageFile = "button.png";
+            holdButton = obj.Properties.ContainsKey("hold") && Boolean.Parse(obj.Properties["hold"]);
+            if (holdButton)
+            {
+                holdButton = true;
+                spriteColor = Color.Black;
+            }
             played = false;
             soundFiles.Add("Sounds/button.wav");
             name = obj.Name;
@@ -32,29 +39,80 @@ namespace Puddle
                 faceLeft = true;
                 spriteX -= 9;
             }
-            else
+            else if (obj.Properties["direction"].Equals("right"))
             {
                 faceLeft = false;
                 spriteX += 9;
+            }
+            else if (obj.Properties["direction"].Equals("up"))
+            {
+                rotationAngle = MathHelper.PiOver2;
+                spriteY += 9;
+                collisionHeight = 24;
+                collisionWidth = 30;
+            }
+            else
+            {
+                rotationAngle = MathHelper.PiOver2 * 3;
+                spriteY -= 9;
+                collisionHeight = 24;
+                collisionWidth = 30;
             }
         }
 
         public override void Update(Level level)
         {
+            CheckCollisions(level);
             Animate(level);
         }
 
         public void Animate(Level level)
         {
-            if (activating && frameIndex < (32 * 7))
+            if (activated)
             {
-                frameIndex += 32;
+                if (frameIndex < (32 * 7))
+                {
+                    frameIndex += 32;
+                    if (!played)
+                    {
+                        soundList["Sounds/button.wav"].Play();
+                        played = true;
+                    }
+                }
             }
-            if (activating && !played)
+            else
             {
-                soundList["Sounds/button.wav"].Play();
-                played = true;
+                if (holdButton && frameIndex > 0)
+                {
+                    frameIndex -= 32;
+                }
+                else
+                {
+                    activated = false;
+                }
             }
+        }
+
+        public bool CheckCollisions(Level level)
+        {
+            if (Intersects(level.player))
+            {
+                Action(level);
+                activated = true;
+                return true;
+            }
+            foreach (Sprite item in level.items)
+            {
+                if (item is Block && Intersects(item) && ((Block)(item)).blockType == "push")
+                {
+                    Action(level);
+                    activated = true;
+                    return true;
+                }
+            }
+            if (holdButton)
+                activated = false;
+            return false;
         }
 
         public void Action(Level level)

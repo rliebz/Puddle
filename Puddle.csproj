@@ -93,6 +93,9 @@
     <Content Include="Content\button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\checkpoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sounds\button.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
