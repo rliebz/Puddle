@@ -132,6 +132,16 @@ namespace Puddle
                     }
                 }
             }
+			else if (this.name == "Button 10")
+			{
+				foreach (Sprite s in level.items)
+				{
+					if (s.name == "Block 10")
+					{
+						((Block)s).changeType("push");                        
+					}
+				}
+			}
 
 			activated = true;
         }
