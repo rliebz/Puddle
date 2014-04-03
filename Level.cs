@@ -44,12 +44,35 @@ namespace Puddle
 //                enemies.Add(e);
 //            }
 
+//			if (count % 100 == 0)
+//			{
+//				Fireball fireball = new Fireball(320, 320, "up");
+//				fireball.LoadContent(content);
+//				projectiles.Add((Sprite)fireball);
+//
+//				fireball = new Fireball(320, 320, "down");
+//				fireball.LoadContent(content);
+//				projectiles.Add((Sprite)fireball);
+//
+//				fireball = new Fireball(320, 320, "left");
+//				fireball.LoadContent(content);
+//				projectiles.Add((Sprite)fireball);
+//
+//				fireball = new Fireball(320, 320, "right");
+//				fireball.LoadContent(content);
+//				projectiles.Add((Sprite)fireball);
+//			}
+
+
             // Move shots
 			foreach (Sprite s in projectiles)
 				s.Update(this);
 
 			foreach (Enemy e in enemies)
+			{
 				e.Update(this);
+				e.Update(this, content);
+			}
 
 			foreach (Sprite s in items)
 			{

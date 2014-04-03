@@ -34,21 +34,6 @@ namespace Puddle
             seed = rnd.Next(0, 3);
         }
 
-        public override void Update(Level level)
-        {
-            // Move
-            Move(level);
-
-			// Fall
-			Fall(level);
-
-            // Animate sprite
-            Animate(level);
-
-            // Be killed if necessary
-            destroyed = (health <= 0);
-        }
-
         public void Move(Level level)
         {
 

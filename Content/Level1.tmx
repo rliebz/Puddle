@@ -11,27 +11,30 @@
   <image source="brick.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="282" name="button" tilewidth="32" tileheight="32">
-  <image source="button.png" width="256" height="32"/>
+  <image source="button.png" width="224" height="32"/>
  </tileset>
- <tileset firstgid="290" name="button-left" tilewidth="32" tileheight="32">
+ <tileset firstgid="289" name="button-left" tilewidth="32" tileheight="32">
   <image source="button-left.png" width="256" height="32"/>
  </tileset>
- <tileset firstgid="298" name="push_block" tilewidth="32" tileheight="32">
+ <tileset firstgid="297" name="push_block" tilewidth="32" tileheight="32">
   <image source="push_block.png" width="128" height="32"/>
+  <terraintypes>
+   <terrain name="New Terrain" tile="-1"/>
+  </terraintypes>
  </tileset>
- <tileset firstgid="302" name="fireball" tilewidth="32" tileheight="32">
+ <tileset firstgid="301" name="fireball" tilewidth="32" tileheight="32">
   <image source="fireball.png" width="64" height="32"/>
  </tileset>
- <tileset firstgid="304" name="geyser" tilewidth="32" tileheight="32">
+ <tileset firstgid="303" name="geyser" tilewidth="32" tileheight="32">
   <image source="geyser.png" width="32" height="128"/>
  </tileset>
- <tileset firstgid="308" name="pipe" tilewidth="32" tileheight="32">
+ <tileset firstgid="307" name="pipe" tilewidth="32" tileheight="32">
   <image source="pipe.png" width="256" height="64"/>
  </tileset>
- <tileset firstgid="324" name="jetpack" tilewidth="32" tileheight="32">
+ <tileset firstgid="323" name="jetpack" tilewidth="32" tileheight="32">
   <image source="jetpack.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="325" name="cannon" tilewidth="32" tileheight="32">
+ <tileset firstgid="324" name="cannon" tilewidth="32" tileheight="32">
   <image source="cannon.png" width="64" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="22">
@@ -257,7 +260,7 @@
    <tile gid="20"/>
    <tile gid="281"/>
    <tile gid="281"/>
-   <tile gid="316"/>
+   <tile gid="315"/>
    <tile gid="26"/>
    <tile gid="27"/>
    <tile gid="28"/>
@@ -609,7 +612,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="281"/>
-   <tile gid="308"/>
+   <tile gid="307"/>
    <tile gid="281"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -636,7 +639,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="281"/>
-   <tile gid="316"/>
+   <tile gid="315"/>
    <tile gid="281"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -745,9 +748,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="316"/>
+   <tile gid="315"/>
    <tile gid="281"/>
-   <tile gid="308"/>
+   <tile gid="307"/>
    <tile gid="281"/>
    <tile gid="281"/>
    <tile gid="281"/>

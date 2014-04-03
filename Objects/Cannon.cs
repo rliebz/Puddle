@@ -12,6 +12,8 @@ namespace Puddle
 {
     class Cannon : Sprite
     {
+		public string direction;
+
         //TODO: add in function passing for individual button actions
         public Cannon(TmxObjectGroup.TmxObject obj) :
             base(obj.X + 16, obj.Y, 32, 32)
@@ -23,7 +25,8 @@ namespace Puddle
             spriteWidth = 64;
             collisionWidth = 64;
             faceLeft = false;
-            if (obj.Properties["direction"].Equals("left"))
+			direction = obj.Properties["direction"];
+			if (direction == "left")
                 faceLeft = true;
         }
 
@@ -31,7 +34,9 @@ namespace Puddle
         {
 			if (level.count % 125 == 0)
             {
-                Fireball fireball = new Fireball(this);
+				Fireball fireball = new Fireball(
+					spriteX + (faceLeft ? -32 : 32), spriteY - 16, direction
+				);
                 fireball.LoadContent(content);
 				level.projectiles.Add((Sprite)fireball);
             }
