@@ -22,6 +22,8 @@ namespace Puddle
 		public bool isSolid;
         public string imageFile;
 		public string name;
+        public float rotationAngle;
+        public Color spriteColor;
         protected Texture2D image;
         protected Dictionary<string, Texture2D> images;
         protected List<string> soundFiles;
@@ -42,6 +44,8 @@ namespace Puddle
             this.faceLeft = false;
             this.frameIndex = 0;
             this.isSolid = false;
+            this.spriteColor = Color.White;
+            this.rotationAngle = 0;
 
             this.soundFiles = new List<string>();
             this.soundList = new Dictionary<string, SoundEffect>();
@@ -109,8 +113,8 @@ namespace Puddle
                 image,
                 new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
                 new Rectangle(frameIndex, 0, frameWidth, frameHeight),
-                Color.White,
-                0,
+                spriteColor,
+                rotationAngle,
                 new Vector2(spriteWidth / 2, spriteHeight / 2),
                 faceLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                 0

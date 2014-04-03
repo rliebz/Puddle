@@ -34,7 +34,7 @@
  <tileset firstgid="325" name="cannon" tilewidth="32" tileheight="32">
   <image source="cannon.png" width="64" height="32"/>
  </tileset>
- <layer name="Background" width="22" height="22" visible="0">
+ <layer name="Background" width="22" height="22">
   <data>
    <tile gid="281"/>
    <tile gid="281"/>
@@ -1270,6 +1270,13 @@
   <object name="Ground" type="Puddle.Block" x="384" y="0" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="576" y="0" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="512" y="0" width="32" height="32"/>
+  <object name="checkpoint" type="Puddle.PowerUp" x="288" y="384" width="32" height="32"/>
+  <object name="Button 10" type="Puddle.Button" x="160" y="512" width="32" height="32">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="hold" value="True"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Pipe" width="22" height="22">
   <object name="Pipe1_1" type="Puddle.Pipe" x="96" y="320" width="32" height="32">

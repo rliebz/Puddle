@@ -14,6 +14,7 @@ namespace Puddle
         public string dir;
         public int speed;
         public int x_vel;
+        public bool powerShot;
 
         public Shot(Player p, string dir = "none")
             : base(p.spriteX - 16, p.spriteY - 16, 24, 24)
@@ -67,22 +68,6 @@ namespace Puddle
             }
             else
                 spriteX += x_vel;
-
-        }
-
-        public new void Draw(SpriteBatch sb)
-        {
-            sb.Draw(
-                image,
-                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
-                new Rectangle(0, 0, 32, 32),
-                Color.White,
-                0,
-                new Vector2(16, 16),
-                SpriteEffects.None,
-                0
-            );
-
 
         }
     }
