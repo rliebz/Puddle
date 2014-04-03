@@ -29,7 +29,7 @@ namespace Puddle
 
         public override void Update(Level level, ContentManager content)
         {
-            if (level.count % 100 == 0)
+			if (level.count % 125 == 0)
             {
                 Fireball fireball = new Fireball(this);
                 fireball.LoadContent(content);

@@ -115,7 +115,7 @@ namespace Puddle
 
 		public void Jump(Level level)
 		{
-			y_vel = -11;
+			y_vel = -9;
 			grounded = false;
 		}
 

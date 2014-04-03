@@ -31,7 +31,7 @@ namespace Puddle
 			pressed = false;
             soundFiles.Add("Sounds/button.wav");
             name = obj.Name;
-            collisionWidth = 24;
+			collisionWidth = 20;
             collisionHeight = 30;
 
             if (obj.Properties["direction"].Equals("left"))
