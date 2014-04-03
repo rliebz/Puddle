@@ -57,7 +57,7 @@ namespace Puddle
         public bool offScreen
         {
             get { return (spriteX < -32 || spriteY < -32 || 
-                spriteX > 1000 || spriteY > 1000); }
+				spriteX > 32 * 22 || spriteY > 32 * 22); }
         }
 
         public int CompareTo(Sprite b)

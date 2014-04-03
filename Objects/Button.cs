@@ -105,44 +105,14 @@ namespace Puddle
 				
 			soundList["Sounds/button.wav"].Play();
 
-            if (this.name == "Button 1")
-            {
-				foreach (Sprite s in level.items)
-                {
-                    if (s.name == "Block 3")
-                    {
-						((Block)s).changeType("push");
-                    }
-                }
-            }
-            else if (this.name == "Button 2")
-            {
-				foreach (Sprite s in level.items)
-                {
-                    if (s.name == "Block 2")
-                    {
-						((Block)s).changeType("push");
-                    }
-                }
-            }
-            else if (this.name == "Button 3")
-            {
-				foreach (Sprite s in level.items)
-                {
-                    if (s.name == "Block 4")
-                    {
-						((Block)s).changeType("push");                        
-                    }
-                }
-            }
-			else if (this.name == "Button 10")
+			int number = int.Parse(name.Split(' ')[1]);
+
+			foreach (Sprite s in level.items)
 			{
-				foreach (Sprite s in level.items)
+				if (s.name.Contains("Block") && int.Parse(s.name.Split(' ')[1]) == number)
 				{
-					if (s.name == "Block 10")
-					{
-						((Block)s).changeType("push");                        
-					}
+					Console.WriteLine(number);
+					((Block)s).changeType("push");
 				}
 			}
 
