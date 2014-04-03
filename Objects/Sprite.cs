@@ -17,6 +17,7 @@ namespace Puddle
         public int collisionWidth, collisionHeight;
         public int frameWidth, frameHeight;
         public int frameIndex;
+        public int depth;
         public bool destroyed;
         public bool faceLeft;
 		public bool isSolid;
@@ -46,6 +47,7 @@ namespace Puddle
             this.isSolid = false;
             this.spriteColor = Color.White;
             this.rotationAngle = 0;
+            this.depth = 0;
 
             this.soundFiles = new List<string>();
             this.soundList = new Dictionary<string, SoundEffect>();
@@ -56,6 +58,16 @@ namespace Puddle
         {
             get { return (spriteX < -32 || spriteY < -32 || 
                 spriteX > 1000 || spriteY > 1000); }
+        }
+
+        public int CompareTo(Sprite b)
+        {
+            if (this.depth > b.depth)
+                return 1;
+            else if (this.depth < b.depth)
+                return -1;
+            else
+                return 0;
         }
 
         public int leftWall

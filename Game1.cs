@@ -111,6 +111,9 @@ namespace Puddle
                 }
             }
 
+            level.items.Sort((x, y) => x.CompareTo(y));
+
+
             player1.newMap = "";
 			LoadContent();
             newMapLoad = false;

@@ -33,6 +33,7 @@ namespace Puddle
         {
 			count++;
 
+
 			// Random rnd = new Random();
             // Generate enemies
 //			if (count % 500 == 0 && enemies.Count < 5) // Change -1 to 0 to spawn enemies
