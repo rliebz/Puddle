@@ -41,6 +41,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="Objects\Button.cs" />
     <Compile Include="Objects\Cannon.cs" />
+    <Compile Include="Objects\Checkpoint.cs" />
     <Compile Include="Objects\Fireball.cs" />
     <Compile Include="Objects\Frog.cs" />
     <Compile Include="Objects\Pipe.cs" />
