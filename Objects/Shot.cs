@@ -36,7 +36,7 @@ namespace Puddle
             CheckCollisions(level);
         }
 
-        public void CheckCollisions(Level level)
+        public virtual void CheckCollisions(Level level)
         {
             // Check collisions with enemies
             foreach (Enemy e in level.enemies)

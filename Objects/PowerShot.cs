@@ -17,5 +17,20 @@ namespace Puddle
             spriteHeight = 48;
             damage = 3;
         }
+
+
+        public override void CheckCollisions(Level level)
+        {
+            base.CheckCollisions(level);
+            foreach (Sprite s in level.items)
+            {
+                if (s is Block && Intersects(s))
+                {
+                    Block b = (Block)s;
+                    if (b.blockType == "break")
+                        b.destroyed = true;
+                }
+            }
+        }
     }
 }
