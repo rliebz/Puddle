@@ -407,11 +407,11 @@ namespace Puddle
                    // newMap = "Content/Level2.tmx";
                 }
 				// Press buttons
-                if (item is Button && Intersects(item))
-                {
-                    Button but = (Button)item;
-                    but.Action(level);
-                }
+                //if (item is Button && Intersects(item))
+                //{
+                //    Button but = (Button)item;
+                //    but.Action(level);
+                //}
 
 				if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32) && 
 					!piped && Math.Abs(spriteX - item.spriteX) < 12)
