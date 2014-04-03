@@ -44,6 +44,15 @@ namespace Puddle
             if (Intersects(level.player))
             {
                 Action(level.player);
+                foreach (Sprite s in level.items)
+                {
+                    if (s != this && s is Checkpoint)
+                    {
+                        Checkpoint c = (Checkpoint)s;
+                        c.activated = false;
+                        c.frameIndex = 0;
+                    }
+                }
                 activated = true;
             }
         }
