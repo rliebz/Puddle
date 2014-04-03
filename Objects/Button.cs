@@ -12,9 +12,8 @@ namespace Puddle
 {
     class Button : Sprite
     {
-        public bool activating;
         public bool activated;
-        public bool played; //If sound has been played
+		public bool pressed;
         public bool holdButton;
 
         // TODO: add in function passing for individual button actions
@@ -25,10 +24,11 @@ namespace Puddle
             holdButton = obj.Properties.ContainsKey("hold") && Boolean.Parse(obj.Properties["hold"]);
             if (holdButton)
             {
-                holdButton = true;
-                spriteColor = Color.Black;
+				spriteColor = Color.Yellow;
             }
-            played = false;
+
+			activated = false;
+			pressed = false;
             soundFiles.Add("Sounds/button.wav");
             name = obj.Name;
             collisionWidth = 24;
@@ -65,63 +65,45 @@ namespace Puddle
             CheckCollisions(level);
             Animate(level);
         }
-
-        public void Animate(Level level)
+			
+		public void CheckCollisions(Level level)
         {
-            if (activated)
-            {
-                if (frameIndex < (32 * 7))
-                {
-                    frameIndex += 32;
-                    if (!played)
-                    {
-                        soundList["Sounds/button.wav"].Play();
-                        played = true;
-                    }
-                }
-            }
-            else
-            {
-                if (holdButton && frameIndex > 0)
-                {
-                    frameIndex -= 32;
-                }
-                else
-                {
-                    activated = false;
-                }
-            }
-        }
+			// Assume unpressed for hold buttons
+			if (holdButton)
+				pressed = false;
 
-        public bool CheckCollisions(Level level)
-        {
-            if (Intersects(level.player))
-            {
+			// Do nothing if already pressed
+			else if (pressed)
+				return;
+
+			// Press if intersecting with player
+			if (Intersects(level.player))
+			{
+				pressed = true;
                 Action(level);
-                activated = true;
-                return true;
             }
+
+			// Press if intersecting with block
             foreach (Sprite item in level.items)
             {
-                if (item is Block && Intersects(item) && ((Block)(item)).blockType == "push")
-                {
+				if (Intersects(item) && item is Block && ((Block)(item)).blockType == "push")
+				{
+					pressed = true;
                     Action(level);
-                    activated = true;
-                    return true;
                 }
             }
-            if (holdButton)
-                activated = false;
-            return false;
+
+			// Hold button is no longer held
+			if (holdButton && activated && !pressed)
+				UnAction(level);
         }
 
         public void Action(Level level)
         {
             if (activated)
                 return;
-
-            activating = true;
-            activated = true;
+				
+			soundList["Sounds/button.wav"].Play();
 
             if (this.name == "Button 1")
             {
@@ -154,6 +136,27 @@ namespace Puddle
                 }
             }
 
+			activated = true;
         }
+
+		public void UnAction(Level level)
+		{
+			activated = false;
+		}
+
+		public void Animate(Level level)
+		{
+			if (pressed)
+			{
+				if (frameIndex < (32 * 6))
+				{
+					frameIndex += 32;
+				}
+			}
+			else if (frameIndex > 0)
+			{
+				frameIndex -= 32;
+			}
+		}
     }
 }

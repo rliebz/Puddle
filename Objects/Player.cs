@@ -171,7 +171,7 @@ namespace Puddle
 						x_vel > 0)
 					{
 						// Push
-						if (s is Block && ((Block)s).rightPushable)
+						if (s is Block && ((Block)s).rightPushable && grounded)
 						{
 							((Block)s).x_vel = x_vel;
 							pushing = true;
@@ -191,7 +191,7 @@ namespace Puddle
 						x_vel < 0)
 					{
 						// Push
-						if (s is Block && ((Block)s).leftPushable)
+						if (s is Block && ((Block)s).leftPushable && grounded)
 						{
 							((Block)s).x_vel = x_vel;
 							pushing = true;
@@ -362,7 +362,7 @@ namespace Puddle
             SoundEffectInstance instance = soundList["Sounds/Jump.wav"].CreateInstance();
             instance.Volume = 0.1f;
             // Jump on button press
-            if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
+			if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
             {       
                 if(instance.State != SoundState.Playing)
                     instance.Play();
@@ -405,12 +405,6 @@ namespace Puddle
                     instance.Volume = 0.3f;
                     instance.Play();
                    // newMap = "Content/Level2.tmx";
-                }
-				// Press buttons
-                if (item is Button && Intersects(item))
-                {
-                    Button but = (Button)item;
-                    but.Action(level);
                 }
 
 				if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32) && 
