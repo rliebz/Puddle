@@ -22,16 +22,7 @@ namespace Puddle
 
         public void Action(Player player)
         {
-            if (name == "checkpoint")
-            {
-                player.checkpointXPos = spriteX;
-                player.checkpointYPos = spriteY;
-            }
-            else
-            {
-                player.powerup[name] = true;
-            }
-
+            player.powerup[name] = true;
         }
 
     }
