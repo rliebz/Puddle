@@ -22,10 +22,7 @@ namespace Puddle
         {
             imageFile = "button.png";
             holdButton = obj.Properties.ContainsKey("hold") && Boolean.Parse(obj.Properties["hold"]);
-            if (holdButton)
-            {
-				spriteColor = Color.Yellow;
-            }
+		    spriteColor = holdButton ? Color.CornflowerBlue : Color.OrangeRed;
 
 			activated = false;
 			pressed = false;
