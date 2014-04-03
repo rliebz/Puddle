@@ -45,6 +45,7 @@
     <Compile Include="Objects\Fireball.cs" />
     <Compile Include="Objects\Frog.cs" />
     <Compile Include="Objects\Pipe.cs" />
+    <Compile Include="Objects\PowerShot.cs" />
     <Compile Include="Objects\PowerUp.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Game1.cs" />
