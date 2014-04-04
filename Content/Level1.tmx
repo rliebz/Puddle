@@ -23,15 +23,15 @@
   <image source="fireball.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="303" name="geyser" tilewidth="32" tileheight="32">
-  <image source="geyser.png" width="32" height="128"/>
+  <image source="geyser.png" width="128" height="128"/>
  </tileset>
- <tileset firstgid="307" name="pipe" tilewidth="32" tileheight="32">
+ <tileset firstgid="319" name="pipe" tilewidth="32" tileheight="32">
   <image source="pipe.png" width="256" height="64"/>
  </tileset>
- <tileset firstgid="323" name="jetpack" tilewidth="32" tileheight="32">
+ <tileset firstgid="335" name="jetpack" tilewidth="32" tileheight="32">
   <image source="jetpack.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="324" name="cannon" tilewidth="32" tileheight="32">
+ <tileset firstgid="336" name="cannon" tilewidth="32" tileheight="32">
   <image source="cannon.png" width="64" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="22">
@@ -523,7 +523,9 @@
   </data>
  </layer>
  <objectgroup name="Blocks" width="22" height="22"/>
- <objectgroup name="Items" width="22" height="22"/>
+ <objectgroup name="Items" width="22" height="22">
+  <object name="charged" type="Puddle.PowerUp" x="352" y="640" width="32" height="32"/>
+ </objectgroup>
  <objectgroup name="Ground" width="22" height="22">
   <object name="Ground" type="Puddle.Block" x="32" y="672" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="96" y="672" width="32" height="32"/>

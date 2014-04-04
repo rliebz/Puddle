@@ -1354,7 +1354,7 @@
   </object>
   <object name="endPipe_1" type="Puddle.Pipe" x="64" y="160" width="32" height="32">
    <properties>
-    <property name="destination" value="3"/>
+    <property name="destination" value="???"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
    </properties>
