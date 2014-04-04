@@ -26,8 +26,7 @@ namespace Puddle
 			spriteHeight = 96;
 			frameWidth = 96;
 			frameHeight = 96;
-			this.imageFile = "blank.png";
-			this.spriteColor = Color.Gold;
+			this.imageFile = "Face.png";
 			speed = 2;
 			x_vel = speed;
 			y_vel = 0;
@@ -45,9 +44,6 @@ namespace Puddle
 			// Shoot maybe
 			if (level.count % 30 == 0)
 				Shoot(level, content);
-				
-            // Animate sprite
-            Animate(level);
 
             // Be killed if necessary
 			if (health <= 0)
@@ -70,11 +66,5 @@ namespace Puddle
 			level.projectiles.Add((Sprite)fireball);
 
 		}
-
-		public override void Animate(Level level)
-        {
-            frameIndex = ((level.count + seed) / 8 % 4) * 32;
-        }
-
     }
 }
