@@ -53,6 +53,7 @@ namespace Puddle
 				{
 					e.health = 0;
 				}
+				level.player.newMap = "Content/Level6.tmx";
 			}
         }
 			
