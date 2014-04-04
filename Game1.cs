@@ -40,7 +40,7 @@ namespace Puddle
 
         protected override void Initialize()
         {
-			map = new TmxMap("Content/Level2.tmx");
+			map = new TmxMap("Content/Level1.tmx");
 
             // Read Level Size From Map
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
@@ -57,7 +57,7 @@ namespace Puddle
             controls = new Controls();
             newMapLoad = true;
             newMapTimer = LOAD_SCREEN_TIME;
-			player1.newMap = "Content/Level2.tmx";
+			player1.newMap = "Content/Level1.tmx";
 
             song = Content.Load<SoundEffect>("Sounds/InGame.wav");
             instance = song.CreateInstance();
@@ -93,6 +93,8 @@ namespace Puddle
            
             player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
             player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
+			player1.checkpointXPos = player1.spriteX;
+			player1.checkpointYPos = player1.spriteY;
 
 			// Create new level object
             level = new Level(player1);
@@ -103,6 +105,7 @@ namespace Puddle
                 foreach (TmxObjectGroup.TmxObject obj in group.Objects)
                 {
                     Type t = Type.GetType(obj.Type);
+					Console.WriteLine(obj.Name);
                     object item = Activator.CreateInstance(t, obj);
 					if (item is Enemy)
 						level.enemies.Add((Enemy)item);

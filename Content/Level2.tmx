@@ -726,7 +726,7 @@
  </objectgroup>
  <objectgroup name="Enemies" width="22" height="22">
   <object name="Rat" type="Puddle.Rat" gid="338" x="416" y="544"/>
-  <object name="Rat" type="Puddle.Rat" gid="338" x="320" y="640"/>
+  <object name="Rat" type="Puddle.Rat" gid="338" x="64" y="640"/>
   <object name="Rat" type="Puddle.Rat" gid="338" x="576" y="96"/>
  </objectgroup>
 </map>
