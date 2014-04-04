@@ -66,6 +66,7 @@ namespace Puddle
             // Properties
             powerup["puddle"] = true;
             powerup["jetpack"] = false;
+            powerup["charged"] = false;
             moving = false;
             grounded = false;
             puddled = false;
@@ -301,55 +302,58 @@ namespace Puddle
                 shooting = false;
             }
 
-            if (controls.onPress(Keys.X, Buttons.RightTrigger))
+            if (powerup["charged"])
             {
-                if(hydration >= powerShotCost)
-                    powerShotCharging = true;
-                powerShotPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-                powerShotRelease = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-                tryShotHydration = 0;
-            }
-            else if (controls.isPressed(Keys.X, Buttons.RightTrigger) && powerShotCharging)
-            {
-                if (tryShotHydration < powerShotCost)
+                if (controls.onPress(Keys.X, Buttons.RightTrigger))
                 {
-                    tryShotHydration += 1;
-                    hydration -= 1;
-                }
-            }
-            else if (controls.onRelease(Keys.X, Buttons.RightTrigger) && powerShotCharging)
-            {
-                powerShotRelease = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-                if (((powerShotRelease - powerShotPoint) >= powerShotDelay) && tryShotHydration == powerShotCost)
-                {
-                    powerShotCharging = false;
+                    if (hydration >= powerShotCost)
+                        powerShotCharging = true;
+                    powerShotPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                    powerShotRelease = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                     tryShotHydration = 0;
-                    string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
-                    PowerShot s = new PowerShot(this, dir);
-                    if (index == 0)
+                }
+                else if (controls.isPressed(Keys.X, Buttons.RightTrigger) && powerShotCharging)
+                {
+                    if (tryShotHydration < powerShotCost)
                     {
-                        soundList["Sounds/Shot1.wav"].Play();
+                        tryShotHydration += 1;
+                        hydration -= 1;
                     }
-                    else if (index == 1)
+                }
+                else if (controls.onRelease(Keys.X, Buttons.RightTrigger) && powerShotCharging)
+                {
+                    powerShotRelease = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                    if (((powerShotRelease - powerShotPoint) >= powerShotDelay) && tryShotHydration == powerShotCost)
                     {
-                        soundList["Sounds/Shot2.wav"].Play();
-                    }
-                    else if (index == 2)
-                    {
-                        soundList["Sounds/Shot3.wav"].Play();
+                        powerShotCharging = false;
+                        tryShotHydration = 0;
+                        string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
+                        PowerShot s = new PowerShot(this, dir);
+                        if (index == 0)
+                        {
+                            soundList["Sounds/Shot1.wav"].Play();
+                        }
+                        else if (index == 1)
+                        {
+                            soundList["Sounds/Shot2.wav"].Play();
+                        }
+                        else if (index == 2)
+                        {
+                            soundList["Sounds/Shot3.wav"].Play();
+                        }
+                        else
+                        {
+                            soundList["Sounds/Shot4.wav"].Play();
+                        }
+                        s.LoadContent(content);
+                        level.projectiles.Add(s);
                     }
                     else
                     {
-                        soundList["Sounds/Shot4.wav"].Play();
+                        powerShotCharging = false;
+                        hydration += tryShotHydration;
+                        tryShotHydration = 0;
                     }
-                    s.LoadContent(content);
-                    level.projectiles.Add(s);
-                }
-                else
-                {
-                    powerShotCharging = false;
-                    hydration += tryShotHydration;
-                    tryShotHydration = 0;
                 }
             }
 

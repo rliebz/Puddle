@@ -37,6 +37,8 @@
   <ItemGroup>
     <Compile Include="Controls.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\Face.cs" />
+    <Compile Include="Enemies\Hand.cs" />
     <Compile Include="Enemies\Rat.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Objects\Button.cs" />
@@ -99,7 +101,13 @@
     <Content Include="Content\button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\charged.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\checkpoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Face.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sounds\button.wav">
@@ -182,6 +190,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Content\Level3.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Level5.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\LevelWhat.tmx" />

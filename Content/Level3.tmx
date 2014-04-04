@@ -1069,7 +1069,7 @@
     <property name="direction" value="left"/>
    </properties>
   </object>
-  <object name="Jetpack" type="Puddle.PowerUp" x="32" y="256" width="32" height="32"/>
+  <object name="Checkpoint" type="Puddle.Checkpoint" x="32" y="256" width="32" height="32"/>
   <object name="Button 5" type="Puddle.Button" x="160" y="512" width="32" height="32">
    <properties>
     <property name="direction" value="right"/>
@@ -1354,7 +1354,7 @@
   </object>
   <object name="endPipe_1" type="Puddle.Pipe" x="64" y="160" width="32" height="32">
    <properties>
-    <property name="destination" value="3"/>
+    <property name="destination" value="5"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
    </properties>
