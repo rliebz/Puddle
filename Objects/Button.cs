@@ -110,8 +110,6 @@ namespace Puddle
 			{
 				if (s.name.Contains("Block") && int.Parse(s.name.Split(' ')[1]) == number )
 				{
-
-					//Console.WriteLine(number);
 					((Block)s).changeType("push");
 
 				}

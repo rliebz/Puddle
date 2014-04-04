@@ -148,7 +148,7 @@ namespace Puddle
 				image,
 				new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
 				new Rectangle(frameIndex, 0, frameWidth, frameHeight),
-				name.Contains("endPipe")?Color.Gold: Color.White,
+				name.Contains("endPipe") ? Color.Gold : Color.White,
 				0,
 				new Vector2(spriteWidth / 2, spriteHeight / 2),
 				faceLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None,

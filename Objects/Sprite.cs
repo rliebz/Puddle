@@ -26,6 +26,8 @@ namespace Puddle
         public float rotationAngle;
         public Color spriteColor;
         protected Texture2D image;
+		public Texture2D blankImage;
+		protected bool displayHitBox;
         protected Dictionary<string, Texture2D> images;
         protected List<string> soundFiles;
         protected Dictionary<string, SoundEffect> soundList;
@@ -45,6 +47,7 @@ namespace Puddle
             this.faceLeft = false;
             this.frameIndex = 0;
             this.isSolid = false;
+			this.displayHitBox = false;
             this.spriteColor = Color.White;
             this.rotationAngle = 0;
             this.depth = 0;
@@ -117,6 +120,7 @@ namespace Puddle
 
         public virtual void LoadContent(ContentManager content)
         {
+			blankImage = content.Load<Texture2D>("blank.png");
             image = content.Load<Texture2D>(imageFile);
             foreach (string file in soundFiles)
             {
@@ -130,6 +134,14 @@ namespace Puddle
 
         public virtual void Draw(SpriteBatch sb)
         {
+			if (displayHitBox)
+			{
+				sb.Draw(
+					blankImage,
+					new Rectangle(leftWall, topWall, rightWall - leftWall, bottomWall - topWall),
+					Color.Navy
+				);
+			}
             sb.Draw(
                 image,
                 new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
