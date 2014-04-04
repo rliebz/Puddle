@@ -30,7 +30,7 @@ namespace Puddle
             name = obj.Name;
 			collisionWidth = 20;
             collisionHeight = 30;
-            depth = 1;
+            depth = -1;
 
             if (obj.Properties["direction"].Equals("left"))
             {

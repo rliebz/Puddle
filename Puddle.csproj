@@ -44,6 +44,7 @@
     <Compile Include="Objects\Checkpoint.cs" />
     <Compile Include="Objects\Fireball.cs" />
     <Compile Include="Objects\Frog.cs" />
+    <Compile Include="Objects\Geyser.cs" />
     <Compile Include="Objects\Pipe.cs" />
     <Compile Include="Objects\PowerShot.cs" />
     <Compile Include="Objects\PowerUp.cs" />
@@ -180,9 +181,10 @@
     <Content Include="Content\jetpack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\Level4.tmx">
+    <None Include="Content\Level3.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\LevelWhat.tmx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
