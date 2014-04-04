@@ -155,7 +155,10 @@ namespace Puddle
                 string levelName = String.Format("Level {0}", levelNumber);
                 TextField message = new TextField(
                     levelName, 
-                    new Vector2((graphics.PreferredBackBufferWidth / 2) - 50, (graphics.PreferredBackBufferHeight / 2) - 50),
+                    new Vector2(
+						(graphics.PreferredBackBufferWidth / 2) - 50, 
+						(graphics.PreferredBackBufferHeight / 2) - 50
+					),
                     Color.White
                     );
                 message.loadContent(Content);
@@ -182,8 +185,21 @@ namespace Puddle
                     Color.White
                 );
 
+
 				// Draw contents of the level
 				level.Draw(spriteBatch);
+
+				if (level.message != "")
+				{
+					TextField message = new TextField(
+						level.message, 
+						new Vector2(16, (graphics.PreferredBackBufferHeight ) - 28),
+						Color.White
+					);
+
+					message.loadContent(Content);
+					message.draw(spriteBatch);
+				}
             }
             spriteBatch.End();
             base.Draw(gameTime);

@@ -20,6 +20,8 @@ namespace Puddle
 		public List<Sprite> projectiles;
         public List<Sprite> items;
         public Player player;
+		public string message;
+		public int message_point;
 
         public Level(Player p)
         {
@@ -27,42 +29,16 @@ namespace Puddle
             enemies = new List<Enemy>();
 			projectiles = new List<Sprite>();
             items = new List<Sprite>();
+			message = "";
+			message_point = 0;
         }
 
         public void Update(ContentManager content) 
         {
 			count++;
 
-
-			// Random rnd = new Random();
-            // Generate enemies
-//			if (count % 500 == 0 && enemies.Count < 5) // Change -1 to 0 to spawn enemies
-//            {
-//                Enemy e = (rnd.NextDouble() > .5) ? 
-//					new Rat(500, 0) : new Rat (100, 0);
-//                e.LoadContent(content);
-//                enemies.Add(e);
-//            }
-
-//			if (count % 100 == 0)
-//			{
-//				Fireball fireball = new Fireball(320, 320, "up");
-//				fireball.LoadContent(content);
-//				projectiles.Add((Sprite)fireball);
-//
-//				fireball = new Fireball(320, 320, "down");
-//				fireball.LoadContent(content);
-//				projectiles.Add((Sprite)fireball);
-//
-//				fireball = new Fireball(320, 320, "left");
-//				fireball.LoadContent(content);
-//				projectiles.Add((Sprite)fireball);
-//
-//				fireball = new Fireball(320, 320, "right");
-//				fireball.LoadContent(content);
-//				projectiles.Add((Sprite)fireball);
-//			}
-
+			if (message != "" && (count - message_point) >= 400)
+				message = "";
 
             // Move shots
 			foreach (Sprite s in projectiles)

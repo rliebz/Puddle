@@ -20,9 +20,15 @@ namespace Puddle
             name = obj.Name.ToLower();
         }
 
-        public void Action(Player player)
+		public void Action(Player player, Level level)
         {
             player.powerup[name] = true;
+
+			level.message_point = level.count;
+			if (name == "jetpack")
+				level.message = "Press and hold the jump button to jetpack!";
+			else if (name == "charged")
+				level.message = "Press and hold the right trigger to charge a super shot!";
         }
 
     }

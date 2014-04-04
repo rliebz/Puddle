@@ -360,7 +360,6 @@ namespace Puddle
             // Deal with shot creation and delay
             if (!frozen)
             {
-                Console.WriteLine(hydration);
                 // Generate regular shots
                 int currentTime1 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                 if (((currentTime1 - shotPoint) >= shotDelay || (currentTime1 - shotPoint) == 0)
@@ -479,7 +478,7 @@ namespace Puddle
 				// Pick up powerups 
                 if (item is PowerUp && Intersects(item))
                 {
-                    ((PowerUp)item).Action(this);
+					((PowerUp)item).Action(this, level);
                     item.destroyed = true;
                     SoundEffectInstance instance = soundList["Sounds/Powerup.wav"].CreateInstance();
                     instance.Volume = 0.3f;
