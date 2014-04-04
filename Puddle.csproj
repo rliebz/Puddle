@@ -37,9 +37,15 @@
   <ItemGroup>
     <Compile Include="Controls.cs" />
     <Compile Include="Enemies\Enemy.cs" />
-    <Compile Include="Enemies\Face.cs" />
-    <Compile Include="Enemies\Hand.cs" />
-    <Compile Include="Enemies\Rat.cs" />
+    <Compile Include="Enemies\Face.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Enemies\Hand.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Enemies\Rat.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Level.cs" />
     <Compile Include="Objects\Button.cs" />
     <Compile Include="Objects\Cannon.cs" />
@@ -108,6 +114,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Face.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Hand.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sounds\button.wav">
@@ -193,6 +202,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Level5.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Level6.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\LevelWhat.tmx" />
