@@ -29,8 +29,7 @@ namespace Puddle
 			spriteHeight = 64;
 			frameWidth = 64;
 			frameHeight = 64;
-			this.imageFile = "blank.png";
-			this.spriteColor = Color.Tan;
+			this.imageFile = "Hand.png";
 			speed = 1;
 			x_vel = faceLeft ? 0 : speed;
 			y_vel = faceLeft ? speed : 0;
@@ -44,10 +43,7 @@ namespace Puddle
         {
             // Move
 			Move(level);
-				
-            // Animate sprite
-            Animate(level);
-
+	
             // Be killed if necessary
             destroyed = (health <= 0);
         }
@@ -71,11 +67,6 @@ namespace Puddle
 			spriteX += Convert.ToInt32(x_vel);
 			spriteY += Convert.ToInt32(y_vel);
 		}
-
-		public override void Animate(Level level)
-        {
-            frameIndex = ((level.count + seed) / 8 % 4) * 32;
-        }
 
 		public override void LoadContent(ContentManager content)
 		{

@@ -61,7 +61,7 @@ namespace Puddle
 		{
 
 
-			Fireball fireball = new Fireball(spriteX - 16, spriteY - 16, "down");
+			Fireball fireball = new Fireball(spriteX - 16, spriteY + 48, "down");
 			fireball.LoadContent(content);
 			level.projectiles.Add((Sprite)fireball);
 
