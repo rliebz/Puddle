@@ -21,11 +21,13 @@ namespace Puddle
         public Dictionary<string, bool> powerup;
         public string newMap;
 		public bool piped;
+        private bool powerShotCharging;
 
         // Stats
         public double maxHydration;
         public double hydration;
         private double shotCost;
+        private double powerShotCost;
         private double jetpackCost;
         private double puddleCost;
         private double hydrationRegen;
@@ -44,9 +46,13 @@ namespace Puddle
 
         // Internal calculations
         private int shotPoint;
+        private int powerShotPoint;
+        private int powerShotRelease;
+        private int tryShotHydration;
         private int jumpPoint;
         private int jumpDelay;
         private int shotDelay;
+        private int powerShotDelay;
         Random rand;
         int index;
 
@@ -68,11 +74,14 @@ namespace Puddle
             pushing = false;
             collisionWidth = 16;
 			piped = false;
+            powerShotCharging = false;
+
             // Stats
             maxHydration = 100;
             hydration = maxHydration;
             hydrationRegen = maxHydration / 400;
             shotCost = 10;
+            powerShotCost = shotCost * 2;
             jetpackCost = 20;
             puddleCost = 1.0;
 
@@ -85,8 +94,12 @@ namespace Puddle
 
             // Internal calculations
             shotDelay = 160;
+            powerShotDelay = 400;
             jumpDelay = 282;
             shotPoint = 0;
+            powerShotPoint = 0;
+            powerShotRelease = 0;
+            tryShotHydration = 0;
             jumpPoint = 0;
             rand = new Random();
             index = 0;
@@ -122,7 +135,7 @@ namespace Puddle
         public void Update(Controls controls, Level level, 
             ContentManager content, GameTime gameTime)
         {
-            if (hydration + hydrationRegen <= maxHydration)
+            if (hydration + hydrationRegen <= maxHydration && !powerShotCharging)
                 hydration += hydrationRegen;
 
             Move(controls, level);
@@ -288,9 +301,62 @@ namespace Puddle
                 shooting = false;
             }
 
+            if (controls.onPress(Keys.X, Buttons.RightTrigger))
+            {
+                if(hydration >= powerShotCost)
+                    powerShotCharging = true;
+                powerShotPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                powerShotRelease = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                tryShotHydration = 0;
+            }
+            else if (controls.isPressed(Keys.X, Buttons.RightTrigger) && powerShotCharging)
+            {
+                if (tryShotHydration < powerShotCost)
+                {
+                    tryShotHydration += 1;
+                    hydration -= 1;
+                }
+            }
+            else if (controls.onRelease(Keys.X, Buttons.RightTrigger) && powerShotCharging)
+            {
+                powerShotRelease = (int)(gameTime.TotalGameTime.TotalMilliseconds);
+                if (((powerShotRelease - powerShotPoint) >= powerShotDelay) && tryShotHydration == powerShotCost)
+                {
+                    powerShotCharging = false;
+                    tryShotHydration = 0;
+                    string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
+                    PowerShot s = new PowerShot(this, dir);
+                    if (index == 0)
+                    {
+                        soundList["Sounds/Shot1.wav"].Play();
+                    }
+                    else if (index == 1)
+                    {
+                        soundList["Sounds/Shot2.wav"].Play();
+                    }
+                    else if (index == 2)
+                    {
+                        soundList["Sounds/Shot3.wav"].Play();
+                    }
+                    else
+                    {
+                        soundList["Sounds/Shot4.wav"].Play();
+                    }
+                    s.LoadContent(content);
+                    level.projectiles.Add(s);
+                }
+                else
+                {
+                    powerShotCharging = false;
+                    hydration += tryShotHydration;
+                    tryShotHydration = 0;
+                }
+            }
+
             // Deal with shot creation and delay
             if (!frozen)
             {
+                Console.WriteLine(hydration);
                 // Generate regular shots
                 int currentTime1 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                 if (((currentTime1 - shotPoint) >= shotDelay || (currentTime1 - shotPoint) == 0)
@@ -319,6 +385,16 @@ namespace Puddle
                     level.projectiles.Add(s);
                     hydration -= shotCost;
                 }
+
+                   
+               
+                
+                //else
+                //{
+                //    hydration += tryShotHydration;
+                //    tryShotHydration = 0;
+                //}
+
 
                 //need a new if statement for big shots. the if will be current time, shot point, and charge time, bigShooting, amd hydration
 
@@ -415,7 +491,7 @@ namespace Puddle
 					Pipe p = (Pipe)item;
 					if(p.name.Contains("endPipe"))
 					{
-						newMap = "Content/Level2.tmx";
+						newMap = String.Format("Content/Level{0}.tmx", p.destination);
 					}
 					p.Action(level);
 					piped = true;

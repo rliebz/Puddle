@@ -14,7 +14,7 @@ namespace Puddle
         public string dir;
         public int speed;
         public int x_vel;
-        public bool powerShot;
+        public int damage;
 
         public Shot(Player p, string dir = "none")
             : base(p.spriteX - 16, p.spriteY - 16, 24, 24)
@@ -25,6 +25,7 @@ namespace Puddle
             collisionWidth = 8;
             collisionHeight = 8;
             speed = 6;
+            damage = 1;
             x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.faceLeft ? -1 : 1));
         }
 
@@ -35,7 +36,7 @@ namespace Puddle
             CheckCollisions(level);
         }
 
-        public void CheckCollisions(Level level)
+        public virtual void CheckCollisions(Level level)
         {
             // Check collisions with enemies
             foreach (Enemy e in level.enemies)
@@ -43,7 +44,7 @@ namespace Puddle
                 if (Intersects(e))
                 {
                     destroyed = true;
-                    e.health--;
+                    e.health -= damage;
                 }
             }
 

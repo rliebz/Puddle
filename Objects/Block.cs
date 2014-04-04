@@ -20,6 +20,7 @@ namespace Puddle
 		private bool lCol;
 		private bool dCol;
 		private bool uCol;
+        private bool canBreak;
 
         public double x_vel;
 		public double y_vel;
@@ -36,11 +37,12 @@ namespace Puddle
 				obj.Properties.ContainsKey("left") ? Boolean.Parse(obj.Properties["left"]) : false, 
 				obj.Properties.ContainsKey("right") ? Boolean.Parse(obj.Properties["right"]) : false,
 				obj.Properties.ContainsKey("gravity") ? Boolean.Parse(obj.Properties["gravity"]) : false,
+                obj.Properties.ContainsKey("canBreak") ? Boolean.Parse(obj.Properties["canBreak"]) : false,
 				obj.Name
 			)
 		{ }
 
-		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, string name="Block 0")
+		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, string name="Block 0")
             : base(x, y, 32, 32)
         {
 
@@ -48,6 +50,7 @@ namespace Puddle
             this.pushRight = right;
             this.gravity = gravity;
 			this.name = name;
+            this.canBreak = canBreak;
 
 			this.isSolid = true;
 
@@ -67,7 +70,10 @@ namespace Puddle
             if (!this.gravity)
             {
                 frameIndex = 0;
-                this.blockType = "metal";
+                if (this.canBreak)
+                    this.blockType = "break";
+                else
+                    this.blockType = "metal";
             }
             else if (right && !left)
                 frameIndex = 0;
@@ -98,6 +104,9 @@ namespace Puddle
                 gravity = false;
                 frameIndex = 0;
             }
+			else if(newType == "transparent"){
+				frameIndex = 0;
+			}
             else
             {
                 gravity = true;
@@ -112,6 +121,7 @@ namespace Puddle
                     frameIndex = 96;
             }
         }
+
 
         public override void Update(Level level)
         {
@@ -207,6 +217,8 @@ namespace Puddle
         {
             images["push"] = content.Load<Texture2D>("push_block.png");
             images["metal"] = content.Load<Texture2D>("brick.png");
+            images["break"] = content.Load<Texture2D>("break.png");
+			images["transparent"] = content.Load<Texture2D>("background.png");
             image = images[this.blockType];
             foreach (string file in soundFiles)
             {
