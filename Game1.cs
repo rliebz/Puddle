@@ -40,7 +40,7 @@ namespace Puddle
 
         protected override void Initialize()
         {
-            map = new TmxMap("Content/Level1.tmx");
+			map = new TmxMap("Content/Level???.tmx");
 
             // Read Level Size From Map
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
@@ -57,7 +57,7 @@ namespace Puddle
             controls = new Controls();
             newMapLoad = true;
             newMapTimer = LOAD_SCREEN_TIME;
-            player1.newMap = "Content/Level1.tmx";
+			player1.newMap = "Content/Level???.tmx";
 
             song = Content.Load<SoundEffect>("Sounds/InGame.wav");
             instance = song.CreateInstance();

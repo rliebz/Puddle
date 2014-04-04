@@ -35,7 +35,7 @@ namespace Puddle
 			if (level.count % 125 == 0)
             {
 				Fireball fireball = new Fireball(
-					spriteX + (faceLeft ? -32 : 32), spriteY - 16, direction
+					spriteX + (faceLeft ? -64 : 32), spriteY - 16, direction
 				);
                 fireball.LoadContent(content);
 				level.projectiles.Add((Sprite)fireball);

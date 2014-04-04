@@ -20,11 +20,18 @@ namespace Puddle
 		public Face(int x, int y)
 			: base(x, y)
 		{
-			this.imageFile = "rat.png";
-			speed = 0;
+			collisionWidth = 96;
+			collisionHeight = 96;
+			spriteWidth = 96;
+			spriteHeight = 96;
+			frameWidth = 96;
+			frameHeight = 96;
+			this.imageFile = "blank.png";
+			this.spriteColor = Color.Gold;
+			speed = 2;
 			x_vel = speed;
 			y_vel = 0;
-			health = 15;
+			health = 30;
 
 			// Sprite business
 			seed = rnd.Next(0, 3);
@@ -36,34 +43,32 @@ namespace Puddle
             Move(level);
 
 			// Shoot maybe
-			if (rnd.NextDouble() > .995)
+			if (level.count % 30 == 0)
 				Shoot(level, content);
 				
             // Animate sprite
             Animate(level);
 
             // Be killed if necessary
-            destroyed = (health <= 0);
+			if (health <= 0)
+			{
+				destroyed = true;
+				foreach (Enemy e in level.enemies)
+				{
+					e.health = 0;
+				}
+			}
         }
 			
 		// Shoot 4 fireballs in all directions
 		public void Shoot(Level level, ContentManager content)
 		{
-			Fireball fireball = new Fireball(spriteX - 16, spriteY - 16, "up");
+
+
+			Fireball fireball = new Fireball(spriteX - 16, spriteY - 16, "down");
 			fireball.LoadContent(content);
 			level.projectiles.Add((Sprite)fireball);
 
-			fireball = new Fireball(spriteX - 16, spriteY - 16, "down");
-			fireball.LoadContent(content);
-			level.projectiles.Add((Sprite)fireball);
-
-			fireball = new Fireball(spriteX - 16, spriteY - 16, "left");
-			fireball.LoadContent(content);
-			level.projectiles.Add((Sprite)fireball);
-
-			fireball = new Fireball(spriteX - 16, spriteY - 16, "right");
-			fireball.LoadContent(content);
-			level.projectiles.Add((Sprite)fireball);
 		}
 
 		public override void Animate(Level level)

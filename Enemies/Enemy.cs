@@ -34,7 +34,7 @@ namespace Puddle
             seed = rnd.Next(0, 3);
         }
 
-        public void Move(Level level)
+		public virtual void Move(Level level)
         {
 
 			// Move horizontally
@@ -56,7 +56,7 @@ namespace Puddle
 			}
         }
 
-		public void Fall(Level level)
+		public virtual void Fall(Level level)
 		{
 			// Fall if airborne
 			if (!grounded)
