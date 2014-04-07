@@ -193,7 +193,6 @@ namespace Puddle
         {
             if (creditScreen || controlScreen)
             {
-                Console.WriteLine("there");
                 sb.Draw(
                     slideImage,
                     new Rectangle(
