@@ -44,15 +44,15 @@ namespace Puddle
             }
             else if (obj.Properties["direction"].Equals("up"))
             {
-                rotationAngle = MathHelper.PiOver2;
-                spriteY += 9;
+                rotationAngle = MathHelper.PiOver2 * 3;
+                spriteY -= 9;
                 collisionHeight = 24;
                 collisionWidth = 30;
             }
             else
             {
-                rotationAngle = MathHelper.PiOver2 * 3;
-                spriteY -= 9;
+                rotationAngle = MathHelper.PiOver2 * 2;
+                spriteY += 9;
                 collisionHeight = 24;
                 collisionWidth = 30;
             }

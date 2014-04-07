@@ -18,19 +18,37 @@ namespace Puddle
 		public Fireball(int x, int y, string dir = "right")
 			: base(x, y, 32, 32)
         {
+            collisionWidth = 30;
+            collisionHeight = 28;
             this.imageFile = "fireball.png";
             
             this.dir = dir;
-			if (this.dir == "up")
-				rotationAngle = MathHelper.PiOver2 * 3;
-			else if (this.dir == "down")
-				rotationAngle = MathHelper.PiOver2;
-			else if (this.dir == "left")
-				faceLeft = true;
+            if (this.dir == "up")
+            {
+                rotationAngle = MathHelper.PiOver2 * 3;
+                collisionWidth = 30;
+                collisionHeight = 32;
+            }
+            else if (this.dir == "down")
+            {
+                rotationAngle = MathHelper.PiOver2;
+                collisionWidth = 30;
+                collisionHeight = 32;
+            }
+            else if (this.dir == "left")
+                faceLeft = true;
 
             speed = 2;
-            collisionWidth = 28;
-            collisionHeight = 28;
+
+            // Fix initial position
+            if (dir == "down")
+                spriteY -= speed;
+            else if (dir == "up")
+                spriteY += speed;
+            else if (dir == "left")
+                spriteX += speed;
+            else
+                spriteX -= speed;
 
             Random rnd = new Random();
             seed = rnd.Next(20); // For animation

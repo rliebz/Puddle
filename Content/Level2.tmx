@@ -681,9 +681,9 @@
  </objectgroup>
  <objectgroup name="Items" width="22" height="22">
   <object name="Geyser" type="Puddle.Geyser" x="192" y="608" width="64" height="32"/>
-  <object name="Button 2" type="Puddle.Button" gid="282" x="640" y="256">
+  <object name="Button 2" type="Puddle.Button" gid="282" x="384" y="192">
    <properties>
-    <property name="direction" value="right"/>
+    <property name="direction" value="up"/>
    </properties>
   </object>
   <object name="Cannon" type="Puddle.Cannon" x="32" y="256" width="64" height="32">
@@ -691,7 +691,7 @@
     <property name="direction" value="right"/>
    </properties>
   </object>
-  <object name="Block 2" type="Puddle.Block" gid="299" x="544" y="192">
+  <object name="Block 2" type="Puddle.Block" gid="299" x="352" y="192">
    <properties>
     <property name="gravity" value="False"/>
     <property name="left" value="True"/>

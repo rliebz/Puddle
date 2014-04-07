@@ -27,6 +27,7 @@ namespace Puddle
         SoundEffect song;
         SoundEffectInstance instance;
         bool newMapLoad;
+        bool paused;
         float newMapTimer;
 		const float LOAD_SCREEN_TIME = 1.0f;
 
@@ -40,12 +41,14 @@ namespace Puddle
 
         protected override void Initialize()
         {
-			map = new TmxMap("Content/Level1.tmx");
+            string initialLevel = String.Format("Content/Level{0}.tmx", 1);
+			map = new TmxMap(initialLevel);
 
             // Read Level Size From Map
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 
+            paused = false;
             // Create built-in objects
 			player1 = new Player(
 				Convert.ToInt32(map.Properties["startX"]), 
@@ -57,7 +60,7 @@ namespace Puddle
             controls = new Controls();
             newMapLoad = true;
             newMapTimer = LOAD_SCREEN_TIME;
-			player1.newMap = "Content/Level1.tmx";
+			player1.newMap = initialLevel;
 
             song = Content.Load<SoundEffect>("Sounds/InGame.wav");
             instance = song.CreateInstance();
@@ -134,14 +137,19 @@ namespace Puddle
             if (controls.onPress(Keys.Escape, Buttons.Back))
                 Exit();
 
-            // TODO: Level.Update() should cover all objects in that level
+            if (controls.onPress(Keys.Enter, Buttons.Start))
+                paused = !paused;
+
+            if (paused)
+                return;
+            
             player1.Update(controls, level, this.Content, gameTime);
             if (!player1.newMap.Equals(""))
             {
                 newMapLoad = true;
             }
             level.Update(this.Content);
-            
+
             base.Update(gameTime);
         }
 
