@@ -59,7 +59,7 @@ namespace Puddle
             this.dCol = false;
             this.uCol = false;
             soundFiles.Add("Sounds/Slide.wav");
-            soundFiles.Add("Sounds/BlockFall.wav");
+
 
             this.x_vel = 0;
 
@@ -184,10 +184,6 @@ namespace Puddle
 					// Collide with block below
 					if (spriteY < s.spriteY && bottomWall >= s.topWall) 
 					{
-                        if (y_vel > 3)
-                        {
-                            soundList["Sounds/BlockFall.wav"].Play();
-                        }
 						dCol = true;
 						y_vel = 0;
 						while (bottomWall >= s.topWall)
