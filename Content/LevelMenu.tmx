@@ -634,12 +634,14 @@
    <properties>
     <property name="direction" value="Down"/>
     <property name="hold" value="True"/>
+    <property name="text" value="Controls"/>
    </properties>
   </object>
   <object name="Credits" type="Puddle.Button" x="96" y="640" width="32" height="32">
    <properties>
     <property name="direction" value="Down"/>
     <property name="hold" value="True"/>
+    <property name="text" value="Credits"/>
    </properties>
   </object>
  </objectgroup>
