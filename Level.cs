@@ -22,8 +22,9 @@ namespace Puddle
         public Player player;
 		public string message;
 		public int message_point;
+        public string name;
 
-        public Level(Player p)
+        public Level(Player p, string levelName)
         {
             player = p;
             enemies = new List<Enemy>();
@@ -31,6 +32,7 @@ namespace Puddle
             items = new List<Sprite>();
 			message = "";
 			message_point = 0;
+            name = levelName;
         }
 
         public void Update(ContentManager content) 

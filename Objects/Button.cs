@@ -15,6 +15,9 @@ namespace Puddle
         public bool activated;
 		public bool pressed;
         public bool holdButton;
+        public bool creditScreen;
+        public bool controlScreen;
+        public Texture2D slideImage;
 
         // TODO: add in function passing for individual button actions
         public Button(TmxObjectGroup.TmxObject obj) :
@@ -26,6 +29,8 @@ namespace Puddle
 
 			activated = false;
 			pressed = false;
+            creditScreen = false;
+            controlScreen = false;
             soundFiles.Add("Sounds/button.wav");
             name = obj.Name;
 			collisionWidth = 20;
@@ -51,20 +56,20 @@ namespace Puddle
             }
             else
             {
-                rotationAngle = MathHelper.PiOver2 * 2;
+                rotationAngle = MathHelper.PiOver2;
                 spriteY += 9;
                 collisionHeight = 24;
                 collisionWidth = 30;
             }
         }
 
-        public override void Update(Level level)
+        public override void Update(Level level, ContentManager content)
         {
-            CheckCollisions(level);
+            CheckCollisions(level, content);
             Animate(level);
         }
 			
-		public void CheckCollisions(Level level)
+		public void CheckCollisions(Level level, ContentManager content)
         {
 			// Assume unpressed for hold buttons
 			if (holdButton)
@@ -78,7 +83,7 @@ namespace Puddle
 			if (Intersects(level.player))
 			{
 				pressed = true;
-                Action(level);
+                Action(level, content);
             }
 
 			// Press if intersecting with block
@@ -87,7 +92,7 @@ namespace Puddle
 				if (Intersects(item) && item is Block && ((Block)(item)).blockType == "push")
 				{
 					pressed = true;
-                    Action(level);
+                    Action(level, content);
                 }
 
             }
@@ -97,14 +102,32 @@ namespace Puddle
 				UnAction(level);
         }
 
-        public void Action(Level level)
+        public void Action(Level level, ContentManager content)
         {
             if (activated)
                 return;
+
+            activated = true;
+
 				
 			soundList["Sounds/button.wav"].Play();
 
+            if (name.Contains("Credits"))
+            {
+                this.creditScreen = true;
+                slideImage = content.Load<Texture2D>("credits.png");
+                return;
+            }
+            
+            if (name.Contains("Controls"))
+            {
+                this.controlScreen = true;
+                slideImage = content.Load<Texture2D>("controls.png");
+                return;
+            }
+
 			int number = int.Parse(name.Split(' ')[1]);
+
 
 			foreach (Sprite s in level.items)
 			{
@@ -118,15 +141,26 @@ namespace Puddle
 					s.isSolid = false;
 					//Console.WriteLine(number);
 					((Block)s).changeType("transparent");
-
 				}
 			}
 
-			activated = true;
         }
 
 		public void UnAction(Level level)
 		{
+            activated = false;
+
+            if (name.Contains("Credits"))
+            {
+                this.creditScreen = false;
+                return;
+            }
+            if (name.Contains("Controls"))
+            {
+                this.controlScreen = false;
+                return;
+            }
+
 			foreach (Sprite s in level.items)
 			{
 				int number = int.Parse(name.Split(' ')[1]);
@@ -137,7 +171,6 @@ namespace Puddle
 
 				}
 			}
-			activated = false;
 
 		}
 
@@ -155,5 +188,22 @@ namespace Puddle
 				frameIndex -= 32;
 			}
 		}
+
+        public override void Draw(SpriteBatch sb)
+        {
+            if (creditScreen || controlScreen)
+            {
+                sb.Draw(
+                    slideImage,
+                    new Rectangle(
+                    0, 0,
+                    720,
+                    540
+                    ),
+                    Color.White
+                );
+            }
+            base.Draw(sb);
+        }
     }
 }

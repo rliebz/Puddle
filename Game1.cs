@@ -24,12 +24,17 @@ namespace Puddle
         Controls controls;
         TmxMap map;
         Texture2D background;
+        Texture2D introImage;
         SoundEffect song;
         SoundEffectInstance instance;
         bool newMapLoad;
         bool paused;
+        bool intro;
         float newMapTimer;
+        float introScreenTimer;
+        int slideCount;
 		const float LOAD_SCREEN_TIME = 1.0f;
+        const float INTRO_SCREEN_TIME = 3.0f;
 
         public Game1()
             : base()
@@ -41,14 +46,18 @@ namespace Puddle
 
         protected override void Initialize()
         {
-            string initialLevel = String.Format("Content/Level{0}.tmx", 1);
-			map = new TmxMap(initialLevel);
+            string initialLevel = String.Format("Content/LevelMenu.tmx");
+            map = new TmxMap(initialLevel);
 
             // Read Level Size From Map
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 
             paused = false;
+            intro = false;
+            introImage = Content.Load<Texture2D>("Slide1.png");
+            slideCount = 1;
+
             // Create built-in objects
 			player1 = new Player(
 				Convert.ToInt32(map.Properties["startX"]), 
@@ -56,10 +65,11 @@ namespace Puddle
 				32, 
 				32
 			);
-            level = new Level(player1);
+            level = new Level(player1, "menu");
             controls = new Controls();
             newMapLoad = true;
             newMapTimer = LOAD_SCREEN_TIME;
+            introScreenTimer = INTRO_SCREEN_TIME;
 			player1.newMap = initialLevel;
 
             song = Content.Load<SoundEffect>("Sounds/InGame.wav");
@@ -87,6 +97,10 @@ namespace Puddle
 
         protected void LoadMap(string name)
         {
+            if (name.Equals("Content/LevelMenu.tmx"))
+                intro = true;
+            else
+                intro = false;
             map = new TmxMap(name);
             background = Content.Load<Texture2D>("background.png");
 
@@ -100,7 +114,7 @@ namespace Puddle
 			player1.checkpointYPos = player1.spriteY;
 
 			// Create new level object
-            level = new Level(player1);
+            level = new Level(player1, name);
 
 			// Create all objects from tmx and place them in level
             foreach (TmxObjectGroup group in map.ObjectGroups)
@@ -158,6 +172,8 @@ namespace Puddle
 
             spriteBatch.Begin();
 
+
+
             if (newMapLoad)
             {
                 GraphicsDevice.Clear(Color.Black);
@@ -195,6 +211,27 @@ namespace Puddle
                     ),
                     Color.White
                 );
+
+                if (intro)
+                {
+                    float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    introScreenTimer -= elapsed;
+                    spriteBatch.Draw(
+                        introImage,
+                        new Rectangle(
+                        0, 0,
+                        720,
+                        540
+                        ),
+                        Color.White
+                    );
+                    if(introScreenTimer < 0 && slideCount != 5)
+                    {
+                        slideCount += 1;
+                        introImage = Content.Load<Texture2D>(String.Format("Slide{0}.png", slideCount));
+                        introScreenTimer = INTRO_SCREEN_TIME;
+                    }
+                }
 
 
 				// Draw contents of the level
