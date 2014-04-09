@@ -25,7 +25,7 @@ namespace Puddle
             this.gpo = GamePad.GetState(PlayerIndex.One);
         }
 
-        public void Update()
+        public void Update(Level level)
         {
             kbo = kb;
             gpo = gp;

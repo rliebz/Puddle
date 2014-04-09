@@ -21,6 +21,8 @@ namespace Puddle
         public Dictionary<string, bool> powerup;
         public string newMap;
 		public bool piped;
+        public int numPowers;
+        public string pauseScreen;
         private bool powerShotCharging;
 
         // Stats
@@ -67,6 +69,8 @@ namespace Puddle
             powerup["puddle"] = true;
             powerup["jetpack"] = false;
             powerup["charged"] = false;
+
+            numPowers = 1;
             moving = false;
             grounded = false;
             puddled = false;
@@ -136,6 +140,13 @@ namespace Puddle
         public void Update(Controls controls, Level level, 
             ContentManager content, GameTime gameTime)
         {
+            pauseScreen = String.Format("pause{0}", numPowers);
+            if (level.paused)
+            {
+                x_vel = 0;
+                x_accel = 0;
+                return;
+            }
             if (hydration + hydrationRegen <= maxHydration && !powerShotCharging)
                 hydration += hydrationRegen;
 
@@ -594,6 +605,7 @@ namespace Puddle
             images["walk"] = content.Load<Texture2D>("PC/walk.png");
             images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
             images["block"] = content.Load<Texture2D>("blank.png");
+
             image = images["stand"];
             foreach (string file in soundFiles)
             {

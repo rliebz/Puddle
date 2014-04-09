@@ -25,6 +25,7 @@ namespace Puddle
         TmxMap map;
         Texture2D background;
         Texture2D introImage;
+        List<Texture2D> pauseScreens;
         SoundEffect song;
         SoundEffectInstance instance;
         bool newMapLoad;
@@ -78,6 +79,11 @@ namespace Puddle
             if (instance.State == SoundState.Stopped)
                 instance.Play();
 
+            pauseScreens = new List<Texture2D>();
+            pauseScreens.Add(Content.Load<Texture2D>("pause0.png"));
+            pauseScreens.Add(Content.Load<Texture2D>("pause1.png"));
+            pauseScreens.Add(Content.Load<Texture2D>("pause2.png"));
+            pauseScreens.Add(Content.Load<Texture2D>("pause3.png"));
             base.Initialize();            
         }
 
@@ -131,6 +137,7 @@ namespace Puddle
                 }
             }
 
+
             level.items.Sort((x, y) => x.CompareTo(y));
 
 
@@ -146,7 +153,7 @@ namespace Puddle
 
         protected override void Update(GameTime gameTime)
         {
-            controls.Update();
+            controls.Update(level);
 
             if (controls.onPress(Keys.Escape, Buttons.Back))
                 Exit();
@@ -154,10 +161,8 @@ namespace Puddle
             if (controls.onPress(Keys.Enter, Buttons.Start))
                 paused = !paused;
 
-            if (paused)
-                return;
-            
             player1.Update(controls, level, this.Content, gameTime);
+
             if (!player1.newMap.Equals(""))
             {
                 newMapLoad = true;
@@ -232,10 +237,23 @@ namespace Puddle
                         introScreenTimer = INTRO_SCREEN_TIME;
                     }
                 }
+                
+                // Draw contents of the level
+                level.Draw(spriteBatch);
 
+                if (paused)
+                {
+                    spriteBatch.Draw(
+                        pauseScreens[player1.numPowers],
+                        new Rectangle(
+                        0, graphics.PreferredBackBufferHeight/2 - 270,
+                        720,
+                        540
+                        ),
+                        Color.White * 0.7f
+                    );
+                }
 
-				// Draw contents of the level
-				level.Draw(spriteBatch);
 
 				if (level.message != "")
 				{
