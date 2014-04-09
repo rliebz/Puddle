@@ -24,6 +24,8 @@ namespace Puddle
         public int numPowers;
         public string pauseScreen;
         private bool powerShotCharging;
+        public int lives;
+        public TextField livesMessage;
 
         // Stats
         public double maxHydration;
@@ -57,7 +59,8 @@ namespace Puddle
         private int powerShotDelay;
         Random rand;
         int index;
-        SoundEffectInstance instance; 
+        SoundEffectInstance instance;
+        private const int NUM_LIVES = 5;
            
 
         // TODO: Move this
@@ -73,6 +76,7 @@ namespace Puddle
             powerup["charged"] = false;
 
             numPowers = 1;
+            lives = NUM_LIVES;
             moving = false;
             grounded = false;
             puddled = false;
@@ -146,11 +150,9 @@ namespace Puddle
         {
             pauseScreen = String.Format("pause{0}", numPowers);
             if (level.paused)
-            {
-                x_vel = 0;
-                x_accel = 0;
                 return;
-            }
+
+            livesMessage.Message = String.Format("Lives Remaining:      x{0}", lives);
             if (hydration + hydrationRegen <= maxHydration && !powerShotCharging)
                 hydration += hydrationRegen;
 
@@ -485,7 +487,7 @@ namespace Puddle
                 {
                     if (this.Intersects(e))
                     {
-                        Death();
+                        Death(level);
                     }
                 }
             }
@@ -527,7 +529,7 @@ namespace Puddle
 
         }
 
-        public void Death()
+        public void Death(Level level)
         {
             spriteX = checkpointXPos;
             spriteY = checkpointYPos;
@@ -536,6 +538,15 @@ namespace Puddle
             hydration = maxHydration;
 			piped = false;
             soundList["Sounds/Death.wav"].Play();
+            if (lives == 0)
+            {
+                newMap = level.name;
+                lives = level.enterLives;
+                powerup = level.enterPowerUps;
+                return;
+            }
+            if(!level.name.Equals("Content/LevelSelect.tmx"))
+                lives--;
         }
 
         private void Animate(Controls controls, Level level, GameTime gameTime)
@@ -613,7 +624,13 @@ namespace Puddle
             images["walk"] = content.Load<Texture2D>("PC/walk.png");
             images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
             images["block"] = content.Load<Texture2D>("blank.png");
+            livesMessage = new TextField(
+                String.Format("Lives Remaining:      x{0}", lives),
+                new Vector2(160, 5),
+                Color.White
+            );
 
+            livesMessage.loadContent(content);
             image = images["stand"];
             foreach (string file in soundFiles)
             {
@@ -641,6 +658,15 @@ namespace Puddle
                 images["block"],
                 new Rectangle(8, 8, Convert.ToInt32(hydration * 1.5), 16),
                 Color.Cyan
+            );
+
+            //Draw lives
+
+            livesMessage.draw(sb);
+            sb.Draw(
+                images["stand"],
+                new Rectangle(304, 0, 32, 32),
+                Color.White
             );
         }
 

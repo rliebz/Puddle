@@ -255,6 +255,9 @@
     <None Include="Content\Level6.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\LevelSelect.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\LevelWhat.tmx" />
     <None Include="Content\LevelMenu.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

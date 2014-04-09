@@ -24,10 +24,14 @@ namespace Puddle
 		public int message_point;
         public string name;
         public bool paused;
+        public int enterLives;
+        public Dictionary<string, bool> enterPowerUps;
 
         public Level(Player p, string levelName)
         {
             player = p;
+            enterPowerUps = new Dictionary<string, bool>(p.powerup);
+            enterLives = p.lives;
             enemies = new List<Enemy>();
 			projectiles = new List<Sprite>();
             items = new List<Sprite>();

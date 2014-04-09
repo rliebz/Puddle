@@ -80,7 +80,7 @@ namespace Puddle
             // check collisions with player
             if (Intersects(level.player) && !level.player.invulnerable)
             {
-                level.player.Death();
+                level.player.Death(level);
             }
 
             // check collisions with blocks
