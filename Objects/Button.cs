@@ -33,6 +33,8 @@ namespace Puddle
             creditScreen = false;
             controlScreen = false;
             soundFiles.Add("Sounds/button.wav");
+            soundFiles.Add("Sounds/HoldButtonPress.wav");
+            soundFiles.Add("Sounds/HoldButtonRel.wav");
             name = obj.Name;
 			collisionWidth = 20;
             collisionHeight = 30;
@@ -110,8 +112,10 @@ namespace Puddle
 
             activated = true;
 
-				
-			soundList["Sounds/button.wav"].Play();
+            if (holdButton)
+                soundList["Sounds/HoldButtonPress.wav"].Play();
+            else
+			    soundList["Sounds/button.wav"].Play();
 
             if (name.Contains("Credits"))
             {
@@ -150,7 +154,7 @@ namespace Puddle
 		public void UnAction(Level level)
 		{
             activated = false;
-
+            soundList["Sounds/HoldButtonRel.wav"].Play();
             if (name.Contains("Credits"))
             {
                 this.creditScreen = false;

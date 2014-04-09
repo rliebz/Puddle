@@ -57,6 +57,8 @@ namespace Puddle
         private int powerShotDelay;
         Random rand;
         int index;
+        SoundEffectInstance instance; 
+           
 
         // TODO: Move this
 
@@ -123,6 +125,8 @@ namespace Puddle
             soundFiles.Add("Sounds/Shot3.wav");
             soundFiles.Add("Sounds/Shot4.wav");
             soundFiles.Add("Sounds/Powerup.wav");
+            soundFiles.Add("Sounds/Death.wav");
+
         }
 
         // Property determining if the character can act
@@ -303,7 +307,7 @@ namespace Puddle
         {
             index = rand.Next(4);
             // New shots
-            if (controls.onPress(Keys.D, Buttons.RightShoulder))
+            if (controls.onPress(Keys.D, Buttons.RightShoulder) && !powerShotCharging)
             {
                 shooting = true;
                 shotPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
@@ -447,15 +451,18 @@ namespace Puddle
             }
         }
 
+        //Jump sound clipping (doubling?) occurs after: shot or charged shot (includes jetpacking), button press, death
+        //Not affected by: puddling, piping, reaching checkpoint, geysers, pushing blocks, receiving powerup
         private void Jump(Controls controls, Level level, GameTime gameTime)
         {
-            SoundEffectInstance instance = soundList["Sounds/Jump.wav"].CreateInstance();
-            instance.Volume = 0.1f;
             // Jump on button press
-			if (controls.isPressed(Keys.S, Buttons.A) && !frozen && grounded)
-            {       
-                if(instance.State != SoundState.Playing)
+			if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
+            {
+                instance = soundList["Sounds/Jump.wav"].CreateInstance();
+                instance.Volume = 0.1f;
+                //if(instance.State != SoundState.Playing)
                     instance.Play();
+                //soundList["Sounds/Jump.wav"].Play();
 				y_vel = -11;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
 				grounded = false;
@@ -491,9 +498,9 @@ namespace Puddle
                 {
 					((PowerUp)item).Action(this, level);
                     item.destroyed = true;
-                    SoundEffectInstance instance = soundList["Sounds/Powerup.wav"].CreateInstance();
-                    instance.Volume = 0.3f;
-                    instance.Play();
+                    SoundEffectInstance powerup = soundList["Sounds/Powerup.wav"].CreateInstance();
+                    powerup.Volume = 0.3f;
+                    powerup.Play();
                    // newMap = "Content/Level2.tmx";
                 }
 
@@ -528,6 +535,7 @@ namespace Puddle
             puddled = false;
             hydration = maxHydration;
 			piped = false;
+            soundList["Sounds/Death.wav"].Play();
         }
 
         private void Animate(Controls controls, Level level, GameTime gameTime)
@@ -615,6 +623,7 @@ namespace Puddle
                     soundList.Add(file, effect);
                 }
             }
+            
         }
 
         public new void Draw(SpriteBatch sb)
