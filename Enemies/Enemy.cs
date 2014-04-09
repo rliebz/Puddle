@@ -16,6 +16,7 @@ namespace Puddle
         public int seed;
 		public int speed;
         public int health;
+		public int hurt_point;
 		public bool grounded;
 		protected Random rnd;
 
@@ -28,6 +29,7 @@ namespace Puddle
             y_vel = 0;
             health = 3;
 			grounded = false;
+			hurt_point = 0;
 
             // Sprite business
             rnd = new Random();
@@ -98,7 +100,7 @@ namespace Puddle
 			}
 		}
 
-		public void Jump(Level level)
+		public virtual void Jump(Level level)
 		{
 			y_vel = -9;
 			grounded = false;
@@ -106,7 +108,8 @@ namespace Puddle
 
 		public virtual void Animate(Level level)
         {
-            frameIndex = ((level.count + seed) / 8 % 4) * 32;
+			if ((level.count - hurt_point) > 2)
+				spriteColor = Color.White;
         }
 
     }

@@ -53,6 +53,7 @@ namespace Puddle
 		public override void Animate(Level level)
         {
             frameIndex = ((level.count + seed) / 8 % 4) * 32;
+			base.Animate(level);
         }
 
     }

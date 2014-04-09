@@ -46,6 +46,8 @@ namespace Puddle
 	
             // Be killed if necessary
             destroyed = (health <= 0);
+
+			Animate(level);
         }
 			
 		public override void Move(Level level)

@@ -127,7 +127,7 @@ namespace Puddle
             if (name.Contains("Controls"))
             {
                 this.controlScreen = true;
-                slideImage = content.Load<Texture2D>("controls.png");
+				slideImage = content.Load<Texture2D>("pause0.png");
                 return;
             }
 

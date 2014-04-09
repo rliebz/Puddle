@@ -55,6 +55,8 @@ namespace Puddle
 				}
 				level.player.newMap = "Content/Level6.tmx";
 			}
+
+			Animate(level);
         }
 			
 		// Shoot 4 fireballs in all directions

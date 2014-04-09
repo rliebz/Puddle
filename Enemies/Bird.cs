@@ -22,7 +22,8 @@ namespace Puddle
 		public Bird(int x, int y)
 			: base(x, y)
 		{
-			this.imageFile = "Bird.png";
+			imageFile = "Bird.png";
+			collisionHeight = 20;
 			speed = 3;
 			x_vel = speed;
 			y_vel = 0;
@@ -95,6 +96,7 @@ namespace Puddle
 				}
 			}
 
+			base.Animate(level);
 		}
     }
 }

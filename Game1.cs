@@ -157,7 +157,7 @@ namespace Puddle
             if (controls.onPress(Keys.Escape, Buttons.Back))
                 Exit();
 
-            if (controls.onPress(Keys.Enter, Buttons.Start))
+			if (controls.onPress(Keys.Enter, Buttons.Start) && !intro)
                 paused = !paused;
 
             player1.Update(controls, level, this.Content, gameTime);
@@ -240,16 +240,17 @@ namespace Puddle
                 // Draw contents of the level
                 level.Draw(spriteBatch);
 
-                if (paused)
+				if (paused)
                 {
                     spriteBatch.Draw(
-                        pauseScreens[player1.numPowers],
+
+						pauseScreens[player1.numPowers],
                         new Rectangle(
                         0, graphics.PreferredBackBufferHeight/2 - 270,
                         720,
                         540
                         ),
-                        Color.White * 0.7f
+						Color.White * 0.8f
                     );
                 }
 

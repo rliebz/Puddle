@@ -45,6 +45,8 @@ namespace Puddle
                 {
                     destroyed = true;
                     e.health -= damage;
+					e.spriteColor = Color.Red;
+					e.hurt_point = level.count;
                 }
             }
 

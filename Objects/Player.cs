@@ -21,7 +21,6 @@ namespace Puddle
         public Dictionary<string, bool> powerup;
         public string newMap;
 		public bool piped;
-        public int numPowers;
         public string pauseScreen;
         private bool powerShotCharging;
         public int lives;
@@ -75,7 +74,6 @@ namespace Puddle
             powerup["jetpack"] = false;
             powerup["charged"] = false;
 
-            numPowers = 1;
             lives = NUM_LIVES;
             moving = false;
             grounded = false;
@@ -144,6 +142,22 @@ namespace Puddle
         {
             get { return (puddled && frameIndex == 5 * 32); }
         }
+
+		public int numPowers
+		{
+			get 
+			{
+				int output = 0;
+				if (powerup["jetpack"])
+					output++;
+				if (powerup["puddle"])
+					output++;
+				if (powerup["charged"])
+					output++;
+
+				return output;
+			}
+		}
 
         public void Update(Controls controls, Level level, 
             ContentManager content, GameTime gameTime)
