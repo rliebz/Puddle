@@ -128,7 +128,6 @@ namespace Puddle
                 foreach (TmxObjectGroup.TmxObject obj in group.Objects)
                 {
                     Type t = Type.GetType(obj.Type);
-					Console.WriteLine(obj.Name);
                     object item = Activator.CreateInstance(t, obj);
 					if (item is Enemy)
 						level.enemies.Add((Enemy)item);
