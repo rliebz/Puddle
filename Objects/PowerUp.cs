@@ -23,7 +23,7 @@ namespace Puddle
 		public void Action(Player player, Level level)
         {
             player.powerup[name] = true;
-
+            player.numPowers += 1;
 			level.message_point = level.count;
 			if (name == "jetpack")
 				level.message = "Press and hold the jump button to jetpack!";

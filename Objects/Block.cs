@@ -21,6 +21,7 @@ namespace Puddle
 		private bool dCol;
 		private bool uCol;
         private bool canBreak;
+        private bool transparent;
 
         public double x_vel;
 		public double y_vel;
@@ -38,11 +39,12 @@ namespace Puddle
 				obj.Properties.ContainsKey("right") ? Boolean.Parse(obj.Properties["right"]) : false,
 				obj.Properties.ContainsKey("gravity") ? Boolean.Parse(obj.Properties["gravity"]) : false,
                 obj.Properties.ContainsKey("canBreak") ? Boolean.Parse(obj.Properties["canBreak"]) : false,
+                obj.Properties.ContainsKey("transparent") ? Boolean.Parse(obj.Properties["transparent"]) : false,
 				obj.Name
 			)
 		{ }
 
-		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, string name="Block 0")
+		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, bool transparent=false, string name="Block 0")
             : base(x, y, 32, 32)
         {
 
@@ -51,6 +53,7 @@ namespace Puddle
             this.gravity = gravity;
 			this.name = name;
             this.canBreak = canBreak;
+            this.transparent = transparent;
 
 			this.isSolid = true;
 
@@ -59,7 +62,7 @@ namespace Puddle
             this.dCol = false;
             this.uCol = false;
             soundFiles.Add("Sounds/Slide.wav");
-
+            soundFiles.Add("Sounds/BlockFall.wav");
 
             this.x_vel = 0;
 
@@ -97,16 +100,19 @@ namespace Puddle
 
         public void changeType(string newType)
         {
-            this.blockType = newType;
+            if (newType == "transparent")
+            {
+                transparent = true;
+                return;
+            }
+            transparent = false;
             image = images[newType];
+            this.blockType = newType;
             if (newType == "metal")
             {
                 gravity = false;
                 frameIndex = 0;
             }
-			else if(newType == "transparent"){
-				frameIndex = 0;
-			}
             else
             {
                 gravity = true;
@@ -184,7 +190,11 @@ namespace Puddle
 					// Collide with block below
 					if (spriteY < s.spriteY && bottomWall >= s.topWall) 
 					{
-						dCol = true;
+                        dCol = true;
+                        if (y_vel > 3)
+                        {
+                            soundList["Sounds/BlockFall.wav"].Play();
+                        }						
 						y_vel = 0;
 						while (bottomWall >= s.topWall)
 							spriteY--;
@@ -218,7 +228,6 @@ namespace Puddle
             images["push"] = content.Load<Texture2D>("push_block.png");
             images["metal"] = content.Load<Texture2D>("brick.png");
             images["break"] = content.Load<Texture2D>("break.png");
-			images["transparent"] = content.Load<Texture2D>("background.png");
             image = images[this.blockType];
             foreach (string file in soundFiles)
             {
@@ -233,7 +242,9 @@ namespace Puddle
 
 		public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(
+            if (!transparent)
+            {
+                sb.Draw(
                 image,
                 new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
                 new Rectangle(frameIndex, 0, 32, 32),
@@ -242,7 +253,8 @@ namespace Puddle
                 new Vector2(16, 16),
                 SpriteEffects.None,
                 0
-            );
+                );
+            }
 
         }
     }

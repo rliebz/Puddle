@@ -13,6 +13,7 @@ namespace Puddle
     class Cannon : Sprite
     {
 		public string direction;
+        public int speed;
 
         //TODO: add in function passing for individual button actions
         public Cannon(TmxObjectGroup.TmxObject obj) :
@@ -28,11 +29,12 @@ namespace Puddle
 			direction = obj.Properties["direction"];
 			if (direction == "left")
                 faceLeft = true;
+            speed = obj.Properties.ContainsKey("speed") ? Int32.Parse(obj.Properties["speed"]) : 125;
         }
 
         public override void Update(Level level, ContentManager content)
         {
-			if (level.count % 125 == 0)
+			if (level.count % speed == 0)
             {
 				Fireball fireball = new Fireball(
 					spriteX + (faceLeft ? -63 : 31), spriteY - 16, direction

@@ -27,7 +27,10 @@ namespace Puddle
         public Color spriteColor;
         protected Texture2D image;
 		public Texture2D blankImage;
+        protected TextField displayMessage;
+        
 		protected bool displayHitBox;
+        protected string displayText;
         protected Dictionary<string, Texture2D> images;
         protected List<string> soundFiles;
         protected Dictionary<string, SoundEffect> soundList;
@@ -51,6 +54,7 @@ namespace Puddle
             this.spriteColor = Color.White;
             this.rotationAngle = 0;
             this.depth = 0;
+            this.displayText = "";
 
             this.soundFiles = new List<string>();
             this.soundList = new Dictionary<string, SoundEffect>();
@@ -122,6 +126,15 @@ namespace Puddle
         {
 			blankImage = content.Load<Texture2D>("blank.png");
             image = content.Load<Texture2D>(imageFile);
+            if (displayText != "")
+            {
+                displayMessage = new TextField(
+                    displayText,
+                    new Vector2(spriteX - 35, spriteY - 30),
+                    Color.White
+                );
+                displayMessage.loadContent(content);
+            }
             foreach (string file in soundFiles)
             {
                 if (!soundList.ContainsKey(file))
@@ -142,6 +155,11 @@ namespace Puddle
 					Color.Navy
 				);
 			}
+
+            if (displayText != "")
+            {
+                displayMessage.draw(sb);
+            }
             sb.Draw(
                 image,
                 new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
