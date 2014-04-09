@@ -38,18 +38,23 @@ namespace Puddle
         }
 
 
-
-        public void checkCollision(Level level)
+		public void checkCollisions(Level level)
         {
             if (Intersects(level.player))
            {
-                    level.player.y_vel = -4;
-                    //level.player.spriteY -= 1;
-                    level.player.grounded = false;
-                    if (level.player.hydration < level.player.maxHydration - 2)
-                    {
-                        level.player.hydration += 2;
-                    }
+				// Prevent strange collisions
+				level.player.y_vel = -4;
+				foreach (Sprite s in level.items)
+				{
+					if (s.isSolid && level.player.Intersects(s) && 
+						level.player.topWall - Convert.ToInt32(level.player.y_vel) > s.bottomWall)
+					{
+						level.player.y_vel = 0;
+					}
+				}
+				level.player.grounded = false;
+               	if (level.player.hydration < level.player.maxHydration - 2)
+                    level.player.hydration += 2;
             }
 
             foreach (Enemy e in level.enemies)
@@ -71,7 +76,7 @@ namespace Puddle
 
         public override void Update(Level level)
         {
-            checkCollision(level);
+			checkCollisions(level);
             Animate(level);
         }
 

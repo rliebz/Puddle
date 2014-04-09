@@ -41,7 +41,7 @@ namespace Puddle
 
         protected override void Initialize()
         {
-            string initialLevel = String.Format("Content/Level{0}.tmx", 1);
+			string initialLevel = String.Format("Content/Level{0}.tmx", 1);
 			map = new TmxMap(initialLevel);
 
             // Read Level Size From Map
@@ -108,7 +108,6 @@ namespace Puddle
                 foreach (TmxObjectGroup.TmxObject obj in group.Objects)
                 {
                     Type t = Type.GetType(obj.Type);
-					Console.WriteLine(obj.Name);
                     object item = Activator.CreateInstance(t, obj);
 					if (item is Enemy)
 						level.enemies.Add((Enemy)item);
