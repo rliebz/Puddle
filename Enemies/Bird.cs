@@ -13,6 +13,8 @@ namespace Puddle
 	class Bird : Enemy
     {
 	
+		private bool flapUp;
+
 		public Bird(TmxObjectGroup.TmxObject obj)
 			: this(obj.X, obj.Y)
 		{ }
@@ -20,11 +22,12 @@ namespace Puddle
 		public Bird(int x, int y)
 			: base(x, y)
 		{
-			this.imageFile = "rat.png";
+			this.imageFile = "Bird.png";
 			speed = 3;
 			x_vel = speed;
 			y_vel = 0;
 			health = 3;
+			flapUp = true;
 
 			// Sprite business
 			seed = rnd.Next(0, 3);
@@ -38,17 +41,13 @@ namespace Puddle
 			// Shoot maybe
 			if (level.count % 120 == 0)
 				Shoot(level, content);
+				
+			// Animate sprite
+			Animate(level);
 
             // Be killed if necessary
 			if (health <= 0)
-			{
 				destroyed = true;
-				foreach (Enemy e in level.enemies)
-				{
-					e.health = 0;
-				}
-				level.player.newMap = "Content/Level6.tmx";
-			}
         }
 			
 		// Shoot a fireball downward
@@ -58,6 +57,43 @@ namespace Puddle
 			Fireball fireball = new Fireball(spriteX - 16, spriteY - 16, "down");
 			fireball.LoadContent(content);
 			level.projectiles.Add((Sprite)fireball);
+
+		}
+
+		public override void Animate(Level level)
+		{
+			// Animate once every several frames
+			if (level.count % 6 != 0)
+				return;
+
+			// Wings go forward
+			if (flapUp)
+			{
+
+				if (frameIndex < (32 * 3))
+				{
+					frameIndex += 32;
+				}
+				else
+				{
+					frameIndex -= 32;
+					flapUp = false;
+				}
+			}
+
+			// Wings go backward
+			else
+			{
+				if (frameIndex > 0)
+				{
+					frameIndex -= 32;
+				}
+				else
+				{
+					frameIndex += 32;
+					flapUp = true;
+				}
+			}
 
 		}
     }
