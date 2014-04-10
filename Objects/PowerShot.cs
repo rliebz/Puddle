@@ -11,10 +11,9 @@ namespace Puddle
             : base(p, dir)
             //(p.spriteX - 8, p.spriteY - 8, 48, 48)
         {
-            spriteX = p.spriteX + 8;
-            spriteY = p.spriteY + 8;
-            spriteWidth = 48;
-            spriteHeight = 48;
+            imageFile = "charged.png";
+            collisionWidth = 26;
+            collisionHeight = 26;
             damage = 3;
         }
 

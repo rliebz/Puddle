@@ -17,13 +17,14 @@ namespace Puddle
         public int damage;
 
         public Shot(Player p, string dir = "none")
-            : base(p.spriteX - 16, p.spriteY - 16, 24, 24)
+            : base(p.spriteX - 16, p.spriteY - 16, 32, 32)
         {
             this.imageFile = "bubble.png";
             
             this.dir = dir;
-            collisionWidth = 8;
-            collisionHeight = 8;
+            displayHitBox = true;
+            collisionWidth = 10;
+            collisionHeight = 10;
             speed = 6;
             damage = 1;
             x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.faceLeft ? -1 : 1));
