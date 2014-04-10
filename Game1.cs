@@ -28,9 +28,12 @@ namespace Puddle
         List<Texture2D> pauseScreens;
         SoundEffect song, bossSong;
         SoundEffectInstance instance, bossInstance;
+        Level levelSelect;
         bool newMapLoad;
         bool paused;
         bool intro;
+        bool firstSelect;
+        string previousMap;
         float newMapTimer;
         float introScreenTimer;
         int slideCount;
@@ -58,6 +61,7 @@ namespace Puddle
             intro = false;
             introImage = Content.Load<Texture2D>("Slide1.png");
             slideCount = 1;
+            previousMap = "";
 
             // Create built-in objects
 			player1 = new Player(
@@ -67,6 +71,8 @@ namespace Puddle
 				32
 			);
             level = new Level(player1, "menu");
+            levelSelect = null;
+            firstSelect = true;
             controls = new Controls();
             newMapLoad = true;
             newMapTimer = LOAD_SCREEN_TIME;
@@ -111,6 +117,13 @@ namespace Puddle
                 intro = true;
             else
                 intro = false;
+
+            Console.WriteLine(previousMap);
+            if (previousMap.Equals("Content/LevelSelect.tmx"))
+            {
+                levelSelect = new Level(level);
+            }
+
             map = new TmxMap(name);
             background = Content.Load<Texture2D>("background.png");
 
@@ -127,36 +140,64 @@ namespace Puddle
                 instance.Play();
             }
 
+
+			// Create new level object
+            if (name.Equals("Content/LevelSelect.tmx") && !firstSelect)
+            {
+                level = levelSelect;
+            }
+            else
+            {
+                level = new Level(player1, name);
+
+                // Create all objects from tmx and place them in level
+                foreach (TmxObjectGroup group in map.ObjectGroups)
+                {
+                    foreach (TmxObjectGroup.TmxObject obj in group.Objects)
+                    {
+                        Type t = Type.GetType(obj.Type);
+                        object item = Activator.CreateInstance(t, obj);
+                        if (item is Enemy)
+                            level.enemies.Add((Enemy)item);
+                        else
+                            level.items.Add((Sprite)item);
+                    }
+                }
+            }
+
             // Read Level Info From Map
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
-           
-            player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
-            player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
-			player1.checkpointXPos = player1.spriteX;
-			player1.checkpointYPos = player1.spriteY;
 
-			// Create new level object
-            level = new Level(player1, name);
 
-			// Create all objects from tmx and place them in level
-            foreach (TmxObjectGroup group in map.ObjectGroups)
+
+            if (name.Equals("Content/LevelSelect.tmx"))
             {
-                foreach (TmxObjectGroup.TmxObject obj in group.Objects)
+                string startPosSelect = "";
+                if (previousMap.Equals("Content/LevelMenu.tmx"))
+                    startPosSelect = "0";
+                else
                 {
-                    Type t = Type.GetType(obj.Type);
-                    object item = Activator.CreateInstance(t, obj);
-					if (item is Enemy)
-						level.enemies.Add((Enemy)item);
-					else
-                    	level.items.Add((Sprite)item);
+                    string[] fileName = previousMap.Split('.');
+                    startPosSelect = fileName[0].Remove(0, 13);
                 }
+                firstSelect = false;
+                player1.spriteX = Convert.ToInt32(map.Properties[String.Format("startX{0}", startPosSelect)]);
+                player1.spriteY = Convert.ToInt32(map.Properties[String.Format("startY{0}", startPosSelect)]);
             }
+            else
+            {
+                player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
+                player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
+            }
+
+            player1.checkpointXPos = player1.spriteX;
+            player1.checkpointYPos = player1.spriteY;
 
 
             level.items.Sort((x, y) => x.CompareTo(y));
 
-
+            previousMap = String.Copy(player1.newMap);
             player1.newMap = "";
 			LoadContent();
             newMapLoad = false;
