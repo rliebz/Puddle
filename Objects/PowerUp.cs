@@ -34,6 +34,8 @@ namespace Puddle
 				level.message = "Press and hold the jump button to jetpack!";
 			else if (name == "charged")
 				level.message = "Press and hold the right trigger to charge a super shot!";
+            else if (name == "puddle")
+                level.message = "Press and hold down to turn into a puddle and avoid damage!";
         }
 
     }

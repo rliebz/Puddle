@@ -22,9 +22,8 @@ namespace Puddle
             this.imageFile = "bubble.png";
             
             this.dir = dir;
-            displayHitBox = true;
-            collisionWidth = 10;
-            collisionHeight = 10;
+            collisionWidth = 12;
+            collisionHeight = 12;
             speed = 6;
             damage = 1;
             x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.faceLeft ? -1 : 1));
