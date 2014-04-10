@@ -59,7 +59,7 @@ namespace Puddle
         private int powerShotDelay;
         Random rand;
         int index;
-        SoundEffectInstance instance;
+        SoundEffectInstance instance, deathInstance;
         private const int NUM_LIVES = 5;
            
 
@@ -453,18 +453,14 @@ namespace Puddle
             }
         }
 
-        //Jump sound clipping (doubling?) occurs after: shot or charged shot (includes jetpacking), button press, death
-        //Not affected by: puddling, piping, reaching checkpoint, geysers, pushing blocks, receiving powerup
         private void Jump(Controls controls, Level level, GameTime gameTime)
         {
             // Jump on button press
 			if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
             {
                 instance = soundList["Sounds/Jump.wav"].CreateInstance();
-                instance.Volume = 0.1f;
-                //if(instance.State != SoundState.Playing)
-                    instance.Play();
-                //soundList["Sounds/Jump.wav"].Play();
+                instance.Volume = 0.4f;
+                instance.Play();
 				y_vel = -11;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
 				grounded = false;
@@ -537,7 +533,9 @@ namespace Puddle
             puddled = false;
             hydration = maxHydration;
 			piped = false;
-            soundList["Sounds/Death.wav"].Play();
+            deathInstance = soundList["Sounds/Death.wav"].CreateInstance();
+            deathInstance.Volume = 0.8f;
+            deathInstance.Play();
             if (lives == 0)
             {
                 newMap = level.name;
@@ -640,7 +638,6 @@ namespace Puddle
                     soundList.Add(file, effect);
                 }
             }
-            
         }
 
         public new void Draw(SpriteBatch sb)

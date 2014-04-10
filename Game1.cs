@@ -26,8 +26,8 @@ namespace Puddle
         Texture2D background;
         Texture2D introImage;
         List<Texture2D> pauseScreens;
-        SoundEffect song;
-        SoundEffectInstance instance;
+        SoundEffect song, bossSong;
+        SoundEffectInstance instance, bossInstance;
         bool newMapLoad;
         bool paused;
         bool intro;
@@ -76,8 +76,12 @@ namespace Puddle
             song = Content.Load<SoundEffect>("Sounds/InGame.wav");
             instance = song.CreateInstance();
             instance.IsLooped = true;
-            if (instance.State == SoundState.Stopped)
+            //if (instance.State == SoundState.Stopped)
                 instance.Play();
+
+            bossSong = Content.Load<SoundEffect>("Sounds/Boss.wav");
+            bossInstance = bossSong.CreateInstance();
+
 
             pauseScreens = new List<Texture2D>();
             pauseScreens.Add(Content.Load<Texture2D>("pause0.png"));
@@ -109,6 +113,19 @@ namespace Puddle
                 intro = false;
             map = new TmxMap(name);
             background = Content.Load<Texture2D>("background.png");
+
+            if (name.Equals("Content/Level5.tmx"))
+            {
+                instance.Stop();
+                bossInstance.IsLooped = true;
+                bossInstance.Play();
+            }
+            else
+            {
+                if(bossInstance.State == SoundState.Playing)
+                    bossInstance.Stop();
+                instance.Play();
+            }
 
             // Read Level Info From Map
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
