@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
 using TiledSharp;
 
 namespace Puddle
@@ -14,6 +15,7 @@ namespace Puddle
     {
 
         public bool activated;
+        private SoundEffectInstance instance;
 
         public Checkpoint(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
@@ -21,6 +23,7 @@ namespace Puddle
             imageFile = "checkpoint.png";
             name = obj.Name.ToLower();
             activated = false;
+            soundFiles.Add("Sounds/Checkpoint.wav");
         }
 
         public override void Update(Level level)
@@ -44,6 +47,12 @@ namespace Puddle
             if (Intersects(level.player))
             {
                 Action(level.player);
+                if (!activated)
+                {
+                    instance = soundList["Sounds/Checkpoint.wav"].CreateInstance();
+                    instance.Volume = 0.7f;
+                    instance.Play();
+                }
                 foreach (Sprite s in level.items)
                 {
                     if (s != this && s is Checkpoint)
