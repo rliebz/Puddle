@@ -294,7 +294,7 @@ namespace Puddle
                         // Roller
                         if (s is Roller)
                         {
-                            x_vel += .2;
+                            x_vel += s.faceLeft ? -.2 : .2;
                             onRoller = true;
                         }
 					}

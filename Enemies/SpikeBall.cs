@@ -23,10 +23,6 @@ namespace Puddle
 			collisionHeight = 26;
             collisionWidth = 26;
             spriteY -= 16;
-			speed = 0;
-			x_vel = speed;
-			y_vel = 0;
-            health = 0;
 		}
 
 		public override void Update(Level level)

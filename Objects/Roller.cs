@@ -21,6 +21,9 @@ namespace Puddle
             base(obj.X, obj.Y, 32, 32)
         {
             imageFile = "roller.png";
+
+            faceLeft = obj.Properties.ContainsKey("left") && Boolean.Parse(obj.Properties["left"]);
+
             isSolid = true;
 
             collisionHeight = 8;
