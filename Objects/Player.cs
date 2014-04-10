@@ -18,6 +18,7 @@ namespace Puddle
         public bool puddled;
         public bool shooting;
         public bool pushing;
+        public bool onRoller;
         public Dictionary<string, bool> powerup;
         public string newMap;
 		public bool piped;
@@ -81,6 +82,7 @@ namespace Puddle
             faceLeft = false;
             shooting = false;
             pushing = false;
+            onRoller = false;
             collisionWidth = 16;
 			piped = false;
             powerShotCharging = false;
@@ -204,6 +206,7 @@ namespace Puddle
             spriteX += Convert.ToInt32(x_vel);
 
 			pushing = false;
+            onRoller = false;
 
 			// Check left/right collisions
 			foreach (Sprite s in level.items)
@@ -287,6 +290,13 @@ namespace Puddle
 						grounded = true;
 						while (bottomWall > s.topWall)
 							spriteY--;
+
+                        // Roller
+                        if (s is Roller)
+                        {
+                            x_vel += .2;
+                            onRoller = true;
+                        }
 					}
 				}
 			}
@@ -580,7 +590,9 @@ namespace Puddle
                         frameIndex += 32;
                 }
                 // Grounded, not Moving
-                else if (Math.Abs(x_vel) < .5)
+                else if ((!onRoller && Math.Abs(x_vel) < .5) || (onRoller &&
+                    !controls.isPressed(Keys.Right, Buttons.DPadRight) &&
+                    !controls.isPressed(Keys.Left, Buttons.DPadLeft)))
                 {
                     // Initialize sprite. No animation.
                     if (image != images["stand"])
