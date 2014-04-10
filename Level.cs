@@ -40,6 +40,19 @@ namespace Puddle
             name = levelName;
         }
 
+        public Level(Level l)
+        {
+            player = l.player;
+            enterPowerUps = new Dictionary<string,bool>(l.enterPowerUps);
+            enterLives = l.player.lives;
+            enemies = new List<Enemy>(l.enemies);
+            projectiles = new List<Sprite>(l.projectiles);
+            items = new List<Sprite>(l.items);
+            message = l.message;
+            message_point = l.message_point;
+            name = l.name;
+        }
+
         public void Update(ContentManager content) 
         {
             if (paused)

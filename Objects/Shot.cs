@@ -22,7 +22,6 @@ namespace Puddle
             this.imageFile = "bubble.png";
             
             this.dir = dir;
-            displayHitBox = true;
             collisionWidth = 10;
             collisionHeight = 10;
             speed = 6;
