@@ -51,13 +51,13 @@ namespace Puddle
 				destroyed = true;
         }
 			
-		// Shoot a fireball downward
+		// Shoot a Egg downward
 		public void Shoot(Level level, ContentManager content)
 		{
 
-			Fireball fireball = new Fireball(spriteX - 16, spriteY - 16, "down");
-			fireball.LoadContent(content);
-			level.projectiles.Add((Sprite)fireball);
+			Egg egg = new Egg(spriteX, spriteY + 16);
+			egg.LoadContent(content);
+			level.projectiles.Add((Sprite)egg);
 
 		}
 

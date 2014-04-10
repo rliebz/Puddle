@@ -52,6 +52,7 @@
     <Compile Include="Objects\Button.cs" />
     <Compile Include="Objects\Cannon.cs" />
     <Compile Include="Objects\Checkpoint.cs" />
+    <Compile Include="Objects\Egg.cs" />
     <Compile Include="Objects\Roller.cs" />
     <Compile Include="Objects\Fireball.cs" />
     <Compile Include="Objects\Frog.cs" />
@@ -274,6 +275,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Level6.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\LevelBlah.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\LevelSelect.tmx">
