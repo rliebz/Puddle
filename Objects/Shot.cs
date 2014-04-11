@@ -27,6 +27,7 @@ namespace Puddle
             speed = 6;
             damage = 1;
             x_vel = Convert.ToInt32(p.x_vel * .5 + speed * (p.faceLeft ? -1 : 1));
+            isShot = true;
         }
 
         public override void Update(Level level)

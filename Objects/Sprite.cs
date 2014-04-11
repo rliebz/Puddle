@@ -28,6 +28,7 @@ namespace Puddle
         protected Texture2D image;
 		public Texture2D blankImage;
         protected TextField displayMessage;
+        public bool isShot;
         
 		protected bool displayHitBox;
         protected string displayText;
@@ -55,6 +56,7 @@ namespace Puddle
             this.rotationAngle = 0;
             this.depth = 0;
             this.displayText = "";
+            this.isShot = false;
 
             this.soundFiles = new List<string>();
             this.soundList = new Dictionary<string, SoundEffect>();

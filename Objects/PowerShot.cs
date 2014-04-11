@@ -15,6 +15,7 @@ namespace Puddle
             collisionWidth = 26;
             collisionHeight = 26;
             damage = 3;
+            isShot = true;
         }
 
 
