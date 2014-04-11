@@ -12,7 +12,8 @@ namespace Puddle
 {
 	class Face : Enemy
     {
-	
+		public int maxHealth;
+
 		public Face(TmxObjectGroup.TmxObject obj)
 			: this(obj.X, obj.Y)
 		{ }
@@ -30,6 +31,8 @@ namespace Puddle
 			speed = 2;
 			x_vel = speed;
 			y_vel = 0;
+
+			maxHealth = 30;
 			health = 30;
 
 			// Sprite business
@@ -68,6 +71,23 @@ namespace Puddle
 			fireball.LoadContent(content);
 			level.projectiles.Add((Sprite)fireball);
 
+		}
+
+		public override void Draw(SpriteBatch sb)
+		{
+			base.Draw(sb);
+
+			// Draw boss health bar
+			sb.Draw(
+				blankImage,
+				new Rectangle(32 * 6 + 12, 32 * 21 + 8, maxHealth * 10, 16),
+				new Color(60, 22, 22)
+			);
+			sb.Draw(
+				blankImage,
+				new Rectangle(32 * 6 + 12, 32 * 21 + 8,  health * 10, 16),
+				Color.Firebrick
+			);
 		}
     }
 }
