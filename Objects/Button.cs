@@ -26,6 +26,8 @@ namespace Puddle
             imageFile = "button.png";
             holdButton = obj.Properties.ContainsKey("hold") && Boolean.Parse(obj.Properties["hold"]);
             displayText = obj.Properties.ContainsKey("text") ? obj.Properties["text"] : "";
+            displayTextX = 35;
+            displayTextY = 30;
 		    spriteColor = holdButton ? Color.CornflowerBlue : Color.OrangeRed;
 
 			activated = false;

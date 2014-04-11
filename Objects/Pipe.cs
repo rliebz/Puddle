@@ -29,6 +29,13 @@ namespace Puddle
 				(obj.Properties ["direction"]) : "up";
 
             this.destination = obj.Properties.ContainsKey("destination") ? obj.Properties["destination"] : "";
+            displayText = obj.Properties.ContainsKey("text") ? obj.Properties["text"] : "";
+            displayTextColor = Color.Black;
+            displayTextX = 5;
+            displayTextY = 5;
+
+            spriteColor = name.Contains("endPipe") ? Color.Gold : Color.White;
+
 
 			if (this.direction == "up")
             {
@@ -141,20 +148,6 @@ namespace Puddle
 			level.player.spriteY = y - level.player.collisionHeight;
 
         }
-		public override void Draw(SpriteBatch sb)
-		{
-
-			sb.Draw(
-				image,
-				new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
-				new Rectangle(frameIndex, 0, frameWidth, frameHeight),
-				name.Contains("endPipe") ? Color.Gold : Color.White,
-				0,
-				new Vector2(spriteWidth / 2, spriteHeight / 2),
-				faceLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
-				0
-			);
-		}
 
         	
     }

@@ -536,6 +536,7 @@
     <property name="destination" value="1"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
+    <property name="text" value="1"/>
    </properties>
   </object>
   <object name="Ground" type="Puddle.Block" x="480" y="544" width="32" height="32"/>
@@ -591,6 +592,7 @@
     <property name="destination" value="3"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
+    <property name="text" value="3"/>
    </properties>
   </object>
   <object name="Ground" type="Puddle.Block" x="64" y="320" width="32" height="32"/>
@@ -616,6 +618,7 @@
     <property name="destination" value="5"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
+    <property name="text" value="?"/>
    </properties>
   </object>
   <object name="Ground" type="Puddle.Block" x="640" y="480" width="32" height="32"/>
@@ -804,6 +807,7 @@
     <property name="destination" value="4"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
+    <property name="text" value="4"/>
    </properties>
   </object>
   <object name="endPipe2" type="Puddle.Pipe" x="96" y="544" width="32" height="32">
@@ -811,6 +815,7 @@
     <property name="destination" value="1"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
+    <property name="text" value="2"/>
    </properties>
   </object>
  </objectgroup>
