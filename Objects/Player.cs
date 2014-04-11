@@ -746,7 +746,7 @@ namespace Puddle
 				Color.White);
 
             //Draw lives
-			for (int i=0; i <= lives; i++)
+			for (int i=0; i < lives; i++)
 			{
 				sb.Draw(
 					images["heart"],
