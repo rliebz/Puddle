@@ -36,6 +36,7 @@ namespace Puddle
             if (Intersects(level.player) && !level.player.invulnerable)
             {
                 level.player.Death(level);
+				destroyed = true;
             }
 
             // check collisions with blocks

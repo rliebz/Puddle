@@ -25,7 +25,6 @@ namespace Puddle
         public string pauseScreen;
         private bool powerShotCharging;
         public int lives;
-        public TextField livesMessage;
 
         // Stats
         public double maxHydration;
@@ -168,8 +167,7 @@ namespace Puddle
             pauseScreen = String.Format("pause{0}", numPowers);
             if (level.paused)
                 return;
-
-            livesMessage.Message = String.Format("Lives Remaining:      x{0}", lives);
+				
             if (hydration + hydrationRegen <= maxHydration && !powerShotCharging)
                 hydration += hydrationRegen;
 
@@ -601,15 +599,24 @@ namespace Puddle
 
         public void Death(Level level)
         {
+			// Go to checkpoint
             spriteX = checkpointXPos;
             spriteY = checkpointYPos;
+
+			// reset fields
+			x_vel = 0;
             y_vel = 0;
-            puddled = false;
-            hydration = maxHydration;
+			puddled = false;
 			piped = false;
+            hydration = maxHydration;
+
             deathInstance = soundList["Sounds/Death.wav"].CreateInstance();
             deathInstance.Volume = 0.8f;
             deathInstance.Play();
+
+			if(!level.name.Equals("Content/LevelSelect.tmx"))
+				lives--;
+
             if (lives == 0)
             {
                 newMap = level.name;
@@ -617,8 +624,6 @@ namespace Puddle
                 powerup = level.enterPowerUps;
                 return;
             }
-            if(!level.name.Equals("Content/LevelSelect.tmx"))
-                lives--;
         }
 
         private void Animate(Controls controls, Level level, GameTime gameTime)
@@ -699,13 +704,8 @@ namespace Puddle
             images["walk"] = content.Load<Texture2D>("PC/walk.png");
             images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
             images["block"] = content.Load<Texture2D>("blank.png");
-            livesMessage = new TextField(
-                String.Format("Lives Remaining:      x{0}", lives),
-                new Vector2(160, 5),
-                Color.White
-            );
-
-            livesMessage.loadContent(content);
+			images["hydration"] = content.Load<Texture2D>("puddle.png");
+			images["heart"] = content.Load<Texture2D>("heart.png");
             image = images["stand"];
             foreach (string file in soundFiles)
             {
@@ -724,26 +724,36 @@ namespace Puddle
             base.Draw(sb);
 			spriteY++;
 
-            // Draw health
+			// Draw hydration
             sb.Draw(
                 images["block"],
-                new Rectangle(8, 8, Convert.ToInt32(maxHydration * 1.5), 16),
+				new Rectangle(8, 36, 16, Convert.ToInt32(maxHydration * 1.5)),
                 Color.Navy
             );
             sb.Draw(
                 images["block"],
-                new Rectangle(8, 8, Convert.ToInt32(hydration * 1.5), 16),
-                Color.Cyan
+				new Rectangle(
+					8, 
+					36 + Convert.ToInt32(maxHydration * 1.5) - Convert.ToInt32(hydration * 1.5), 
+					16, 
+					Convert.ToInt32(hydration * 1.5)
+				),
+				new Color(0, 160, 232)
             );
+			sb.Draw(
+				images["hydration"],
+				new Rectangle(0, 12 + Convert.ToInt32(maxHydration * 1.5), 32, 32),
+				Color.White);
 
             //Draw lives
-
-            livesMessage.draw(sb);
-            sb.Draw(
-                images["stand"],
-                new Rectangle(304, 0, 32, 32),
-                Color.White
-            );
+			for (int i=0; i < lives; i++)
+			{
+				sb.Draw(
+					images["heart"],
+					new Rectangle(32 + 32 * i, 0, 32, 32),
+					Color.White
+				);
+			}
         }
 
     }
