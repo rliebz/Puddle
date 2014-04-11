@@ -247,6 +247,8 @@ namespace Puddle
 
             if (newMapLoad)
             {
+				player1.hydration = player1.maxHydration;
+
                 GraphicsDevice.Clear(Color.Black);
                 string[] fileName = player1.newMap.Split('.');
                 string levelNumber = fileName[0].Remove(0, 13);
@@ -258,7 +260,7 @@ namespace Puddle
 						(graphics.PreferredBackBufferHeight / 2) - 50
 					),
                     Color.White
-                    );
+                );
                 message.loadContent(Content);
                 message.draw(spriteBatch);
 
@@ -266,7 +268,8 @@ namespace Puddle
                 newMapTimer -= elapsed;
                 if (newMapTimer < 0)
                 {
-                    LoadMap(player1.newMap);//Timer expired, execute action
+
+					LoadMap(player1.newMap);		  //Timer expired, execute action
                     newMapTimer = LOAD_SCREEN_TIME;   //Reset Timer
                 }
             }

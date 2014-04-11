@@ -22,6 +22,7 @@ namespace Puddle
 		public Hand(int x, int y, bool left=false)
 			: base(x, y)
 		{
+			depth = 1;
 			faceLeft = left;
 			collisionWidth = 64;
 			collisionHeight = 64;
