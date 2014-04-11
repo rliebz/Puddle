@@ -55,7 +55,6 @@
     <Compile Include="Objects\Egg.cs" />
     <Compile Include="Objects\Roller.cs" />
     <Compile Include="Objects\Fireball.cs" />
-    <Compile Include="Objects\Frog.cs" />
     <Compile Include="Objects\Geyser.cs" />
     <Compile Include="Objects\Pipe.cs" />
     <Compile Include="Objects\PowerShot.cs" />
@@ -183,7 +182,6 @@
     <Content Include="Content\fireball.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Frog.png" />
     <Content Include="Content\geyser.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
