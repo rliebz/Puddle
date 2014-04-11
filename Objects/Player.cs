@@ -71,9 +71,9 @@ namespace Puddle
             powerup = new Dictionary<string, bool>();
 
             // Properties
-            powerup["puddle"] = false;
-            powerup["jetpack"] = false;
-            powerup["charged"] = false;
+			powerup["puddle"] = false;
+			powerup["jetpack"] = false;
+			powerup["charged"] = false;
 
             lives = NUM_LIVES;
             moving = false;
@@ -83,7 +83,8 @@ namespace Puddle
             shooting = false;
             pushing = false;
             onRoller = false;
-            collisionWidth = 16;
+			collisionWidth = 18;
+			collisionHeight = 30;
 			piped = false;
             powerShotCharging = false;
 
@@ -270,6 +271,8 @@ namespace Puddle
 
 			grounded = false;
 
+
+
 			// Check up/down collisions
 			foreach (Sprite s in level.items)
 			{
@@ -294,13 +297,60 @@ namespace Puddle
                         // Roller
                         if (s is Roller)
                         {
-                            x_vel += s.faceLeft ? -.2 : .2;
+							x_vel += s.faceLeft ? -.3 : .3;
                             onRoller = true;
                         }
 					}
 				}
 			}
-				
+
+			// Check left/right collisions AGAIN (for corning clipping
+			foreach (Sprite s in level.items)
+			{
+				if (s.isSolid && Intersects(s))
+				{
+					// Collision with right block
+					if (bottomWall > s.topWall &&
+						rightWall - Convert.ToInt32(x_vel) < s.leftWall &&
+						x_vel > 0)
+					{
+						// Push
+						if (s is Block && ((Block)s).rightPushable && grounded)
+						{
+							((Block)s).x_vel = x_vel;
+							pushing = true;
+						}
+
+						// Hit the wall
+						else
+						{
+							while (rightWall >= s.leftWall)
+								spriteX--;
+						}
+					}
+
+					// Push to the left
+					else if (bottomWall > s.topWall &&
+						leftWall - Convert.ToInt32(x_vel) > s.rightWall &&
+						x_vel < 0)
+					{
+						// Push
+						if (s is Block && ((Block)s).leftPushable && grounded)
+						{
+							((Block)s).x_vel = x_vel;
+							pushing = true;
+						}
+
+						// Hit the wall
+						else
+						{
+							while (leftWall <= s.rightWall)
+								spriteX++;
+						}
+					}
+				}
+			}
+
 			// Determine direction
 			if (x_vel > 0.1)
 				faceLeft = false;
@@ -643,6 +693,7 @@ namespace Puddle
 
         public new void LoadContent(ContentManager content)
         {
+			blankImage = content.Load<Texture2D>("blank.png");
             images["stand"] = content.Load<Texture2D>("PC/stand.png");
             images["jump"] = content.Load<Texture2D>("PC/jump.png");
             images["walk"] = content.Load<Texture2D>("PC/walk.png");
@@ -668,8 +719,10 @@ namespace Puddle
 
         public new void Draw(SpriteBatch sb)
         {
-            // Draw the player
+			// Draw the player slightly higher than he is
+			spriteY--;
             base.Draw(sb);
+			spriteY++;
 
             // Draw health
             sb.Draw(

@@ -691,7 +691,7 @@
     <property name="direction" value="right"/>
    </properties>
   </object>
-  <object name="Block 2" type="Puddle.Block" gid="299" x="352" y="192">
+  <object name="Block 2" type="Puddle.Block" gid="299" x="416" y="192">
    <properties>
     <property name="gravity" value="False"/>
     <property name="left" value="True"/>

@@ -14,9 +14,6 @@ namespace Puddle
     class Roller : Sprite
     {
 
-        public bool activated;
-        private SoundEffectInstance instance;
-
         public Roller(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
         {
@@ -39,7 +36,7 @@ namespace Puddle
 
         public void Animate(Level level)
         {
-            frameIndex = ((level.count) / 8 % 4) * 32;
+			frameIndex = ((level.count) / 4 % 4) * 32;
         }
 
     }
