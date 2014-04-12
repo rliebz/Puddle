@@ -43,6 +43,20 @@ namespace Puddle
 				frameIndex = 0;
 			
             }
+			else if (this.direction == "left")
+			{
+
+				frameIndex = 0;
+				rotationAngle = MathHelper.PiOver2 * 3;
+
+			}
+			else if (this.direction == "right")
+			{
+
+				frameIndex = 0;
+				rotationAngle = MathHelper.PiOver2;
+
+			}
 			else if (this.direction == "down")
             {
 
@@ -83,15 +97,6 @@ namespace Puddle
                 
 				frameIndex = 32*7;
             }
-           
-
-			else if (obj.Properties["direction"].Equals("end"))
-			{
-				this.direction = "end";
-				frameIndex = 0;
-
-			}
-
 
         }
 

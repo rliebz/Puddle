@@ -212,6 +212,23 @@ namespace Puddle
 			{
 				if (s.isSolid && Intersects(s))
 				{
+					// Pipe
+					if (s is Pipe && !piped && grounded && 
+						(((Pipe)s).direction == "left" || ((Pipe)s).direction == "right"))
+
+					{
+						Pipe p = (Pipe)s;
+						if(p.name.Contains("endPipe"))
+						{
+							newMap = String.Format("Content/Level{0}.tmx", p.destination);
+						}
+						else
+						{
+							p.Action(level);
+							piped = true;
+						}
+					}
+
 					// Collision with right block
 					if (bottomWall > s.topWall &&
 						rightWall - Convert.ToInt32(x_vel) < s.leftWall &&
@@ -571,24 +588,23 @@ namespace Puddle
                     SoundEffectInstance powerup = soundList["Sounds/Powerup.wav"].CreateInstance();
                     powerup.Volume = 0.3f;
                     powerup.Play();
-                   // newMap = "Content/Level2.tmx";
                 }
 
-				if (item is Pipe && Intersects(item) && (puddled && frameIndex == 5 * 32) && 
-					!piped && Math.Abs(spriteX - item.spriteX) < 12)
-
-                {
-
+				// Pipe
+				if (item is Pipe && !piped && Intersects(item) && 
+					(puddled && frameIndex == 5 * 32) && Math.Abs(spriteX - item.spriteX) < 12)
+				{
 					Pipe p = (Pipe)item;
 					if(p.name.Contains("endPipe"))
 					{
 						newMap = String.Format("Content/Level{0}.tmx", p.destination);
 					}
-					p.Action(level);
-					piped = true;
-
-                }
-
+					else
+					{
+						p.Action(level);
+						piped = true;
+					}
+				}
             }
         }
 
