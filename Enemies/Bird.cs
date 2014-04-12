@@ -55,7 +55,7 @@ namespace Puddle
 		public void Shoot(Level level, ContentManager content)
 		{
 
-			Egg egg = new Egg(spriteX, spriteY + 16);
+			Egg egg = new Egg(spriteX - 10, spriteY);
 			egg.LoadContent(content);
 			level.projectiles.Add((Sprite)egg);
 

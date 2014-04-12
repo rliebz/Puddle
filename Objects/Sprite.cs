@@ -28,6 +28,10 @@ namespace Puddle
         protected Texture2D image;
 		public Texture2D blankImage;
         protected TextField displayMessage;
+        public bool isShot;
+        protected int displayTextX;
+        protected int displayTextY;
+        protected Color displayTextColor;
         
 		protected bool displayHitBox;
         protected string displayText;
@@ -55,6 +59,10 @@ namespace Puddle
             this.rotationAngle = 0;
             this.depth = 0;
             this.displayText = "";
+            this.isShot = false;
+            this.displayTextX = 0;
+            this.displayTextY = 0;
+            this.displayTextColor = Color.White;
 
             this.soundFiles = new List<string>();
             this.soundList = new Dictionary<string, SoundEffect>();
@@ -130,8 +138,8 @@ namespace Puddle
             {
                 displayMessage = new TextField(
                     displayText,
-                    new Vector2(spriteX - 35, spriteY - 30),
-                    Color.White
+                    new Vector2(spriteX - displayTextX, spriteY - displayTextY),
+                    displayTextColor
                 );
                 displayMessage.loadContent(content);
             }
@@ -156,10 +164,7 @@ namespace Puddle
 				);
 			}
 
-            if (displayText != "")
-            {
-                displayMessage.draw(sb);
-            }
+
             sb.Draw(
                 image,
                 new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
@@ -170,6 +175,10 @@ namespace Puddle
                 faceLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                 0
             );
+            if (displayText != "")
+            {
+                displayMessage.draw(sb);
+            }
         }
 
 

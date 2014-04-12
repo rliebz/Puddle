@@ -26,8 +26,8 @@ namespace Puddle
         Texture2D background;
         Texture2D introImage;
         List<Texture2D> pauseScreens;
-        SoundEffect song, bossSong;
-        SoundEffectInstance instance, bossInstance;
+        SoundEffect song, bossSong, menuSong;
+        SoundEffectInstance instance, bossInstance, menuInstance;
         Level levelSelect;
         bool newMapLoad;
         bool paused;
@@ -82,12 +82,15 @@ namespace Puddle
             song = Content.Load<SoundEffect>("Sounds/InGame.wav");
             instance = song.CreateInstance();
             instance.IsLooped = true;
-            //if (instance.State == SoundState.Stopped)
-                instance.Play();
 
             bossSong = Content.Load<SoundEffect>("Sounds/Boss.wav");
             bossInstance = bossSong.CreateInstance();
+            bossInstance.IsLooped = true;
 
+            menuSong = Content.Load<SoundEffect>("Sounds/Menu.wav");
+            menuInstance = menuSong.CreateInstance();
+            menuInstance.IsLooped = true;
+            menuInstance.Play();
 
             pauseScreens = new List<Texture2D>();
             pauseScreens.Add(Content.Load<Texture2D>("pause0.png"));
@@ -127,16 +130,22 @@ namespace Puddle
             map = new TmxMap(name);
             background = Content.Load<Texture2D>("background.png");
 
-            if (name.Equals("Content/Level5.tmx"))
+            if (intro || name.Equals("Content/LevelSelect.tmx"))
             {
                 instance.Stop();
-                bossInstance.IsLooped = true;
+                bossInstance.Stop();
+                menuInstance.Play();
+            }
+            else if (name.Equals("Content/Level5.tmx"))
+            {
+                instance.Stop();
+                menuInstance.Stop();
                 bossInstance.Play();
             }
             else
             {
-                if(bossInstance.State == SoundState.Playing)
-                    bossInstance.Stop();
+                bossInstance.Stop();
+                menuInstance.Stop();
                 instance.Play();
             }
 
