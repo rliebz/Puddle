@@ -90,7 +90,7 @@ namespace Puddle
             // Stats
             maxHydration = 100;
             hydration = maxHydration;
-            hydrationRegen = maxHydration / 400;
+			hydrationRegen = maxHydration / 300;
             shotCost = 10;
             powerShotCost = shotCost * 2;
             jetpackCost = 20;

@@ -645,9 +645,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Items" width="22" height="22">
-  <object name="Puddle" type="Puddle.PowerUp" x="608" y="640" width="32" height="32"/>
- </objectgroup>
+ <objectgroup name="Items" width="22" height="22"/>
  <objectgroup name="Ground" width="22" height="22">
   <object name="Ground" type="Puddle.Block" x="32" y="672" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="96" y="672" width="32" height="32"/>

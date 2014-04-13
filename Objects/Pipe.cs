@@ -31,8 +31,6 @@ namespace Puddle
             this.destination = obj.Properties.ContainsKey("destination") ? obj.Properties["destination"] : "";
             displayText = obj.Properties.ContainsKey("text") ? obj.Properties["text"] : "";
             displayTextColor = Color.Black;
-            displayTextX = 5;
-            displayTextY = 5;
 
             spriteColor = name.Contains("endPipe") ? Color.Gold : Color.White;
 
@@ -41,6 +39,8 @@ namespace Puddle
             {
 
 				frameIndex = 0;
+				displayTextX = -5;
+				displayTextY = -5;
 			
             }
 			else if (this.direction == "left")
@@ -48,6 +48,8 @@ namespace Puddle
 
 				frameIndex = 0;
 				rotationAngle = MathHelper.PiOver2 * 3;
+				displayTextX = 3;
+				displayTextY = -11;
 
 			}
 			else if (this.direction == "right")
@@ -55,6 +57,8 @@ namespace Puddle
 
 				frameIndex = 0;
 				rotationAngle = MathHelper.PiOver2;
+				displayTextX = -9;
+				displayTextY = -11;
 
 			}
 			else if (this.direction == "down")

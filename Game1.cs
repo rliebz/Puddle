@@ -50,7 +50,7 @@ namespace Puddle
 
         protected override void Initialize()
         {
-            string initialLevel = String.Format("Content/LevelMenu.tmx");
+			string initialLevel = String.Format("Content/LevelMenu.tmx");
             map = new TmxMap(initialLevel);
 
             // Read Level Size From Map
@@ -182,13 +182,12 @@ namespace Puddle
 
             if (name.Equals("Content/LevelSelect.tmx"))
             {
-                string startPosSelect = "";
+				char startPosSelect = ' ';
                 if (previousMap.Equals("Content/LevelMenu.tmx"))
-                    startPosSelect = "0";
+					startPosSelect = '0';
                 else
                 {
-                    string[] fileName = previousMap.Split('.');
-                    startPosSelect = fileName[0].Remove(0, 13);
+					startPosSelect = previousMap[13];
                 }
                 firstSelect = false;
                 player1.spriteX = Convert.ToInt32(map.Properties[String.Format("startX{0}", startPosSelect)]);

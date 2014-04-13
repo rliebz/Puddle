@@ -138,7 +138,7 @@ namespace Puddle
             {
                 displayMessage = new TextField(
                     displayText,
-                    new Vector2(spriteX - displayTextX, spriteY - displayTextY),
+					new Vector2(spriteX + displayTextX, spriteY + displayTextY),
                     displayTextColor
                 );
                 displayMessage.loadContent(content);
