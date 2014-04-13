@@ -67,40 +67,6 @@ namespace Puddle
 				frameIndex = 32;
                 
             }
-			else if (this.direction == "vertical") {
-
-				frameIndex = 32*2;
-
-			}
-			else if (this.direction == "horizontal")
-			{
-
-				frameIndex = 32*3;
-			}
-
-			else if (this.direction == "cornerLeft")
-            {
-                
-				frameIndex = 32*4;
-
-            }
-			else if (this.direction == "cornerLeftR")
-			{
-			
-				frameIndex = 32*5;
-
-			}
-			else if (this.direction == "cornerRightR")
-			{
-
-				frameIndex = 32*6;
-			}
-
-			else if (this.direction == "cornerRight")
-            {
-                
-				frameIndex = 32*7;
-            }
 
         }
 

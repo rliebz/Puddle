@@ -242,8 +242,6 @@ namespace Puddle
 
             spriteBatch.Begin();
 
-
-
             if (newMapLoad)
             {
 				player1.hydration = player1.maxHydration;
@@ -267,7 +265,6 @@ namespace Puddle
                 newMapTimer -= elapsed;
                 if (newMapTimer < 0)
                 {
-
 					LoadMap(player1.newMap);		  //Timer expired, execute action
                     newMapTimer = LOAD_SCREEN_TIME;   //Reset Timer
                 }
@@ -285,6 +282,7 @@ namespace Puddle
                     Color.White
                 );
 
+				// Draw intro slides
                 if (intro)
                 {
                     float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -323,7 +321,7 @@ namespace Puddle
                     );
                 }
 
-
+				// Display picked up messages
 				if (level.message != "")
 				{
 					TextField message = new TextField(

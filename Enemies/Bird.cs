@@ -51,7 +51,7 @@ namespace Puddle
 				destroyed = true;
         }
 			
-		// Shoot a Egg downward
+		// Shoot an Egg downward
 		public void Shoot(Level level, ContentManager content)
 		{
 

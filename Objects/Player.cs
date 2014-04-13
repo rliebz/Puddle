@@ -494,19 +494,7 @@ namespace Puddle
                     level.projectiles.Add(s);
                     hydration -= shotCost;
                 }
-
-                   
-               
-                
-                //else
-                //{
-                //    hydration += tryShotHydration;
-                //    tryShotHydration = 0;
-                //}
-
-
-                //need a new if statement for big shots. the if will be current time, shot point, and charge time, bigShooting, amd hydration
-
+					
                 // Jetpack (Midair jump and downward shots)
                 int currentTime2 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                 if ((currentTime2 - jumpPoint) >= jumpDelay && y_vel > 3 && powerup["jetpack"] &&
