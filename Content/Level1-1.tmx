@@ -894,7 +894,7 @@
  <objectgroup name="Pipe" width="22" height="22">
   <object name="endPipe_1" type="Puddle.Pipe" gid="303" x="32" y="128">
    <properties>
-    <property name="destination" value="Select"/>
+    <property name="destination" value="1-2"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
    </properties>

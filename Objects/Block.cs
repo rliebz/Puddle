@@ -40,11 +40,12 @@ namespace Puddle
 				obj.Properties.ContainsKey("gravity") ? Boolean.Parse(obj.Properties["gravity"]) : false,
                 obj.Properties.ContainsKey("canBreak") ? Boolean.Parse(obj.Properties["canBreak"]) : false,
                 obj.Properties.ContainsKey("transparent") ? Boolean.Parse(obj.Properties["transparent"]) : false,
+                obj.Properties.ContainsKey("solid") ? Boolean.Parse(obj.Properties["solid"]) : true,
 				obj.Name
 			)
 		{ }
 
-		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, bool transparent=false, string name="Block 0")
+		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, bool transparent=false, bool solid=true, string name="Block 0")
             : base(x, y, 32, 32)
         {
 
@@ -55,7 +56,8 @@ namespace Puddle
             this.canBreak = canBreak;
             this.transparent = transparent;
 
-			this.isSolid = true;
+
+			this.isSolid = solid;
 
             this.rCol = false;
             this.lCol = false;

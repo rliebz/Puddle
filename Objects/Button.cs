@@ -143,12 +143,17 @@ namespace Puddle
 					((Block)s).changeType("push");
 
 				}
-				if (s.name.Contains("Gate") && int.Parse(s.name.Split(' ')[1]) == number )
+				else if (s.name.Contains("Gate") && int.Parse(s.name.Split(' ')[1]) == number )
 				{
 					s.isSolid = false;
 					//Console.WriteLine(number);
 					((Block)s).changeType("transparent");
 				}
+                else if (s.name.Contains("Invis") && int.Parse(s.name.Split(' ')[1]) == number)
+                {
+                    s.isSolid = true;
+                    ((Block)s).changeType("metal");
+                }
 			}
 
         }

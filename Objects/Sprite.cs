@@ -63,6 +63,7 @@ namespace Puddle
             this.displayTextX = 0;
             this.displayTextY = 0;
             this.displayTextColor = Color.White;
+            this.name = "";
 
             this.soundFiles = new List<string>();
             this.soundList = new Dictionary<string, SoundEffect>();
