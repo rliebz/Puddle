@@ -18,6 +18,7 @@ namespace Puddle
             base(obj.X, obj.Y, 32, 32)
         {
             imageFile = "roller.png";
+			name = obj.Name;
 
             faceLeft = obj.Properties.ContainsKey("left") && Boolean.Parse(obj.Properties["left"]);
 

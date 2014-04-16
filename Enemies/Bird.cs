@@ -30,8 +30,9 @@ namespace Puddle
 			health = 3;
 			flapUp = true;
 
-			// Sprite business
-			seed = rnd.Next(0, 3);
+			// Unsynchronize birds
+			seed = (spriteY * 7 + spriteX * 13 + rnd.Next(101)) % 200;
+			frameIndex = (seed % 3) * 32;
 		}
 
 		public override void Update(Level level, ContentManager content)
@@ -40,8 +41,11 @@ namespace Puddle
             Move(level);
 
 			// Shoot maybe
-			if (level.count % 120 == 0)
+			if ((level.count + seed) % 200 == 0)
+			{
 				Shoot(level, content);
+				Console.WriteLine(seed);
+			}
 				
 			// Animate sprite
 			Animate(level);

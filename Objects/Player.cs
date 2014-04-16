@@ -631,7 +631,7 @@ namespace Puddle
         }
 
         private void Animate(Controls controls, Level level, GameTime gameTime)
-        {
+        { 
             // Determine type of movement
             if (!frozen)
             {
