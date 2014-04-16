@@ -50,7 +50,7 @@ namespace Puddle
 
         protected override void Initialize()
         {
-			string initialLevel = String.Format("Content/LevelMenu.tmx");
+			string initialLevel = String.Format("Content/Level2-1.tmx");
             map = new TmxMap(initialLevel);
 
             // Read Level Size From Map
@@ -120,8 +120,7 @@ namespace Puddle
                 intro = true;
             else
                 intro = false;
-
-            Console.WriteLine(previousMap);
+				
             if (previousMap.Equals("Content/LevelSelect.tmx"))
             {
                 levelSelect = new Level(level);
@@ -154,6 +153,7 @@ namespace Puddle
             if (name.Equals("Content/LevelSelect.tmx") && !firstSelect)
             {
                 level = levelSelect;
+				level.player.lives = Player.MAX_LIVES;
             }
             else
             {

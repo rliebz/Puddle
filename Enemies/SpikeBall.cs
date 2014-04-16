@@ -20,8 +20,8 @@ namespace Puddle
 			: base(x, y)
 		{
 			imageFile = "spikeball.png";
-			collisionHeight = 26;
-            collisionWidth = 26;
+			collisionHeight = 22;
+			collisionWidth = 22;
             spriteY -= 16;
 		}
 

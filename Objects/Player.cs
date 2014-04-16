@@ -59,7 +59,7 @@ namespace Puddle
         Random rand;
         int index;
         SoundEffectInstance instance, deathInstance;
-        private const int NUM_LIVES = 5;
+		public const int MAX_LIVES = 5;
            
 
         // TODO: Move this
@@ -70,11 +70,12 @@ namespace Puddle
             powerup = new Dictionary<string, bool>();
 
             // Properties
-			powerup["puddle"] = false;
-			powerup["jetpack"] = false;
-			powerup["charged"] = false;
+			bool hasPowerUps = false;
+			powerup["puddle"] = hasPowerUps;
+			powerup["jetpack"] = hasPowerUps;
+			powerup["charged"] = hasPowerUps;
 
-            lives = NUM_LIVES;
+            lives = MAX_LIVES;
             moving = false;
             grounded = false;
             puddled = false;

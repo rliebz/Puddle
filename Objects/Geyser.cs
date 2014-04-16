@@ -15,15 +15,16 @@ namespace Puddle
 
         
         public int seed;
+		public int speed;
 
         //TODO: add in function passing for individual button actions
         public Geyser(TmxObjectGroup.TmxObject obj) :
-            base(obj.X, obj.Y - 12, 64, 128)
+		base(obj.X, obj.Y - 13, 64, 128)
         {
             this.imageFile = "geyser.png";
        
             name = obj.Name;
-            // isSolid = true;
+			speed = -5;
 
 
             frameWidth = 64;
@@ -43,7 +44,7 @@ namespace Puddle
             if (Intersects(level.player))
            {
 				// Prevent strange collisions
-				level.player.y_vel = -4;
+				level.player.y_vel = speed;
 				foreach (Sprite s in level.items)
 				{
 					if (s.isSolid && level.player.Intersects(s) && 
@@ -61,7 +62,7 @@ namespace Puddle
             {
                 if (Intersects(e))
                 {
-                    e.y_vel = -4;
+					e.y_vel = speed;
                     e.grounded = false;
                 }
             }
