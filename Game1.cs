@@ -50,7 +50,7 @@ namespace Puddle
 
         protected override void Initialize()
         {
-			string initialLevel = String.Format("Content/Level2-1.tmx");
+			string initialLevel = String.Format("Content/LevelMenu.tmx");
             map = new TmxMap(initialLevel);
 
             // Read Level Size From Map

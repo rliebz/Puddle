@@ -18,7 +18,8 @@ namespace Puddle
         public bool puddled;
         public bool shooting;
         public bool pushing;
-        public bool onRoller;
+		public double rollerVel;
+		public int movedX;
         public Dictionary<string, bool> powerup;
         public string newMap;
 		public bool piped;
@@ -82,7 +83,8 @@ namespace Puddle
             faceLeft = false;
             shooting = false;
             pushing = false;
-            onRoller = false;
+			rollerVel = 0;
+			movedX = 0;
 			collisionWidth = 18;
 			collisionHeight = 30;
 			piped = false;
@@ -203,74 +205,15 @@ namespace Puddle
             double playerFriction = pushing ? (friction * 3) : friction;
             x_vel = x_vel * (1 - playerFriction)
                 + (frozen ? 0 : x_accel * .10);
-            spriteX += Convert.ToInt32(x_vel);
+			movedX = Convert.ToInt32(x_vel + rollerVel);
+			spriteX += movedX;
 
 			pushing = false;
-            onRoller = false;
+			rollerVel = 0;
 
-			// Check left/right collisions
-			foreach (Sprite s in level.items)
-			{
-				if (s.isSolid && Intersects(s))
-				{
-					// Pipe
-					if (s is Pipe && !piped && grounded && 
-						(((Pipe)s).direction == "left" || ((Pipe)s).direction == "right"))
-
-					{
-						Pipe p = (Pipe)s;
-						if(p.name.Contains("endPipe"))
-						{
-							newMap = String.Format("Content/Level{0}.tmx", p.destination);
-						}
-						else
-						{
-							p.Action(level);
-							piped = true;
-						}
-					}
-
-					// Collision with right block
-					if (bottomWall > s.topWall &&
-						rightWall - Convert.ToInt32(x_vel) < s.leftWall &&
-						x_vel > 0)
-					{
-						// Push
-						if (s is Block && ((Block)s).rightPushable && grounded)
-						{
-							((Block)s).x_vel = x_vel;
-							pushing = true;
-						}
-
-						// Hit the wall
-						else
-						{
-							while (rightWall >= s.leftWall)
-								spriteX--;
-						}
-					}
-
-					// Push to the left
-					else if (bottomWall > s.topWall &&
-						leftWall - Convert.ToInt32(x_vel) > s.rightWall &&
-						x_vel < 0)
-					{
-						// Push
-						if (s is Block && ((Block)s).leftPushable && grounded)
-						{
-							((Block)s).x_vel = x_vel;
-							pushing = true;
-						}
-
-						// Hit the wall
-						else
-						{
-							while (leftWall <= s.rightWall)
-								spriteX++;
-						}
-					}
-				}
-			}
+			// Check left/right collisions, then up/down
+			checkXCollisions(level);
+			checkYCollisions(level);
 
             // Gravity
             if (!grounded)
@@ -287,92 +230,16 @@ namespace Puddle
 
 			grounded = false;
 
-
-
-			// Check up/down collisions
-			foreach (Sprite s in level.items)
-			{
-				if (s.isSolid && Intersects(s))
-				{
-					// Up collision
-					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
-					{
-						y_vel = 0;
-						while (topWall < s.bottomWall)
-							spriteY++;
-					}
-
-					// Down collision
-					else if (!grounded &&
-						(bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
-					{
-						grounded = true;
-						while (bottomWall > s.topWall)
-							spriteY--;
-
-                        // Roller
-                        if (s is Roller)
-                        {
-							x_vel += s.faceLeft ? -.3 : .3;
-                            onRoller = true;
-                        }
-					}
-				}
-			}
-
-			// Check left/right collisions AGAIN (for corning clipping
-			foreach (Sprite s in level.items)
-			{
-				if (s.isSolid && Intersects(s))
-				{
-					// Collision with right block
-					if (bottomWall > s.topWall &&
-						rightWall - Convert.ToInt32(x_vel) < s.leftWall &&
-						x_vel > 0)
-					{
-						// Push
-						if (s is Block && ((Block)s).rightPushable && grounded)
-						{
-							((Block)s).x_vel = x_vel;
-							pushing = true;
-						}
-
-						// Hit the wall
-						else
-						{
-							while (rightWall >= s.leftWall)
-								spriteX--;
-						}
-					}
-
-					// Push to the left
-					else if (bottomWall > s.topWall &&
-						leftWall - Convert.ToInt32(x_vel) > s.rightWall &&
-						x_vel < 0)
-					{
-						// Push
-						if (s is Block && ((Block)s).leftPushable && grounded)
-						{
-							((Block)s).x_vel = x_vel;
-							pushing = true;
-						}
-
-						// Hit the wall
-						else
-						{
-							while (leftWall <= s.rightWall)
-								spriteX++;
-						}
-					}
-				}
-			}
+			// Check up/down collisions, then left/right
+			checkYCollisions(level);
+			checkXCollisions(level);
 
 			// Determine direction
 			if (x_vel > 0.1)
 				faceLeft = false;
 			else if (x_vel < -0.1)
 				faceLeft = true;
-
+				
         }
 
         private void Puddle(Controls controls)
@@ -597,6 +464,85 @@ namespace Puddle
             }
         }
 
+		private void checkXCollisions(Level level)
+		{
+			foreach (Sprite s in level.items)
+			{
+				if (s.isSolid && Intersects(s))
+				{
+					// Collision with right block
+					if (bottomWall != s.topWall && // Not standing on block
+						rightWall - movedX < s.leftWall && movedX > 0)
+					{
+						// Push
+						if (s is Block && ((Block)s).rightPushable && grounded)
+						{
+							((Block)s).x_vel = movedX;
+							pushing = true;
+						}
+
+						// Hit the wall
+						else
+						{
+							while (rightWall >= s.leftWall)
+								spriteX--;
+						}
+					}
+
+					// Push to the left
+					else if (bottomWall != s.topWall && // Not standing on block
+						leftWall - movedX > s.rightWall && movedX < 0)
+					{
+						// Push
+						if (s is Block && ((Block)s).leftPushable && grounded)
+						{
+							((Block)s).x_vel = movedX;
+							pushing = true;
+						}
+
+						// Hit the wall
+						else
+						{
+							while (leftWall <= s.rightWall)
+								spriteX++;
+						}
+					}
+				}
+			}
+		}
+
+		private void checkYCollisions(Level level)
+		{
+
+			foreach (Sprite s in level.items)
+			{
+				if (s.isSolid && Intersects(s))
+				{
+					// Up collision
+					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
+					{
+						y_vel = 0;
+						while (topWall < s.bottomWall)
+							spriteY++;
+					}
+
+					// Down collision
+					else if ((bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
+					{
+						grounded = true;
+						while (bottomWall > s.topWall)
+							spriteY--;
+
+						// Roller
+						if (s is Roller)
+						{
+							rollerVel = ((Roller)s).speed;
+						}
+					}
+				}
+			}
+		}
+
         private void HandleCollisions(Level level)
         {
 
@@ -650,9 +596,7 @@ namespace Puddle
                         frameIndex += 32;
                 }
                 // Grounded, not Moving
-                else if ((!onRoller && Math.Abs(x_vel) < .5) || (onRoller &&
-                    !controls.isPressed(Keys.Right, Buttons.DPadRight) &&
-                    !controls.isPressed(Keys.Left, Buttons.DPadLeft)))
+				else if (Math.Abs(x_vel) < .5)
                 {
                     // Initialize sprite. No animation.
                     if (image != images["stand"])

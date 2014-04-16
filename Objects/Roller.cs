@@ -13,6 +13,7 @@ namespace Puddle
 {
     class Roller : Sprite
     {
+		public double speed;
 
         public Roller(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y, 32, 32)
@@ -26,6 +27,7 @@ namespace Puddle
 
             collisionHeight = 8;
             spriteY += 12;
+			speed = faceLeft ? -2 : 2;
         }
 
         public override void Update(Level level)
