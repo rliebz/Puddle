@@ -133,7 +133,7 @@
    <tile gid="101"/>
    <tile gid="281"/>
    <tile gid="281"/>
-   <tile gid="319"/>
+   <tile gid="1"/>
    <tile gid="123"/>
    <tile gid="124"/>
    <tile gid="125"/>
@@ -240,7 +240,7 @@
    <tile gid="5"/>
    <tile gid="6"/>
    <tile gid="1"/>
-   <tile gid="319"/>
+   <tile gid="1"/>
    <tile gid="281"/>
    <tile gid="281"/>
    <tile gid="19"/>
@@ -611,7 +611,7 @@
    </properties>
   </object>
   <object name="Ground" type="Puddle.Block" x="224" y="288" width="32" height="32"/>
-  <object name="endPipe5" type="Puddle.Pipe" x="32" y="128" width="32" height="32">
+  <object name="endPipe5" type="Puddle.Pipe" x="320" y="128" width="32" height="32">
    <properties>
     <property name="destination" value="5"/>
     <property name="direction" value="up"/>
@@ -625,6 +625,8 @@
     <property name="canBreak" value="True"/>
    </properties>
   </object>
+  <object name="Ground" type="Puddle.Block" x="512" y="192" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="96" y="320" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Items" width="22" height="22">
   <object name="Roller" type="Puddle.Roller" x="288" y="512" width="32" height="32">
@@ -780,8 +782,8 @@
   <object name="Ground" type="Puddle.Block" x="192" y="160" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="352" y="160" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="448" y="160" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="544" y="160" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="576" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="544" y="192" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="576" y="192" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="32" y="160" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="512" y="160" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="96" y="160" width="32" height="32"/>
@@ -800,14 +802,6 @@
   <object name="Ground" type="Puddle.Block" x="448" y="352" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Pipe" width="22" height="22">
-  <object name="endPipe4" type="Puddle.Pipe" x="640" y="256" width="32" height="32">
-   <properties>
-    <property name="destination" value="4"/>
-    <property name="direction" value="up"/>
-    <property name="end" value="True"/>
-    <property name="text" value="4"/>
-   </properties>
-  </object>
   <object name="endPipe2" type="Puddle.Pipe" x="96" y="544" width="32" height="32">
    <properties>
     <property name="destination" value="2-1"/>

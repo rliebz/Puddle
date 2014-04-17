@@ -23,7 +23,6 @@ namespace Puddle
 		public string message;
 		public int message_point;
         public string name;
-        public bool paused;
         public int enterLives;
         public Dictionary<string, bool> enterPowerUps;
 
@@ -55,8 +54,6 @@ namespace Puddle
 
         public void Update(ContentManager content) 
         {
-            if (paused)
-                return;
 			count++;
 
 			if (message != "" && (count - message_point) >= 400)

@@ -1082,8 +1082,8 @@
     <property name="left" value="True"/>
    </properties>
   </object>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="608" y="416"/>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="512" y="320">
+  <object name="Roller" type="Puddle.Roller" gid="342" x="512" y="320"/>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="608" y="416">
    <properties>
     <property name="left" value="True"/>
    </properties>

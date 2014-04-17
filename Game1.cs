@@ -21,7 +21,8 @@ namespace Puddle
         SpriteBatch spriteBatch;
         Level level;
         Player player1;
-        Controls controls;
+		Controls controls;
+		Controls pauseControls;
         TmxMap map;
         Texture2D background;
         Texture2D introImage;
@@ -74,6 +75,7 @@ namespace Puddle
             levelSelect = null;
             firstSelect = true;
             controls = new Controls();
+			pauseControls = new Controls();
             newMapLoad = true;
             newMapTimer = LOAD_SCREEN_TIME;
             introScreenTimer = INTRO_SCREEN_TIME;
@@ -218,13 +220,21 @@ namespace Puddle
 
         protected override void Update(GameTime gameTime)
         {
+			pauseControls.Update(level);
+
+			if (pauseControls.onPress(Keys.Escape, Buttons.Back))
+				Exit();
+
+			if (pauseControls.onPress(Keys.Enter, Buttons.Start))
+				paused = !paused;
+
+			if (paused)
+				return;
+
+
             controls.Update(level);
 
-            if (controls.onPress(Keys.Escape, Buttons.Back))
-                Exit();
 
-			if (controls.onPress(Keys.Enter, Buttons.Start) && !intro)
-                paused = !paused;
 
             player1.Update(controls, level, this.Content, gameTime);
 
@@ -307,7 +317,7 @@ namespace Puddle
                 // Draw contents of the level
                 level.Draw(spriteBatch);
 
-				if (paused)
+				if (paused && !intro)
                 {
                     spriteBatch.Draw(
 
@@ -317,7 +327,7 @@ namespace Puddle
                         720,
                         540
                         ),
-						Color.White * 0.8f
+						Color.White
                     );
                 }
 

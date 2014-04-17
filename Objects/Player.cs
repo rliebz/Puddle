@@ -71,7 +71,7 @@ namespace Puddle
             powerup = new Dictionary<string, bool>();
 
             // Properties
-			bool hasPowerUps = false;
+			bool hasPowerUps = true;
 			powerup["puddle"] = hasPowerUps;
 			powerup["jetpack"] = hasPowerUps;
 			powerup["charged"] = hasPowerUps;
@@ -168,8 +168,6 @@ namespace Puddle
             ContentManager content, GameTime gameTime)
         {
             pauseScreen = String.Format("pause{0}", numPowers);
-            if (level.paused)
-                return;
 				
             if (hydration + hydrationRegen <= maxHydration && !powerShotCharging)
                 hydration += hydrationRegen;
@@ -470,6 +468,21 @@ namespace Puddle
 			{
 				if (s.isSolid && Intersects(s))
 				{
+					// Pipe
+					if (s is Pipe && ((Pipe)s).direction != "up" && !piped && Intersects(s))
+					{
+						Pipe p = (Pipe)s;
+						if(p.name.Contains("endPipe"))
+						{
+							newMap = String.Format("Content/Level{0}.tmx", p.destination);
+						}
+						else
+						{
+							p.Action(level);
+							piped = true;
+						}
+					}
+
 					// Collision with right block
 					if (bottomWall != s.topWall && // Not standing on block
 						rightWall - movedX < s.leftWall && movedX > 0)
