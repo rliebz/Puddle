@@ -156,6 +156,7 @@ namespace Puddle
             {
                 level = levelSelect;
 				level.player.lives = Player.MAX_LIVES;
+				level.player.worldPowerUp = null;
             }
             else
             {

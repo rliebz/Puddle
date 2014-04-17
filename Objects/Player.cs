@@ -26,6 +26,7 @@ namespace Puddle
         public string pauseScreen;
         private bool powerShotCharging;
         public int lives;
+		public string worldPowerUp;
 
         // Stats
         public double maxHydration;
@@ -71,10 +72,11 @@ namespace Puddle
             powerup = new Dictionary<string, bool>();
 
             // Properties
-			bool hasPowerUps = true;
+			bool hasPowerUps = false;
 			powerup["puddle"] = hasPowerUps;
 			powerup["jetpack"] = hasPowerUps;
 			powerup["charged"] = hasPowerUps;
+			worldPowerUp = null;
 
             lives = MAX_LIVES;
             moving = false;
@@ -583,10 +585,9 @@ namespace Puddle
 
             if (lives == 0)
             {
-                newMap = level.name;
-                lives = level.enterLives;
-                powerup = level.enterPowerUps;
-                return;
+				if (worldPowerUp != null)
+					powerup[worldPowerUp] = false;
+				newMap = "Content/LevelSelect.tmx";
             }
         }
 
