@@ -1,0 +1,1283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="22" height="22" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="startX" value="96"/>
+  <property name="startY" value="640"/>
+ </properties>
+ <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
+  <image source="background.png" width="640" height="448"/>
+ </tileset>
+ <tileset firstgid="281" name="brick" tilewidth="32" tileheight="32">
+  <image source="brick.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="282" name="button" tilewidth="32" tileheight="32">
+  <image source="button.png" width="224" height="32"/>
+ </tileset>
+ <tileset firstgid="289" name="push_block" tilewidth="32" tileheight="32">
+  <image source="push_block.png" width="128" height="32"/>
+  <terraintypes>
+   <terrain name="New Terrain" tile="-1"/>
+  </terraintypes>
+ </tileset>
+ <tileset firstgid="293" name="fireball" tilewidth="32" tileheight="32">
+  <image source="fireball.png" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="295" name="geyser" tilewidth="32" tileheight="32">
+  <image source="geyser.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="311" name="pipe" tilewidth="32" tileheight="32">
+  <image source="pipe.png" width="256" height="64"/>
+ </tileset>
+ <tileset firstgid="327" name="jetpack" tilewidth="32" tileheight="32">
+  <image source="jetpack.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="328" name="cannon" tilewidth="32" tileheight="32">
+  <image source="cannon.png" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="330" name="Bird" tilewidth="32" tileheight="32">
+  <image source="Bird.png" width="128" height="32"/>
+ </tileset>
+ <tileset firstgid="334" name="checkpoint" tilewidth="32" tileheight="32">
+  <image source="checkpoint.png" width="256" height="32"/>
+ </tileset>
+ <tileset firstgid="342" name="roller" tilewidth="32" tileheight="32">
+  <image source="roller.png" width="128" height="32"/>
+ </tileset>
+ <layer name="Background" width="22" height="22" visible="0">
+  <data>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="62"/>
+   <tile gid="63"/>
+   <tile gid="64"/>
+   <tile gid="65"/>
+   <tile gid="66"/>
+   <tile gid="67"/>
+   <tile gid="68"/>
+   <tile gid="69"/>
+   <tile gid="70"/>
+   <tile gid="71"/>
+   <tile gid="72"/>
+   <tile gid="73"/>
+   <tile gid="74"/>
+   <tile gid="75"/>
+   <tile gid="76"/>
+   <tile gid="77"/>
+   <tile gid="78"/>
+   <tile gid="79"/>
+   <tile gid="80"/>
+   <tile gid="61"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="82"/>
+   <tile gid="83"/>
+   <tile gid="84"/>
+   <tile gid="85"/>
+   <tile gid="86"/>
+   <tile gid="87"/>
+   <tile gid="88"/>
+   <tile gid="89"/>
+   <tile gid="90"/>
+   <tile gid="91"/>
+   <tile gid="92"/>
+   <tile gid="93"/>
+   <tile gid="94"/>
+   <tile gid="95"/>
+   <tile gid="96"/>
+   <tile gid="97"/>
+   <tile gid="98"/>
+   <tile gid="99"/>
+   <tile gid="100"/>
+   <tile gid="81"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="102"/>
+   <tile gid="103"/>
+   <tile gid="104"/>
+   <tile gid="105"/>
+   <tile gid="106"/>
+   <tile gid="107"/>
+   <tile gid="108"/>
+   <tile gid="109"/>
+   <tile gid="110"/>
+   <tile gid="111"/>
+   <tile gid="112"/>
+   <tile gid="113"/>
+   <tile gid="114"/>
+   <tile gid="115"/>
+   <tile gid="116"/>
+   <tile gid="117"/>
+   <tile gid="118"/>
+   <tile gid="119"/>
+   <tile gid="120"/>
+   <tile gid="101"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="122"/>
+   <tile gid="123"/>
+   <tile gid="124"/>
+   <tile gid="125"/>
+   <tile gid="126"/>
+   <tile gid="127"/>
+   <tile gid="128"/>
+   <tile gid="129"/>
+   <tile gid="130"/>
+   <tile gid="131"/>
+   <tile gid="132"/>
+   <tile gid="133"/>
+   <tile gid="134"/>
+   <tile gid="135"/>
+   <tile gid="136"/>
+   <tile gid="137"/>
+   <tile gid="138"/>
+   <tile gid="139"/>
+   <tile gid="140"/>
+   <tile gid="121"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="142"/>
+   <tile gid="143"/>
+   <tile gid="144"/>
+   <tile gid="145"/>
+   <tile gid="146"/>
+   <tile gid="147"/>
+   <tile gid="148"/>
+   <tile gid="149"/>
+   <tile gid="150"/>
+   <tile gid="151"/>
+   <tile gid="152"/>
+   <tile gid="153"/>
+   <tile gid="154"/>
+   <tile gid="155"/>
+   <tile gid="156"/>
+   <tile gid="157"/>
+   <tile gid="158"/>
+   <tile gid="159"/>
+   <tile gid="160"/>
+   <tile gid="141"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="162"/>
+   <tile gid="163"/>
+   <tile gid="164"/>
+   <tile gid="165"/>
+   <tile gid="166"/>
+   <tile gid="167"/>
+   <tile gid="168"/>
+   <tile gid="169"/>
+   <tile gid="170"/>
+   <tile gid="171"/>
+   <tile gid="172"/>
+   <tile gid="173"/>
+   <tile gid="174"/>
+   <tile gid="175"/>
+   <tile gid="176"/>
+   <tile gid="177"/>
+   <tile gid="178"/>
+   <tile gid="179"/>
+   <tile gid="180"/>
+   <tile gid="161"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="182"/>
+   <tile gid="183"/>
+   <tile gid="184"/>
+   <tile gid="185"/>
+   <tile gid="186"/>
+   <tile gid="187"/>
+   <tile gid="188"/>
+   <tile gid="189"/>
+   <tile gid="190"/>
+   <tile gid="191"/>
+   <tile gid="192"/>
+   <tile gid="193"/>
+   <tile gid="194"/>
+   <tile gid="195"/>
+   <tile gid="196"/>
+   <tile gid="197"/>
+   <tile gid="198"/>
+   <tile gid="199"/>
+   <tile gid="200"/>
+   <tile gid="181"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="1"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="2"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="7"/>
+   <tile gid="2"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="7"/>
+   <tile gid="2"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="13"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="2"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+  </data>
+ </layer>
+ <layer name="Foreground" width="22" height="22">
+  <data>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+  </data>
+ </layer>
+ <objectgroup name="Blocks" width="22" height="22">
+  <object name="Cannon" type="Puddle.Cannon" gid="293" x="416" y="240">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object name="Rat" type="Puddle.Rat" gid="330" x="320" y="128"/>
+  <object name="Breakable" type="Puddle.Block" gid="292" x="160" y="384">
+   <properties>
+    <property name="canBreak" value="True"/>
+   </properties>
+  </object>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="256"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="288"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="224"/>
+  <object name="Breakable" type="Puddle.Block" gid="292" x="192" y="640">
+   <properties>
+    <property name="canBreak" value="True"/>
+   </properties>
+  </object>
+  <object name="Breakable" type="Puddle.Block" gid="292" x="480" y="640">
+   <properties>
+    <property name="canBreak" value="True"/>
+   </properties>
+  </object>
+  <object name="Ground" type="Puddle.Block" gid="281" x="608" y="576"/>
+  <object name="Breakable" type="Puddle.Block" gid="292" x="640" y="480">
+   <properties>
+    <property name="canBreak" value="True"/>
+   </properties>
+  </object>
+  <object name="Ground" type="Puddle.Block" gid="281" x="544" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="576" y="128"/>
+ </objectgroup>
+ <objectgroup name="Items" width="22" height="22">
+  <object name="Button 1" type="Puddle.Button" gid="282" x="352" y="384">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="hold" value="true"/>
+   </properties>
+  </object>
+  <object name="checkpoint 2" type="Puddle.Checkpoint" gid="341" x="544" y="448"/>
+  <object name="checkpoint 2" type="Puddle.Checkpoint" gid="341" x="96" y="96"/>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="128" y="256">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="96" y="256">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="160" y="256">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="192" y="256">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="608" y="416"/>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="512" y="320">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="608" y="192"/>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="640" y="288">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" gid="342" x="576" y="256">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="480"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="448"/>
+  <object name="endPipe_1" type="Puddle.Pipe" gid="319" x="64" y="480">
+   <properties>
+    <property name="destination" value="Select"/>
+    <property name="direction" value="up"/>
+    <property name="end" value="True"/>
+   </properties>
+  </object>
+  <object name="Gate 1" type="Puddle.Block" gid="281" x="192" y="384">
+   <properties>
+    <property name="gate" value="close"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Ground" width="22" height="22">
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="640" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="512" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="608" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="544" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="576" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="256" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="416" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="288" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="448" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="384" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="352" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="448" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="320" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="160" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="32" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="224" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="128" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="96" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="64" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="128" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="160" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="96" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="64" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="160" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="32" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="352" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="224" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="416" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="384" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="320" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="288" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="384" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="256" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="576" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="448" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="640" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="608" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="544" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="512" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="608" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="384"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="352"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="576"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="608"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="672"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="640"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="448"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="480"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="544"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="224"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="256"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="320"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="288"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="96"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="192"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="0"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="32"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="96"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="64"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="224"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="192"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="256"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="288"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="352"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="320"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="384"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="480"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="448"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="544"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="608"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="576"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="672" y="640"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="32"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="64"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="416" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="512" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="448" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="384" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="32" y="384"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="224" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="320" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="256" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="288" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="352" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="160"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="128" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="192"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="96" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="0" y="96"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="160" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="32" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="128"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="544"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="448" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="96"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="608"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="576"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="320"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="512" y="480"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="544" y="480"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="352"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="640" y="576"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="64"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="64" y="384"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="576" y="480"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="288" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="416" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="320" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="256" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="384" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="352" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="160" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="224" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="448"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="416"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="96" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="128" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="64" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="384"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="96"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="64"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="128" y="384"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="96" y="384"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="288"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="320"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="352"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="576"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="608"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="544"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="480"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="480" y="512"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="608" y="480"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="576" y="576"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="192" y="192"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="128" y="288"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="96" y="288"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="160" y="288"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="224" y="320"/>
+  <object name="Ground" type="Puddle.Block" gid="281" x="256" y="320"/>
+ </objectgroup>
+ <objectgroup name="Pipe" width="22" height="22"/>
+ <objectgroup name="Enemies" width="22" height="22">
+  <object name="Bird" type="Puddle.Bird" gid="330" x="416" y="480"/>
+  <object name="Bird" type="Puddle.Bird" gid="330" x="224" y="448"/>
+ </objectgroup>
+</map>

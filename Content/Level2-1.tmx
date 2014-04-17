@@ -674,7 +674,7 @@
   </object>
   <object name="endPipe_1" type="Puddle.Pipe" gid="327" x="640" y="128">
    <properties>
-    <property name="destination" value="Select"/>
+    <property name="destination" value="2-2"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
    </properties>
