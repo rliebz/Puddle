@@ -33,12 +33,11 @@ namespace Puddle
         bool newMapLoad;
         bool paused;
         bool intro;
-        bool firstSelect;
         string previousMap;
         float newMapTimer;
         float introScreenTimer;
         int slideCount;
-		const float LOAD_SCREEN_TIME = 1.0f;
+		const float LOAD_SCREEN_TIME = 1.5f;
         const float INTRO_SCREEN_TIME = 3.0f;
 
         public Game1()
@@ -73,7 +72,6 @@ namespace Puddle
 			);
             level = new Level(player1, "menu");
             levelSelect = null;
-            firstSelect = true;
             controls = new Controls();
 			pauseControls = new Controls();
             newMapLoad = true;
@@ -95,10 +93,10 @@ namespace Puddle
             menuInstance.Play();
 
             pauseScreens = new List<Texture2D>();
-            pauseScreens.Add(Content.Load<Texture2D>("pause0.png"));
-            pauseScreens.Add(Content.Load<Texture2D>("pause1.png"));
-            pauseScreens.Add(Content.Load<Texture2D>("pause2.png"));
-            pauseScreens.Add(Content.Load<Texture2D>("pause3.png"));
+			for (int i=0; i < 4; i++)
+			{
+				pauseScreens.Add(Content.Load<Texture2D>(String.Format("pause{0}.png", i)));
+			}
             base.Initialize();            
         }
 
@@ -117,27 +115,28 @@ namespace Puddle
         }
 
         protected void LoadMap(string name)
-        {
-            if (name.Equals("Content/LevelMenu.tmx"))
-                intro = true;
-            else
-                intro = false;
-				
+        {				
+			// Save state of levelSelect after exiting
             if (previousMap.Equals("Content/LevelSelect.tmx"))
-            {
-                levelSelect = new Level(level);
-            }
+				levelSelect = new Level(level);
 
+			// Load map and background
             map = new TmxMap(name);
-            background = Content.Load<Texture2D>("background.png");
+			graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
+			graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
+			background = Content.Load<Texture2D>("background.png");
 
+			// Decide if we're on the intro
+			intro = name.Equals("Content/LevelMenu.tmx");
+
+			// Choose music
             if (intro || name.Equals("Content/LevelSelect.tmx"))
             {
                 instance.Stop();
                 bossInstance.Stop();
                 menuInstance.Play();
             }
-            else if (name.Equals("Content/Level5.tmx"))
+			else if (name.Equals("Content/LevelBoss.tmx"))
             {
                 instance.Stop();
                 menuInstance.Stop();
@@ -149,10 +148,9 @@ namespace Puddle
                 menuInstance.Stop();
                 instance.Play();
             }
-
-
+				
 			// Create new level object
-            if (name.Equals("Content/LevelSelect.tmx") && !firstSelect)
+			if (name.Equals("Content/LevelSelect.tmx") && levelSelect != null)
             {
                 level = levelSelect;
 				level.player.lives = Player.MAX_LIVES;
@@ -177,12 +175,6 @@ namespace Puddle
                 }
             }
 
-            // Read Level Info From Map
-            graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
-            graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
-
-
-
             if (name.Equals("Content/LevelSelect.tmx"))
             {
 				char startPosSelect = ' ';
@@ -192,7 +184,6 @@ namespace Puddle
                 {
 					startPosSelect = previousMap[13];
                 }
-                firstSelect = false;
                 player1.spriteX = Convert.ToInt32(map.Properties[String.Format("startX{0}", startPosSelect)]);
                 player1.spriteY = Convert.ToInt32(map.Properties[String.Format("startY{0}", startPosSelect)]);
             }
@@ -205,7 +196,6 @@ namespace Puddle
             player1.checkpointXPos = player1.spriteX;
             player1.checkpointYPos = player1.spriteY;
 
-
             level.items.Sort((x, y) => x.CompareTo(y));
 
             previousMap = String.Copy(player1.newMap);
@@ -215,9 +205,7 @@ namespace Puddle
         }
 
         protected override void UnloadContent()
-        {
- 
-        }
+		{ }
 
         protected override void Update(GameTime gameTime)
         {
@@ -241,7 +229,8 @@ namespace Puddle
 
             if (!player1.newMap.Equals(""))
             {
-                newMapLoad = true;
+				newMapLoad = true;
+				player1.hydration = player1.maxHydration;
             }
             level.Update(this.Content);
 
@@ -255,12 +244,14 @@ namespace Puddle
 
             if (newMapLoad)
             {
-				player1.hydration = player1.maxHydration;
 
-                GraphicsDevice.Clear(Color.Black);
                 string[] fileName = player1.newMap.Split('.');
                 string levelNumber = fileName[0].Remove(0, 13);
-                string levelName = String.Format("Level {0}", levelNumber);
+				string levelName = levelNumber == "Boss" ? "Boss" : 
+					levelNumber == "6" ? "Congratulations!" : 
+					String.Format("Level {0}", levelNumber);
+
+				GraphicsDevice.Clear(Color.Black);
                 TextField message = new TextField(
                     levelName, 
                     new Vector2(
@@ -279,6 +270,7 @@ namespace Puddle
 					LoadMap(player1.newMap);		  //Timer expired, execute action
                     newMapTimer = LOAD_SCREEN_TIME;   //Reset Timer
                 }
+
             }
             else
             {

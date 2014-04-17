@@ -72,7 +72,7 @@ namespace Puddle
             powerup = new Dictionary<string, bool>();
 
             // Properties
-			bool hasPowerUps = false;
+			bool hasPowerUps = true;
 			powerup["puddle"] = hasPowerUps;
 			powerup["jetpack"] = hasPowerUps;
 			powerup["charged"] = hasPowerUps;

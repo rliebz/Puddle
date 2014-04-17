@@ -613,7 +613,7 @@
   <object name="Ground" type="Puddle.Block" x="224" y="288" width="32" height="32"/>
   <object name="endPipe5" type="Puddle.Pipe" x="320" y="128" width="32" height="32">
    <properties>
-    <property name="destination" value="5"/>
+    <property name="destination" value="Boss"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
     <property name="text" value="?"/>
