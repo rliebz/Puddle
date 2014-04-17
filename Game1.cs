@@ -44,8 +44,7 @@ namespace Puddle
             : base()
         {
             graphics  = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            
+            Content.RootDirectory = "Content";           
         }
 
         protected override void Initialize()
