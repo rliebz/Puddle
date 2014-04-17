@@ -50,6 +50,8 @@ namespace Puddle
             else
                 spriteX -= speed;
 
+			depth = 1;
+
             Random rnd = new Random();
             seed = rnd.Next(20); // For animation
         }

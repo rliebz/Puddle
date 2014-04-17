@@ -18,8 +18,6 @@ namespace Puddle
 
 		private bool rCol;
 		private bool lCol;
-		private bool dCol;
-		private bool uCol;
         private bool canBreak;
         private bool transparent;
 
@@ -28,7 +26,6 @@ namespace Puddle
 
         public string blockType;
 
-        private Block uBlock;
         private SoundEffectInstance sound;
 
 		// Tiled constructor
@@ -61,14 +58,11 @@ namespace Puddle
 
             this.rCol = false;
             this.lCol = false;
-            this.dCol = false;
-            this.uCol = false;
             soundFiles.Add("Sounds/Slide.wav");
             soundFiles.Add("Sounds/BlockFall.wav");
 
             this.x_vel = 0;
 
-            uBlock = null;
             this.blockType = "push";
 
             // Determine block image
@@ -151,11 +145,6 @@ namespace Puddle
 
             // Move sideways
             spriteX += Convert.ToInt32(x_vel);
-            if (uCol)
-            {
-                uBlock.x_vel = x_vel;
-                uBlock.Move(level);
-            }
 
             if (x_vel != 0)
             {
@@ -178,8 +167,6 @@ namespace Puddle
             // Assume no collisions
             rCol = false;
             lCol = false;
-            dCol = false;
-            uCol = false;
 
 			if (blockType != "push")
 				return;
@@ -192,7 +179,6 @@ namespace Puddle
 					// Collide with block below
 					if (spriteY < s.spriteY && bottomWall >= s.topWall) 
 					{
-                        dCol = true;
                         if (y_vel > 3)
                         {
                             soundList["Sounds/BlockFall.wav"].Play();

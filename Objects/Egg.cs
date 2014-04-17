@@ -59,7 +59,7 @@ namespace Puddle
 
             foreach (Sprite s in level.projectiles)
             {
-                if (s.isShot && Intersects(s))
+				if (s is Shot && Intersects(s))
                 {
                     s.destroyed = true;
                     health--;

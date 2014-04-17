@@ -28,7 +28,6 @@ namespace Puddle
         protected Texture2D image;
 		public Texture2D blankImage;
         protected TextField displayMessage;
-        public bool isShot;
         protected int displayTextX;
         protected int displayTextY;
         protected Color displayTextColor;
@@ -60,7 +59,6 @@ namespace Puddle
             this.rotationAngle = 0;
             this.depth = 0;
             this.displayText = "";
-            this.isShot = false;
             this.displayTextX = 0;
             this.displayTextY = 0;
             this.displayTextColor = Color.White;
