@@ -147,13 +147,12 @@ namespace Puddle
                 menuInstance.Stop();
                 instance.Play();
             }
-				
+
+
 			// Create new level object
 			if (name.Equals("Content/LevelSelect.tmx") && levelSelect != null)
             {
                 level = levelSelect;
-				level.player.lives = Player.MAX_LIVES;
-				level.player.worldPowerUp = null;
             }
             else
             {
@@ -191,6 +190,8 @@ namespace Puddle
                 player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
                 player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
             }
+
+            // Reset player fields
 
             player1.checkpointXPos = player1.spriteX;
             player1.checkpointYPos = player1.spriteY;

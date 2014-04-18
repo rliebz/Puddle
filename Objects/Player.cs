@@ -585,9 +585,11 @@ namespace Puddle
 
             if (lives == 0)
             {
+                level.player.lives = Player.MAX_LIVES;
+                level.player.worldPowerUp = null;
 				if (worldPowerUp != null)
 					powerup[worldPowerUp] = false;
-				newMap = "Content/LevelSelect.tmx";
+				newMap = level.name;
             }
         }
 
