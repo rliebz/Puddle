@@ -89,5 +89,13 @@ namespace Puddle
 				Color.Firebrick
 			);
 		}
+
+        public override void Animate(Level level)
+        {
+            frameIndex = ((level.count + seed) / 8 % 4) * frameWidth;
+            base.Animate(level);
+        }
+
+
     }
 }

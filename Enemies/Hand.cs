@@ -24,7 +24,7 @@ namespace Puddle
 		{
 			depth = 1;
 			faceLeft = left;
-			collisionWidth = 64;
+			collisionWidth = 50;
 			collisionHeight = 64;
 			spriteWidth = 64;
 			spriteHeight = 64;

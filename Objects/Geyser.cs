@@ -19,18 +19,16 @@ namespace Puddle
 
         //TODO: add in function passing for individual button actions
         public Geyser(TmxObjectGroup.TmxObject obj) :
-		base(obj.X, obj.Y - 13, 64, 128)
+		base(obj.X, obj.Y - 16, 32, 32)
         {
             this.imageFile = "geyser.png";
        
             name = obj.Name;
 			speed = -5;
 
-
-            frameWidth = 64;
             frameHeight = 128;
+            spriteHeight = 128;
             
-            collisionWidth = 32;
             collisionHeight = 112;
 
             Random rnd = new Random();
@@ -67,12 +65,10 @@ namespace Puddle
                 }
             }
         }
-        
-    
 
         public void Animate(Level level)
         {
-            frameIndex = ((level.count + seed) / 12) % 2 * 64;
+            frameIndex = ((level.count + seed) / 12) % 6 * frameWidth;
         }
 
         public override void Update(Level level)
