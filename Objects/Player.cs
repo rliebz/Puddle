@@ -169,7 +169,7 @@ namespace Puddle
         public void Update(Controls controls, Level level, 
             ContentManager content, GameTime gameTime)
         {
-            pauseScreen = String.Format("pause{0}", numPowers);
+			pauseScreen = String.Format("Slides/pause{0}", numPowers);
 				
             if (hydration + hydrationRegen <= maxHydration && !powerShotCharging)
                 hydration += hydrationRegen;

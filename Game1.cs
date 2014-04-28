@@ -58,7 +58,7 @@ namespace Puddle
 
             paused = false;
             intro = false;
-            introImage = Content.Load<Texture2D>("Slide1.png");
+			introImage = Content.Load<Texture2D>("Slides/Slide1.png");
             slideCount = 1;
             previousMap = "";
 
@@ -94,7 +94,7 @@ namespace Puddle
             pauseScreens = new List<Texture2D>();
 			for (int i=0; i < 4; i++)
 			{
-				pauseScreens.Add(Content.Load<Texture2D>(String.Format("pause{0}.png", i)));
+				pauseScreens.Add(Content.Load<Texture2D>(String.Format("Slides/pause{0}.png", i)));
 			}
             base.Initialize();            
         }
@@ -302,7 +302,7 @@ namespace Puddle
                     if(introScreenTimer < 0 && slideCount != 5)
                     {
                         slideCount += 1;
-                        introImage = Content.Load<Texture2D>(String.Format("Slide{0}.png", slideCount));
+						introImage = Content.Load<Texture2D>(String.Format("Slides/Slide{0}.png", slideCount));
                         introScreenTimer = INTRO_SCREEN_TIME;
                     }
                 }

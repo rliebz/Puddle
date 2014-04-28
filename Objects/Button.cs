@@ -122,14 +122,14 @@ namespace Puddle
             if (name.Contains("Credits"))
             {
                 this.creditScreen = true;
-                slideImage = content.Load<Texture2D>("credits.png");
+				slideImage = content.Load<Texture2D>("Slides/credits.png");
                 return;
             }
             
             if (name.Contains("Controls"))
             {
                 this.controlScreen = true;
-				slideImage = content.Load<Texture2D>("pause0.png");
+				slideImage = content.Load<Texture2D>("Slides/pause0.png");
                 return;
             }
 

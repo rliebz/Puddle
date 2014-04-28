@@ -41,10 +41,10 @@
   <image source="GitHub/Puddle/Content/checkpoint.png" width="256" height="32"/>
  </tileset>
  <tileset firstgid="350" name="Bird" tilewidth="32" tileheight="32">
-  <image source="GitHub/Puddle/Content/Bird.png" width="128" height="32"/>
+  <image source="GitHub/Puddle/Content/bird.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="354" name="Egg" tilewidth="32" tileheight="32">
-  <image source="GitHub/Puddle/Content/Egg.png" width="32" height="32"/>
+  <image source="GitHub/Puddle/Content/egg.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="355" name="spikeball" tilewidth="32" tileheight="32">
   <image source="GitHub/Puddle/Content/spikeball.png" width="32" height="32"/>
