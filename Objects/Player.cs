@@ -453,7 +453,7 @@ namespace Puddle
 					Pipe p = (Pipe)item;
 					if(p.name.Contains("endPipe"))
 					{
-						newMap = String.Format("Content/Level{0}.tmx", p.destination);
+						newMap = String.Format("Content/Levels/Level{0}.tmx", p.destination);
 					}
 					else
 					{
@@ -476,7 +476,7 @@ namespace Puddle
 						Pipe p = (Pipe)s;
 						if(p.name.Contains("endPipe"))
 						{
-							newMap = String.Format("Content/Level{0}.tmx", p.destination);
+							newMap = String.Format("Content/Levels/Level{0}.tmx", p.destination);
 						}
 						else
 						{
@@ -580,7 +580,7 @@ namespace Puddle
             deathInstance.Volume = 0.8f;
             deathInstance.Play();
 
-			if(!level.name.Equals("Content/LevelSelect.tmx"))
+			if(!level.name.Equals("Content/Levels/LevelSelect.tmx"))
 				lives--;
 
             if (lives == 0)

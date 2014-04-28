@@ -49,7 +49,7 @@ namespace Puddle
 
         protected override void Initialize()
         {
-			string initialLevel = String.Format("Content/LevelMenu.tmx");
+			string initialLevel = String.Format("Content/Levels/LevelMenu.tmx");
             map = new TmxMap(initialLevel);
 
             // Read Level Size From Map
@@ -116,7 +116,7 @@ namespace Puddle
         protected void LoadMap(string name)
         {				
 			// Save state of levelSelect after exiting
-            if (previousMap.Equals("Content/LevelSelect.tmx"))
+            if (previousMap.Equals("Content/Levels/LevelSelect.tmx"))
 				levelSelect = new Level(level);
 
 			// Load map and background
@@ -126,16 +126,16 @@ namespace Puddle
 			background = Content.Load<Texture2D>("background.png");
 
 			// Decide if we're on the intro
-			intro = name.Equals("Content/LevelMenu.tmx");
+			intro = name.Equals("Content/Levels/LevelMenu.tmx");
 
 			// Choose music
-            if (intro || name.Equals("Content/LevelSelect.tmx"))
+            if (intro || name.Equals("Content/Levels/LevelSelect.tmx"))
             {
                 instance.Stop();
                 bossInstance.Stop();
                 menuInstance.Play();
             }
-			else if (name.Equals("Content/LevelBoss.tmx"))
+			else if (name.Equals("Content/Levels/LevelBoss.tmx"))
             {
                 instance.Stop();
                 menuInstance.Stop();
@@ -150,7 +150,7 @@ namespace Puddle
 
 
 			// Create new level object
-			if (name.Equals("Content/LevelSelect.tmx") && levelSelect != null)
+			if (name.Equals("Content/Levels/LevelSelect.tmx") && levelSelect != null)
             {
                 level = levelSelect;
             }
@@ -173,14 +173,14 @@ namespace Puddle
                 }
             }
 
-            if (name.Equals("Content/LevelSelect.tmx"))
+            if (name.Equals("Content/Levels/LevelSelect.tmx"))
             {
 				char startPosSelect = ' ';
-                if (previousMap.Equals("Content/LevelMenu.tmx"))
+                if (previousMap.Equals("Content/Levels/LevelMenu.tmx"))
 					startPosSelect = '0';
                 else
                 {
-					startPosSelect = previousMap[13];
+					startPosSelect = previousMap[20];
                 }
                 player1.spriteX = Convert.ToInt32(map.Properties[String.Format("startX{0}", startPosSelect)]);
                 player1.spriteY = Convert.ToInt32(map.Properties[String.Format("startY{0}", startPosSelect)]);
@@ -246,7 +246,7 @@ namespace Puddle
             {
 
                 string[] fileName = player1.newMap.Split('.');
-                string levelNumber = fileName[0].Remove(0, 13);
+				string levelNumber = fileName[0].Remove(0, 20);
 				string levelName = levelNumber == "Boss" ? "Boss" : 
 					levelNumber == "6" ? "Congratulations!" : 
 					String.Format("Level {0}", levelNumber);
