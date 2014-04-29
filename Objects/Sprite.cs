@@ -85,22 +85,22 @@ namespace Puddle
                 return 0;
         }
 
-        public int leftWall
+		public virtual int leftWall
         {
             get { return spriteX - collisionWidth / 2; }
         }
 
-        public int rightWall
+		public virtual int rightWall
         {
             get { return spriteX + collisionWidth / 2 - 1; }
         }
 
-        public int topWall
+		public virtual int topWall
         {
             get { return spriteY - collisionHeight / 2; }
         }
 
-        public int bottomWall
+		public virtual int bottomWall
         {
             get { return spriteY + collisionHeight / 2 - 1; }
         }

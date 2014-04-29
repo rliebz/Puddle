@@ -19,7 +19,7 @@ namespace Puddle
         public bool shooting;
         public bool pushing;
 		public double rollerVel;
-		public int movedX;
+		public int movedX, movedY;
         public Dictionary<string, bool> powerup;
         public string newMap;
 		public bool piped;
@@ -87,6 +87,7 @@ namespace Puddle
             pushing = false;
 			rollerVel = 0;
 			movedX = 0;
+			movedY = 0;
 			collisionWidth = 18;
 			collisionHeight = 30;
 			piped = false;
@@ -144,11 +145,30 @@ namespace Puddle
             get { return (puddled); }
         }
 
+		// Property determining if the character is fully puddle
+		public bool fullyPuddled
+		{
+			get { return (puddled && frameIndex == 5 * 32); }
+		}
+
         // Property determining if the character can be hurt
         public bool invulnerable
         {
-            get { return (puddled && frameIndex == 5 * 32); }
+			get { return fullyPuddled; }
         }
+
+		// Note that the variable collision height may cause unexpected issues
+		public override int topWall
+		{
+			get 
+			{
+				if (fullyPuddled)
+					return bottomWall - 4;
+				else
+					return base.topWall;
+			}
+
+		}
 
 		public int numPowers
 		{
@@ -211,24 +231,18 @@ namespace Puddle
 			pushing = false;
 			rollerVel = 0;
 
-			// Check left/right collisions, then up/down
+			// Check left/right collisions
 			checkXCollisions(level);
-			checkYCollisions(level);
 
             // Gravity
-            if (!grounded)
-            {
-				y_vel += level.gravity;
-				if (y_vel > level.maxFallSpeed)
-					y_vel = level.maxFallSpeed;
-				spriteY += Convert.ToInt32(y_vel);
-            }
-            else
-            {
-				y_vel = 1;
-            }
-
-			grounded = false;
+			y_vel += level.gravity;
+			if (y_vel > level.maxFallSpeed)
+				y_vel = level.maxFallSpeed;
+			// Take the ceiling so we move every step
+			movedY = Convert.ToInt32(Math.Ceiling(y_vel));
+			spriteY += movedY;
+			if (y_vel > 1)
+				grounded = false;
 
 			// Check up/down collisions, then left/right
 			checkYCollisions(level);
@@ -446,21 +460,7 @@ namespace Puddle
                     powerup.Play();
                 }
 
-				// Pipe
-				if (item is Pipe && !piped && Intersects(item) && 
-					(puddled && frameIndex == 5 * 32) && Math.Abs(spriteX - item.spriteX) < 12)
-				{
-					Pipe p = (Pipe)item;
-					if(p.name.Contains("endPipe"))
-					{
-						newMap = String.Format("Content/Levels/Level{0}.tmx", p.destination);
-					}
-					else
-					{
-						p.Action(level);
-						piped = true;
-					}
-				}
+
             }
         }
 
@@ -471,7 +471,7 @@ namespace Puddle
 				if (s.isSolid && Intersects(s))
 				{
 					// Pipe
-					if (s is Pipe && ((Pipe)s).direction != "up" && !piped && Intersects(s))
+					if (s is Pipe && ((Pipe)s).direction != "up" && !piped)
 					{
 						Pipe p = (Pipe)s;
 						if(p.name.Contains("endPipe"))
@@ -533,19 +533,36 @@ namespace Puddle
 			{
 				if (s.isSolid && Intersects(s))
 				{
+					// Pipe
+					if (s is Pipe && !piped && fullyPuddled && 
+						Math.Abs(spriteX - s.spriteX) < 12)
+					{
+						Pipe p = (Pipe)s;
+						if(p.name.Contains("endPipe"))
+						{
+							newMap = String.Format("Content/Levels/Level{0}.tmx", p.destination);
+						}
+						else
+						{
+							p.Action(level);
+							piped = true;
+						}
+					}
+
 					// Up collision
-					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
+					if (topWall - movedY > s.bottomWall)
 					{
 						y_vel = 0;
-						while (topWall < s.bottomWall)
+						while (topWall <= s.bottomWall)
 							spriteY++;
 					}
 
 					// Down collision
-					else if ((bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
+					else if ((bottomWall - movedY) < s.topWall)
 					{
 						grounded = true;
-						while (bottomWall > s.topWall)
+						y_vel = 0;
+						while (bottomWall >= s.topWall)
 							spriteY--;
 
 						// Roller
@@ -608,7 +625,7 @@ namespace Puddle
                         frameIndex = 0;
                     }
                     // Animate
-                    else if (frameIndex < 2 * 32)
+					else if (frameIndex < 2 * 32 && level.count % 6 == 0)
                         frameIndex += 32;
                 }
                 // Grounded, not Moving
@@ -684,10 +701,8 @@ namespace Puddle
 
         public new void Draw(SpriteBatch sb)
         {
-			// Draw the player slightly higher than he is
-			spriteY--;
+			// Draw the player
             base.Draw(sb);
-			spriteY++;
 
 			// Draw hydration
             sb.Draw(
