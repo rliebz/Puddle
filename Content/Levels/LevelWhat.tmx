@@ -5,31 +5,28 @@
   <property name="startY" value="576"/>
  </properties>
  <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
-  <image source="background.png" width="640" height="448"/>
+  <image source="../background.png" width="640" height="448"/>
  </tileset>
  <tileset firstgid="281" name="brick" tilewidth="32" tileheight="32">
-  <image source="brick.png" width="32" height="32"/>
+  <image source="../brick.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="282" name="button" tilewidth="32" tileheight="32">
-  <image source="button.png" width="256" height="32"/>
- </tileset>
- <tileset firstgid="290" name="button-left" tilewidth="32" tileheight="32">
-  <image source="button-left.png" width="256" height="32"/>
+  <image source="../button.png" width="256" height="32"/>
  </tileset>
  <tileset firstgid="298" name="push_block" tilewidth="32" tileheight="32">
-  <image source="push_block.png" width="128" height="32"/>
+  <image source="../push_block.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="302" name="fireball" tilewidth="32" tileheight="32">
-  <image source="fireball.png" width="64" height="32"/>
+  <image source="../fireball.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="304" name="geyser" tilewidth="32" tileheight="32">
-  <image source="geyser.png" width="32" height="128"/>
+  <image source="../geyser.png" width="32" height="128"/>
  </tileset>
  <tileset firstgid="308" name="pipe" tilewidth="32" tileheight="32">
-  <image source="pipe.png" width="256" height="64"/>
+  <image source="../pipe.png" width="256" height="64"/>
  </tileset>
  <tileset firstgid="324" name="jetpack" tilewidth="32" tileheight="32">
-  <image source="jetpack.png" width="32" height="32"/>
+  <image source="../jetpack.png" width="32" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="24">
   <data>

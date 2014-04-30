@@ -5,37 +5,34 @@
   <property name="startY" value="640"/>
  </properties>
  <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
-  <image source="background.png" width="640" height="448"/>
+  <image source="../background.png" width="640" height="448"/>
  </tileset>
  <tileset firstgid="281" name="brick" tilewidth="32" tileheight="32">
-  <image source="brick.png" width="32" height="32"/>
+  <image source="../brick.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="282" name="button" tilewidth="32" tileheight="32">
-  <image source="button.png" width="224" height="32"/>
- </tileset>
- <tileset firstgid="289" name="button-left" tilewidth="32" tileheight="32">
-  <image source="button-left.png" width="256" height="32"/>
+  <image source="../button.png" width="224" height="32"/>
  </tileset>
  <tileset firstgid="297" name="push_block" tilewidth="32" tileheight="32">
-  <image source="push_block.png" width="128" height="32"/>
+  <image source="../push_block.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="301" name="fireball" tilewidth="32" tileheight="32">
-  <image source="fireball.png" width="64" height="32"/>
+  <image source="../fireball.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="303" name="geyser" tilewidth="32" tileheight="32">
-  <image source="geyser.png" width="128" height="128"/>
+  <image source="../geyser.png" width="128" height="128"/>
  </tileset>
  <tileset firstgid="319" name="pipe" tilewidth="32" tileheight="32">
-  <image source="pipe.png" width="256" height="64"/>
+  <image source="../pipe.png" width="256" height="64"/>
  </tileset>
  <tileset firstgid="335" name="jetpack" tilewidth="32" tileheight="32">
-  <image source="jetpack.png" width="32" height="32"/>
+  <image source="../jetpack.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="336" name="cannon" tilewidth="32" tileheight="32">
-  <image source="cannon.png" width="64" height="32"/>
+  <image source="../cannon.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="338" name="rat" tilewidth="32" tileheight="32">
-  <image source="rat.png" width="128" height="32"/>
+  <image source="../rat.png" width="128" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="22" visible="0">
   <data>
