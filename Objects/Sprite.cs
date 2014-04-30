@@ -17,6 +17,7 @@ namespace Puddle
         public int collisionWidth, collisionHeight;
         public int frameWidth, frameHeight;
         public int frameIndex;
+        public int frameIndexY;
         public int depth;
         public bool destroyed;
         public bool faceLeft;
@@ -53,6 +54,7 @@ namespace Puddle
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;
             this.frameIndex = 0;
+            this.frameIndexY = 0;
             this.isSolid = false;
 			this.displayHitBox = false;
             this.spriteColor = Color.White;
@@ -168,7 +170,7 @@ namespace Puddle
             sb.Draw(
                 image,
                 new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
-                new Rectangle(frameIndex, 0, frameWidth, frameHeight),
+                new Rectangle(frameIndex, frameIndexY, frameWidth, frameHeight),
                 spriteColor,
                 rotationAngle,
                 new Vector2(spriteWidth / 2, spriteHeight / 2),
