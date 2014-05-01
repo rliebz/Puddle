@@ -68,7 +68,7 @@ namespace Puddle
 
         public void Animate(Level level)
         {
-            frameIndex = ((level.count + seed) / 12) % 6 * frameWidth;
+            frameIndex = ((level.count + seed) / 4) % 6 * frameWidth;
         }
 
         public override void Update(Level level)
