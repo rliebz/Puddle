@@ -20,13 +20,14 @@ namespace Puddle
 		private bool lCol;
         private bool canBreak;
         private bool transparent;
-        private bool neighborsFound;
+        public bool neighborsFound;
 
         public double x_vel;
 		public double y_vel;
 
         public string blockType;
         public Color metalColor;
+        public Color tempColor;
 
         private SoundEffectInstance sound;
 
@@ -47,14 +48,14 @@ namespace Puddle
 		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, bool transparent=false, bool solid=true, string name="Block 0")
             : base(x, y, 32, 32)
         {
-
             this.pushLeft = left;
             this.pushRight = right;
             this.gravity = gravity;
 			this.name = name;
             this.canBreak = canBreak;
             this.transparent = transparent;
-            this.metalColor = Color.DarkOliveGreen;
+            this.metalColor = new Color(40, 50, 40);
+            this.tempColor = Color.DarkMagenta;
             this.neighborsFound = false;
 
 			this.isSolid = solid;
@@ -66,7 +67,8 @@ namespace Puddle
 
             this.x_vel = 0;
 
-            this.blockType = "push";
+            blockType = "push";
+            spriteColor = Color.White;
 
             // Determine block image
             if (!this.gravity)
@@ -75,10 +77,13 @@ namespace Puddle
                 if (this.canBreak)
                 {
                     blockType = "break";
-                    spriteColor = Color.White;
                 }
-                else
+                else if (name.Contains("Gate") || name.Contains("Invis"))
                 {
+                    blockType = "temp";
+                    spriteColor = tempColor;
+                }
+                else {
                     blockType = "metal";
                     spriteColor = metalColor;
                 }
@@ -266,6 +271,11 @@ namespace Puddle
                 gravity = true;
                 spriteColor = Color.White;
             }
+            else if (newType == "temp")
+            {
+                gravity = false;
+                spriteColor = tempColor;
+            }
         }
 
 
@@ -361,6 +371,7 @@ namespace Puddle
             images["push"] = content.Load<Texture2D>("push_block.png");
             images["metal"] = content.Load<Texture2D>("metal_block.png");
             images["break"] = content.Load<Texture2D>("break.png");
+            images["temp"] = content.Load<Texture2D>("temp_block.png");
             image = images[this.blockType];
             foreach (string file in soundFiles)
             {
