@@ -78,7 +78,7 @@ namespace Puddle
 			// Downward collisions
 			foreach (Sprite s in level.items)
 			{
-				if (Intersects(s))
+				if (s.isSolid && Intersects(s))
 				{
 					// Up collision
 					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
