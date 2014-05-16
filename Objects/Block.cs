@@ -28,6 +28,7 @@ namespace Puddle
         public string blockType;
         public Color metalColor;
         public Color tempColor;
+        public Color breakColor;
 
         private SoundEffectInstance sound;
 
@@ -54,18 +55,20 @@ namespace Puddle
 			this.name = name;
             this.canBreak = canBreak;
             this.transparent = transparent;
-            this.metalColor = new Color(40, 50, 40);
-            this.tempColor = Color.DarkMagenta;
-            this.neighborsFound = false;
+            metalColor = new Color(40, 50, 40);
+            tempColor = new Color(60, 20, 60);
+            breakColor = new Color(90, 130, 90);
 
-			this.isSolid = solid;
+            neighborsFound = false;
 
-            this.rCol = false;
-            this.lCol = false;
+			isSolid = solid;
+
+            rCol = false;
+            lCol = false;
             soundFiles.Add("Sounds/Slide.wav");
             soundFiles.Add("Sounds/BlockFall.wav");
 
-            this.x_vel = 0;
+            x_vel = 0;
 
             blockType = "push";
             spriteColor = Color.White;
@@ -77,6 +80,7 @@ namespace Puddle
                 if (this.canBreak)
                 {
                     blockType = "break";
+                    spriteColor = breakColor;
                 }
                 else if (name.Contains("Gate") || name.Contains("Invis"))
                 {
@@ -370,7 +374,7 @@ namespace Puddle
         {
             images["push"] = content.Load<Texture2D>("push_block.png");
             images["metal"] = content.Load<Texture2D>("metal_block.png");
-            images["break"] = content.Load<Texture2D>("break.png");
+            images["break"] = content.Load<Texture2D>("break_block.png");
             images["temp"] = content.Load<Texture2D>("temp_block.png");
             image = images[this.blockType];
             foreach (string file in soundFiles)
