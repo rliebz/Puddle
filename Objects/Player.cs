@@ -66,7 +66,7 @@ namespace Puddle
 
         // TODO: Move this
 
-        public Player(int x, int y, int width, int height) : base(x, y, width, height)
+		public Player(int x, int y) : base(x, y)
         {
             // Objects
             powerup = new Dictionary<string, bool>();
@@ -99,7 +99,7 @@ namespace Puddle
 			hydrationRegen = maxHydration / 300;
             shotCost = 10;
             powerShotCost = shotCost * 2;
-            jetpackCost = 20;
+			jetpackCost = shotCost * 2;
             puddleCost = 1.0;
 
             // Movement
@@ -241,8 +241,7 @@ namespace Puddle
 			// Take the ceiling so we move every step
 			movedY = Convert.ToInt32(Math.Ceiling(y_vel));
 			spriteY += movedY;
-			//if (y_vel > 1)
-				grounded = false;
+			grounded = false;
 
 			// Check up/down collisions
 			checkYCollisions(level);
@@ -486,8 +485,7 @@ namespace Puddle
 					}
 
 					// Collision with right block
-					if (//bottomWall != s.topWall && // Not standing on block
-						rightWall - movedX < s.leftWall) // && movedX > 0)
+					if (rightWall - movedX < s.leftWall)
 					{
 						// Push
 						if (s is Block && ((Block)s).rightPushable && grounded)
@@ -508,8 +506,7 @@ namespace Puddle
 					}
 
 					// Push to the left
-					else if (//bottomWall != s.topWall && // Not standing on block
-						leftWall - movedX > s.rightWall) // && movedX < 0)
+					else if (leftWall - movedX > s.rightWall)
 					{
 						// Push
 						if (s is Block && ((Block)s).leftPushable && grounded)

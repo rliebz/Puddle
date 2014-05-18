@@ -44,7 +44,6 @@ namespace Puddle
 			if ((level.count + seed) % 200 == 0)
 			{
 				Shoot(level, content);
-				Console.WriteLine(seed);
 			}
 				
 			// Animate sprite

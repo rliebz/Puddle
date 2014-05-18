@@ -65,9 +65,7 @@ namespace Puddle
             // Create built-in objects
 			player1 = new Player(
 				Convert.ToInt32(map.Properties["startX"]), 
-				Convert.ToInt32(map.Properties["startY"]),
-				32, 
-				32
+				Convert.ToInt32(map.Properties["startY"])
 			);
             level = new Level(player1, "menu");
             levelSelect = null;
@@ -177,7 +175,9 @@ namespace Puddle
             {
 				char startPosSelect = ' ';
                 if (previousMap.Equals("Content/Levels/LevelMenu.tmx"))
+				{
 					startPosSelect = '0';
+				}
                 else
                 {
 					startPosSelect = previousMap[20];
@@ -192,7 +192,6 @@ namespace Puddle
             }
 
             // Reset player fields
-
             player1.checkpointXPos = player1.spriteX;
             player1.checkpointYPos = player1.spriteY;
 
@@ -200,7 +199,13 @@ namespace Puddle
 
             previousMap = String.Copy(player1.newMap);
             player1.newMap = "";
-			LoadContent();
+
+			// Load new content
+			foreach (Sprite item in level.items)
+				item.LoadContent(this.Content);
+			foreach (Enemy enemy in level.enemies)
+				enemy.LoadContent(this.Content);
+
             newMapLoad = false;
         }
 

@@ -39,7 +39,7 @@ namespace Puddle
         protected List<string> soundFiles;
         protected Dictionary<string, SoundEffect> soundList;
 
-        public Sprite(int x, int y, int width, int height)
+		public Sprite(int x, int y, int width=32, int height=32)
         {
 			this.name = "";
             this.spriteX = x + 16;
