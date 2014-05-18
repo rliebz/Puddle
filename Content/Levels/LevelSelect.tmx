@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="22" height="22" tilewidth="32" tileheight="32">
  <properties>
-  <property name="startX" value="96"/>
-  <property name="startY" value="640"/>
+  <property name="startX0" value="48"/>
+  <property name="startX1" value="656"/>
+  <property name="startX2" value="112"/>
+  <property name="startX3" value="48"/>
+  <property name="startX4" value="656"/>
+  <property name="startY0" value="656"/>
+  <property name="startY1" value="656"/>
+  <property name="startY2" value="528"/>
+  <property name="startY3" value="394"/>
+  <property name="startY4" value="202"/>
  </properties>
  <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
-  <image source="background.png" width="640" height="448"/>
+  <image source="../background.png" width="640" height="448"/>
  </tileset>
  <tileset firstgid="281" name="brick" tilewidth="32" tileheight="32">
-  <image source="brick.png" width="32" height="32"/>
+  <image source="../brick.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="282" name="button" tilewidth="32" tileheight="32">
-  <image source="button.png" width="224" height="32"/>
- </tileset>
- <tileset firstgid="289" name="button-left" tilewidth="32" tileheight="32">
-  <image source="button-left.png" width="256" height="32"/>
+  <image source="../button.png" width="224" height="32"/>
  </tileset>
  <tileset firstgid="297" name="push_block" tilewidth="32" tileheight="32">
-  <image source="push_block.png" width="128" height="32"/>
+  <image source="../push_block.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="301" name="fireball" tilewidth="32" tileheight="32">
-  <image source="fireball.png" width="64" height="32"/>
+  <image source="../fireball.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="303" name="geyser" tilewidth="32" tileheight="32">
-  <image source="geyser.png" width="128" height="128"/>
+  <image source="../geyser.png" width="128" height="128"/>
  </tileset>
  <tileset firstgid="319" name="pipe" tilewidth="32" tileheight="32">
-  <image source="pipe.png" width="256" height="64"/>
+  <image source="../pipe.png" width="256" height="64"/>
  </tileset>
  <tileset firstgid="335" name="jetpack" tilewidth="32" tileheight="32">
-  <image source="jetpack.png" width="32" height="32"/>
+  <image source="../jetpack.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="336" name="cannon" tilewidth="32" tileheight="32">
-  <image source="cannon.png" width="64" height="32"/>
+  <image source="../cannon.png" width="64" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="22">
   <data>
@@ -125,7 +130,7 @@
    <tile gid="101"/>
    <tile gid="281"/>
    <tile gid="281"/>
-   <tile gid="122"/>
+   <tile gid="1"/>
    <tile gid="123"/>
    <tile gid="124"/>
    <tile gid="125"/>
@@ -188,7 +193,7 @@
    <tile gid="178"/>
    <tile gid="179"/>
    <tile gid="180"/>
-   <tile gid="0"/>
+   <tile gid="161"/>
    <tile gid="281"/>
    <tile gid="281"/>
    <tile gid="182"/>
@@ -232,7 +237,7 @@
    <tile gid="5"/>
    <tile gid="6"/>
    <tile gid="1"/>
-   <tile gid="2"/>
+   <tile gid="1"/>
    <tile gid="281"/>
    <tile gid="281"/>
    <tile gid="19"/>
@@ -257,7 +262,7 @@
    <tile gid="20"/>
    <tile gid="281"/>
    <tile gid="281"/>
-   <tile gid="0"/>
+   <tile gid="1"/>
    <tile gid="26"/>
    <tile gid="27"/>
    <tile gid="28"/>
@@ -323,116 +328,12 @@
    <tile gid="8"/>
    <tile gid="281"/>
    <tile gid="281"/>
-   <tile gid="0"/>
+   <tile gid="319"/>
    <tile gid="14"/>
    <tile gid="15"/>
    <tile gid="16"/>
    <tile gid="17"/>
    <tile gid="18"/>
-   <tile gid="13"/>
-   <tile gid="0"/>
-   <tile gid="15"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="18"/>
-   <tile gid="13"/>
-   <tile gid="14"/>
-   <tile gid="15"/>
-   <tile gid="16"/>
-   <tile gid="17"/>
-   <tile gid="18"/>
-   <tile gid="13"/>
-   <tile gid="14"/>
-   <tile gid="281"/>
-   <tile gid="281"/>
-   <tile gid="19"/>
-   <tile gid="20"/>
-   <tile gid="21"/>
-   <tile gid="22"/>
-   <tile gid="23"/>
-   <tile gid="24"/>
-   <tile gid="19"/>
-   <tile gid="20"/>
-   <tile gid="21"/>
-   <tile gid="22"/>
-   <tile gid="23"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="20"/>
-   <tile gid="21"/>
-   <tile gid="22"/>
-   <tile gid="23"/>
-   <tile gid="24"/>
-   <tile gid="19"/>
-   <tile gid="0"/>
-   <tile gid="281"/>
-   <tile gid="281"/>
-   <tile gid="25"/>
-   <tile gid="26"/>
-   <tile gid="27"/>
-   <tile gid="28"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="25"/>
-   <tile gid="26"/>
-   <tile gid="27"/>
-   <tile gid="28"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="25"/>
-   <tile gid="26"/>
-   <tile gid="27"/>
-   <tile gid="28"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="25"/>
-   <tile gid="26"/>
-   <tile gid="281"/>
-   <tile gid="281"/>
-   <tile gid="1"/>
-   <tile gid="2"/>
-   <tile gid="3"/>
-   <tile gid="4"/>
-   <tile gid="5"/>
-   <tile gid="6"/>
-   <tile gid="1"/>
-   <tile gid="2"/>
-   <tile gid="3"/>
-   <tile gid="4"/>
-   <tile gid="5"/>
-   <tile gid="6"/>
-   <tile gid="1"/>
-   <tile gid="2"/>
-   <tile gid="3"/>
-   <tile gid="4"/>
-   <tile gid="5"/>
-   <tile gid="6"/>
-   <tile gid="1"/>
-   <tile gid="2"/>
-   <tile gid="281"/>
-   <tile gid="281"/>
-   <tile gid="7"/>
-   <tile gid="2"/>
-   <tile gid="9"/>
-   <tile gid="10"/>
-   <tile gid="11"/>
-   <tile gid="12"/>
-   <tile gid="7"/>
-   <tile gid="8"/>
-   <tile gid="9"/>
-   <tile gid="10"/>
-   <tile gid="11"/>
-   <tile gid="12"/>
-   <tile gid="7"/>
-   <tile gid="2"/>
-   <tile gid="9"/>
-   <tile gid="10"/>
-   <tile gid="11"/>
-   <tile gid="12"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="281"/>
-   <tile gid="281"/>
    <tile gid="13"/>
    <tile gid="14"/>
    <tile gid="15"/>
@@ -446,6 +347,110 @@
    <tile gid="17"/>
    <tile gid="18"/>
    <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="24"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="7"/>
+   <tile gid="2"/>
+   <tile gid="319"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="7"/>
+   <tile gid="2"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="11"/>
+   <tile gid="12"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="281"/>
+   <tile gid="281"/>
+   <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="13"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="13"/>
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
@@ -489,15 +494,15 @@
    <tile gid="28"/>
    <tile gid="29"/>
    <tile gid="30"/>
-   <tile gid="0"/>
+   <tile gid="25"/>
    <tile gid="26"/>
    <tile gid="27"/>
    <tile gid="28"/>
    <tile gid="29"/>
    <tile gid="30"/>
    <tile gid="25"/>
-   <tile gid="0"/>
-   <tile gid="281"/>
+   <tile gid="26"/>
+   <tile gid="319"/>
    <tile gid="281"/>
    <tile gid="281"/>
    <tile gid="281"/>
@@ -523,103 +528,161 @@
   </data>
  </layer>
  <objectgroup name="Blocks" width="22" height="22">
-  <object name="Block 3" type="Puddle.Block" x="32" y="224" width="32" height="32">
+  <object name="endPipe1" type="Puddle.Pipe" x="672" y="640" width="32" height="32">
    <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
+    <property name="destination" value="1-1"/>
+    <property name="direction" value="left"/>
+    <property name="end" value="True"/>
+    <property name="text" value="1"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="32" y="288" width="32" height="32">
+  <object name="Ground" type="Puddle.Block" x="448" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="288" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="416" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="608" y="480" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="224" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="384" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="128" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="480" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="96" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="320" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="192" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="160" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="352" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="64" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="256" y="544" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="192" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="320" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="352" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="288" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="416" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="384" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="160" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="512" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="64" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="448" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="224" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="128" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="32" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="256" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="480" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="96" y="448" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="224" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="160" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="128" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="192" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="288" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="480" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="544" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="384" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="320" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="512" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="448" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="352" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="256" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="416" y="576" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="64" y="576" width="32" height="32"/>
+  <object name="endPipe3" type="Puddle.Pipe" x="32" y="416" width="32" height="32">
    <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
+    <property name="destination" value="3-1"/>
+    <property name="direction" value="up"/>
+    <property name="end" value="True"/>
+    <property name="text" value="3"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="32" y="256" width="32" height="32">
+  <object name="Ground" type="Puddle.Block" x="64" y="320" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="160" y="288" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="128" y="288" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="96" y="288" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="192" y="288" width="32" height="32"/>
+  <object name="Breakable" type="Puddle.Block" x="224" y="352" width="32" height="32">
    <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
+    <property name="canBreak" value="True"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="32" y="224" width="32" height="32">
+  <object name="Ground" type="Puddle.Block" x="224" y="416" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="224" y="384" width="32" height="32"/>
+  <object name="Breakable" type="Puddle.Block" x="448" y="416" width="32" height="32">
    <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
+    <property name="canBreak" value="True"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="64" y="288" width="32" height="32">
+  <object name="Ground" type="Puddle.Block" x="224" y="288" width="32" height="32"/>
+  <object name="endPipe5" type="Puddle.Pipe" x="320" y="128" width="32" height="32">
    <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
+    <property name="destination" value="Boss"/>
+    <property name="direction" value="up"/>
+    <property name="end" value="True"/>
+    <property name="text" value="?"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="64" y="256" width="32" height="32">
+  <object name="Ground" type="Puddle.Block" x="640" y="480" width="32" height="32"/>
+  <object name="Breakable" type="Puddle.Block" x="224" y="320" width="32" height="32">
    <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
+    <property name="canBreak" value="True"/>
    </properties>
   </object>
-  <object name="Block 3" type="Puddle.Block" x="96" y="288" width="32" height="32">
-   <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
-   </properties>
-  </object>
-  <object name="Cannon" type="Puddle.Cannon" x="32" y="576" width="64" height="32">
-   <properties>
-    <property name="direction" value="right"/>
-   </properties>
-  </object>
-  <object name="Block 3" type="Puddle.Block" x="96" y="256" width="32" height="32">
-   <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
-   </properties>
-  </object>
-  <object name="Block 3" type="Puddle.Block" x="64" y="224" width="32" height="32">
-   <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
-   </properties>
-  </object>
-  <object name="Block 3" type="Puddle.Block" x="96" y="224" width="32" height="32">
-   <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
-   </properties>
-  </object>
-  <object name="Block 3" type="Puddle.Block" x="128" y="224" width="32" height="32">
-   <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
-   </properties>
-  </object>
-  <object name="Block 3" type="Puddle.Block" x="128" y="256" width="32" height="32">
-   <properties>
-    <property name="gravity" value="False"/>
-    <property name="left" value="False"/>
-    <property name="right" value="False"/>
-   </properties>
-  </object>
+  <object name="Ground" type="Puddle.Block" x="512" y="192" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="96" y="320" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Items" width="22" height="22">
-  <object name="checkpoint 1" type="Puddle.Checkpoint" x="640" y="256" width="32" height="32"/>
-  <object name="Button 3" type="Puddle.Button" x="640" y="384" width="32" height="32">
+  <object name="Roller" type="Puddle.Roller" x="288" y="512" width="32" height="32">
    <properties>
-    <property name="direction" value="right"/>
+    <property name="left" value="True"/>
    </properties>
   </object>
+  <object name="Roller" type="Puddle.Roller" x="320" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" x="352" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" x="384" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" x="416" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" x="448" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" x="480" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="SpikeBall" type="Puddle.SpikeBall" x="384" y="512" width="32" height="32"/>
+  <object name="Roller" type="Puddle.Roller" x="160" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" x="256" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" x="224" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="Roller" type="Puddle.Roller" x="192" y="512" width="32" height="32">
+   <properties>
+    <property name="left" value="True"/>
+   </properties>
+  </object>
+  <object name="SpikeBall" type="Puddle.SpikeBall" x="256" y="512" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Ground" width="22" height="22">
   <object name="Ground" type="Puddle.Block" x="32" y="672" width="32" height="32"/>
@@ -644,7 +707,7 @@
   <object name="Ground" type="Puddle.Block" x="544" y="672" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="672" y="448" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="672" y="320" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="672" y="640" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="640" y="608" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="672" y="192" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="672" y="608" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="672" y="288" width="32" height="32"/>
@@ -680,12 +743,12 @@
   <object name="Ground" type="Puddle.Block" x="672" y="96" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="672" y="0" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="672" y="32" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="160" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="64" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="128" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="96" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="0" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="0" y="64" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="0" y="128" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="0" y="96" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="0" y="0" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="32" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="0" y="32" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="160" y="0" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="224" y="0" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="288" y="0" width="32" height="32"/>
@@ -706,124 +769,45 @@
   <object name="Ground" type="Puddle.Block" x="384" y="0" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="576" y="0" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="512" y="0" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" gid="281" x="544" y="704"/>
-  <object name="Ground" type="Puddle.Block" gid="281" x="640" y="704"/>
-  <object name="Ground" type="Puddle.Block" gid="281" x="608" y="704"/>
-  <object name="Ground" type="Puddle.Block" gid="281" x="576" y="704"/>
-  <object name="Ground" type="Puddle.Block" x="96" y="544" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="256" y="480" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="640" y="576" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="608" y="576" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="32" y="480" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="480" y="480" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="288" y="480" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="288" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="32" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="160" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="64" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="256" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="512" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="352" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="320" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="448" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="224" y="192" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="416" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="64" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="320" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="128" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="288" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="160" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="480" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="192" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="352" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="448" y="160" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="544" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="416" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="480" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="384" y="192" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="576" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="640" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="608" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="32" y="544" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="512" y="480" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="32" y="512" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="128" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="64" y="512" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="64" y="544" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="96" y="192" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="128" y="544" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="576" y="320" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="640" y="320" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="640" y="288" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="608" y="320" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="32" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="512" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="96" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="224" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="384" y="160" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="256" y="160" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="544" y="288" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="512" y="288" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="608" y="288" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="480" y="288" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="576" y="288" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="416" y="288" width="32" height="32"/>
   <object name="Ground" type="Puddle.Block" x="448" y="288" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="384" y="288" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="288" y="288" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="352" y="288" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="320" y="288" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="224" y="640" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="192" y="640" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="352" y="64" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="352" y="32" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="352" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="352" y="128" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="352" y="160" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="512" y="64" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="512" y="32" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="512" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="512" y="128" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="512" y="160" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="640" y="128" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="544" y="128" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="224" y="96" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="640" y="288" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="576" y="288" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="448" y="320" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="448" y="384" width="32" height="32"/>
+  <object name="Ground" type="Puddle.Block" x="448" y="352" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Pipe" width="22" height="22">
-  <object name="Pipe1_1" type="Puddle.Pipe" x="608" y="288" width="32" height="32">
+  <object name="endPipe2" type="Puddle.Pipe" x="96" y="544" width="32" height="32">
    <properties>
-    <property name="direction" value="up"/>
-   </properties>
-  </object>
-  <object name="Pipe1_2" type="Puddle.Pipe" x="480" y="160" width="32" height="32"/>
-  <object name="endPipe" type="Puddle.Pipe" x="32" y="160" width="32" height="32">
-   <properties>
-    <property name="destination" value="3-3"/>
+    <property name="destination" value="2-1"/>
     <property name="direction" value="up"/>
     <property name="end" value="True"/>
+    <property name="text" value="2"/>
    </properties>
   </object>
-  <object name="Pipe2_1" type="Puddle.Pipe" x="384" y="160" width="32" height="32"/>
-  <object name="Pipe3_1" type="Puddle.Pipe" x="224" y="160" width="32" height="32"/>
-  <object name="Pipe2_2" type="Puddle.Pipe" x="224" y="64" width="32" height="32"/>
-  <object name="Pipe3_2" type="Puddle.Pipe" x="640" y="96" width="32" height="32"/>
-  <object name="Pipe4_1" type="Puddle.Pipe" x="544" y="96" width="32" height="32"/>
-  <object name="Pipe7_1" type="Puddle.Pipe" x="480" y="64" width="32" height="32"/>
-  <object name="Pipe7_2" type="Puddle.Pipe" x="320" y="160" width="32" height="32"/>
-  <object name="Pipe5_2" type="Puddle.Pipe" x="384" y="64" width="32" height="32"/>
-  <object name="Pipe5_1" type="Puddle.Pipe" x="160" y="160" width="32" height="32"/>
-  <object name="Pipe4_2" type="Puddle.Pipe" x="160" y="64" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="128" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="128" y="128" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="128" y="160" width="32" height="32"/>
-  <object name="Pipe8_1" type="Puddle.Pipe" x="96" y="160" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="64" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="64" y="160" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="96" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="64" y="128" width="32" height="32"/>
-  <object name="Pipe8_2" type="Puddle.Pipe" x="272" y="160" width="32" height="32"/>
  </objectgroup>
- <objectgroup name="Enemies" width="22" height="22">
-  <object name="SpikeBall" type="Puddle.SpikeBall" x="544" y="176" width="32" height="32"/>
-  <object name="Bird" type="Puddle.Bird" x="256" y="416" width="32" height="32"/>
-  <object name="SpikeBall" type="Puddle.SpikeBall" x="608" y="176" width="32" height="32"/>
-  <object name="SpikeBall" type="Puddle.SpikeBall" x="576" y="176" width="32" height="32"/>
-  <object name="SpikeBall" type="Puddle.SpikeBall" x="640" y="176" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="160" y="96" width="32" height="32"/>
-  <object name="Bird" type="Puddle.Bird" x="576" y="384" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="0" y="160" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="0" y="64" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="0" y="128" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="0" y="32" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="0" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="384" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="480" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="416" y="96" width="32" height="32"/>
-  <object name="Ground" type="Puddle.Block" x="448" y="96" width="32" height="32"/>
- </objectgroup>
+ <objectgroup name="Enemies" width="22" height="22"/>
  <objectgroup name="Gate" width="22" height="22"/>
 </map>

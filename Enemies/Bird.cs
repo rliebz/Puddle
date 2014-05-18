@@ -22,7 +22,7 @@ namespace Puddle
 		public Bird(int x, int y)
 			: base(x, y)
 		{
-			imageFile = "Bird.png";
+			imageFile = "bird.png";
 			collisionHeight = 20;
 			speed = 3;
 			x_vel = speed;
@@ -44,7 +44,6 @@ namespace Puddle
 			if ((level.count + seed) % 200 == 0)
 			{
 				Shoot(level, content);
-				Console.WriteLine(seed);
 			}
 				
 			// Animate sprite

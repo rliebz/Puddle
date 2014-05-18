@@ -5,43 +5,43 @@
   <property name="startY" value="640"/>
  </properties>
  <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
-  <image source="background.png" trans="ff00ff" width="640" height="448"/>
+  <image source="../background.png" trans="ff00ff" width="640" height="448"/>
  </tileset>
  <tileset firstgid="281" name="brick" tilewidth="32" tileheight="32">
-  <image source="brick.png" trans="ff00ff" width="32" height="32"/>
+  <image source="../brick.png" trans="ff00ff" width="32" height="32"/>
  </tileset>
  <tileset firstgid="282" name="button" tilewidth="32" tileheight="32">
-  <image source="button.png" trans="ff00ff" width="224" height="32"/>
+  <image source="../button.png" trans="ff00ff" width="224" height="32"/>
  </tileset>
  <tileset firstgid="289" name="break" tilewidth="32" tileheight="32">
-  <image source="break.png" trans="ff00ff" width="32" height="32"/>
+  <image source="../break.png" trans="ff00ff" width="32" height="32"/>
  </tileset>
  <tileset firstgid="290" name="checkpoint" tilewidth="32" tileheight="32">
-  <image source="checkpoint.png" trans="ff00ff" width="256" height="32"/>
+  <image source="../checkpoint.png" trans="ff00ff" width="256" height="32"/>
  </tileset>
  <tileset firstgid="298" name="geyser" tilewidth="32" tileheight="32">
-  <image source="geyser.png" trans="ff00ff" width="128" height="128"/>
+  <image source="../geyser.png" trans="ff00ff" width="128" height="128"/>
  </tileset>
  <tileset firstgid="314" name="push_block" tilewidth="32" tileheight="32">
-  <image source="push_block.png" trans="ff00ff" width="128" height="32"/>
+  <image source="../push_block.png" trans="ff00ff" width="128" height="32"/>
  </tileset>
  <tileset firstgid="318" name="roller" tilewidth="32" tileheight="32">
-  <image source="roller.png" trans="ff00ff" width="128" height="32"/>
+  <image source="../roller.png" trans="ff00ff" width="128" height="32"/>
  </tileset>
  <tileset firstgid="322" name="spikeball" tilewidth="32" tileheight="32">
-  <image source="spikeball.png" trans="ff00ff" width="32" height="32"/>
+  <image source="../spikeball.png" trans="ff00ff" width="32" height="32"/>
  </tileset>
  <tileset firstgid="323" name="pipe" tilewidth="32" tileheight="32">
-  <image source="pipe.png" trans="ff00ff" width="256" height="64"/>
+  <image source="../pipe.png" trans="ff00ff" width="256" height="64"/>
  </tileset>
  <tileset firstgid="339" name="rat" tilewidth="32" tileheight="32">
-  <image source="rat.png" trans="ff00ff" width="128" height="32"/>
+  <image source="../rat.png" trans="ff00ff" width="128" height="32"/>
  </tileset>
  <tileset firstgid="343" name="cannon" tilewidth="32" tileheight="32">
-  <image source="cannon.png" trans="ff00ff" width="64" height="32"/>
+  <image source="../cannon.png" trans="ff00ff" width="64" height="32"/>
  </tileset>
  <tileset firstgid="345" name="Bird" tilewidth="32" tileheight="32">
-  <image source="Bird.png" trans="ff00ff" width="128" height="32"/>
+  <image source="../bird.png" trans="ff00ff" width="128" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="22">
   <data encoding="base64" compression="zlib">

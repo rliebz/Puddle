@@ -41,17 +41,9 @@ namespace Puddle
         {
             if (Intersects(level.player))
            {
-				// Prevent strange collisions
 				level.player.y_vel = speed;
-				foreach (Sprite s in level.items)
-				{
-					if (s.isSolid && level.player.Intersects(s) && 
-						level.player.topWall - Convert.ToInt32(level.player.y_vel) > s.bottomWall)
-					{
-						level.player.y_vel = 0;
-					}
-				}
 				level.player.grounded = false;
+
                	if (level.player.hydration < level.player.maxHydration - 2)
                     level.player.hydration += 2;
             }
@@ -68,7 +60,7 @@ namespace Puddle
 
         public void Animate(Level level)
         {
-            frameIndex = ((level.count + seed) / 12) % 6 * frameWidth;
+            frameIndex = ((level.count + seed) / 4) % 6 * frameWidth;
         }
 
         public override void Update(Level level)

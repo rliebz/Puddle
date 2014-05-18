@@ -19,7 +19,7 @@ namespace Puddle
         public bool shooting;
         public bool pushing;
 		public double rollerVel;
-		public int movedX;
+		public int movedX, movedY;
         public Dictionary<string, bool> powerup;
         public string newMap;
 		public bool piped;
@@ -66,7 +66,7 @@ namespace Puddle
 
         // TODO: Move this
 
-        public Player(int x, int y, int width, int height) : base(x, y, width, height)
+		public Player(int x, int y) : base(x, y)
         {
             // Objects
             powerup = new Dictionary<string, bool>();
@@ -87,6 +87,7 @@ namespace Puddle
             pushing = false;
 			rollerVel = 0;
 			movedX = 0;
+			movedY = 0;
 			collisionWidth = 18;
 			collisionHeight = 30;
 			piped = false;
@@ -98,7 +99,7 @@ namespace Puddle
 			hydrationRegen = maxHydration / 300;
             shotCost = 10;
             powerShotCost = shotCost * 2;
-            jetpackCost = 20;
+			jetpackCost = shotCost * 2;
             puddleCost = 1.0;
 
             // Movement
@@ -144,11 +145,30 @@ namespace Puddle
             get { return (puddled); }
         }
 
+		// Property determining if the character is fully puddle
+		public bool fullyPuddled
+		{
+			get { return (puddled && frameIndex == 5 * 32); }
+		}
+
         // Property determining if the character can be hurt
         public bool invulnerable
         {
-            get { return (puddled && frameIndex == 5 * 32); }
+			get { return fullyPuddled; }
         }
+
+		// Note that the variable collision height may cause unexpected issues
+		public override int topWall
+		{
+			get 
+			{
+				if (fullyPuddled)
+					return bottomWall - 4;
+				else
+					return base.topWall;
+			}
+
+		}
 
 		public int numPowers
 		{
@@ -169,7 +189,7 @@ namespace Puddle
         public void Update(Controls controls, Level level, 
             ContentManager content, GameTime gameTime)
         {
-            pauseScreen = String.Format("pause{0}", numPowers);
+			pauseScreen = String.Format("Slides/pause{0}", numPowers);
 				
             if (hydration + hydrationRegen <= maxHydration && !powerShotCharging)
                 hydration += hydrationRegen;
@@ -211,28 +231,20 @@ namespace Puddle
 			pushing = false;
 			rollerVel = 0;
 
-			// Check left/right collisions, then up/down
+			// Check left/right collisions
 			checkXCollisions(level);
-			checkYCollisions(level);
 
             // Gravity
-            if (!grounded)
-            {
-				y_vel += level.gravity;
-				if (y_vel > level.maxFallSpeed)
-					y_vel = level.maxFallSpeed;
-				spriteY += Convert.ToInt32(y_vel);
-            }
-            else
-            {
-				y_vel = 1;
-            }
-
+			y_vel += level.gravity;
+			if (y_vel > level.maxFallSpeed)
+				y_vel = level.maxFallSpeed;
+			// Take the ceiling so we move every step
+			movedY = Convert.ToInt32(Math.Ceiling(y_vel));
+			spriteY += movedY;
 			grounded = false;
 
-			// Check up/down collisions, then left/right
+			// Check up/down collisions
 			checkYCollisions(level);
-			checkXCollisions(level);
 
 			// Determine direction
 			if (x_vel > 0.1)
@@ -392,7 +404,8 @@ namespace Puddle
                     hydration -= jetpackCost;
 
                     // Slight upward boost
-                    spriteY -= 1;
+                    spriteY--;
+					movedY--;
 					y_vel = -4.5;
                 }
             }
@@ -408,7 +421,7 @@ namespace Puddle
                 instance.Play();
 				y_vel = -11;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-				grounded = false;
+				//grounded = false;
             }
 
             // Cut jump short on button release
@@ -446,21 +459,7 @@ namespace Puddle
                     powerup.Play();
                 }
 
-				// Pipe
-				if (item is Pipe && !piped && Intersects(item) && 
-					(puddled && frameIndex == 5 * 32) && Math.Abs(spriteX - item.spriteX) < 12)
-				{
-					Pipe p = (Pipe)item;
-					if(p.name.Contains("endPipe"))
-					{
-						newMap = String.Format("Content/Level{0}.tmx", p.destination);
-					}
-					else
-					{
-						p.Action(level);
-						piped = true;
-					}
-				}
+
             }
         }
 
@@ -471,12 +470,12 @@ namespace Puddle
 				if (s.isSolid && Intersects(s))
 				{
 					// Pipe
-					if (s is Pipe && ((Pipe)s).direction != "up" && !piped && Intersects(s))
+					if (s is Pipe && ((Pipe)s).direction != "up" && !piped)
 					{
 						Pipe p = (Pipe)s;
 						if(p.name.Contains("endPipe"))
 						{
-							newMap = String.Format("Content/Level{0}.tmx", p.destination);
+							newMap = String.Format("Content/Levels/Level{0}.tmx", p.destination);
 						}
 						else
 						{
@@ -486,8 +485,7 @@ namespace Puddle
 					}
 
 					// Collision with right block
-					if (bottomWall != s.topWall && // Not standing on block
-						rightWall - movedX < s.leftWall && movedX > 0)
+					if (rightWall - movedX < s.leftWall)
 					{
 						// Push
 						if (s is Block && ((Block)s).rightPushable && grounded)
@@ -499,14 +497,16 @@ namespace Puddle
 						// Hit the wall
 						else
 						{
-							while (rightWall >= s.leftWall)
-								spriteX--;
+                            while (rightWall >= s.leftWall)
+                            {
+                                spriteX--;
+                                movedX--;
+                            }
 						}
 					}
 
 					// Push to the left
-					else if (bottomWall != s.topWall && // Not standing on block
-						leftWall - movedX > s.rightWall && movedX < 0)
+					else if (leftWall - movedX > s.rightWall)
 					{
 						// Push
 						if (s is Block && ((Block)s).leftPushable && grounded)
@@ -518,8 +518,11 @@ namespace Puddle
 						// Hit the wall
 						else
 						{
-							while (leftWall <= s.rightWall)
-								spriteX++;
+                            while (leftWall <= s.rightWall)
+                            {
+                                spriteX++;
+                                movedX++;
+                            }
 						}
 					}
 				}
@@ -533,20 +536,43 @@ namespace Puddle
 			{
 				if (s.isSolid && Intersects(s))
 				{
+					// Pipe
+					if (s is Pipe && !piped && fullyPuddled && 
+						Math.Abs(spriteX - s.spriteX) < 12)
+					{
+						Pipe p = (Pipe)s;
+						if(p.name.Contains("endPipe"))
+						{
+							newMap = String.Format("Content/Levels/Level{0}.tmx", p.destination);
+						}
+						else
+						{
+							p.Action(level);
+							piped = true;
+						}
+					}
+
 					// Up collision
-					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
+					if (topWall - movedY > s.bottomWall)
 					{
 						y_vel = 0;
-						while (topWall < s.bottomWall)
+						while (topWall <= s.bottomWall)
+						{
 							spriteY++;
+							movedY++;
+						}
 					}
 
 					// Down collision
-					else if ((bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
+					else if ((bottomWall - movedY) < s.topWall)
 					{
 						grounded = true;
-						while (bottomWall > s.topWall)
+						y_vel = 0;
+						while (bottomWall >= s.topWall)
+						{
 							spriteY--;
+							movedY--;
+						}
 
 						// Roller
 						if (s is Roller)
@@ -580,7 +606,7 @@ namespace Puddle
             deathInstance.Volume = 0.8f;
             deathInstance.Play();
 
-			if(!level.name.Equals("Content/LevelSelect.tmx"))
+			if(!level.name.Equals("Content/Levels/LevelSelect.tmx"))
 				lives--;
 
             if (lives == 0)
@@ -608,7 +634,7 @@ namespace Puddle
                         frameIndex = 0;
                     }
                     // Animate
-                    else if (frameIndex < 2 * 32)
+					else if (frameIndex < 2 * 32 && level.count % 6 == 0)
                         frameIndex += 32;
                 }
                 // Grounded, not Moving
@@ -684,12 +710,10 @@ namespace Puddle
 
         public new void Draw(SpriteBatch sb)
         {
-			// Draw the player slightly higher than he is
-			spriteY--;
+			// Draw the player
             base.Draw(sb);
-			spriteY++;
 
-			// Draw hydration
+			// Draw hydration level
             sb.Draw(
                 images["block"],
 				new Rectangle(8, 36, 16, Convert.ToInt32(maxHydration * 1.5)),
@@ -705,6 +729,25 @@ namespace Puddle
 				),
 				new Color(0, 160, 232)
             );
+
+            // Draw hydration frame (3 sided)
+            sb.Draw(
+                images["block"],
+                new Rectangle(8, 36, 1, Convert.ToInt32(maxHydration * 1.5)),
+                Color.Black
+            );
+            sb.Draw(
+                images["block"],
+                new Rectangle(23, 36, 1, Convert.ToInt32(maxHydration * 1.5)),
+                Color.Black
+            );
+            sb.Draw(
+                images["block"],
+                new Rectangle(8, 36, 16, 1),
+                Color.Black
+            );
+
+            // Draw hydration icon
 			sb.Draw(
 				images["hydration"],
 				new Rectangle(0, 12 + Convert.ToInt32(maxHydration * 1.5), 32, 32),

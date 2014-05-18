@@ -5,19 +5,19 @@
   <property name="startY" value="224"/>
  </properties>
  <tileset firstgid="1" name="pipe" tilewidth="32" tileheight="32">
-  <image source="pipe.png" width="256" height="64"/>
+  <image source="../pipe.png" width="256" height="64"/>
  </tileset>
  <tileset firstgid="17" name="bubble" tilewidth="32" tileheight="32">
-  <image source="bubble.png" width="32" height="32"/>
+  <image source="../bubble.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="18" name="background" tilewidth="32" tileheight="32">
-  <image source="background.png" width="640" height="448"/>
+  <image source="../background.png" width="640" height="448"/>
  </tileset>
  <tileset firstgid="298" name="geyser" tilewidth="32" tileheight="32">
-  <image source="geyser.png" width="128" height="128"/>
+  <image source="../geyser.png" width="128" height="128"/>
  </tileset>
  <tileset firstgid="314" name="push_block" tilewidth="32" tileheight="32">
-  <image source="push_block.png" width="128" height="32"/>
+  <image source="../push_block.png" width="128" height="32"/>
  </tileset>
  <objectgroup name="You Win!" width="22" height="22">
   <object name="Push Block" type="Puddle.Block" gid="317" x="64" y="224">

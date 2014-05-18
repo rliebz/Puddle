@@ -22,7 +22,7 @@ namespace Puddle
         {
             collisionWidth = 19;
             collisionHeight = 24;
-            this.imageFile = "Egg.png";
+            this.imageFile = "egg.png";
             speed = 4;
             health = 3;
         }

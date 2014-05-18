@@ -17,6 +17,7 @@ namespace Puddle
         public int collisionWidth, collisionHeight;
         public int frameWidth, frameHeight;
         public int frameIndex;
+        public int frameIndexY;
         public int depth;
         public bool destroyed;
         public bool faceLeft;
@@ -38,7 +39,7 @@ namespace Puddle
         protected List<string> soundFiles;
         protected Dictionary<string, SoundEffect> soundList;
 
-        public Sprite(int x, int y, int width, int height)
+		public Sprite(int x, int y, int width=32, int height=32)
         {
 			this.name = "";
             this.spriteX = x + 16;
@@ -53,6 +54,7 @@ namespace Puddle
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;
             this.frameIndex = 0;
+            this.frameIndexY = 0;
             this.isSolid = false;
 			this.displayHitBox = false;
             this.spriteColor = Color.White;
@@ -85,22 +87,22 @@ namespace Puddle
                 return 0;
         }
 
-        public int leftWall
+		public virtual int leftWall
         {
             get { return spriteX - collisionWidth / 2; }
         }
 
-        public int rightWall
+		public virtual int rightWall
         {
             get { return spriteX + collisionWidth / 2 - 1; }
         }
 
-        public int topWall
+		public virtual int topWall
         {
             get { return spriteY - collisionHeight / 2; }
         }
 
-        public int bottomWall
+		public virtual int bottomWall
         {
             get { return spriteY + collisionHeight / 2 - 1; }
         }
@@ -168,7 +170,7 @@ namespace Puddle
             sb.Draw(
                 image,
                 new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
-                new Rectangle(frameIndex, 0, frameWidth, frameHeight),
+                new Rectangle(frameIndex, frameIndexY, frameWidth, frameHeight),
                 spriteColor,
                 rotationAngle,
                 new Vector2(spriteWidth / 2, spriteHeight / 2),
