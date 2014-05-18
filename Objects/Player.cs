@@ -486,8 +486,8 @@ namespace Puddle
 					}
 
 					// Collision with right block
-					if (bottomWall != s.topWall && // Not standing on block
-						rightWall - movedX < s.leftWall && movedX > 0)
+					if (//bottomWall != s.topWall && // Not standing on block
+						rightWall - movedX < s.leftWall) // && movedX > 0)
 					{
 						// Push
 						if (s is Block && ((Block)s).rightPushable && grounded)
@@ -508,8 +508,8 @@ namespace Puddle
 					}
 
 					// Push to the left
-					else if (bottomWall != s.topWall && // Not standing on block
-						leftWall - movedX > s.rightWall && movedX < 0)
+					else if (//bottomWall != s.topWall && // Not standing on block
+						leftWall - movedX > s.rightWall) // && movedX < 0)
 					{
 						// Push
 						if (s is Block && ((Block)s).leftPushable && grounded)
