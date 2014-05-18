@@ -241,12 +241,11 @@ namespace Puddle
 			// Take the ceiling so we move every step
 			movedY = Convert.ToInt32(Math.Ceiling(y_vel));
 			spriteY += movedY;
-			if (y_vel > 1)
+			//if (y_vel > 1)
 				grounded = false;
 
-			// Check up/down collisions, then left/right
+			// Check up/down collisions
 			checkYCollisions(level);
-			checkXCollisions(level);
 
 			// Determine direction
 			if (x_vel > 0.1)
@@ -406,7 +405,8 @@ namespace Puddle
                     hydration -= jetpackCost;
 
                     // Slight upward boost
-                    spriteY -= 1;
+                    spriteY--;
+					movedY--;
 					y_vel = -4.5;
                 }
             }
@@ -422,7 +422,7 @@ namespace Puddle
                 instance.Play();
 				y_vel = -11;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-				grounded = false;
+				//grounded = false;
             }
 
             // Cut jump short on button release
@@ -499,8 +499,11 @@ namespace Puddle
 						// Hit the wall
 						else
 						{
-							while (rightWall >= s.leftWall)
-								spriteX--;
+                            while (rightWall >= s.leftWall)
+                            {
+                                spriteX--;
+                                movedX--;
+                            }
 						}
 					}
 
@@ -518,8 +521,11 @@ namespace Puddle
 						// Hit the wall
 						else
 						{
-							while (leftWall <= s.rightWall)
-								spriteX++;
+                            while (leftWall <= s.rightWall)
+                            {
+                                spriteX++;
+                                movedX++;
+                            }
 						}
 					}
 				}
@@ -554,7 +560,10 @@ namespace Puddle
 					{
 						y_vel = 0;
 						while (topWall <= s.bottomWall)
+						{
 							spriteY++;
+							movedY++;
+						}
 					}
 
 					// Down collision
@@ -563,7 +572,10 @@ namespace Puddle
 						grounded = true;
 						y_vel = 0;
 						while (bottomWall >= s.topWall)
+						{
 							spriteY--;
+							movedY--;
+						}
 
 						// Roller
 						if (s is Roller)
@@ -704,7 +716,7 @@ namespace Puddle
 			// Draw the player
             base.Draw(sb);
 
-			// Draw hydration
+			// Draw hydration level
             sb.Draw(
                 images["block"],
 				new Rectangle(8, 36, 16, Convert.ToInt32(maxHydration * 1.5)),
@@ -720,6 +732,25 @@ namespace Puddle
 				),
 				new Color(0, 160, 232)
             );
+
+            // Draw hydration frame (3 sided)
+            sb.Draw(
+                images["block"],
+                new Rectangle(8, 36, 1, Convert.ToInt32(maxHydration * 1.5)),
+                Color.Black
+            );
+            sb.Draw(
+                images["block"],
+                new Rectangle(23, 36, 1, Convert.ToInt32(maxHydration * 1.5)),
+                Color.Black
+            );
+            sb.Draw(
+                images["block"],
+                new Rectangle(8, 36, 16, 1),
+                Color.Black
+            );
+
+            // Draw hydration icon
 			sb.Draw(
 				images["hydration"],
 				new Rectangle(0, 12 + Convert.ToInt32(maxHydration * 1.5), 32, 32),

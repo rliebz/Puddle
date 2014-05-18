@@ -20,11 +20,15 @@ namespace Puddle
 		private bool lCol;
         private bool canBreak;
         private bool transparent;
+        public bool neighborsFound;
 
         public double x_vel;
 		public double y_vel;
 
         public string blockType;
+        public Color metalColor;
+        public Color tempColor;
+        public Color breakColor;
 
         private SoundEffectInstance sound;
 
@@ -45,43 +49,50 @@ namespace Puddle
 		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, bool transparent=false, bool solid=true, string name="Block 0")
             : base(x, y, 32, 32)
         {
-
             this.pushLeft = left;
             this.pushRight = right;
             this.gravity = gravity;
 			this.name = name;
             this.canBreak = canBreak;
             this.transparent = transparent;
+            metalColor = new Color(40, 50, 40);
+            tempColor = new Color(60, 20, 60);
+            breakColor = new Color(90, 130, 90);
 
+            neighborsFound = false;
 
-			this.isSolid = solid;
+			isSolid = solid;
 
-            this.rCol = false;
-            this.lCol = false;
+            rCol = false;
+            lCol = false;
             soundFiles.Add("Sounds/Slide.wav");
             soundFiles.Add("Sounds/BlockFall.wav");
 
-            this.x_vel = 0;
+            x_vel = 0;
 
-            this.blockType = "push";
+            blockType = "push";
+            spriteColor = Color.White;
 
             // Determine block image
             if (!this.gravity)
             {
                 frameIndex = 0;
                 if (this.canBreak)
-                    this.blockType = "break";
-                else
-                    this.blockType = "metal";
+                {
+                    blockType = "break";
+                    spriteColor = breakColor;
+                }
+                else if (name.Contains("Gate") || name.Contains("Invis"))
+                {
+                    blockType = "temp";
+                    spriteColor = tempColor;
+                }
+                else {
+                    blockType = "metal";
+                    spriteColor = metalColor;
+                }
             }
-            else if (right && !left)
-                frameIndex = 0;
-            else if (left && !right)
-                frameIndex = 32;
-            else if (left && right)
-                frameIndex = 64;
-            else
-                frameIndex = 96;
+
         }
 
 		public bool rightPushable
@@ -94,25 +105,17 @@ namespace Puddle
 			get{ return (blockType == "push" && pushLeft && !lCol); }
 		}
 
-        public void changeType(string newType)
+        public void setFrameIndex(Level level)
         {
-            if (newType == "transparent")
-            {
-                transparent = true;
-                return;
-            }
-            transparent = false;
-            image = images[newType];
-            this.blockType = newType;
-            if (newType == "metal")
-            {
-                gravity = false;
-                frameIndex = 0;
-            }
-            else
-            {
-                gravity = true;
 
+            if (neighborsFound)
+                return;
+
+            neighborsFound = true;
+
+            if (blockType == "push")
+            {
+                frameIndexY = 0;
                 if (pushRight && !pushLeft)
                     frameIndex = 0;
                 else if (pushLeft && !pushRight)
@@ -122,11 +125,167 @@ namespace Puddle
                 else
                     frameIndex = 96;
             }
+
+            if (blockType != "metal")
+                return;
+
+            collisionWidth += 2;
+            collisionHeight += 2;
+            bool u, d, l, r;
+            u = false;
+            d = false;
+            l = false;
+            r = false;
+
+            // Find neighboring blocks
+            foreach (Sprite item in level.items)
+            {
+                if (Intersects(item) && item is Block && 
+                    ((Block)item).blockType == "metal" && !((Block)item).transparent)
+                {
+                    // TODO: Direction changing logic
+                    if (item.spriteY == spriteY)
+                    {
+                        if (item.spriteX == spriteX + 32)
+                            r = true;
+                        else if (item.spriteX == spriteX - 32)
+                            l = true;
+                    }
+                    else if (item.spriteX == spriteX)
+                    {
+                        if (item.spriteY == spriteY + 32)
+                            d = true;
+                        else if (item.spriteY == spriteY - 32)
+                            u = true;
+                    }
+                }
+            }
+
+            // Determine facing
+            if (!u && !d && !l && !r)
+            {
+                frameIndexY = 0;
+                frameIndex = 0;
+            }
+            if (u && d && l && r)
+            {
+                frameIndexY = 0;
+                frameIndex = 32;
+            }
+            else if (u && d && !l && !r)
+            {
+                frameIndexY = 0;
+                frameIndex = 64;
+            }
+            else if (!u && !d && l && r)
+            {
+                frameIndexY = 0;
+                frameIndex = 96;
+            }
+            // End pieces
+            else if (!u && !d && !l && r)
+            {
+                frameIndexY = 32;
+                frameIndex = 0;
+            }
+            else if (!u && !d && l && !r)
+            {
+                frameIndexY = 32;
+                frameIndex = 32;
+            }
+            else if (u && !d && !l && !r)
+            {
+                frameIndexY = 32;
+                frameIndex = 64;
+            }
+            else if (!u && d && !l && !r)
+            {
+                frameIndexY = 32;
+                frameIndex = 96;
+            }
+            // Corner pieces
+            else if (!u && d && l && !r)
+            {
+                frameIndexY = 64;
+                frameIndex = 0;
+            }
+            else if (u && !d && l && !r)
+            {
+                frameIndexY = 64;
+                frameIndex = 32;
+            }
+            else if (u && !d && !l && r)
+            {
+                frameIndexY = 64;
+                frameIndex = 64;
+            }
+            else if (!u && d && !l && r)
+            {
+                frameIndexY = 64;
+                frameIndex = 96;
+            }
+            // Mostly surrounded pieces
+            else if (!u && d && l && r)
+            {
+                frameIndexY = 96;
+                frameIndex = 0;
+            }
+            else if (u && !d && l && r)
+            {
+                frameIndexY = 96;
+                frameIndex = 32;
+            }
+            else if (u && d && !l && r)
+            {
+                frameIndexY = 96;
+                frameIndex = 64;
+            }
+            else if (u && d && l && !r)
+            {
+                frameIndexY = 96;
+                frameIndex = 96;
+            }
+
+            collisionWidth -= 2;
+            collisionHeight -= 2;
+        }
+
+        public void changeType(string newType)
+        {
+            blockType = newType;
+
+            if (newType == "transparent")
+            {
+                isSolid = false;
+                transparent = true;
+                return;
+            }
+
+            isSolid = true;
+            transparent = false;
+            image = images[newType];
+            neighborsFound = false;
+            if (newType == "metal")
+            {
+                gravity = false;
+                spriteColor = metalColor;
+            }
+            else if (newType == "push")
+            {
+                gravity = true;
+                spriteColor = Color.White;
+            }
+            else if (newType == "temp")
+            {
+                gravity = false;
+                spriteColor = tempColor;
+            }
         }
 
 
         public override void Update(Level level)
         {
+            setFrameIndex(level);
             Move(level);
             CheckCollisions(level);
 
@@ -214,8 +373,9 @@ namespace Puddle
 		public override void LoadContent(ContentManager content)
         {
             images["push"] = content.Load<Texture2D>("push_block.png");
-            images["metal"] = content.Load<Texture2D>("brick.png");
-            images["break"] = content.Load<Texture2D>("break.png");
+            images["metal"] = content.Load<Texture2D>("metal_block.png");
+            images["break"] = content.Load<Texture2D>("break_block.png");
+            images["temp"] = content.Load<Texture2D>("temp_block.png");
             image = images[this.blockType];
             foreach (string file in soundFiles)
             {
@@ -232,16 +392,7 @@ namespace Puddle
         {
             if (!transparent)
             {
-                sb.Draw(
-                image,
-                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
-                new Rectangle(frameIndex, 0, 32, 32),
-                Color.White,
-                0,
-                new Vector2(16, 16),
-                SpriteEffects.None,
-                0
-                );
+                base.Draw(sb);
             }
 
         }

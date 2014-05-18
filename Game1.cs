@@ -219,11 +219,8 @@ namespace Puddle
 
 			if (paused)
 				return;
-
-
+				
             controls.Update(level);
-
-
 
             player1.Update(controls, level, this.Content, gameTime);
 
@@ -231,6 +228,7 @@ namespace Puddle
             {
 				newMapLoad = true;
 				player1.hydration = player1.maxHydration;
+				player1.lives = Player.MAX_LIVES;
             }
             level.Update(this.Content);
 

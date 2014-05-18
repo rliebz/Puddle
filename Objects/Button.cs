@@ -141,18 +141,19 @@ namespace Puddle
 				if (s.name.Contains("Block") && int.Parse(s.name.Split(' ')[1]) == number )
 				{
 					((Block)s).changeType("push");
-
+                    foreach (Sprite s2 in level.items)
+                    {
+                        if (s2 is Block)
+                            ((Block)s2).neighborsFound = false;
+                    }
 				}
 				else if (s.name.Contains("Gate") && int.Parse(s.name.Split(' ')[1]) == number )
 				{
-					s.isSolid = false;
-					//Console.WriteLine(number);
 					((Block)s).changeType("transparent");
 				}
                 else if (s.name.Contains("Invis") && int.Parse(s.name.Split(' ')[1]) == number)
                 {
-                    s.isSolid = true;
-                    ((Block)s).changeType("metal");
+                    ((Block)s).changeType("temp");
                 }
 			}
 
@@ -178,9 +179,7 @@ namespace Puddle
 				int number = int.Parse(name.Split(' ')[1]);
 				if (s.name.Contains("Gate") && int.Parse(s.name.Split(' ')[1]) == number)
 				{
-					s.isSolid = true;
-					((Block)s).changeType("metal");
-
+					((Block)s).changeType("temp");
 				}
 			}
 
