@@ -54,6 +54,7 @@ namespace Puddle
         private int powerShotPoint;
         private int powerShotRelease;
         private int tryShotHydration;
+		private int jumpHeight;
         private int jumpPoint;
         private int jumpDelay;
         private int shotDelay;
@@ -103,8 +104,9 @@ namespace Puddle
             puddleCost = 1.0;
 
             // Movement
-			speed = 5;
-            friction = .15;
+			speed = 3;
+			friction = .075;
+			jumpHeight = 10;
             x_accel = 0;
             x_vel = 0;
             y_vel = 0;
@@ -419,7 +421,7 @@ namespace Puddle
                 instance = soundList["Sounds/Jump.wav"].CreateInstance();
                 instance.Volume = 0.4f;
                 instance.Play();
-				y_vel = -11;
+				y_vel = -jumpHeight;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
 				//grounded = false;
             }
@@ -638,7 +640,7 @@ namespace Puddle
                         frameIndex += 32;
                 }
                 // Grounded, not Moving
-				else if (Math.Abs(x_vel) < .5)
+				else if (Math.Abs(x_vel) < 1)
                 {
                     // Initialize sprite. No animation.
                     if (image != images["stand"])

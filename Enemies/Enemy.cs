@@ -13,6 +13,7 @@ namespace Puddle
     {
 		public double x_vel;
 		public double y_vel;
+		public int jumpHeight;
         public int seed;
 		public int speed;
         public int health;
@@ -25,6 +26,7 @@ namespace Puddle
         {
             this.imageFile = "rat.png";
 			speed = 2;
+			jumpHeight = 7;
 			x_vel = speed;
             y_vel = 0;
             health = 3;
@@ -102,7 +104,7 @@ namespace Puddle
 
 		public virtual void Jump(Level level)
 		{
-			y_vel = -9;
+			y_vel = -jumpHeight;
 			grounded = false;
 		}
 

@@ -12,7 +12,7 @@ namespace Puddle
     class Level
     {
         public int ground = 900;
-		public double gravity = .5;
+		public double gravity = .35;
 		public int maxFallSpeed = 10;
         public int count = 0;
 
