@@ -23,24 +23,24 @@
   <image source="../fireball.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="295" name="geyser" tilewidth="32" tileheight="32">
-  <image source="../geyser.png" width="128" height="128"/>
+  <image source="../geyser.png" width="192" height="128"/>
  </tileset>
- <tileset firstgid="311" name="pipe" tilewidth="32" tileheight="32">
+ <tileset firstgid="319" name="pipe" tilewidth="32" tileheight="32">
   <image source="../pipe.png" width="256" height="64"/>
  </tileset>
- <tileset firstgid="327" name="jetpack" tilewidth="32" tileheight="32">
+ <tileset firstgid="335" name="jetpack" tilewidth="32" tileheight="32">
   <image source="../jetpack.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="328" name="cannon" tilewidth="32" tileheight="32">
+ <tileset firstgid="336" name="cannon" tilewidth="32" tileheight="32">
   <image source="../cannon.png" width="64" height="32"/>
  </tileset>
- <tileset firstgid="330" name="Bird" tilewidth="32" tileheight="32">
+ <tileset firstgid="338" name="Bird" tilewidth="32" tileheight="32">
   <image source="../bird.png" width="128" height="32"/>
  </tileset>
- <tileset firstgid="334" name="checkpoint" tilewidth="32" tileheight="32">
+ <tileset firstgid="342" name="checkpoint" tilewidth="32" tileheight="32">
   <image source="../checkpoint.png" width="256" height="32"/>
  </tileset>
- <tileset firstgid="342" name="roller" tilewidth="32" tileheight="32">
+ <tileset firstgid="350" name="roller" tilewidth="32" tileheight="32">
   <image source="../roller.png" width="128" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="22" visible="0">
@@ -1025,7 +1025,7 @@
     <property name="direction" value="left"/>
    </properties>
   </object>
-  <object name="Rat" type="Puddle.Rat" gid="330" x="320" y="128"/>
+  <object name="Rat" type="Puddle.Rat" gid="338" x="320" y="128"/>
   <object name="Breakable" type="Puddle.Block" gid="292" x="160" y="384">
    <properties>
     <property name="canBreak" value="True"/>
@@ -1060,41 +1060,40 @@
     <property name="hold" value="true"/>
    </properties>
   </object>
-  <object name="checkpoint 2" type="Puddle.Checkpoint" gid="341" x="544" y="448"/>
-  <object name="checkpoint 2" type="Puddle.Checkpoint" gid="341" x="96" y="96"/>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="128" y="256">
+  <object name="checkpoint 2" type="Puddle.Checkpoint" gid="349" x="544" y="96"/>
+  <object name="Roller" type="Puddle.Roller" gid="350" x="128" y="256">
    <properties>
     <property name="left" value="True"/>
    </properties>
   </object>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="96" y="256">
+  <object name="Roller" type="Puddle.Roller" gid="350" x="96" y="256">
    <properties>
     <property name="left" value="True"/>
    </properties>
   </object>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="160" y="256">
+  <object name="Roller" type="Puddle.Roller" gid="350" x="160" y="256">
    <properties>
     <property name="left" value="True"/>
    </properties>
   </object>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="192" y="256">
+  <object name="Roller" type="Puddle.Roller" gid="350" x="192" y="256">
    <properties>
     <property name="left" value="True"/>
    </properties>
   </object>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="512" y="320"/>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="608" y="416">
+  <object name="Roller" type="Puddle.Roller" gid="350" x="512" y="320"/>
+  <object name="Roller" type="Puddle.Roller" gid="350" x="608" y="416">
    <properties>
     <property name="left" value="True"/>
    </properties>
   </object>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="608" y="192"/>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="640" y="288">
+  <object name="Roller" type="Puddle.Roller" gid="350" x="608" y="192"/>
+  <object name="Roller" type="Puddle.Roller" gid="350" x="640" y="288">
    <properties>
     <property name="left" value="True"/>
    </properties>
   </object>
-  <object name="Roller" type="Puddle.Roller" gid="342" x="576" y="256">
+  <object name="Roller" type="Puddle.Roller" gid="350" x="576" y="256">
    <properties>
     <property name="left" value="True"/>
    </properties>
@@ -1102,7 +1101,7 @@
   <object name="Ground" type="Puddle.Block" gid="281" x="192" y="416"/>
   <object name="Ground" type="Puddle.Block" gid="281" x="192" y="480"/>
   <object name="Ground" type="Puddle.Block" gid="281" x="480" y="448"/>
-  <object name="endPipe_1" type="Puddle.Pipe" gid="319" x="64" y="480">
+  <object name="endPipe_1" type="Puddle.Pipe" gid="327" x="64" y="480">
    <properties>
     <property name="destination" value="Select"/>
     <property name="direction" value="up"/>
@@ -1277,7 +1276,7 @@
  </objectgroup>
  <objectgroup name="Pipe" width="22" height="22"/>
  <objectgroup name="Enemies" width="22" height="22">
-  <object name="Bird" type="Puddle.Bird" gid="330" x="416" y="480"/>
-  <object name="Bird" type="Puddle.Bird" gid="330" x="224" y="448"/>
+  <object name="Bird" type="Puddle.Bird" gid="338" x="416" y="480"/>
+  <object name="Bird" type="Puddle.Bird" gid="338" x="224" y="448"/>
  </objectgroup>
 </map>
