@@ -13,7 +13,7 @@ namespace Puddle
     class Player : Sprite
     {
         // Traits
-        public bool moving;
+//        public bool moving;
         public bool grounded;
         public bool puddled;
         public bool shooting;
@@ -77,7 +77,7 @@ namespace Puddle
 			worldPowerUp = null;
 
             lives = MAX_LIVES;
-            moving = false;
+//            moving = false;
             grounded = false;
             puddled = false;
             faceLeft = false;
