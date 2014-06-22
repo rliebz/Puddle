@@ -63,9 +63,6 @@ namespace Puddle
         int index;
         SoundEffectInstance instance, deathInstance;
 		public const int MAX_LIVES = 5;
-           
-
-        // TODO: Move this
 
 		public Player(int x, int y) : base(x, y)
         {

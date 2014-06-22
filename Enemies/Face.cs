@@ -56,7 +56,7 @@ namespace Puddle
 				{
 					e.health = 0;
 				}
-				level.player.newMap = "6";
+				level.player.newMap = "Win";
 			}
 
 			Animate(level);

@@ -33,7 +33,6 @@ namespace Puddle
         bool loadingMap;
         bool paused;
         bool intro;
-		string levelPath;
         string previousMap;
         float newMapTimer;
         float introScreenTimer;
@@ -177,14 +176,19 @@ namespace Puddle
 
 			if (name.Equals("Select"))
             {
-				char startPosSelect = ' ';
-				if (previousMap.Equals("Menu"))
+				// TODO: More adaptable start position handler
+				String startPosSelect = "";
+				if (previousMap.Equals("Boss"))
 				{
-					startPosSelect = '0';
+					startPosSelect = "Boss";
+				}
+				else if (Char.IsNumber(previousMap[0]))
+				{
+					startPosSelect = previousMap[0].ToString();
 				}
                 else
                 {
-					startPosSelect = previousMap[0];
+					startPosSelect = "0";
                 }
 				player1.worldPowerUp = null;
                 player1.spriteX = Convert.ToInt32(map.Properties[String.Format("startX{0}", startPosSelect)]);
@@ -273,7 +277,7 @@ namespace Puddle
 
             if (loadingMap)
             {
-				string levelDisplay = player1.newMap.Equals("6") ? "Congratulations!" :
+				string levelDisplay = player1.newMap.Equals("Win") ? "Congratulations!" :
 					String.Format("Level {0}", player1.newMap);
 
 				GraphicsDevice.Clear(Color.Black);
