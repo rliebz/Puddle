@@ -103,6 +103,8 @@ namespace Puddle
 			jetpackCost = shotCost * 2;
             puddleCost = 1.0;
 
+			displayHitBox = true;
+
             // Movement
 			speed = 3;
 			friction = .075;
@@ -156,6 +158,7 @@ namespace Puddle
         // Property determining if the character can be hurt
         public bool invulnerable
         {
+			// Or each "invulnerable" condition
 			get { return fullyPuddled; }
         }
 
@@ -164,10 +167,11 @@ namespace Puddle
 		{
 			get 
 			{
-				if (fullyPuddled)
-					return bottomWall - 4;
-				else
-					return base.topWall;
+				return puddled ? base.topWall + frameIndex / 32 * 5 : base.topWall;
+//				if (fullyPuddled)
+//					return bottomWall - 4;
+//				else
+//					return base.topWall;
 			}
 
 		}
