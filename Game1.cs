@@ -30,7 +30,7 @@ namespace Puddle
         SoundEffect song, bossSong, menuSong;
         SoundEffectInstance instance, bossInstance, menuInstance;
         Level levelSelect;
-        bool newMapLoad;
+        bool loadingMap;
         bool paused;
         bool intro;
         string previousMap;
@@ -71,7 +71,7 @@ namespace Puddle
             levelSelect = null;
             controls = new Controls();
 			pauseControls = new Controls();
-            newMapLoad = true;
+            loadingMap = true;
             newMapTimer = LOAD_SCREEN_TIME;
             introScreenTimer = INTRO_SCREEN_TIME;
 			player1.newMap = initialLevel;
@@ -112,7 +112,9 @@ namespace Puddle
         }
 
         protected void LoadMap(string name)
-        {				
+        {		
+			player1.ResetFields(true);
+
 			// Save state of levelSelect after exiting
             if (previousMap.Equals("Content/Levels/LevelSelect.tmx"))
 				levelSelect = new Level(level);
@@ -199,15 +201,13 @@ namespace Puddle
             level.items.Sort((x, y) => x.CompareTo(y));
 
             previousMap = String.Copy(player1.newMap);
-            player1.newMap = "";
+			player1.newMap = null;
 
 			// Load new content
 			foreach (Sprite item in level.items)
 				item.LoadContent(this.Content);
 			foreach (Enemy enemy in level.enemies)
 				enemy.LoadContent(this.Content);
-
-            newMapLoad = false;
         }
 
         protected override void UnloadContent()
@@ -215,6 +215,22 @@ namespace Puddle
 
         protected override void Update(GameTime gameTime)
         {
+			if (player1.newMap != null)
+				loadingMap = true;
+
+			// Do not update level while loading new map
+			if (loadingMap){
+				float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+				newMapTimer -= elapsed;
+				if (newMapTimer < 0)
+				{
+					LoadMap(player1.newMap);
+					newMapTimer = LOAD_SCREEN_TIME;
+					loadingMap = false;
+				}
+				return;
+			}
+
 			pauseControls.Update(level);
 
 			// Return to level select
@@ -244,12 +260,6 @@ namespace Puddle
 
             player1.Update(controls, level, this.Content, gameTime);
 
-            if (!player1.newMap.Equals(""))
-            {
-				newMapLoad = true;
-				player1.hydration = player1.maxHydration;
-				player1.lives = Player.MAX_LIVES;
-            }
             level.Update(this.Content);
 
             base.Update(gameTime);
@@ -260,7 +270,7 @@ namespace Puddle
 
             spriteBatch.Begin();
 
-            if (newMapLoad)
+            if (loadingMap)
             {
 
                 string[] fileName = player1.newMap.Split('.');
@@ -280,14 +290,6 @@ namespace Puddle
                 );
                 message.loadContent(Content);
                 message.draw(spriteBatch);
-
-                float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                newMapTimer -= elapsed;
-                if (newMapTimer < 0)
-                {
-					LoadMap(player1.newMap);		  //Timer expired, execute action
-                    newMapTimer = LOAD_SCREEN_TIME;   //Reset Timer
-                }
 
             }
             else

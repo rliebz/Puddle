@@ -589,18 +589,25 @@ namespace Puddle
 
         }
 
+		public void ResetFields(bool maxLives=false)
+		{
+			if (maxLives)
+				lives = MAX_LIVES;
+
+			xVel = 0;
+			yVel = 0;
+			puddled = false;
+			piped = false;
+			hydration = maxHydration;
+		}
+
         public void Death(Level level)
         {
 			// Go to checkpoint
             spriteX = checkpointXPos;
             spriteY = checkpointYPos;
 
-			// reset fields
-			xVel = 0;
-            yVel = 0;
-			puddled = false;
-			piped = false;
-            hydration = maxHydration;
+			ResetFields();
 
             deathInstance = soundList["Sounds/Death.wav"].CreateInstance();
             deathInstance.Volume = 0.8f;
@@ -611,7 +618,7 @@ namespace Puddle
 
             if (lives == 0)
             {
-                level.player.lives = Player.MAX_LIVES;
+                lives = Player.MAX_LIVES;
 				newMap = level.name;
             }
         }
