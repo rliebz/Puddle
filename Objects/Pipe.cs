@@ -75,7 +75,6 @@ namespace Puddle
 	                {
 	                    if (i is Pipe)
 	                    {
-
 	                        Pipe p = (Pipe)i;
 							if (p.name == pipeName.Insert(pipeName.Length,"2"))
 	                        {
@@ -91,7 +90,6 @@ namespace Puddle
 					{
 						if (i is Pipe)
 						{
-
 							Pipe p = (Pipe)i;
 							if (p.name == pipeName.Insert(pipeName.Length,"1"))
 							{
@@ -110,7 +108,6 @@ namespace Puddle
             level.player.spriteX = x;
 			level.player.spriteY = y - (level.player.collisionHeight + 1);
 			level.player.movedY = 0;
-
         }
 
         	

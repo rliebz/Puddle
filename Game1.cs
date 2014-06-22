@@ -182,6 +182,7 @@ namespace Puddle
                 {
 					startPosSelect = previousMap[20];
                 }
+				player1.worldPowerUp = null;
                 player1.spriteX = Convert.ToInt32(map.Properties[String.Format("startX{0}", startPosSelect)]);
                 player1.spriteY = Convert.ToInt32(map.Properties[String.Format("startY{0}", startPosSelect)]);
             }
@@ -216,8 +217,22 @@ namespace Puddle
         {
 			pauseControls.Update(level);
 
-			if (pauseControls.onPress(Keys.Escape, Buttons.Back))
-				Exit();
+			// Return to level select
+			if (pauseControls.onPress(Keys.Escape, Buttons.Back) && paused)
+			{
+				// Can only return from inside a world
+				if (level.name == "Content/Levels/LevelSelect.tmx" ||
+					level.name == "Content/Levels/LevelMenu.tmx")
+					return;
+
+				// Reset powerup from that world to prevent content skipping
+				if (player1.worldPowerUp != null)
+					player1.powerup[player1.worldPowerUp] = false;
+
+				// Go to new level
+				player1.newMap = String.Format("Content/Levels/LevelSelect.tmx");
+				paused = false;
+			}
 
 			if (pauseControls.onPress(Keys.Enter, Buttons.Start))
 				paused = !paused;

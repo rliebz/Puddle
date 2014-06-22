@@ -103,8 +103,6 @@ namespace Puddle
 			jetpackCost = shotCost * 2;
             puddleCost = 1.0;
 
-			displayHitBox = true;
-
             // Movement
 			speed = 3;
 			friction = .075;
@@ -168,10 +166,6 @@ namespace Puddle
 			get 
 			{
 				return puddled ? base.topWall + frameIndex / 32 * 5 : base.topWall;
-//				if (fullyPuddled)
-//					return bottomWall - 4;
-//				else
-//					return base.topWall;
 			}
 
 		}
@@ -244,7 +238,7 @@ namespace Puddle
 			yVel += level.gravity;
 			if (yVel > level.maxFallSpeed)
 				yVel = level.maxFallSpeed;
-			// Take the ceiling so we move every step
+			// Round up to force movement every step
 			movedY = Convert.ToInt32(Math.Ceiling(yVel));
 			spriteY += movedY;
 			grounded = false;
@@ -618,9 +612,6 @@ namespace Puddle
             if (lives == 0)
             {
                 level.player.lives = Player.MAX_LIVES;
-                level.player.worldPowerUp = null;
-				if (worldPowerUp != null)
-					powerup[worldPowerUp] = false;
 				newMap = level.name;
             }
         }
