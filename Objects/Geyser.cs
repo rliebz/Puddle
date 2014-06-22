@@ -41,7 +41,7 @@ namespace Puddle
         {
             if (Intersects(level.player))
            {
-				level.player.y_vel = speed;
+				level.player.yVel = speed;
 				level.player.grounded = false;
 
                	if (level.player.hydration < level.player.maxHydration - 2)

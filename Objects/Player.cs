@@ -40,10 +40,10 @@ namespace Puddle
 
         // Movement
         private int speed;
-        private int x_accel;
+        private int xAccel;
         private double friction;
-        public double x_vel;
-		public double y_vel;
+        public double xVel;
+		public double yVel;
 
         //Checkpoint positions, defaulted to initial
         public int checkpointXPos;
@@ -107,9 +107,9 @@ namespace Puddle
 			speed = 3;
 			friction = .075;
 			jumpHeight = 10;
-            x_accel = 0;
-            x_vel = 0;
-            y_vel = 0;
+			xAccel = 0;
+            xVel = 0;
+            yVel = 0;
 
             // Internal calculations
             shotDelay = 160;
@@ -215,19 +215,19 @@ namespace Puddle
         {
             // Sideways Acceleration
             if (controls.onPress(Keys.Right, Buttons.DPadRight))
-                x_accel += speed;
+                xAccel += speed;
             else if (controls.onRelease(Keys.Right, Buttons.DPadRight))
-                x_accel -= speed;
+                xAccel -= speed;
             if (controls.onPress(Keys.Left, Buttons.DPadLeft))
-                x_accel -= speed;
+                xAccel -= speed;
             else if (controls.onRelease(Keys.Left, Buttons.DPadLeft))
-                x_accel += speed;
+                xAccel += speed;
 
             // Sideways Movement
             double playerFriction = pushing ? (friction * 3) : friction;
-            x_vel = x_vel * (1 - playerFriction)
-                + (frozen ? 0 : x_accel * .10);
-			movedX = Convert.ToInt32(x_vel + rollerVel);
+            xVel = xVel * (1 - playerFriction)
+                + (frozen ? 0 : xAccel * .10);
+			movedX = Convert.ToInt32(xVel + rollerVel);
 			spriteX += movedX;
 
 			pushing = false;
@@ -237,11 +237,11 @@ namespace Puddle
 			checkXCollisions(level);
 
             // Gravity
-			y_vel += level.gravity;
-			if (y_vel > level.maxFallSpeed)
-				y_vel = level.maxFallSpeed;
+			yVel += level.gravity;
+			if (yVel > level.maxFallSpeed)
+				yVel = level.maxFallSpeed;
 			// Take the ceiling so we move every step
-			movedY = Convert.ToInt32(Math.Ceiling(y_vel));
+			movedY = Convert.ToInt32(Math.Ceiling(yVel));
 			spriteY += movedY;
 			grounded = false;
 
@@ -249,9 +249,9 @@ namespace Puddle
 			checkYCollisions(level);
 
 			// Determine direction
-			if (x_vel > 0.1)
+			if (xVel > 0.1)
 				faceLeft = false;
-			else if (x_vel < -0.1)
+			else if (xVel < -0.1)
 				faceLeft = true;
 				
         }
@@ -379,7 +379,7 @@ namespace Puddle
 					
                 // Jetpack (Midair jump and downward shots)
                 int currentTime2 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-                if ((currentTime2 - jumpPoint) >= jumpDelay && y_vel > 3 && powerup["jetpack"] &&
+                if ((currentTime2 - jumpPoint) >= jumpDelay && yVel > 3 && powerup["jetpack"] &&
                     hydration >= jetpackCost && !grounded && controls.isPressed(Keys.S, Buttons.A))
                 {
                     // New shot
@@ -408,7 +408,7 @@ namespace Puddle
                     // Slight upward boost
                     spriteY--;
 					movedY--;
-					y_vel = -4.5;
+					yVel = -4.5;
                 }
             }
         }
@@ -421,15 +421,15 @@ namespace Puddle
                 instance = soundList["Sounds/Jump.wav"].CreateInstance();
                 instance.Volume = 0.4f;
                 instance.Play();
-				y_vel = -jumpHeight;
+				yVel = -jumpHeight;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
 				//grounded = false;
             }
 
             // Cut jump short on button release
-            else if (controls.onRelease(Keys.S, Buttons.A) && y_vel < 0)
+            else if (controls.onRelease(Keys.S, Buttons.A) && yVel < 0)
             {
-                y_vel /= 2;
+                yVel /= 2;
             }
         }
 
@@ -557,7 +557,7 @@ namespace Puddle
 					// Up collision
 					if (topWall - movedY > s.bottomWall)
 					{
-						y_vel = 0;
+						yVel = 0;
 						while (topWall <= s.bottomWall)
 						{
 							spriteY++;
@@ -569,7 +569,7 @@ namespace Puddle
 					else if ((bottomWall - movedY) < s.topWall)
 					{
 						grounded = true;
-						y_vel = 0;
+						yVel = 0;
 						while (bottomWall >= s.topWall)
 						{
 							spriteY--;
@@ -598,8 +598,8 @@ namespace Puddle
             spriteY = checkpointYPos;
 
 			// reset fields
-			x_vel = 0;
-            y_vel = 0;
+			xVel = 0;
+            yVel = 0;
 			puddled = false;
 			piped = false;
             hydration = maxHydration;
@@ -640,7 +640,7 @@ namespace Puddle
                         frameIndex += 32;
                 }
                 // Grounded, not Moving
-				else if (Math.Abs(x_vel) < 1)
+				else if (Math.Abs(xVel) < 1)
                 {
                     // Initialize sprite. No animation.
                     if (image != images["stand"])
