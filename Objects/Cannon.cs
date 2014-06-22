@@ -32,14 +32,14 @@ namespace Puddle
             speed = obj.Properties.ContainsKey("speed") ? Int32.Parse(obj.Properties["speed"]) : 125;
         }
 
-        public override void Update(Level level, ContentManager content)
+        public override void Update(Level level)
         {
 			if (level.count % speed == 0)
             {
 				Fireball fireball = new Fireball(
 					spriteX + (faceLeft ? -63 : 31), spriteY - 16, direction
 				);
-                fireball.LoadContent(content);
+				fireball.LoadContent(level.content);
 				level.projectiles.Add((Sprite)fireball);
             }
         }

@@ -35,9 +35,9 @@ namespace Puddle
         
 		protected bool displayHitBox;
         protected string displayText;
-        protected Dictionary<string, Texture2D> images;
-        protected List<string> soundFiles;
-        protected Dictionary<string, SoundEffect> soundList;
+		public Dictionary<string, Texture2D> images;
+		public List<string> soundFiles;
+		public Dictionary<string, SoundEffect> soundList;
 
 		public Sprite(int x, int y, int width=32, int height=32)
         {
@@ -132,8 +132,8 @@ namespace Puddle
         public virtual void Update(Level level)
         { }
 
-        public virtual void Update(Level level, ContentManager content)
-        { }
+//        public virtual void Update(Level level, ContentManager content)
+//        { }
 
         public virtual void LoadContent(ContentManager content)
         {

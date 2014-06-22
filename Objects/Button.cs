@@ -68,13 +68,13 @@ namespace Puddle
             }
         }
 
-        public override void Update(Level level, ContentManager content)
+        public override void Update(Level level)
         {
-            CheckCollisions(level, content);
+            CheckCollisions(level);
             Animate(level);
         }
 			
-		public void CheckCollisions(Level level, ContentManager content)
+		public void CheckCollisions(Level level)
         {
 			// Assume unpressed for hold buttons
 			if (holdButton)
@@ -88,7 +88,7 @@ namespace Puddle
 			if (Intersects(level.player))
 			{
 				pressed = true;
-                Action(level, content);
+				Action(level);
             }
 
 			// Press if intersecting with block
@@ -97,7 +97,7 @@ namespace Puddle
 				if (Intersects(item) && item is Block && ((Block)(item)).blockType == "push")
 				{
 					pressed = true;
-                    Action(level, content);
+                    Action(level);
                 }
 
             }
@@ -107,7 +107,7 @@ namespace Puddle
 				UnAction(level);
         }
 
-        public void Action(Level level, ContentManager content)
+        public void Action(Level level)
         {
             if (activated)
                 return;
@@ -122,14 +122,14 @@ namespace Puddle
             if (name.Contains("Credits"))
             {
                 this.creditScreen = true;
-				slideImage = content.Load<Texture2D>("Slides/credits.png");
+				slideImage = level.content.Load<Texture2D>("Slides/credits.png");
                 return;
             }
             
             if (name.Contains("Controls"))
             {
                 this.controlScreen = true;
-				slideImage = content.Load<Texture2D>("Slides/pause0.png");
+				slideImage = level.content.Load<Texture2D>("Slides/pause0.png");
                 return;
             }
 

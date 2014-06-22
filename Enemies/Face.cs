@@ -39,14 +39,14 @@ namespace Puddle
 			seed = rnd.Next(0, 3);
 		}
 
-		public override void Update(Level level, ContentManager content)
+		public override void Update(Level level)
         {
             // Move
             Move(level);
 
 			// Shoot maybe
 			if (level.count % 30 == 0)
-				Shoot(level, content);
+				Shoot(level);
 
             // Be killed if necessary
 			if (health <= 0)
@@ -63,12 +63,12 @@ namespace Puddle
         }
 			
 		// Shoot 4 fireballs in all directions
-		public void Shoot(Level level, ContentManager content)
+		public void Shoot(Level level)
 		{
 
 
 			Fireball fireball = new Fireball(spriteX - 16, spriteY + 48, "down");
-			fireball.LoadContent(content);
+			fireball.LoadContent(level.content);
 			level.projectiles.Add((Sprite)fireball);
 
 		}

@@ -40,7 +40,7 @@ namespace Puddle
 			seed = rnd.Next(0, 3);
 		}
 
-		public override void Update(Level level, ContentManager content)
+		public override void Update(Level level)
         {
             // Move
 			Move(level);

@@ -12,6 +12,7 @@ namespace Puddle
             //(p.spriteX - 8, p.spriteY - 8, 48, 48)
         {
 			imageFile = "charged.png";
+			image = p.images["charged"];
 			collisionWidth = 18;
 			collisionHeight = 18;
             damage = 3;

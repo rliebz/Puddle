@@ -35,7 +35,7 @@ namespace Puddle
 			frameIndex = (seed % 3) * 32;
 		}
 
-		public override void Update(Level level, ContentManager content)
+		public override void Update(Level level)
         {
             // Move
             Move(level);
@@ -43,7 +43,7 @@ namespace Puddle
 			// Shoot maybe
 			if ((level.count + seed) % 200 == 0)
 			{
-				Shoot(level, content);
+				Shoot(level);
 			}
 				
 			// Animate sprite
@@ -55,11 +55,11 @@ namespace Puddle
         }
 			
 		// Shoot an Egg downward
-		public void Shoot(Level level, ContentManager content)
+		public void Shoot(Level level)
 		{
 
 			Egg egg = new Egg(spriteX - 10, spriteY);
-			egg.LoadContent(content);
+			egg.LoadContent(level.content);
 			level.projectiles.Add((Sprite)egg);
 
 		}

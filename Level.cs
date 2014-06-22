@@ -25,8 +25,9 @@ namespace Puddle
         public string name;
         public int enterLives;
         public Dictionary<string, bool> enterPowerUps;
+		public ContentManager content;
 
-        public Level(Player p, string levelName)
+		public Level(Player p, string levelName, ContentManager c)
         {
             player = p;
             enterPowerUps = new Dictionary<string, bool>(p.powerup);
@@ -34,9 +35,10 @@ namespace Puddle
             enemies = new List<Enemy>();
 			projectiles = new List<Sprite>();
             items = new List<Sprite>();
-			message = "";
+			message = null;
 			message_point = 0;
             name = levelName;
+			content = c;
         }
 
         public Level(Level l)
@@ -50,30 +52,25 @@ namespace Puddle
             message = l.message;
             message_point = l.message_point;
             name = l.name;
+			content = l.content;
         }
 
-        public void Update(ContentManager content) 
+        public void Update() 
         {
 			count++;
 
-			if (message != "" && (count - message_point) >= 400)
-				message = "";
+			if (String.IsNullOrEmpty(message) && (count - message_point) >= 400)
+				message = null;
 
             // Move shots
 			foreach (Sprite s in projectiles)
 				s.Update(this);
 
 			foreach (Enemy e in enemies)
-			{
 				e.Update(this);
-				e.Update(this, content);
-			}
 
 			foreach (Sprite s in items)
-			{
 				s.Update(this);
-				s.Update(this, content);
-			}
 
             // DESTROY
             enemies.RemoveAll(enemy => enemy.destroyed);

@@ -68,7 +68,7 @@ namespace Puddle
 				Convert.ToInt32(map.Properties["startX"]), 
 				Convert.ToInt32(map.Properties["startY"])
 			);
-            level = new Level(player1, "menu");
+			level = new Level(player1, "menu", this.Content);
             levelSelect = null;
             controls = new Controls();
 			pauseControls = new Controls();
@@ -157,7 +157,7 @@ namespace Puddle
             }
             else
             {
-                level = new Level(player1, name);
+				level = new Level(player1, name, this.Content);
 
                 // Create all objects from tmx and place them in level
                 foreach (TmxObjectGroup group in map.ObjectGroups)
@@ -263,9 +263,9 @@ namespace Puddle
 				
             controls.Update(level);
 
-            player1.Update(controls, level, this.Content, gameTime);
+            player1.Update(controls, level, gameTime);
 
-            level.Update(this.Content);
+            level.Update();
 
             base.Update(gameTime);
         }
@@ -346,7 +346,7 @@ namespace Puddle
                 }
 
 				// Display picked up messages
-				if (!level.message.Equals(""))
+				if (!String.IsNullOrEmpty(level.message))
 				{
 					TextField message = new TextField(
 						level.message, 

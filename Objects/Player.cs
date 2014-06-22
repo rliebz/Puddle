@@ -13,7 +13,6 @@ namespace Puddle
     class Player : Sprite
     {
         // Traits
-//        public bool moving;
         public bool grounded;
         public bool puddled;
         public bool shooting;
@@ -37,7 +36,6 @@ namespace Puddle
         private double puddleCost;
         private double hydrationRegen;
 
-
         // Movement
         private int speed;
         private int xAccel;
@@ -45,7 +43,7 @@ namespace Puddle
         public double xVel;
 		public double yVel;
 
-        //Checkpoint positions, defaulted to initial
+		// Checkpoint positions, defaulted to initial
         public int checkpointXPos;
         public int checkpointYPos;
 
@@ -77,7 +75,6 @@ namespace Puddle
 			worldPowerUp = null;
 
             lives = MAX_LIVES;
-//            moving = false;
             grounded = false;
             puddled = false;
             faceLeft = false;
@@ -183,8 +180,7 @@ namespace Puddle
 			}
 		}
 
-        public void Update(Controls controls, Level level, 
-            ContentManager content, GameTime gameTime)
+        public void Update(Controls controls, Level level, GameTime gameTime)
         {
 			pauseScreen = String.Format("Slides/pause{0}", numPowers);
 				
@@ -195,7 +191,7 @@ namespace Puddle
 
             Puddle(controls);
 
-            Shoot(controls, level, content ,gameTime);
+			Shoot(controls, level, gameTime);
 
             Jump(controls, level, gameTime);
 
@@ -271,7 +267,7 @@ namespace Puddle
             }
         }
 
-        private void Shoot(Controls controls, Level level, ContentManager content, GameTime gameTime)
+        private void Shoot(Controls controls, Level level, GameTime gameTime)
         {
             index = rand.Next(4);
             // New shots
@@ -328,7 +324,6 @@ namespace Puddle
                         {
                             soundList["Sounds/Shot4.wav"].Play();
                         }
-                        s.LoadContent(content);
                         level.projectiles.Add(s);
                     }
                     else
@@ -367,7 +362,6 @@ namespace Puddle
                     {
                         soundList["Sounds/Shot4.wav"].Play();
                     }
-                    s.LoadContent(content);
                     level.projectiles.Add(s);
                     hydration -= shotCost;
                 }
@@ -396,7 +390,6 @@ namespace Puddle
                     {
                         soundList["Sounds/Shot4.wav"].Play();
                     }
-                    s.LoadContent(content);
                     level.projectiles.Add(s);
                     hydration -= jetpackCost;
 
@@ -418,7 +411,6 @@ namespace Puddle
                 instance.Play();
 				yVel = -jumpHeight;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
-				//grounded = false;
             }
 
             // Cut jump short on button release
@@ -455,8 +447,6 @@ namespace Puddle
                     powerup.Volume = 0.3f;
                     powerup.Play();
                 }
-
-
             }
         }
 
@@ -691,14 +681,20 @@ namespace Puddle
         public new void LoadContent(ContentManager content)
         {
 			blankImage = content.Load<Texture2D>("blank.png");
+
+			// Player character sprites
             images["stand"] = content.Load<Texture2D>("PC/stand.png");
             images["jump"] = content.Load<Texture2D>("PC/jump.png");
             images["walk"] = content.Load<Texture2D>("PC/walk.png");
-            images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
-            images["block"] = content.Load<Texture2D>("blank.png");
+			images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
+			image = images["stand"];
+
+			// Misc. sprites
 			images["hydration"] = content.Load<Texture2D>("puddle.png");
 			images["heart"] = content.Load<Texture2D>("heart.png");
-            image = images["stand"];
+			images["bubble"] = content.Load<Texture2D>("bubble.png");
+			images["charged"] = content.Load<Texture2D>("charged.png");
+
             foreach (string file in soundFiles)
             {
                 if (!soundList.ContainsKey(file))
@@ -716,12 +712,12 @@ namespace Puddle
 
 			// Draw hydration level
             sb.Draw(
-                images["block"],
+                blankImage,
 				new Rectangle(8, 36, 16, Convert.ToInt32(maxHydration * 1.5)),
                 Color.Navy
             );
             sb.Draw(
-                images["block"],
+                blankImage,
 				new Rectangle(
 					8, 
 					36 + Convert.ToInt32(maxHydration * 1.5) - Convert.ToInt32(hydration * 1.5), 
@@ -733,17 +729,17 @@ namespace Puddle
 
             // Draw hydration frame (3 sided)
             sb.Draw(
-                images["block"],
+                blankImage,
                 new Rectangle(8, 36, 1, Convert.ToInt32(maxHydration * 1.5)),
                 Color.Black
             );
             sb.Draw(
-                images["block"],
+                blankImage,
                 new Rectangle(23, 36, 1, Convert.ToInt32(maxHydration * 1.5)),
                 Color.Black
             );
             sb.Draw(
-                images["block"],
+                blankImage,
                 new Rectangle(8, 36, 16, 1),
                 Color.Black
             );
