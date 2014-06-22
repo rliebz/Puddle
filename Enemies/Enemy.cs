@@ -11,13 +11,13 @@ namespace Puddle
 {
 	abstract class Enemy : Sprite
     {
-		public double x_vel;
-		public double y_vel;
+		public double xVel;
+		public double yVel;
 		public int jumpHeight;
         public int seed;
 		public int speed;
         public int health;
-		public int hurt_point;
+		public int hurtPoint;
 		public bool grounded;
 		protected Random rnd;
 
@@ -27,11 +27,11 @@ namespace Puddle
             this.imageFile = "rat.png";
 			speed = 2;
 			jumpHeight = 7;
-			x_vel = speed;
-            y_vel = 0;
+			xVel = speed;
+            yVel = 0;
             health = 3;
 			grounded = false;
-			hurt_point = 0;
+			hurtPoint = 0;
 
             // Sprite business
             rnd = new Random();
@@ -42,7 +42,7 @@ namespace Puddle
         {
 
 			// Move horizontally
-			spriteX += Convert.ToInt32(x_vel);
+			spriteX += Convert.ToInt32(xVel);
 
 			foreach (Sprite s in level.items)
 			{
@@ -50,10 +50,10 @@ namespace Puddle
 				{
 					// Collide with block on side, turn around
 					if (bottomWall > s.topWall &&
-						(rightWall - Convert.ToInt32(x_vel) < s.leftWall && x_vel > 0 ||
-							leftWall - Convert.ToInt32(x_vel) > s.rightWall && x_vel < 0))
+						(rightWall - Convert.ToInt32(xVel) < s.leftWall && xVel > 0 ||
+							leftWall - Convert.ToInt32(xVel) > s.rightWall && xVel < 0))
 					{
-						x_vel = - x_vel;
+						xVel = - xVel;
 						faceLeft = !faceLeft;
 					}
 				}
@@ -65,14 +65,14 @@ namespace Puddle
 			// Fall if airborne
 			if (!grounded)
 			{
-				y_vel += level.gravity;
-				if (y_vel > level.maxFallSpeed)
-					y_vel = level.maxFallSpeed;
-				spriteY += Convert.ToInt32(y_vel);
+				yVel += level.gravity;
+				if (yVel > level.maxFallSpeed)
+					yVel = level.maxFallSpeed;
+				spriteY += Convert.ToInt32(yVel);
 			}
 			else
 			{
-				y_vel = 1;
+				yVel = 1;
 			}
 
 			grounded = false;
@@ -83,16 +83,16 @@ namespace Puddle
 				if (s.isSolid && Intersects(s))
 				{
 					// Up collision
-					if (topWall - Convert.ToInt32(y_vel) > s.bottomWall)
+					if (topWall - Convert.ToInt32(yVel) > s.bottomWall)
 					{
-						y_vel = 0;
+						yVel = 0;
 						while (topWall < s.bottomWall)
 							spriteY++;
 					}
 
 					// Down collision
 					else if (!grounded &&
-						(bottomWall - Convert.ToInt32(y_vel)) < s.topWall)
+						(bottomWall - Convert.ToInt32(yVel)) < s.topWall)
 					{
 						grounded = true;
 						while (bottomWall > s.topWall)
@@ -104,13 +104,13 @@ namespace Puddle
 
 		public virtual void Jump(Level level)
 		{
-			y_vel = -jumpHeight;
+			yVel = -jumpHeight;
 			grounded = false;
 		}
 
 		public virtual void Animate(Level level)
         {
-			if ((level.count - hurt_point) > 2)
+			if ((level.count - hurtPoint) > 2)
 				spriteColor = Color.White;
         }
 

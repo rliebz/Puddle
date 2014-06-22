@@ -122,7 +122,7 @@ namespace Puddle
             checkpointYPos = y;
 
             // Sprite Information
-            frameIndex = 0;
+            frameIndexX = 0;
 
             //Sounds
             soundFiles.Add("Sounds/Jump.wav");
@@ -144,7 +144,7 @@ namespace Puddle
 		// Property determining if the character is fully puddle
 		public bool fullyPuddled
 		{
-			get { return (puddled && frameIndex == 5 * 32); }
+			get { return (puddled && frameIndexX == 5 * 32); }
 		}
 
         // Property determining if the character can be hurt
@@ -159,7 +159,7 @@ namespace Puddle
 		{
 			get 
 			{
-				return puddled ? base.topWall + frameIndex / 32 * 5 : base.topWall;
+				return puddled ? base.topWall + frameIndexX / 32 * 5 : base.topWall;
 			}
 
 		}
@@ -622,11 +622,11 @@ namespace Puddle
                     if (image != images["jump"])
                     {
                         image = images["jump"];
-                        frameIndex = 0;
+                        frameIndexX = 0;
                     }
                     // Animate
-					else if (frameIndex < 2 * 32 && level.count % 6 == 0)
-                        frameIndex += 32;
+					else if (frameIndexX < 2 * 32 && level.count % 6 == 0)
+                        frameIndexX += 32;
                 }
                 // Grounded, not Moving
 				else if (Math.Abs(xVel) < 1)
@@ -635,7 +635,7 @@ namespace Puddle
                     if (image != images["stand"])
                     {
                         image = images["stand"];
-                        frameIndex = 0;
+                        frameIndexX = 0;
                     }
                 }
                 // Grounded, yes moving
@@ -646,7 +646,7 @@ namespace Puddle
                         image = images["walk"];
                     // Animate
                     //frameIndex = (level.count / 8 % 4) * 32;
-                    frameIndex = ((int)(gameTime.TotalGameTime.TotalMilliseconds)/128 % 4)*32;
+                    frameIndexX = ((int)(gameTime.TotalGameTime.TotalMilliseconds)/128 % 4)*32;
                 }
             }
 
@@ -657,19 +657,19 @@ namespace Puddle
                 if (image != images["puddle"])
                 {
                     image = images["puddle"];
-                    frameIndex = 0;
+                    frameIndexX = 0;
                 }
                 // Animate downward if puddling
                 else if (controls.isPressed(Keys.Down, Buttons.DPadDown))
                 {
-                    if (frameIndex < 5 * 32)
-                        frameIndex += 32;
+                    if (frameIndexX < 5 * 32)
+                        frameIndexX += 32;
                 }
                 // Animate upward if unpuddling
                 else
                 {
-                    frameIndex -= 32;
-					if (frameIndex <= 0)
+                    frameIndexX -= 32;
+					if (frameIndexX <= 0)
 					{
 						puddled = false;
 						piped = false;

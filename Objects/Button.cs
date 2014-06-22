@@ -189,14 +189,14 @@ namespace Puddle
 		{
 			if (pressed)
 			{
-				if (frameIndex < (32 * 6))
+				if (frameIndexX < (32 * 6))
 				{
-					frameIndex += 32;
+					frameIndexX += 32;
 				}
 			}
-			else if (frameIndex > 0)
+			else if (frameIndexX > 0)
 			{
-				frameIndex -= 32;
+				frameIndexX -= 32;
 			}
 		}
 

@@ -22,8 +22,8 @@ namespace Puddle
 		{
 			this.imageFile = "rat.png";
 			speed = 2;
-			x_vel = speed;
-			y_vel = 0;
+			xVel = speed;
+			yVel = 0;
 			health = 3;
 
 			// Sprite business
@@ -52,7 +52,7 @@ namespace Puddle
 
 		public override void Animate(Level level)
         {
-            frameIndex = ((level.count + seed) / 8 % 4) * 32;
+            frameIndexX = ((level.count + seed) / 8 % 4) * 32;
 			base.Animate(level);
         }
 

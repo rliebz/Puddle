@@ -76,7 +76,7 @@ namespace Puddle
             // Determine block image
             if (!this.gravity)
             {
-                frameIndex = 0;
+                frameIndexX = 0;
                 if (this.canBreak)
                 {
                     blockType = "break";
@@ -117,13 +117,13 @@ namespace Puddle
             {
                 frameIndexY = 0;
                 if (pushRight && !pushLeft)
-                    frameIndex = 0;
+                    frameIndexX = 0;
                 else if (pushLeft && !pushRight)
-                    frameIndex = 32;
+                    frameIndexX = 32;
                 else if (pushLeft && pushRight)
-                    frameIndex = 64;
+                    frameIndexX = 64;
                 else
-                    frameIndex = 96;
+                    frameIndexX = 96;
             }
 
             if (blockType != "metal")
@@ -165,85 +165,85 @@ namespace Puddle
             if (!u && !d && !l && !r)
             {
                 frameIndexY = 0;
-                frameIndex = 0;
+                frameIndexX = 0;
             }
             if (u && d && l && r)
             {
                 frameIndexY = 0;
-                frameIndex = 32;
+                frameIndexX = 32;
             }
             else if (u && d && !l && !r)
             {
                 frameIndexY = 0;
-                frameIndex = 64;
+                frameIndexX = 64;
             }
             else if (!u && !d && l && r)
             {
                 frameIndexY = 0;
-                frameIndex = 96;
+                frameIndexX = 96;
             }
             // End pieces
             else if (!u && !d && !l && r)
             {
                 frameIndexY = 32;
-                frameIndex = 0;
+                frameIndexX = 0;
             }
             else if (!u && !d && l && !r)
             {
                 frameIndexY = 32;
-                frameIndex = 32;
+                frameIndexX = 32;
             }
             else if (u && !d && !l && !r)
             {
                 frameIndexY = 32;
-                frameIndex = 64;
+                frameIndexX = 64;
             }
             else if (!u && d && !l && !r)
             {
                 frameIndexY = 32;
-                frameIndex = 96;
+                frameIndexX = 96;
             }
             // Corner pieces
             else if (!u && d && l && !r)
             {
                 frameIndexY = 64;
-                frameIndex = 0;
+                frameIndexX = 0;
             }
             else if (u && !d && l && !r)
             {
                 frameIndexY = 64;
-                frameIndex = 32;
+                frameIndexX = 32;
             }
             else if (u && !d && !l && r)
             {
                 frameIndexY = 64;
-                frameIndex = 64;
+                frameIndexX = 64;
             }
             else if (!u && d && !l && r)
             {
                 frameIndexY = 64;
-                frameIndex = 96;
+                frameIndexX = 96;
             }
             // Mostly surrounded pieces
             else if (!u && d && l && r)
             {
                 frameIndexY = 96;
-                frameIndex = 0;
+                frameIndexX = 0;
             }
             else if (u && !d && l && r)
             {
                 frameIndexY = 96;
-                frameIndex = 32;
+                frameIndexX = 32;
             }
             else if (u && d && !l && r)
             {
                 frameIndexY = 96;
-                frameIndex = 64;
+                frameIndexX = 64;
             }
             else if (u && d && l && !r)
             {
                 frameIndexY = 96;
-                frameIndex = 96;
+                frameIndexX = 96;
             }
 
             collisionWidth -= 2;

@@ -25,14 +25,14 @@ namespace Puddle
 			imageFile = "bird.png";
 			collisionHeight = 20;
 			speed = 3;
-			x_vel = speed;
-			y_vel = 0;
+			xVel = speed;
+			yVel = 0;
 			health = 3;
 			flapUp = true;
 
 			// Unsynchronize birds
 			seed = (spriteY * 7 + spriteX * 13 + rnd.Next(101)) % 200;
-			frameIndex = (seed % 3) * 32;
+			frameIndexX = (seed % 3) * 32;
 		}
 
 		public override void Update(Level level)
@@ -74,13 +74,13 @@ namespace Puddle
 			if (flapUp)
 			{
 
-				if (frameIndex < (32 * 3))
+				if (frameIndexX < (32 * 3))
 				{
-					frameIndex += 32;
+					frameIndexX += 32;
 				}
 				else
 				{
-					frameIndex -= 32;
+					frameIndexX -= 32;
 					flapUp = false;
 				}
 			}
@@ -88,13 +88,13 @@ namespace Puddle
 			// Wings go backward
 			else
 			{
-				if (frameIndex > 0)
+				if (frameIndexX > 0)
 				{
-					frameIndex -= 32;
+					frameIndexX -= 32;
 				}
 				else
 				{
-					frameIndex += 32;
+					frameIndexX += 32;
 					flapUp = true;
 				}
 			}

@@ -32,8 +32,8 @@ namespace Puddle
 			frameHeight = 64;
 			this.imageFile = "Hand.png";
 			speed = 1;
-			x_vel = faceLeft ? 0 : speed;
-			y_vel = faceLeft ? speed : 0;
+			xVel = faceLeft ? 0 : speed;
+			yVel = faceLeft ? speed : 0;
 			health = 15;
 
 			// Sprite business
@@ -55,20 +55,20 @@ namespace Puddle
 		{
 			if (level.count % 80 == 0)
 			{
-				if (x_vel != 0)
+				if (xVel != 0)
 				{
-					y_vel = x_vel;
-					x_vel = 0;
+					yVel = xVel;
+					xVel = 0;
 				}
 				else
 				{
-					x_vel = -y_vel;
-					y_vel = 0;
+					xVel = -yVel;
+					yVel = 0;
 				}
 			}
 
-			spriteX += Convert.ToInt32(x_vel);
-			spriteY += Convert.ToInt32(y_vel);
+			spriteX += Convert.ToInt32(xVel);
+			spriteY += Convert.ToInt32(yVel);
 		}
 
 		public override void LoadContent(ContentManager content)

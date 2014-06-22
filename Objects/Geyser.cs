@@ -52,7 +52,7 @@ namespace Puddle
             {
                 if (Intersects(e))
                 {
-					e.y_vel = speed;
+					e.yVel = speed;
                     e.grounded = false;
                 }
             }
@@ -60,7 +60,7 @@ namespace Puddle
 
         public void Animate(Level level)
         {
-            frameIndex = ((level.count + seed) / 4) % 6 * frameWidth;
+            frameIndexX = ((level.count + seed) / 4) % 6 * frameWidth;
         }
 
         public override void Update(Level level)

@@ -29,8 +29,8 @@ namespace Puddle
 			frameHeight = 96;
 			this.imageFile = "Face.png";
 			speed = 2;
-			x_vel = speed;
-			y_vel = 0;
+			xVel = speed;
+			yVel = 0;
 
 			maxHealth = 30;
 			health = 30;
@@ -92,7 +92,7 @@ namespace Puddle
 
         public override void Animate(Level level)
         {
-            frameIndex = ((level.count + seed) / 8 % 4) * frameWidth;
+            frameIndexX = ((level.count + seed) / 8 % 4) * frameWidth;
             base.Animate(level);
         }
 

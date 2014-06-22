@@ -36,27 +36,27 @@ namespace Puddle
 
 			if (this.direction == "up")
             {
-				frameIndex = 0;
+				frameIndexX = 0;
 				displayTextX = -5;
 				displayTextY = -5;			
             }
 			else if (this.direction == "left")
 			{
-				frameIndex = 0;
+				frameIndexX = 0;
 				rotationAngle = MathHelper.PiOver2 * 3;
 				displayTextX = 3;
 				displayTextY = -11;
 			}
 			else if (this.direction == "right")
 			{
-				frameIndex = 0;
+				frameIndexX = 0;
 				rotationAngle = MathHelper.PiOver2;
 				displayTextX = -9;
 				displayTextY = -11;
 			}
 			else if (this.direction == "down")
             {
-				frameIndex = 32;				               
+				frameIndexX = 32;				               
             }
 
         }

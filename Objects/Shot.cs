@@ -13,7 +13,7 @@ namespace Puddle
     {
         public string dir;
         public int speed;
-        public int x_vel;
+        public int xVel;
         public int damage;
 
         public Shot(Player p, string dir = "none")
@@ -27,7 +27,7 @@ namespace Puddle
             collisionHeight = 12;
             speed = 6;
             damage = 1;
-            x_vel = Convert.ToInt32(p.xVel * .5 + speed * (p.faceLeft ? -1 : 1));
+            xVel = Convert.ToInt32(p.xVel * .5 + speed * (p.faceLeft ? -1 : 1));
         }
 
         public override void Update(Level level)
@@ -47,7 +47,7 @@ namespace Puddle
                     destroyed = true;
                     e.health -= damage;
 					e.spriteColor = Color.Red;
-					e.hurt_point = level.count;
+					e.hurtPoint = level.count;
                 }
             }
 
@@ -71,7 +71,7 @@ namespace Puddle
                 spriteY -= speed;
             }
             else
-                spriteX += x_vel;
+                spriteX += xVel;
 
         }
     }

@@ -39,7 +39,7 @@ namespace Puddle
 
         public void Animate(Level level)
         {
-			frameIndex = ((level.count) / 4 % 8) * 32;
+			frameIndexX = ((level.count) / 4 % 8) * 32;
         }
 
     }

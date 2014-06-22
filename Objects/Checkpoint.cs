@@ -36,9 +36,9 @@ namespace Puddle
 
         public void Animate(Level level)
         {
-            if (activated && frameIndex < (32 * 7) && (level.count % 2) == 0)
+            if (activated && frameIndexX < (32 * 7) && (level.count % 2) == 0)
             {
-                frameIndex += 32;
+                frameIndexX += 32;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Puddle
                     {
                         Checkpoint c = (Checkpoint)s;
                         c.activated = false;
-                        c.frameIndex = 0;
+                        c.frameIndexX = 0;
                     }
                 }
                 activated = true;
