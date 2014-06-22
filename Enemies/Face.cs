@@ -56,7 +56,7 @@ namespace Puddle
 				{
 					e.health = 0;
 				}
-				level.player.newMap = "Content/Levels/Level6.tmx";
+				level.player.newMap = "6";
 			}
 
 			Animate(level);

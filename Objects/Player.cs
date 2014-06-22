@@ -354,7 +354,7 @@ namespace Puddle
                     shotPoint = currentTime1;
                     string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
                     Shot s = new Shot(this, dir);
-                    if(index==0) 
+					if (index == 0) 
                     {
                         soundList["Sounds/Shot1.wav"].Play();
                     }
@@ -470,12 +470,12 @@ namespace Puddle
 				if (s.isSolid && Intersects(s))
 				{
 					// Pipe
-					if (s is Pipe && ((Pipe)s).direction != "up" && !piped)
+					if (s is Pipe && !((Pipe)s).direction.Equals("up") && !piped)
 					{
 						Pipe p = (Pipe)s;
 						if(p.name.Contains("endPipe"))
 						{
-							newMap = String.Format("Content/Levels/Level{0}.tmx", p.destination);
+							newMap = p.destination;
 						}
 						else
 						{
@@ -543,7 +543,7 @@ namespace Puddle
 						Pipe p = (Pipe)s;
 						if(p.name.Contains("endPipe"))
 						{
-							newMap = String.Format("Content/Levels/Level{0}.tmx", p.destination);
+							newMap = p.destination;
 						}
 						else
 						{
@@ -613,7 +613,7 @@ namespace Puddle
             deathInstance.Volume = 0.8f;
             deathInstance.Play();
 
-			if(!level.name.Equals("Content/Levels/LevelSelect.tmx"))
+			if(!level.name.Equals("Select"))
 				lives--;
 
             if (lives == 0)

@@ -33,10 +33,12 @@ namespace Puddle
         bool loadingMap;
         bool paused;
         bool intro;
+		string levelPath;
         string previousMap;
         float newMapTimer;
         float introScreenTimer;
         int slideCount;
+		const string LEVEL_PATH = "Content/Levels/Level{0}.tmx";
 		const float LOAD_SCREEN_TIME = 1.5f;
         const float INTRO_SCREEN_TIME = 3.0f;
 
@@ -49,8 +51,8 @@ namespace Puddle
 
         protected override void Initialize()
         {
-			string initialLevel = String.Format("Content/Levels/LevelMenu.tmx");
-            map = new TmxMap(initialLevel);
+			string initialLevel = "Menu";
+			map = new TmxMap(String.Format(LEVEL_PATH, initialLevel));
 
             // Read Level Size From Map
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
@@ -116,26 +118,26 @@ namespace Puddle
 			player1.ResetFields(true);
 
 			// Save state of levelSelect after exiting
-            if (previousMap.Equals("Content/Levels/LevelSelect.tmx"))
+			if (previousMap.Equals("Select"))
 				levelSelect = new Level(level);
-
+						
 			// Load map and background
-            map = new TmxMap(name);
+			map = new TmxMap(String.Format(LEVEL_PATH, name));
 			graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
 			graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 			background = Content.Load<Texture2D>("background.png");
 
 			// Decide if we're on the intro
-			intro = name.Equals("Content/Levels/LevelMenu.tmx");
+			intro = name.Equals("Menu");
 
 			// Choose music
-            if (intro || name.Equals("Content/Levels/LevelSelect.tmx"))
+			if (intro || name.Equals("Select"))
             {
                 instance.Stop();
                 bossInstance.Stop();
                 menuInstance.Play();
             }
-			else if (name.Equals("Content/Levels/LevelBoss.tmx"))
+			else if (name.Equals("Boss"))
             {
                 instance.Stop();
                 menuInstance.Stop();
@@ -150,7 +152,7 @@ namespace Puddle
 
 
 			// Create new level object
-			if (name.Equals("Content/Levels/LevelSelect.tmx") && levelSelect != null)
+			if (name.Equals("Select") && levelSelect != null)
             {
                 level = levelSelect;
             }
@@ -173,16 +175,16 @@ namespace Puddle
                 }
             }
 
-            if (name.Equals("Content/Levels/LevelSelect.tmx"))
+			if (name.Equals("Select"))
             {
 				char startPosSelect = ' ';
-                if (previousMap.Equals("Content/Levels/LevelMenu.tmx"))
+				if (previousMap.Equals("Menu"))
 				{
 					startPosSelect = '0';
 				}
                 else
                 {
-					startPosSelect = previousMap[20];
+					startPosSelect = previousMap[0];
                 }
 				player1.worldPowerUp = null;
                 player1.spriteX = Convert.ToInt32(map.Properties[String.Format("startX{0}", startPosSelect)]);
@@ -237,8 +239,7 @@ namespace Puddle
 			if (pauseControls.onPress(Keys.Escape, Buttons.Back) && paused)
 			{
 				// Can only return from inside a world
-				if (level.name == "Content/Levels/LevelSelect.tmx" ||
-					level.name == "Content/Levels/LevelMenu.tmx")
+				if (level.name.Equals("Select") || level.name.Equals("Menu"))
 					return;
 
 				// Reset powerup from that world to prevent content skipping
@@ -246,7 +247,7 @@ namespace Puddle
 					player1.powerup[player1.worldPowerUp] = false;
 
 				// Go to new level
-				player1.newMap = String.Format("Content/Levels/LevelSelect.tmx");
+				player1.newMap = "Select";
 				paused = false;
 			}
 
@@ -272,16 +273,12 @@ namespace Puddle
 
             if (loadingMap)
             {
-
-                string[] fileName = player1.newMap.Split('.');
-				string levelNumber = fileName[0].Remove(0, 20);
-				string levelName = levelNumber == "Boss" ? "Boss" : 
-					levelNumber == "6" ? "Congratulations!" : 
-					String.Format("Level {0}", levelNumber);
+				string levelDisplay = player1.newMap.Equals("6") ? "Congratulations!" :
+					String.Format("Level {0}", player1.newMap);
 
 				GraphicsDevice.Clear(Color.Black);
                 TextField message = new TextField(
-                    levelName, 
+					levelDisplay, 
                     new Vector2(
 						(graphics.PreferredBackBufferWidth / 2) - 50, 
 						(graphics.PreferredBackBufferHeight / 2) - 50
@@ -345,7 +342,7 @@ namespace Puddle
                 }
 
 				// Display picked up messages
-				if (level.message != "")
+				if (!level.message.Equals(""))
 				{
 					TextField message = new TextField(
 						level.message, 
