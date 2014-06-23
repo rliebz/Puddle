@@ -38,6 +38,17 @@ namespace Puddle
             seed = rnd.Next(0, 3);
         }
 
+		public virtual void Update(Level level)
+		{
+
+			// Be killed if necessary
+			if (health <= 0)
+			{
+				destroyed = true;
+				level.items.Add(new Dying(this));
+			}
+		}
+
 		public virtual void Move(Level level)
         {
 

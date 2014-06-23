@@ -41,6 +41,8 @@ namespace Puddle
 
 		public override void Update(Level level)
         {
+			base.Update(level);
+
             // Move
             Move(level);
 
@@ -48,29 +50,21 @@ namespace Puddle
 			if (level.count % 30 == 0)
 				Shoot(level);
 
-            // Be killed if necessary
-			if (health <= 0)
-			{
-				destroyed = true;
-				foreach (Enemy e in level.enemies)
-				{
-					e.health = 0;
-				}
-				level.player.newMap = "Win";
-			}
-
 			Animate(level);
+
+			if (destroyed)
+			{
+				foreach (Enemy e in level.enemies)
+					e.health = 0;
+			}
         }
 			
 		// Shoot 4 fireballs in all directions
 		public void Shoot(Level level)
 		{
-
-
 			Fireball fireball = new Fireball(spriteX - 16, spriteY + 48, "down");
 			fireball.LoadContent(level.content);
 			level.projectiles.Add((Sprite)fireball);
-
 		}
 
 		public override void Draw(SpriteBatch sb)

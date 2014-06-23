@@ -37,21 +37,17 @@ namespace Puddle
 
 		public override void Update(Level level)
         {
+			base.Update(level);
+
             // Move
             Move(level);
 
 			// Shoot maybe
 			if ((level.count + seed) % 200 == 0)
-			{
 				Shoot(level);
-			}
 				
 			// Animate sprite
 			Animate(level);
-
-            // Be killed if necessary
-			if (health <= 0)
-				destroyed = true;
         }
 			
 		// Shoot an Egg downward

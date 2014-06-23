@@ -26,7 +26,7 @@ namespace Puddle
 		public string name;
         public float rotationAngle;
         public Color spriteColor;
-        protected Texture2D image;
+		public Texture2D image;
 		public Texture2D blankImage;
         protected TextField displayMessage;
         protected int displayTextX;

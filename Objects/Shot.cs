@@ -45,6 +45,7 @@ namespace Puddle
                 if (Intersects(e))
                 {
                     destroyed = true;
+					// TODO: Move enemy logic to enemy class
                     e.health -= damage;
 					e.spriteColor = Color.Red;
 					e.hurtPoint = level.count;
