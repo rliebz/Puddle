@@ -42,12 +42,9 @@ namespace Puddle
 
 		public override void Update(Level level)
         {
-            // Move
-			Move(level);
-	
-            // Be killed if necessary
-            destroyed = (health <= 0);
+			base.Update(level);
 
+			Move(level);
 			Animate(level);
         }
 			
