@@ -26,6 +26,7 @@ namespace Puddle
 			frameHeight = e.frameHeight;
 			collisionWidth = e.collisionWidth;
 			collisionHeight = e.collisionHeight;
+			faceLeft = e.faceLeft;
 
 			yVel = -8;
 		}
