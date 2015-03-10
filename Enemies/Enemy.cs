@@ -24,7 +24,7 @@ namespace Puddle
         public Enemy(int x, int y)
             : base(x, y, 32, 32)
         {
-            this.imageFile = "rat.png";
+            this.imageFile = "Enemies/rat.png";
 			speed = 2;
 			jumpHeight = 7;
 			xVel = speed;
@@ -38,7 +38,7 @@ namespace Puddle
             seed = rnd.Next(0, 3);
         }
 
-		public virtual void Update(Level level)
+		public override void Update(Level level)
 		{
 
 			// Be killed if necessary

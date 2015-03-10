@@ -22,7 +22,7 @@ namespace Puddle
 		public Bird(int x, int y)
 			: base(x, y)
 		{
-			imageFile = "bird.png";
+			imageFile = "Enemies/bird.png";
 			collisionHeight = 20;
 			speed = 3;
 			xVel = speed;

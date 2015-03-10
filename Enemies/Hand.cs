@@ -30,7 +30,7 @@ namespace Puddle
 			spriteHeight = 64;
 			frameWidth = 64;
 			frameHeight = 64;
-			this.imageFile = "Hand.png";
+			this.imageFile = "Enemies/hand.png";
 			speed = 1;
 			xVel = faceLeft ? 0 : speed;
 			yVel = faceLeft ? speed : 0;

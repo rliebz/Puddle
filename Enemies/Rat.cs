@@ -20,7 +20,7 @@ namespace Puddle
 		public Rat(int x, int y)
 			: base(x, y)
 		{
-			this.imageFile = "rat.png";
+			this.imageFile = "Enemies/rat.png";
 			speed = 2;
 			xVel = speed;
 			yVel = 0;
