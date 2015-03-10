@@ -35,7 +35,7 @@
   <image source="../cannon.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="338" name="Bird" tilewidth="32" tileheight="32">
-  <image source="../bird.png" width="128" height="32"/>
+  <image source="../Enemies/bird.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="342" name="checkpoint" tilewidth="32" tileheight="32">
   <image source="../checkpoint.png" width="256" height="32"/>

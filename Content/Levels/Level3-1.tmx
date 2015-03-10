@@ -32,7 +32,7 @@
   <image source="../geyser.png" width="192" height="128"/>
  </tileset>
  <tileset firstgid="338" name="rat" tilewidth="32" tileheight="32">
-  <image source="../rat.png" width="128" height="32"/>
+  <image source="../Enemies/rat.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="342" name="checkpoint" tilewidth="32" tileheight="32">
   <image source="../checkpoint.png" width="256" height="32"/>

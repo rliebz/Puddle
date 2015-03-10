@@ -32,19 +32,19 @@
   <image source="../geyser.png" width="128" height="128"/>
  </tileset>
  <tileset firstgid="338" name="rat" tilewidth="32" tileheight="32">
-  <image source="../rat.png" width="128" height="32"/>
+  <image source="../Enemies/rat.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="342" name="checkpoint" tilewidth="32" tileheight="32">
   <image source="../checkpoint.png" width="256" height="32"/>
  </tileset>
  <tileset firstgid="350" name="Bird" tilewidth="32" tileheight="32">
-  <image source="../bird.png" width="128" height="32"/>
+  <image source="../Enemies/bird.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="354" name="Egg" tilewidth="32" tileheight="32">
   <image source="../egg.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="355" name="spikeball" tilewidth="32" tileheight="32">
-  <image source="../spikeball.png" width="32" height="32"/>
+  <image source="../Enemies/spikeball.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="356" name="roller" tilewidth="32" tileheight="32">
   <image source="../roller.png" width="128" height="32"/>

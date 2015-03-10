@@ -27,7 +27,7 @@
  </tileset>
  <tileset firstgid="312" name="SpikeBall" tilewidth="32" tileheight="32">
   <tileoffset x="0" y="32"/>
-  <image source="../spikeball.png" width="32" height="32"/>
+  <image source="../Enemies/spikeball.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="313" name="roller" tilewidth="32" tileheight="32">
   <image source="../roller.png" width="128" height="32"/>
@@ -36,10 +36,10 @@
   <image source="../checkpoint.png" width="256" height="32"/>
  </tileset>
  <tileset firstgid="325" name="Bird" tilewidth="32" tileheight="32">
-  <image source="../bird.png" width="128" height="32"/>
+  <image source="../Enemies/bird.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="329" name="rat" tilewidth="32" tileheight="32">
-  <image source="../rat.png" width="128" height="32"/>
+  <image source="../Enemies/rat.png" width="128" height="32"/>
  </tileset>
  <tileset firstgid="333" name="cannon" tilewidth="32" tileheight="32">
   <image source="../cannon.png" width="64" height="32"/>

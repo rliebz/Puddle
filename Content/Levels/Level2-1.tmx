@@ -32,7 +32,7 @@
   <image source="../cannon.png" width="64" height="32"/>
  </tileset>
  <tileset firstgid="338" name="rat" tilewidth="32" tileheight="32">
-  <image source="../rat.png" width="128" height="32"/>
+  <image source="../Enemies/rat.png" width="128" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="22" visible="0">
   <data>

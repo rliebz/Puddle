@@ -29,19 +29,19 @@
   <image source="../roller.png" trans="ff00ff" width="128" height="32"/>
  </tileset>
  <tileset firstgid="330" name="spikeball" tilewidth="32" tileheight="32">
-  <image source="../spikeball.png" trans="ff00ff" width="32" height="32"/>
+  <image source="../Enemies/spikeball.png" trans="ff00ff" width="32" height="32"/>
  </tileset>
  <tileset firstgid="331" name="pipe" tilewidth="32" tileheight="32">
   <image source="../pipe.png" trans="ff00ff" width="256" height="64"/>
  </tileset>
  <tileset firstgid="347" name="rat" tilewidth="32" tileheight="32">
-  <image source="../rat.png" trans="ff00ff" width="128" height="32"/>
+  <image source="../Enemies/rat.png" trans="ff00ff" width="128" height="32"/>
  </tileset>
  <tileset firstgid="351" name="cannon" tilewidth="32" tileheight="32">
   <image source="../cannon.png" trans="ff00ff" width="64" height="32"/>
  </tileset>
  <tileset firstgid="353" name="Bird" tilewidth="32" tileheight="32">
-  <image source="../bird.png" trans="ff00ff" width="128" height="32"/>
+  <image source="../Enemies/bird.png" trans="ff00ff" width="128" height="32"/>
  </tileset>
  <layer name="Background" width="22" height="22">
   <data encoding="base64" compression="zlib">
