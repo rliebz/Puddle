@@ -46,7 +46,7 @@ namespace Puddle
 		{ }
 
 		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, bool transparent=false, bool solid=true, string name="Block 0")
-            : base(x, y, 32, 32)
+            : base(x, y)
         {
             this.pushLeft = left;
             this.pushRight = right;
@@ -128,8 +128,8 @@ namespace Puddle
             if (blockType != "metal")
                 return;
 
-            collisionWidth += 2;
-            collisionHeight += 2;
+            baseCollisionWidth += 0.0625;
+            baseCollisionHeight += 0.0625;
             bool u, d, l, r;
             u = false;
             d = false;
@@ -245,8 +245,8 @@ namespace Puddle
                 frameIndexX = 96;
             }
 
-            collisionWidth -= 2;
-            collisionHeight -= 2;
+            baseCollisionWidth -= 0.0625;
+            baseCollisionHeight -= 0.0625;
         }
 
         public void changeType(string newType)

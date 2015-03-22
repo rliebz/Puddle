@@ -13,8 +13,8 @@ namespace Puddle
         {
 			imageFile = "charged.png";
 			image = p.images["charged"];
-			collisionWidth = 18;
-			collisionHeight = 18;
+			baseCollisionWidth = 0.5625;
+			baseCollisionHeight = 0.5625;
             damage = 3;
         }
 

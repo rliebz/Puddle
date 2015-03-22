@@ -82,8 +82,8 @@ namespace Puddle
 			rollerVel = 0;
 			movedX = 0;
 			movedY = 0;
-			collisionWidth = 18;
-			collisionHeight = 30;
+			baseCollisionWidth = 0.5625;
+			baseCollisionHeight = 0.9375;
 			piped = false;
             powerShotCharging = false;
 
@@ -709,19 +709,30 @@ namespace Puddle
 			// Draw the player
             base.Draw(sb);
 
+            int hydrationBorderSize = tileSize / 16;
+            int hydrationLeft = tileSize * 3 / 2 ;
+            int hydrationTop = tileSize * 5 / 4 + hydrationBorderSize;
+            int hydrationWidth = tileSize * 4;
+            int hydrationHeight = tileSize / 2;
+
 			// Draw hydration level
             sb.Draw(
                 blankImage,
-				new Rectangle(8, 36, 16, Convert.ToInt32(maxHydration * 1.5)),
+				new Rectangle(
+                    hydrationLeft,
+                    hydrationTop,
+                    hydrationWidth,
+                    hydrationHeight
+                ),
                 Color.Navy
             );
             sb.Draw(
                 blankImage,
 				new Rectangle(
-					8, 
-					36 + Convert.ToInt32(maxHydration * 1.5) - Convert.ToInt32(hydration * 1.5), 
-					16, 
-					Convert.ToInt32(hydration * 1.5)
+                    hydrationLeft,
+                    hydrationTop,
+                    Convert.ToInt32(hydrationWidth * hydration / maxHydration),
+                    hydrationHeight
 				),
 				new Color(0, 160, 232)
             );
@@ -729,24 +740,39 @@ namespace Puddle
             // Draw hydration frame (3 sided)
             sb.Draw(
                 blankImage,
-                new Rectangle(8, 36, 1, Convert.ToInt32(maxHydration * 1.5)),
+                new Rectangle(
+                    hydrationLeft + hydrationWidth - hydrationBorderSize,
+                    hydrationTop,
+                    hydrationBorderSize,
+                    hydrationHeight
+                ),
                 Color.Black
             );
             sb.Draw(
                 blankImage,
-                new Rectangle(23, 36, 1, Convert.ToInt32(maxHydration * 1.5)),
+                new Rectangle(
+                    hydrationLeft,
+                    hydrationTop,
+                    hydrationWidth,
+                    hydrationBorderSize
+                ),
                 Color.Black
             );
             sb.Draw(
                 blankImage,
-                new Rectangle(8, 36, 16, 1),
+                new Rectangle(
+                    hydrationLeft,
+                    hydrationTop + hydrationHeight - hydrationBorderSize,
+                    hydrationWidth,
+                    hydrationBorderSize
+                ),
                 Color.Black
             );
 
             // Draw hydration icon
 			sb.Draw(
 				images["hydration"],
-				new Rectangle(0, 12 + Convert.ToInt32(maxHydration * 1.5), 32, 32),
+				new Rectangle(tileSize, tileSize, tileSize, tileSize),
 				Color.White);
 
             //Draw lives
@@ -754,7 +780,12 @@ namespace Puddle
 			{
 				sb.Draw(
 					images["heart"],
-					new Rectangle(32 + 32 * i, 0, 32, 32),
+					new Rectangle(
+                        tileSize + tileSize * i,
+                        0,
+                        tileSize,
+                        tileSize
+                    ),
 					Color.White
 				);
 			}

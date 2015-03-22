@@ -20,12 +20,12 @@ namespace Puddle
 		public Face(int x, int y)
 			: base(x, y)
 		{
-			collisionWidth = 96;
-			collisionHeight = 96;
-			spriteWidth = 96;
-			spriteHeight = 96;
-			frameWidth = 96;
-			frameHeight = 96;
+			baseCollisionWidth = 3;
+			baseCollisionHeight = 3;
+			baseWidth = 3;
+			baseHeight = 3;
+			frameWidth = 3 * spriteSize;
+			frameHeight = 3 * spriteSize;
 			this.imageFile = "Enemies/face.png";
 			speed = 2;
 			xVel = speed;
@@ -73,12 +73,22 @@ namespace Puddle
 			// Draw boss health bar
 			sb.Draw(
 				blankImage,
-				new Rectangle(32 * 6 + 12, 32 * 21 + 8, maxHealth * 10, 16),
+				new Rectangle(
+                    tileSize * 6 + tileSize / 2, 
+                    tileSize * 21 + tileSize / 4, 
+                    tileSize * 9, 
+                    tileSize / 2
+                ),
 				new Color(60, 22, 22)
 			);
 			sb.Draw(
 				blankImage,
-				new Rectangle(32 * 6 + 12, 32 * 21 + 8,  health * 10, 16),
+				new Rectangle(
+                    tileSize * 13 / 2 + tileSize / 2, 
+                    tileSize * 21 + tileSize / 4, 
+                    tileSize * 9 * health / maxHealth, 
+                    tileSize / 2
+                ),
 				Color.Firebrick
 			);
 		}

@@ -16,14 +16,14 @@ namespace Puddle
 
         //TODO: add in function passing for individual button actions
         public Cannon(TmxObjectGroup.TmxObject obj) :
-            base(obj.X + 16, obj.Y, 32, 32)
+            base(obj.X + spriteSize / 2, obj.Y)
         {
             this.imageFile = "cannon.png";
             this.name = obj.Name;
 			isSolid = true;
             frameWidth = 64;
-            spriteWidth = 64;
-            collisionWidth = 64;
+            baseWidth = 2;
+            baseCollisionWidth = 2;
             faceLeft = false;
 			direction = obj.Properties["direction"];
 			if (direction == "left")

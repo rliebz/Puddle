@@ -15,7 +15,7 @@ namespace Puddle
 		public Type type;
 
 		public Dying(Enemy e)
-			: base(e.spriteX, e.spriteY, e.spriteWidth, e.spriteHeight)
+			: base(e.spriteX, e.spriteY, e.baseWidth, e.baseHeight)
 		{
 			type = e.GetType();
 
@@ -23,8 +23,8 @@ namespace Puddle
 			image = e.image;
 			frameWidth = e.frameWidth;
 			frameHeight = e.frameHeight;
-			collisionWidth = e.collisionWidth;
-			collisionHeight = e.collisionHeight;
+			baseCollisionWidth = e.baseCollisionWidth;
+			baseCollisionHeight = e.baseCollisionHeight;
 			faceLeft = e.faceLeft;
 
 			yVel = -8;

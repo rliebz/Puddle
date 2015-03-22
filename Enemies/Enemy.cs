@@ -21,7 +21,7 @@ namespace Puddle
 		protected Random rnd;
 
         public Enemy(int x, int y)
-            : base(x, y, 32, 32)
+            : base(x, y)
         {
             this.imageFile = "Enemies/rat.png";
 			speed = 2;

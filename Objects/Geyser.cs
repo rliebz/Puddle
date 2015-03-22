@@ -11,24 +11,23 @@ namespace Puddle
 {
     class Geyser : Sprite
     {
-
         
         public int seed;
 		public int speed;
 
         //TODO: add in function passing for individual button actions
         public Geyser(TmxObjectGroup.TmxObject obj) :
-		base(obj.X, obj.Y - 16, 32, 32)
+		base(obj.X, obj.Y - spriteSize / 2)
         {
             this.imageFile = "geyser.png";
        
             name = obj.Name;
 			speed = -5;
 
-            frameHeight = 128;
-            spriteHeight = 128;
+            frameHeight = 4 * spriteSize;
+            baseHeight = 4;
             
-            collisionHeight = 112;
+            baseCollisionHeight = 3.5;
 
             Random rnd = new Random();
             seed = rnd.Next(64); // For animation

@@ -11,9 +11,13 @@ namespace Puddle
 {
     abstract class Sprite
     {
+        public static int spriteSize = 32;
+        public static int tileSize = 32;
+        public static SpriteFont font;
+
         public int spriteX, spriteY;
-        public int spriteWidth, spriteHeight;
-        public int collisionWidth, collisionHeight;
+        public double baseWidth, baseHeight;
+        public double baseCollisionWidth, baseCollisionHeight;
         public int frameWidth, frameHeight;
         public int frameIndexX;
         public int frameIndexY;
@@ -27,7 +31,6 @@ namespace Puddle
         public Color spriteColor;
 		public Texture2D image;
 		public Texture2D blankImage;
-        protected TextField displayMessage;
         protected int displayTextX;
         protected int displayTextY;
         protected Color displayTextColor;
@@ -38,17 +41,17 @@ namespace Puddle
 		public List<string> soundFiles;
 		public Dictionary<string, SoundEffect> soundList;
 
-		public Sprite(int x, int y, int width=32, int height=32)
+		public Sprite(int x, int y, double width=1, double height=1)
         {
 			this.name = "";
-			this.spriteX = x + 16; // TODO: x + width / 2
-			this.spriteY = y + 16; // TODO: y + height / 2
-            this.spriteWidth = width;
-            this.spriteHeight = height;
+            this.spriteX = x + spriteSize / 2; // TODO: x + spriteWidth / 2
+			this.spriteY = y + spriteSize / 2; // TODO: y + spriteHeight / 2
+            this.baseWidth = width;
+            this.baseHeight = height;
+            this.baseCollisionWidth = width;
+            this.baseCollisionHeight = height;
             this.frameWidth = 32;
             this.frameHeight = 32;
-            this.collisionWidth = width;
-            this.collisionHeight = height;
             this.imageFile = "blank.png";
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;
@@ -69,12 +72,30 @@ namespace Puddle
         }
 
         // Properties
+        public int spriteWidth
+        { get { return (int)(this.baseWidth * spriteSize); } }
+
+        public int spriteHeight
+        { get { return (int)(this.baseHeight * spriteSize); } }
+
+        public int displayWidth
+        { get { return (int)(this.baseWidth * tileSize); } }
+
+        public int displayHeight
+        { get { return (int)(this.baseHeight * tileSize); } }
+
+        public int collisionWidth
+        { get { return (int)(this.baseCollisionWidth * spriteSize); } }
+
+        public int collisionHeight
+        { get { return (int)(this.baseCollisionHeight * spriteSize); } }
+
         public bool offScreen
         {
 			get 
 			{ 
-				return (rightWall < 0 || leftWall > 32 * 22 || 
-						bottomWall < 0 || topWall > 32 * 22); 
+				return (rightWall < 0 || leftWall > spriteSize * 22 || 
+						bottomWall < 0 || topWall > spriteSize * 22); 
 			}
         }
 
@@ -137,15 +158,6 @@ namespace Puddle
         {
 			blankImage = content.Load<Texture2D>("blank.png");
             image = content.Load<Texture2D>(imageFile);
-            if (displayText != "")
-            {
-                displayMessage = new TextField(
-                    displayText,
-					new Vector2(spriteX + displayTextX, spriteY + displayTextY),
-                    displayTextColor
-                );
-                displayMessage.loadContent(content);
-            }
             foreach (string file in soundFiles)
             {
                 if (!soundList.ContainsKey(file))
@@ -162,7 +174,12 @@ namespace Puddle
 			{
 				sb.Draw(
 					blankImage,
-					new Rectangle(leftWall, topWall, rightWall - leftWall, bottomWall - topWall),
+					new Rectangle(
+                        leftWall * tileSize / spriteSize, 
+                        topWall * tileSize / spriteSize,
+                        (rightWall - leftWall) * tileSize / spriteSize,
+                        (bottomWall - topWall) * tileSize / spriteSize
+                    ),
 					Color.Navy
 				);
 			}
@@ -170,7 +187,12 @@ namespace Puddle
 
             sb.Draw(
                 image,
-                new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight),
+                new Rectangle(
+                    spriteX * tileSize / spriteSize, 
+                    spriteY * tileSize / spriteSize, 
+                    displayWidth, 
+                    displayHeight
+                ),
                 new Rectangle(frameIndexX, frameIndexY, frameWidth, frameHeight),
                 spriteColor,
                 rotationAngle,
@@ -180,7 +202,20 @@ namespace Puddle
             );
             if (displayText != "")
             {
-                displayMessage.draw(sb);
+                sb.DrawString(
+                    font,
+                    displayText,
+                    new Vector2(
+                        (spriteX + displayTextX) * tileSize / spriteSize,
+                        (spriteY + displayTextY) * tileSize / spriteSize
+                    ),
+                    displayTextColor,
+                    0f,
+                    font.MeasureString(displayText) * 0.5f,
+                    (float)Sprite.tileSize / Sprite.spriteSize,
+                    SpriteEffects.None,
+                    0
+                );
             }
         }
 

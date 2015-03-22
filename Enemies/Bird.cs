@@ -22,7 +22,7 @@ namespace Puddle
 			: base(x, y)
 		{
 			imageFile = "Enemies/bird.png";
-			collisionHeight = 20;
+			baseCollisionHeight = 0.625;
 			speed = 3;
 			xVel = speed;
 			yVel = 0;

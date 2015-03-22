@@ -39,6 +39,8 @@ namespace Puddle
 		const string LEVEL_PATH = "Content/Levels/Level{0}.tmx";
 		const float LOAD_SCREEN_TIME = 1.5f;
         const float INTRO_SCREEN_TIME = 3.0f;
+        const int GAME_BASE_WIDTH = 22;
+        const int GAME_BASE_HEIGHT = 22;
 
         public Game1()
             : base()
@@ -52,9 +54,12 @@ namespace Puddle
 			string initialLevel = "Menu";
 			map = new TmxMap(String.Format(LEVEL_PATH, initialLevel));
 
-            // Read Level Size From Map
+            // Handle window sizing
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
+            SetTileSize();
+            this.Window.AllowUserResizing = true;
+            this.Window.ClientSizeChanged += new EventHandler<EventArgs>(WindowSizeChangeEvent);
 
             paused = false;
             intro = false;
@@ -97,6 +102,34 @@ namespace Puddle
             base.Initialize();            
         }
 
+        protected void SetTileSize()
+        {
+            Sprite.tileSize = Math.Min(
+                graphics.PreferredBackBufferWidth / map.Width,
+                graphics.PreferredBackBufferHeight / map.Height
+            );
+        }
+
+        protected void WindowSizeChange()
+        {
+            graphics.PreferredBackBufferWidth = Math.Max(
+                Window.ClientBounds.Width,
+                Sprite.spriteSize * GAME_BASE_WIDTH
+            );
+            graphics.PreferredBackBufferHeight = Math.Max(
+                Window.ClientBounds.Height,
+                Sprite.spriteSize * GAME_BASE_HEIGHT
+            );
+            graphics.ApplyChanges();
+
+            SetTileSize();
+        }
+
+        protected void WindowSizeChangeEvent(object sender, EventArgs e)
+        {
+            WindowSizeChange();
+        }
+
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -107,7 +140,9 @@ namespace Puddle
             foreach (Sprite item in level.items)
                 item.LoadContent(this.Content);
 			foreach (Enemy enemy in level.enemies)
-				enemy.LoadContent(this.Content);      
+				enemy.LoadContent(this.Content);
+
+            Sprite.font = Content.Load<SpriteFont>("Arial");
             
         }
 
@@ -121,8 +156,6 @@ namespace Puddle
 						
 			// Load map and background
 			map = new TmxMap(String.Format(LEVEL_PATH, name));
-			graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
-			graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
 			background = Content.Load<Texture2D>("background.png");
 
 			// Decide if we're on the intro
@@ -282,16 +315,20 @@ namespace Puddle
 					String.Format("Level {0}", player1.newMap);
 
 				GraphicsDevice.Clear(Color.Black);
-                TextField message = new TextField(
-					levelDisplay, 
+                spriteBatch.DrawString(
+                    Sprite.font,
+                    levelDisplay,
                     new Vector2(
-						(graphics.PreferredBackBufferWidth / 2) - 50, 
-						(graphics.PreferredBackBufferHeight / 2) - 50
-					),
-                    Color.White
+                        (graphics.PreferredBackBufferWidth / 2),
+                        (graphics.PreferredBackBufferHeight / 2)
+                    ),
+                    Color.White,
+                    0f,
+                    Sprite.font.MeasureString(levelDisplay) * 0.5f,
+                    (float)Sprite.tileSize / Sprite.spriteSize,
+                    SpriteEffects.None,
+                    0
                 );
-                message.loadContent(Content);
-                message.draw(spriteBatch);
 
             }
             else
@@ -301,8 +338,8 @@ namespace Puddle
                     background,
                     new Rectangle(
                         0, 0,
-                        graphics.PreferredBackBufferWidth,
-                        graphics.PreferredBackBufferHeight
+                        GAME_BASE_WIDTH * Sprite.tileSize,
+                        GAME_BASE_HEIGHT * Sprite.tileSize
                     ),
                     Color.White
                 );
@@ -314,11 +351,7 @@ namespace Puddle
                     introScreenTimer -= elapsed;
                     spriteBatch.Draw(
                         introImage,
-                        new Rectangle(
-                        0, 0,
-                        720,
-                        540
-                        ),
+                        new Rectangle(0, 0, 21 * Sprite.tileSize, 17 * Sprite.tileSize),
                         Color.White
                     );
                     if(introScreenTimer < 0 && slideCount != 5)
@@ -335,13 +368,8 @@ namespace Puddle
 				if (paused && !intro)
                 {
                     spriteBatch.Draw(
-
 						pauseScreens[player1.numPowers],
-                        new Rectangle(
-                        0, graphics.PreferredBackBufferHeight/2 - 270,
-                        720,
-                        540
-                        ),
+                        new Rectangle(0, 0, 21 * Sprite.tileSize, 17 * Sprite.tileSize),
 						Color.White
                     );
                 }
@@ -349,14 +377,20 @@ namespace Puddle
 				// Display picked up messages
 				if (!String.IsNullOrEmpty(level.message))
 				{
-					TextField message = new TextField(
-						level.message, 
-						new Vector2(16, (graphics.PreferredBackBufferHeight ) - 28),
-						Color.White
-					);
-
-					message.loadContent(Content);
-					message.draw(spriteBatch);
+                    spriteBatch.DrawString(
+                        Sprite.font,
+                        level.message,
+                        new Vector2(
+                            graphics.PreferredBackBufferWidth / 2, 
+                            graphics.PreferredBackBufferHeight - 28
+                        ),
+                        Color.White,
+                        0f,
+                        Sprite.font.MeasureString(level.message) * 0.5f,
+                        (float)Sprite.tileSize / Sprite.spriteSize,
+                        SpriteEffects.None,
+                        0
+                    );
 				}
             }
             spriteBatch.End();

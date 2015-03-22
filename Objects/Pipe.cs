@@ -16,14 +16,12 @@ namespace Puddle
         public string destination;
 
         public Pipe(TmxObjectGroup.TmxObject obj) :
-            base(obj.X, obj.Y, 32, 32)
+            base(obj.X, obj.Y)
         {
             imageFile = "pipe.png";
 			isSolid = true;
 
             name = obj.Name;
-            collisionWidth = 32;
-			collisionHeight = 32;
 			this.direction = obj.Properties.ContainsKey ("direction") ?
 				(obj.Properties ["direction"]) : "up";
 
@@ -36,22 +34,22 @@ namespace Puddle
 			if (this.direction == "up")
             {
 				frameIndexX = 0;
-				displayTextX = -5;
-				displayTextY = -5;			
+				displayTextY = 7;
             }
 			else if (this.direction == "left")
 			{
 				frameIndexX = 0;
 				rotationAngle = MathHelper.PiOver2 * 3;
-				displayTextX = 3;
-				displayTextY = -11;
+				displayTextX = 7;
+				displayTextY = 1;
 			}
+            // TODO: These next two are probably incorrect
 			else if (this.direction == "right")
 			{
 				frameIndexX = 0;
 				rotationAngle = MathHelper.PiOver2;
-				displayTextX = -9;
-				displayTextY = -11;
+                displayTextX = 7;
+                displayTextY = 1;
 			}
 			else if (this.direction == "down")
             {

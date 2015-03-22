@@ -23,12 +23,12 @@ namespace Puddle
 		{
 			depth = 1;
 			faceLeft = left;
-			collisionWidth = 50;
-			collisionHeight = 64;
-			spriteWidth = 64;
-			spriteHeight = 64;
-			frameWidth = 64;
-			frameHeight = 64;
+			baseCollisionWidth = 0.78125;
+			baseCollisionHeight = 2;
+			baseWidth = 2;
+            baseHeight = 2;
+			frameWidth = 2 * spriteSize;
+			frameHeight = 2 * spriteSize;
 			this.imageFile = "Enemies/hand.png";
 			speed = 1;
 			xVel = faceLeft ? 0 : speed;

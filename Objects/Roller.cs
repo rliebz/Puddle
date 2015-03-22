@@ -15,7 +15,7 @@ namespace Puddle
 		public double speed;
 
         public Roller(TmxObjectGroup.TmxObject obj) :
-            base(obj.X, obj.Y, 32, 32)
+            base(obj.X, obj.Y)
         {
             imageFile = "roller_new.png";
 			name = obj.Name;
@@ -24,7 +24,7 @@ namespace Puddle
 
             isSolid = true;
 
-            collisionHeight = 8;
+            baseCollisionHeight = 0.25;
             spriteY += 12;
 			speed = faceLeft ? -2 : 2;
         }

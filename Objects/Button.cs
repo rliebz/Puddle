@@ -20,12 +20,11 @@ namespace Puddle
 
         // TODO: add in function passing for individual button actions
         public Button(TmxObjectGroup.TmxObject obj) :
-            base(obj.X, obj.Y, 32, 32)
+            base(obj.X, obj.Y)
         {
             imageFile = "button.png";
             holdButton = obj.Properties.ContainsKey("hold") && Boolean.Parse(obj.Properties["hold"]);
             displayText = obj.Properties.ContainsKey("text") ? obj.Properties["text"] : "";
-			displayTextX = -35;
 			displayTextY = -40;
 		    spriteColor = holdButton ? Color.CornflowerBlue : Color.OrangeRed;
 
@@ -37,8 +36,8 @@ namespace Puddle
             soundFiles.Add("Sounds/HoldButtonPress.wav");
             soundFiles.Add("Sounds/HoldButtonRel.wav");
             name = obj.Name;
-			collisionWidth = 20;
-            collisionHeight = 30;
+			baseCollisionWidth = 0.625;
+            baseCollisionHeight = 0.9375;
             depth = -1;
 
             if (obj.Properties["direction"].Equals("left"))
@@ -55,15 +54,15 @@ namespace Puddle
             {
                 rotationAngle = MathHelper.PiOver2 * 3;
                 spriteY -= 9;
-                collisionHeight = 24;
-                collisionWidth = 30;
+                baseCollisionWidth = 0.9375;
+                baseCollisionHeight = 0.75;
             }
             else
             {
                 rotationAngle = MathHelper.PiOver2;
                 spriteY += 9;
-                collisionHeight = 24;
-                collisionWidth = 30;
+                baseCollisionWidth = 0.9375;
+                baseCollisionHeight = 0.75;
             }
         }
 
@@ -205,11 +204,7 @@ namespace Puddle
             {
                 sb.Draw(
                     slideImage,
-                    new Rectangle(
-                    0, 0,
-                    720,
-                    540
-                    ),
+                    new Rectangle(0, 0, 21 * tileSize, 17 * tileSize),
                     Color.White
                 );
             }

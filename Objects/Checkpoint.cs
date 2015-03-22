@@ -17,7 +17,7 @@ namespace Puddle
         private SoundEffectInstance instance;
 
         public Checkpoint(TmxObjectGroup.TmxObject obj) :
-            base(obj.X, obj.Y, 32, 32)
+            base(obj.X, obj.Y)
         {
             imageFile = "checkpoint.png";
             name = obj.Name.ToLower();

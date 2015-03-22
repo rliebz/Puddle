@@ -15,24 +15,24 @@ namespace Puddle
         public int seed;
 
 		public Fireball(int x, int y, string dir = "right")
-			: base(x, y, 32, 32)
+			: base(x, y)
         {
-            collisionWidth = 30;
-            collisionHeight = 28;
+            baseCollisionWidth = 0.9375;
+            baseCollisionHeight = 0.875;
             this.imageFile = "fireball.png";
             
             this.dir = dir;
             if (this.dir == "up")
             {
                 rotationAngle = MathHelper.PiOver2 * 3;
-                collisionWidth = 30;
-                collisionHeight = 32;
+                baseCollisionWidth = 0.875;
+                baseCollisionHeight = 0.9375;
             }
             else if (this.dir == "down")
             {
                 rotationAngle = MathHelper.PiOver2;
-                collisionWidth = 30;
-                collisionHeight = 32;
+                baseCollisionWidth = 0.875;
+                baseCollisionHeight = 0.9375;
             }
             else if (this.dir == "left")
                 faceLeft = true;

@@ -17,10 +17,10 @@ namespace Puddle
         public int hurt_point;
 
         public Egg(int x, int y)
-            : base(x, y, 32, 32)
+            : base(x, y)
         {
-            collisionWidth = 19;
-            collisionHeight = 24;
+            baseCollisionWidth = 0.59375;
+            baseCollisionHeight = 0.75;
             this.imageFile = "egg.png";
             speed = 4;
             health = 3;
