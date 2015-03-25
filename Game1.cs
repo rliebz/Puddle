@@ -17,6 +17,8 @@ namespace Puddle
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
+        Vector2 defaultCamera;
+        Vector2 playerCamera;
         SpriteBatch spriteBatch;
         Level level;
         Player player1;
@@ -36,11 +38,12 @@ namespace Puddle
         float newMapTimer;
         float introScreenTimer;
         int slideCount;
+        int gameScale = 2;
 		const string LEVEL_PATH = "Content/Levels/Level{0}.tmx";
 		const float LOAD_SCREEN_TIME = 1.5f;
         const float INTRO_SCREEN_TIME = 3.0f;
-        const int GAME_BASE_WIDTH = 22;
-        const int GAME_BASE_HEIGHT = 22;
+        const int GAME_BASE_WIDTH = 15;
+        const int GAME_BASE_HEIGHT = 10;
 
         public Game1()
             : base()
@@ -55,11 +58,13 @@ namespace Puddle
 			map = new TmxMap(String.Format(LEVEL_PATH, initialLevel));
 
             // Handle window sizing
-            graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
-            graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
-            SetTileSize();
             this.Window.AllowUserResizing = true;
             this.Window.ClientSizeChanged += new EventHandler<EventArgs>(WindowSizeChangeEvent);
+            WindowSizeChange(
+                GAME_BASE_WIDTH * Sprite.spriteSize * gameScale,
+                GAME_BASE_HEIGHT * Sprite.spriteSize * gameScale
+            );
+            defaultCamera = new Vector2(0, 0);
 
             paused = false;
             intro = false;
@@ -102,32 +107,30 @@ namespace Puddle
             base.Initialize();            
         }
 
-        protected void SetTileSize()
-        {
-            Sprite.tileSize = Math.Min(
-                graphics.PreferredBackBufferWidth / map.Width,
-                graphics.PreferredBackBufferHeight / map.Height
-            );
-        }
-
-        protected void WindowSizeChange()
+        protected void WindowSizeChange(int width, int height)
         {
             graphics.PreferredBackBufferWidth = Math.Max(
-                Window.ClientBounds.Width,
+                width,
                 Sprite.spriteSize * GAME_BASE_WIDTH
             );
             graphics.PreferredBackBufferHeight = Math.Max(
-                Window.ClientBounds.Height,
+                height,
                 Sprite.spriteSize * GAME_BASE_HEIGHT
             );
             graphics.ApplyChanges();
-
-            SetTileSize();
         }
 
         protected void WindowSizeChangeEvent(object sender, EventArgs e)
         {
-            WindowSizeChange();
+            gameScale = Math.Min(
+                Window.ClientBounds.Width / (Sprite.spriteSize * GAME_BASE_WIDTH),
+                Window.ClientBounds.Height / (Sprite.spriteSize * GAME_BASE_HEIGHT)
+            );
+
+            WindowSizeChange(
+                Window.ClientBounds.Width,
+                Window.ClientBounds.Height
+            );
         }
 
         protected override void LoadContent()
@@ -304,42 +307,66 @@ namespace Puddle
             base.Update(gameTime);
         }
 
+        protected void BeginSpriteBatch(Vector2 camera)
+        {
+
+            Matrix scaleMatrix = Matrix.CreateScale(gameScale);
+            Matrix originMatrix =  Matrix.CreateTranslation(new Vector3(camera.X, camera.Y, 0));
+            Matrix transformMatrix = scaleMatrix * originMatrix;
+
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                null,
+                SamplerState.PointWrap,
+                null, null, null,
+                transformMatrix
+            );
+        }
+
         protected override void Draw(GameTime gameTime)
         {
 
-            spriteBatch.Begin();
+            GraphicsDevice.Clear(Color.Black);
 
+            playerCamera.X = graphics.PreferredBackBufferWidth / 2 - player1.spriteX * gameScale;
+            playerCamera.Y = graphics.PreferredBackBufferHeight * 3 / 4 - player1.spriteY * gameScale;
+
+            // Draw
             if (loadingMap)
             {
+                BeginSpriteBatch(defaultCamera);
+
 				string levelDisplay = player1.newMap.Equals("Win") ? "Congratulations!" :
 					String.Format("Level {0}", player1.newMap);
 
-				GraphicsDevice.Clear(Color.Black);
                 spriteBatch.DrawString(
                     Sprite.font,
                     levelDisplay,
                     new Vector2(
-                        (graphics.PreferredBackBufferWidth / 2),
-                        (graphics.PreferredBackBufferHeight / 2)
+                        graphics.PreferredBackBufferWidth / 2 / gameScale,
+                        graphics.PreferredBackBufferHeight / 2 / gameScale
                     ),
                     Color.White,
                     0f,
                     Sprite.font.MeasureString(levelDisplay) * 0.5f,
-                    (float)Sprite.tileSize / Sprite.spriteSize,
+                    1f,
                     SpriteEffects.None,
                     0
                 );
 
+                spriteBatch.End();
             }
             else
             {
+                BeginSpriteBatch(playerCamera);
+
 				// Draw background
                 spriteBatch.Draw(
                     background,
                     new Rectangle(
                         0, 0,
-                        GAME_BASE_WIDTH * Sprite.tileSize,
-                        GAME_BASE_HEIGHT * Sprite.tileSize
+                        map.Width * map.TileWidth,
+                        map.Height * map.TileHeight
                     ),
                     Color.White
                 );
@@ -351,7 +378,7 @@ namespace Puddle
                     introScreenTimer -= elapsed;
                     spriteBatch.Draw(
                         introImage,
-                        new Rectangle(0, 0, 21 * Sprite.tileSize, 17 * Sprite.tileSize),
+                        new Rectangle(0, 0, 21 * Sprite.spriteSize, 17 * Sprite.spriteSize),
                         Color.White
                     );
                     if(introScreenTimer < 0 && slideCount != 5)
@@ -364,36 +391,50 @@ namespace Puddle
                 
                 // Draw contents of the level
                 level.Draw(spriteBatch);
+                spriteBatch.End();
 
+                // Draw UI elements
+                BeginSpriteBatch(defaultCamera);
+
+                // Draw health, hydration, etc.
+                player1.DrawUI(spriteBatch);
+
+                // Draw pause screen
 				if (paused && !intro)
                 {
                     spriteBatch.Draw(
 						pauseScreens[player1.numPowers],
-                        new Rectangle(0, 0, 21 * Sprite.tileSize, 17 * Sprite.tileSize),
+                        new Rectangle(
+                            0, 0, 
+                            GAME_BASE_WIDTH * Sprite.spriteSize, 
+                            GAME_BASE_HEIGHT * Sprite.spriteSize
+                        ),
 						Color.White
                     );
                 }
 
-				// Display picked up messages
+				// Draw picked up messages
 				if (!String.IsNullOrEmpty(level.message))
 				{
                     spriteBatch.DrawString(
                         Sprite.font,
                         level.message,
                         new Vector2(
-                            graphics.PreferredBackBufferWidth / 2, 
-                            graphics.PreferredBackBufferHeight - 28
+                            graphics.PreferredBackBufferWidth / 2 / gameScale, 
+                            graphics.PreferredBackBufferHeight / gameScale - Sprite.spriteSize
                         ),
                         Color.White,
                         0f,
                         Sprite.font.MeasureString(level.message) * 0.5f,
-                        (float)Sprite.tileSize / Sprite.spriteSize,
+                        0.75f * Window.ClientBounds.Width / Sprite.font.MeasureString(level.message).X / gameScale,
                         SpriteEffects.None,
                         0
                     );
-				}
+                }
+
+                spriteBatch.End();
             }
-            spriteBatch.End();
+
             base.Draw(gameTime);
         }
 

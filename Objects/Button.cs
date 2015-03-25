@@ -204,7 +204,7 @@ namespace Puddle
             {
                 sb.Draw(
                     slideImage,
-                    new Rectangle(0, 0, 21 * tileSize, 17 * tileSize),
+                    new Rectangle(0, 0, 21 * spriteSize, 17 * spriteSize),
                     Color.White
                 );
             }

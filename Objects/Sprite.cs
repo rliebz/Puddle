@@ -12,7 +12,6 @@ namespace Puddle
     abstract class Sprite
     {
         public static int spriteSize = 32;
-        public static int tileSize = 32;
         public static SpriteFont font;
 
         public int spriteX, spriteY;
@@ -77,12 +76,6 @@ namespace Puddle
 
         public int spriteHeight
         { get { return (int)(this.baseHeight * spriteSize); } }
-
-        public int displayWidth
-        { get { return (int)(this.baseWidth * tileSize); } }
-
-        public int displayHeight
-        { get { return (int)(this.baseHeight * tileSize); } }
 
         public int collisionWidth
         { get { return (int)(this.baseCollisionWidth * spriteSize); } }
@@ -175,10 +168,10 @@ namespace Puddle
 				sb.Draw(
 					blankImage,
 					new Rectangle(
-                        leftWall * tileSize / spriteSize, 
-                        topWall * tileSize / spriteSize,
-                        (rightWall - leftWall) * tileSize / spriteSize,
-                        (bottomWall - topWall) * tileSize / spriteSize
+                        leftWall, 
+                        topWall,
+                        rightWall - leftWall,
+                        bottomWall - topWall
                     ),
 					Color.Navy
 				);
@@ -188,10 +181,10 @@ namespace Puddle
             sb.Draw(
                 image,
                 new Rectangle(
-                    spriteX * tileSize / spriteSize, 
-                    spriteY * tileSize / spriteSize, 
-                    displayWidth, 
-                    displayHeight
+                    spriteX, 
+                    spriteY, 
+                    spriteWidth, 
+                    spriteHeight
                 ),
                 new Rectangle(frameIndexX, frameIndexY, frameWidth, frameHeight),
                 spriteColor,
@@ -206,13 +199,13 @@ namespace Puddle
                     font,
                     displayText,
                     new Vector2(
-                        (spriteX + displayTextX) * tileSize / spriteSize,
-                        (spriteY + displayTextY) * tileSize / spriteSize
+                        spriteX + displayTextX,
+                        spriteY + displayTextY
                     ),
                     displayTextColor,
                     0f,
                     font.MeasureString(displayText) * 0.5f,
-                    (float)Sprite.tileSize / Sprite.spriteSize,
+                    1f,
                     SpriteEffects.None,
                     0
                 );

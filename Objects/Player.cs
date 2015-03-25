@@ -704,21 +704,28 @@ namespace Puddle
             }
         }
 
-        public new void Draw(SpriteBatch sb)
+        public void DrawUI(SpriteBatch sb)
         {
-			// Draw the player
-            base.Draw(sb);
+            // Draw lives
+            for (int i = 0; i < lives; i++)
+            {
+                sb.Draw(
+                    images["heart"],
+                    new Rectangle(spriteSize * i, 0, spriteSize, spriteSize),
+                    Color.White
+                );
+            }
 
-            int hydrationBorderSize = tileSize / 16;
-            int hydrationLeft = tileSize * 3 / 2 ;
-            int hydrationTop = tileSize * 5 / 4 + hydrationBorderSize;
-            int hydrationWidth = tileSize * 4;
-            int hydrationHeight = tileSize / 2;
+            int hydrationBorderSize = 1;
+            int hydrationLeft = spriteSize * 1 / 2;
+            int hydrationTop = spriteSize * 5 / 4 + hydrationBorderSize;
+            int hydrationWidth = spriteSize * 4;
+            int hydrationHeight = spriteSize / 2;
 
-			// Draw hydration level
+            // Draw hydration level
             sb.Draw(
                 blankImage,
-				new Rectangle(
+                new Rectangle(
                     hydrationLeft,
                     hydrationTop,
                     hydrationWidth,
@@ -728,13 +735,13 @@ namespace Puddle
             );
             sb.Draw(
                 blankImage,
-				new Rectangle(
+                new Rectangle(
                     hydrationLeft,
                     hydrationTop,
                     Convert.ToInt32(hydrationWidth * hydration / maxHydration),
                     hydrationHeight
-				),
-				new Color(0, 160, 232)
+                ),
+                new Color(0, 160, 232)
             );
 
             // Draw hydration frame (3 sided)
@@ -770,25 +777,12 @@ namespace Puddle
             );
 
             // Draw hydration icon
-			sb.Draw(
-				images["hydration"],
-				new Rectangle(tileSize, tileSize, tileSize, tileSize),
-				Color.White);
+            sb.Draw(
+                images["hydration"],
+                new Rectangle(0, spriteSize, spriteSize, spriteSize),
+                Color.White
+            );
 
-            //Draw lives
-			for (int i=0; i < lives; i++)
-			{
-				sb.Draw(
-					images["heart"],
-					new Rectangle(
-                        tileSize + tileSize * i,
-                        0,
-                        tileSize,
-                        tileSize
-                    ),
-					Color.White
-				);
-			}
         }
 
     }

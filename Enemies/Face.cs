@@ -74,20 +74,20 @@ namespace Puddle
 			sb.Draw(
 				blankImage,
 				new Rectangle(
-                    tileSize * 6 + tileSize / 2, 
-                    tileSize * 21 + tileSize / 4, 
-                    tileSize * 9, 
-                    tileSize / 2
+                    spriteSize * 6 + spriteSize / 2,
+                    spriteSize * 21 + spriteSize / 4,
+                    spriteSize * 9,
+                    spriteSize / 2
                 ),
 				new Color(60, 22, 22)
 			);
 			sb.Draw(
 				blankImage,
 				new Rectangle(
-                    tileSize * 13 / 2 + tileSize / 2, 
-                    tileSize * 21 + tileSize / 4, 
-                    tileSize * 9 * health / maxHealth, 
-                    tileSize / 2
+                    spriteSize * 13 / 2 + spriteSize / 2,
+                    spriteSize * 21 + spriteSize / 4,
+                    spriteSize * 9 * health / maxHealth,
+                    spriteSize / 2
                 ),
 				Color.Firebrick
 			);
