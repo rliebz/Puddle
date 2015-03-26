@@ -395,9 +395,7 @@ namespace Puddle
 
                 // Draw UI elements
                 BeginSpriteBatch(defaultCamera);
-
-                // Draw health, hydration, etc.
-                player1.DrawUI(spriteBatch);
+                level.DrawUI(spriteBatch, graphics, gameScale);
 
                 // Draw pause screen
 				if (paused && !intro)

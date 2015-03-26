@@ -66,30 +66,57 @@ namespace Puddle
 			level.projectiles.Add((Sprite)fireball);
 		}
 
-		public override void Draw(SpriteBatch sb)
-		{
-			base.Draw(sb);
+		public override void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
+        {
+            int healthWidth = spriteSize * 9;
+            int healthHeight = spriteSize / 2;
+            Vector2 position = new Vector2(
+                graphics.PreferredBackBufferWidth / 2 / gameScale,
+                graphics.PreferredBackBufferHeight / gameScale - Sprite.spriteSize
+            );
+            Vector2 center = new Vector2(
+                (float)healthWidth / 2, 
+                (float)healthHeight / 2
+            );
+
 
 			// Draw boss health bar
+            sb.Draw(
+                blankImage,
+                position,
+                new Rectangle(0, 0, healthWidth + 2, healthHeight + 2),
+                Color.Black,
+                0,
+                center + new Vector2(1, 1),
+                1f,
+                SpriteEffects.None,
+                0
+            );
 			sb.Draw(
-				blankImage,
-				new Rectangle(
-                    spriteSize * 6 + spriteSize / 2,
-                    spriteSize * 21 + spriteSize / 4,
-                    spriteSize * 9,
-                    spriteSize / 2
-                ),
-				new Color(60, 22, 22)
+                blankImage,
+                position,
+                new Rectangle(0, 0, healthWidth, healthHeight),
+                new Color(60, 22, 22),
+                0,
+                center,
+                1f,
+                SpriteEffects.None,
+                0
 			);
 			sb.Draw(
 				blankImage,
+                position,
 				new Rectangle(
-                    spriteSize * 13 / 2 + spriteSize / 2,
-                    spriteSize * 21 + spriteSize / 4,
-                    spriteSize * 9 * health / maxHealth,
-                    spriteSize / 2
+                    0, 0,
+                    healthWidth * health / maxHealth,
+                    healthHeight
                 ),
-				Color.Firebrick
+				Color.Firebrick,
+                0,
+                center,
+                1f,
+                SpriteEffects.None,
+                0
 			);
 		}
 

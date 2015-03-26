@@ -87,5 +87,16 @@ namespace Puddle
 				e.Draw(sb);
 			player.Draw(sb);
 		}
+
+        public virtual void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
+        {
+            foreach (Sprite item in items)
+                item.DrawUI(sb, graphics, gameScale);
+            foreach (Sprite s in projectiles)
+                s.DrawUI(sb, graphics, gameScale);
+            foreach (Enemy e in enemies)
+                e.DrawUI(sb, graphics, gameScale);
+            player.DrawUI(sb, graphics, gameScale);
+        }
     }
 }

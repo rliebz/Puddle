@@ -704,7 +704,7 @@ namespace Puddle
             }
         }
 
-        public void DrawUI(SpriteBatch sb)
+        public override void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
         {
             // Draw lives
             for (int i = 0; i < lives; i++)

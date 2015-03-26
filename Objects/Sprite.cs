@@ -212,6 +212,9 @@ namespace Puddle
             }
         }
 
+        public virtual void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
+        { }
+
 
     }
 }
