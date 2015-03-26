@@ -145,7 +145,7 @@ namespace Puddle
 			foreach (Enemy enemy in level.enemies)
 				enemy.LoadContent(this.Content);
 
-            Sprite.font = Content.Load<SpriteFont>("Arial");
+            Sprite.font = Content.Load<SpriteFont>("Puddle");
             
         }
 

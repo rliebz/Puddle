@@ -34,6 +34,7 @@ namespace Puddle
 			if (this.direction == "up")
             {
 				frameIndexX = 0;
+                displayTextX = 1;
 				displayTextY = 7;
             }
 			else if (this.direction == "left")
