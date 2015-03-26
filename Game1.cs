@@ -24,10 +24,10 @@ namespace Puddle
         Player player1;
 		Controls controls;
 		Controls pauseControls;
+        Menu menu;
         TmxMap map;
         Texture2D background;
         Texture2D introImage;
-        List<Texture2D> pauseScreens;
         SoundEffect song, bossSong, menuSong;
         SoundEffectInstance instance, bossInstance, menuInstance;
         Level levelSelect;
@@ -64,7 +64,6 @@ namespace Puddle
                 GAME_BASE_WIDTH * Sprite.spriteSize * gameScale,
                 GAME_BASE_HEIGHT * Sprite.spriteSize * gameScale
             );
-            defaultCamera = new Vector2(0, 0);
 
             paused = false;
             intro = false;
@@ -73,6 +72,7 @@ namespace Puddle
             previousMap = "";
 
             // Create built-in objects
+            defaultCamera = new Vector2(0, 0);
 			player1 = new Player(
 				Convert.ToInt32(map.Properties["startX"]), 
 				Convert.ToInt32(map.Properties["startY"])
@@ -81,6 +81,7 @@ namespace Puddle
             levelSelect = null;
             controls = new Controls();
 			pauseControls = new Controls();
+            menu = new Menu();
             loadingMap = true;
             newMapTimer = LOAD_SCREEN_TIME;
             introScreenTimer = INTRO_SCREEN_TIME;
@@ -99,11 +100,6 @@ namespace Puddle
             menuInstance.IsLooped = true;
             menuInstance.Play();
 
-            pauseScreens = new List<Texture2D>();
-			for (int i=0; i < 4; i++)
-			{
-				pauseScreens.Add(Content.Load<Texture2D>(String.Format("Slides/pause{0}.png", i)));
-			}
             base.Initialize();            
         }
 
@@ -139,6 +135,7 @@ namespace Puddle
 
             // TODO: Load all content in level class
             player1.LoadContent(this.Content);
+            menu.LoadContent(this.Content);
 
             foreach (Sprite item in level.items)
                 item.LoadContent(this.Content);
@@ -398,17 +395,9 @@ namespace Puddle
                 level.DrawUI(spriteBatch, graphics, gameScale);
 
                 // Draw pause screen
-				if (paused && !intro)
+				if (paused)
                 {
-                    spriteBatch.Draw(
-						pauseScreens[player1.numPowers],
-                        new Rectangle(
-                            0, 0, 
-                            GAME_BASE_WIDTH * Sprite.spriteSize, 
-                            GAME_BASE_HEIGHT * Sprite.spriteSize
-                        ),
-						Color.White
-                    );
+                    menu.DrawUI(spriteBatch, graphics, gameScale);
                 }
 
 				// Draw picked up messages
