@@ -11,7 +11,7 @@ namespace Puddle
             : base(p, dir)
             //(p.spriteX - 8, p.spriteY - 8, 48, 48)
         {
-			imageFile = "charged.png";
+			imageFile = "charged";
 			image = p.images["charged"];
 			baseCollisionWidth = 0.5625;
 			baseCollisionHeight = 0.5625;

@@ -19,10 +19,10 @@ namespace Puddle
         public Checkpoint(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y)
         {
-            imageFile = "checkpoint.png";
+            imageFile = "checkpoint";
             name = obj.Name.ToLower();
             activated = false;
-            soundFiles.Add("Sounds/Checkpoint.wav");
+            soundFiles.Add("Sounds/Checkpoint");
         }
 
         public override void Update(Level level)
@@ -48,7 +48,7 @@ namespace Puddle
                 Action(level.player);
                 if (!activated)
                 {
-                    instance = soundList["Sounds/Checkpoint.wav"].CreateInstance();
+                    instance = soundList["Sounds/Checkpoint"].CreateInstance();
                     instance.Volume = 0.7f;
                     instance.Play();
                 }

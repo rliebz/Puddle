@@ -124,13 +124,13 @@ namespace Puddle
             frameIndexX = 0;
 
             //Sounds
-            soundFiles.Add("Sounds/Jump.wav");
-            soundFiles.Add("Sounds/Shot1.wav");
-            soundFiles.Add("Sounds/Shot2.wav");
-            soundFiles.Add("Sounds/Shot3.wav");
-            soundFiles.Add("Sounds/Shot4.wav");
-            soundFiles.Add("Sounds/Powerup.wav");
-            soundFiles.Add("Sounds/Death.wav");
+            soundFiles.Add("Sounds/Jump");
+            soundFiles.Add("Sounds/Shot1");
+            soundFiles.Add("Sounds/Shot2");
+            soundFiles.Add("Sounds/Shot3");
+            soundFiles.Add("Sounds/Shot4");
+            soundFiles.Add("Sounds/Powerup");
+            soundFiles.Add("Sounds/Death");
 
         }
 
@@ -309,19 +309,19 @@ namespace Puddle
                         PowerShot s = new PowerShot(this, dir);
                         if (index == 0)
                         {
-                            soundList["Sounds/Shot1.wav"].Play();
+                            soundList["Sounds/Shot1"].Play();
                         }
                         else if (index == 1)
                         {
-                            soundList["Sounds/Shot2.wav"].Play();
+                            soundList["Sounds/Shot2"].Play();
                         }
                         else if (index == 2)
                         {
-                            soundList["Sounds/Shot3.wav"].Play();
+                            soundList["Sounds/Shot3"].Play();
                         }
                         else
                         {
-                            soundList["Sounds/Shot4.wav"].Play();
+                            soundList["Sounds/Shot4"].Play();
                         }
                         level.projectiles.Add(s);
                     }
@@ -347,19 +347,19 @@ namespace Puddle
                     Shot s = new Shot(this, dir);
 					if (index == 0) 
                     {
-                        soundList["Sounds/Shot1.wav"].Play();
+                        soundList["Sounds/Shot1"].Play();
                     }
                     else if (index == 1)
                     {
-                        soundList["Sounds/Shot2.wav"].Play();
+                        soundList["Sounds/Shot2"].Play();
                     }
                     else if (index == 2)
                     {
-                        soundList["Sounds/Shot3.wav"].Play();
+                        soundList["Sounds/Shot3"].Play();
                     }
                     else
                     {
-                        soundList["Sounds/Shot4.wav"].Play();
+                        soundList["Sounds/Shot4"].Play();
                     }
                     level.projectiles.Add(s);
                     hydration -= shotCost;
@@ -375,19 +375,19 @@ namespace Puddle
                     Shot s = new Shot(this, "down");
                     if (index == 0)
                     {
-                        soundList["Sounds/Shot1.wav"].Play();
+                        soundList["Sounds/Shot1"].Play();
                     }
                     else if (index == 1)
                     {
-                        soundList["Sounds/Shot2.wav"].Play();
+                        soundList["Sounds/Shot2"].Play();
                     }
                     else if (index == 2)
                     {
-                        soundList["Sounds/Shot3.wav"].Play();
+                        soundList["Sounds/Shot3"].Play();
                     }
                     else
                     {
-                        soundList["Sounds/Shot4.wav"].Play();
+                        soundList["Sounds/Shot4"].Play();
                     }
                     level.projectiles.Add(s);
                     hydration -= jetpackCost;
@@ -405,7 +405,7 @@ namespace Puddle
             // Jump on button press
 			if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
             {
-                instance = soundList["Sounds/Jump.wav"].CreateInstance();
+                instance = soundList["Sounds/Jump"].CreateInstance();
                 instance.Volume = 0.4f;
                 instance.Play();
 				yVel = -jumpHeight;
@@ -442,7 +442,7 @@ namespace Puddle
                 {
 					((PowerUp)item).Action(this, level);
                     item.destroyed = true;
-                    SoundEffectInstance powerup = soundList["Sounds/Powerup.wav"].CreateInstance();
+                    SoundEffectInstance powerup = soundList["Sounds/Powerup"].CreateInstance();
                     powerup.Volume = 0.3f;
                     powerup.Play();
                 }
@@ -595,7 +595,7 @@ namespace Puddle
 
 			ResetFields();
 
-            deathInstance = soundList["Sounds/Death.wav"].CreateInstance();
+            deathInstance = soundList["Sounds/Death"].CreateInstance();
             deathInstance.Volume = 0.8f;
             deathInstance.Play();
 
@@ -679,20 +679,20 @@ namespace Puddle
 
         public new void LoadContent(ContentManager content)
         {
-			blankImage = content.Load<Texture2D>("blank.png");
+			blankImage = content.Load<Texture2D>("blank");
 
 			// Player character sprites
-            images["stand"] = content.Load<Texture2D>("PC/stand.png");
-            images["jump"] = content.Load<Texture2D>("PC/jump.png");
-            images["walk"] = content.Load<Texture2D>("PC/walk.png");
-			images["puddle"] = content.Load<Texture2D>("PC/puddle.png");
+            images["stand"] = content.Load<Texture2D>("PC/stand");
+            images["jump"] = content.Load<Texture2D>("PC/jump");
+            images["walk"] = content.Load<Texture2D>("PC/walk");
+			images["puddle"] = content.Load<Texture2D>("PC/puddle");
 			image = images["stand"];
 
 			// Misc. sprites
-			images["hydration"] = content.Load<Texture2D>("puddle.png");
-			images["heart"] = content.Load<Texture2D>("heart.png");
-			images["bubble"] = content.Load<Texture2D>("bubble.png");
-			images["charged"] = content.Load<Texture2D>("charged.png");
+			images["hydration"] = content.Load<Texture2D>("puddle");
+			images["heart"] = content.Load<Texture2D>("heart");
+			images["bubble"] = content.Load<Texture2D>("bubble");
+			images["charged"] = content.Load<Texture2D>("charged");
 
             foreach (string file in soundFiles)
             {

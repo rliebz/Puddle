@@ -64,8 +64,8 @@ namespace Puddle
 
             rCol = false;
             lCol = false;
-            soundFiles.Add("Sounds/Slide.wav");
-            soundFiles.Add("Sounds/BlockFall.wav");
+            soundFiles.Add("Sounds/Slide");
+            soundFiles.Add("Sounds/BlockFall");
 
             x_vel = 0;
 
@@ -339,7 +339,7 @@ namespace Puddle
 					{
                         if (y_vel > 3)
                         {
-                            soundList["Sounds/BlockFall.wav"].Play();
+                            soundList["Sounds/BlockFall"].Play();
                         }						
 						y_vel = 0;
 						while (bottomWall >= s.topWall)
@@ -371,10 +371,10 @@ namespace Puddle
 
 		public override void LoadContent(ContentManager content)
         {
-            images["push"] = content.Load<Texture2D>("push_block.png");
-            images["metal"] = content.Load<Texture2D>("metal_block.png");
-            images["break"] = content.Load<Texture2D>("break_block.png");
-            images["temp"] = content.Load<Texture2D>("temp_block.png");
+            images["push"] = content.Load<Texture2D>("push_block");
+            images["metal"] = content.Load<Texture2D>("metal_block");
+            images["break"] = content.Load<Texture2D>("break_block");
+            images["temp"] = content.Load<Texture2D>("temp_block");
             image = images[this.blockType];
             foreach (string file in soundFiles)
             {
@@ -382,7 +382,7 @@ namespace Puddle
                 {
                     SoundEffect effect = content.Load<SoundEffect>(file);
                     soundList.Add(file, effect);
-                    this.sound = soundList["Sounds/Slide.wav"].CreateInstance();
+                    this.sound = soundList["Sounds/Slide"].CreateInstance();
                 }
             }
         }

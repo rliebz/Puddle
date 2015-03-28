@@ -51,7 +51,7 @@ namespace Puddle
             this.baseCollisionHeight = height;
             this.frameWidth = 32;
             this.frameHeight = 32;
-            this.imageFile = "blank.png";
+            this.imageFile = "blank";
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;
             this.frameIndexX = 0;
@@ -149,7 +149,7 @@ namespace Puddle
 
         public virtual void LoadContent(ContentManager content)
         {
-			blankImage = content.Load<Texture2D>("blank.png");
+			blankImage = content.Load<Texture2D>("blank");
             image = content.Load<Texture2D>(imageFile);
             foreach (string file in soundFiles)
             {

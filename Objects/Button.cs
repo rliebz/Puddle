@@ -22,7 +22,7 @@ namespace Puddle
         public Button(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y)
         {
-            imageFile = "button.png";
+            imageFile = "button";
             holdButton = obj.Properties.ContainsKey("hold") && Boolean.Parse(obj.Properties["hold"]);
             displayText = obj.Properties.ContainsKey("text") ? obj.Properties["text"] : "";
 			displayTextY = -40;
@@ -32,9 +32,9 @@ namespace Puddle
 			pressed = false;
             creditScreen = false;
             controlScreen = false;
-            soundFiles.Add("Sounds/button.wav");
-            soundFiles.Add("Sounds/HoldButtonPress.wav");
-            soundFiles.Add("Sounds/HoldButtonRel.wav");
+            soundFiles.Add("Sounds/button");
+            soundFiles.Add("Sounds/HoldButtonPress");
+            soundFiles.Add("Sounds/HoldButtonRel");
             name = obj.Name;
 			baseCollisionWidth = 0.625;
             baseCollisionHeight = 0.9375;
@@ -113,21 +113,21 @@ namespace Puddle
             activated = true;
 
             if (holdButton)
-                soundList["Sounds/HoldButtonPress.wav"].Play();
+                soundList["Sounds/HoldButtonPress"].Play();
             else
-			    soundList["Sounds/button.wav"].Play();
+			    soundList["Sounds/button"].Play();
 
             if (name.Contains("Credits"))
             {
                 this.creditScreen = true;
-				slideImage = level.content.Load<Texture2D>("Slides/credits.png");
+				slideImage = level.content.Load<Texture2D>("Slides/credits");
                 return;
             }
             
             if (name.Contains("Controls"))
             {
                 this.controlScreen = true;
-				slideImage = level.content.Load<Texture2D>("Slides/pause0.png");
+				slideImage = level.content.Load<Texture2D>("Slides/pause0");
                 return;
             }
 
@@ -160,7 +160,7 @@ namespace Puddle
 		public void UnAction(Level level)
 		{
             activated = false;
-            soundList["Sounds/HoldButtonRel.wav"].Play();
+            soundList["Sounds/HoldButtonRel"].Play();
             if (name.Contains("Credits"))
             {
                 this.creditScreen = false;

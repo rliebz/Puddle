@@ -18,7 +18,7 @@ namespace Puddle
         public Pipe(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y)
         {
-            imageFile = "pipe.png";
+            imageFile = "pipe";
 			isSolid = true;
 
             name = obj.Name;

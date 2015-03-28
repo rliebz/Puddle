@@ -39,7 +39,7 @@ namespace Puddle
         float introScreenTimer;
         int slideCount;
         int gameScale = 2;
-		const string LEVEL_PATH = "Content/Levels/Level{0}.tmx";
+		const string LEVEL_PATH = "Levels/Level{0}.tmx";
 		const float LOAD_SCREEN_TIME = 1.5f;
         const float INTRO_SCREEN_TIME = 3.0f;
         const int GAME_BASE_WIDTH = 15;
@@ -67,7 +67,6 @@ namespace Puddle
 
             paused = false;
             intro = false;
-			introImage = Content.Load<Texture2D>("Slides/Slide1.png");
             slideCount = 1;
             previousMap = "";
 
@@ -86,19 +85,6 @@ namespace Puddle
             newMapTimer = LOAD_SCREEN_TIME;
             introScreenTimer = INTRO_SCREEN_TIME;
 			player1.newMap = initialLevel;
-
-            song = Content.Load<SoundEffect>("Sounds/InGame.wav");
-            instance = song.CreateInstance();
-            instance.IsLooped = true;
-
-            bossSong = Content.Load<SoundEffect>("Sounds/Boss.wav");
-            bossInstance = bossSong.CreateInstance();
-            bossInstance.IsLooped = true;
-
-            menuSong = Content.Load<SoundEffect>("Sounds/Menu.wav");
-            menuInstance = menuSong.CreateInstance();
-            menuInstance.IsLooped = true;
-            menuInstance.Play();
 
             base.Initialize();            
         }
@@ -133,6 +119,23 @@ namespace Puddle
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            introImage = Content.Load<Texture2D>("Slides/Slide1");
+
+            // Sound Content
+            // TODO: Should sound be played here?
+            song = Content.Load<SoundEffect>("Sounds/InGame");
+            instance = song.CreateInstance();
+            instance.IsLooped = true;
+
+            bossSong = Content.Load<SoundEffect>("Sounds/Boss");
+            bossInstance = bossSong.CreateInstance();
+            bossInstance.IsLooped = true;
+
+            menuSong = Content.Load<SoundEffect>("Sounds/Menu");
+            menuInstance = menuSong.CreateInstance();
+            menuInstance.IsLooped = true;
+            menuInstance.Play();
+
             // TODO: Load all content in level class
             player1.LoadContent(this.Content);
             menu.LoadContent(this.Content);
@@ -142,7 +145,7 @@ namespace Puddle
 			foreach (Enemy enemy in level.enemies)
 				enemy.LoadContent(this.Content);
 
-            Sprite.font = Content.Load<SpriteFont>("Puddle");
+            Sprite.font = Content.Load<SpriteFont>("PuddleFont");
             
         }
 
@@ -156,7 +159,7 @@ namespace Puddle
 						
 			// Load map and background
 			map = new TmxMap(String.Format(LEVEL_PATH, name));
-			background = Content.Load<Texture2D>("background.png");
+			background = Content.Load<Texture2D>("background");
 
 			// Decide if we're on the intro
 			intro = name.Equals("Menu");
@@ -313,8 +316,8 @@ namespace Puddle
 
             spriteBatch.Begin(
                 SpriteSortMode.Deferred,
-                null,
-                SamplerState.PointWrap,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp,
                 null, null, null,
                 transformMatrix
             );
@@ -381,7 +384,7 @@ namespace Puddle
                     if(introScreenTimer < 0 && slideCount != 5)
                     {
                         slideCount += 1;
-						introImage = Content.Load<Texture2D>(String.Format("Slides/Slide{0}.png", slideCount));
+						introImage = Content.Load<Texture2D>(String.Format("Slides/Slide{0}", slideCount));
                         introScreenTimer = INTRO_SCREEN_TIME;
                     }
                 }

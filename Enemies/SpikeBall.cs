@@ -18,7 +18,7 @@ namespace Puddle
 		public SpikeBall(int x, int y)
 			: base(x, y)
 		{
-            imageFile = "Enemies/spikeball.png";
+            imageFile = "Enemies/spikeball";
             baseCollisionWidth = 0.625;
 			baseCollisionHeight = 0.625;
             spriteY -= 16;

@@ -22,7 +22,7 @@ namespace Puddle
 
         public Menu()
         {
-            imageFile = "metal_block.png";
+            imageFile = "metal_block";
 
             title = "Puddle";
             options = new List<string>()
