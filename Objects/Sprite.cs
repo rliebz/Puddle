@@ -15,7 +15,7 @@ namespace Puddle
         public static SpriteFont font;
 
         public int spriteX, spriteY;
-        public double baseWidth, baseHeight;
+        public int baseWidth, baseHeight;
         public double baseCollisionWidth, baseCollisionHeight;
         public int frameWidth, frameHeight;
         public int frameIndexX;
@@ -40,7 +40,7 @@ namespace Puddle
 		public List<string> soundFiles;
 		public Dictionary<string, SoundEffect> soundList;
 
-		public Sprite(int x, int y, double width=1, double height=1)
+		public Sprite(int x, int y, int width=1, int height=1)
         {
 			this.name = "";
             this.spriteX = x + SIZE / 2; // TODO: x + spriteWidth / 2
@@ -49,8 +49,8 @@ namespace Puddle
             this.baseHeight = height;
             this.baseCollisionWidth = width;
             this.baseCollisionHeight = height;
-            this.frameWidth = 32;
-            this.frameHeight = 32;
+            this.frameWidth = width * SIZE;
+            this.frameHeight = height * SIZE;
             this.imageFile = "blank";
             this.images = new Dictionary<string, Texture2D>();
             this.faceLeft = false;

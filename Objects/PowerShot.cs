@@ -9,7 +9,6 @@ namespace Puddle
     {
         public PowerShot(Player p, string dir = "none")
             : base(p, dir)
-            //(p.spriteX - 8, p.spriteY - 8, 48, 48)
         {
 			imageFile = "charged";
 			image = p.images["charged"];

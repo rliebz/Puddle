@@ -18,14 +18,8 @@ namespace Puddle
 		{ }
 
 		public Face(int x, int y)
-			: base(x, y)
+			: base(x, y, 3, 3)
 		{
-			baseCollisionWidth = 3;
-			baseCollisionHeight = 3;
-			baseWidth = 3;
-			baseHeight = 3;
-			frameWidth = 3 * SIZE;
-			frameHeight = 3 * SIZE;
 			this.imageFile = "Enemies/face";
 			speed = 2;
 			xVel = speed;
@@ -58,7 +52,6 @@ namespace Puddle
 			}
         }
 			
-		// Shoot 4 fireballs in all directions
 		public void Shoot(Level level)
 		{
 			Fireball fireball = new Fireball(spriteX - 16, spriteY + 48, "down");

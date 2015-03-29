@@ -19,16 +19,11 @@ namespace Puddle
 		{ }
 
 		public Hand(int x, int y, bool left=false)
-			: base(x, y)
+			: base(x, y, 2, 2)
 		{
 			depth = 1;
 			faceLeft = left;
-			baseCollisionWidth = 0.78125;
-			baseCollisionHeight = 2;
-			baseWidth = 2;
-            baseHeight = 2;
-			frameWidth = 2 * SIZE;
-			frameHeight = 2 * SIZE;
+			baseCollisionWidth = 1.125;
 			this.imageFile = "Enemies/hand";
 			speed = 1;
 			xVel = faceLeft ? 0 : speed;
@@ -38,6 +33,24 @@ namespace Puddle
 			// Sprite business
 			seed = rnd.Next(0, 3);
 		}
+
+        public override int leftWall
+        {
+            get
+            {
+                int offset = faceLeft ? collisionWidth / 4 : 0;
+                return spriteX - (collisionWidth / 2 + offset);
+            }
+        }
+
+        public override int rightWall
+        {
+            get
+            {
+                int offset = faceLeft ? 0 : collisionWidth / 4;
+                return spriteX + (collisionWidth / 2 - 1 + offset);
+            }
+        }
 
 		public override void Update(Level level)
         {
@@ -65,16 +78,6 @@ namespace Puddle
 
 			spriteX += Convert.ToInt32(xVel);
 			spriteY += Convert.ToInt32(yVel);
-		}
-
-		public override void LoadContent(ContentManager content)
-		{
-			base.LoadContent(content);
-		}
-
-		public override void Draw(SpriteBatch sb)
-		{
-			base.Draw(sb);
 		}
 
     }

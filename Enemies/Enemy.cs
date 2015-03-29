@@ -20,8 +20,8 @@ namespace Puddle
 		public bool grounded;
 		protected Random rnd;
 
-        public Enemy(int x, int y)
-            : base(x, y)
+        public Enemy(int x, int y, int width=1, int height=1)
+            : base(x, y, width, height)
         {
             this.imageFile = "Enemies/rat";
 			speed = 2;
