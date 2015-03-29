@@ -19,7 +19,7 @@ namespace Puddle
 		public Rat(int x, int y)
 			: base(x, y)
 		{
-			this.imageFile = "Enemies/rat";
+			this.imageFile = "Enemies/rat_walk";
 			speed = 2;
 			xVel = speed;
 			yVel = 0;
@@ -28,6 +28,15 @@ namespace Puddle
 			// Sprite business
 			seed = rnd.Next(0, 3);
 		}
+
+
+        public override void LoadContent(ContentManager content)
+        {
+            base.LoadContent(content);
+
+            images["walk"] = image;
+            images["jump"] = content.Load<Texture2D>("Enemies/rat_jump");
+        }
 
         public override void Update(Level level)
         {
@@ -51,6 +60,7 @@ namespace Puddle
 
 		public override void Animate(Level level)
         {
+            image = grounded ? images["walk"] : images["jump"];
             frameIndexX = ((level.count + seed) / 8 % 4) * 32;
 			base.Animate(level);
         }

@@ -677,7 +677,7 @@ namespace Puddle
             }
         }
 
-        public new void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
 			blankImage = content.Load<Texture2D>("blank");
 
