@@ -17,14 +17,14 @@ namespace Puddle
 
         //TODO: add in function passing for individual button actions
         public Geyser(TmxObjectGroup.TmxObject obj) :
-		base(obj.X, obj.Y - spriteSize / 2)
+		base(obj.X, obj.Y - SIZE / 2)
         {
             this.imageFile = "geyser";
        
             name = obj.Name;
 			speed = -5;
 
-            frameHeight = 4 * spriteSize;
+            frameHeight = 4 * SIZE;
             baseHeight = 4;
             
             baseCollisionHeight = 3.5;

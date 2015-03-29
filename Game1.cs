@@ -61,8 +61,8 @@ namespace Puddle
             this.Window.AllowUserResizing = true;
             this.Window.ClientSizeChanged += new EventHandler<EventArgs>(WindowSizeChangeEvent);
             WindowSizeChange(
-                GAME_BASE_WIDTH * Sprite.spriteSize * gameScale,
-                GAME_BASE_HEIGHT * Sprite.spriteSize * gameScale
+                GAME_BASE_WIDTH * Sprite.SIZE * gameScale,
+                GAME_BASE_HEIGHT * Sprite.SIZE * gameScale
             );
 
             paused = false;
@@ -93,11 +93,11 @@ namespace Puddle
         {
             graphics.PreferredBackBufferWidth = Math.Max(
                 width,
-                Sprite.spriteSize * GAME_BASE_WIDTH
+                Sprite.SIZE * GAME_BASE_WIDTH
             );
             graphics.PreferredBackBufferHeight = Math.Max(
                 height,
-                Sprite.spriteSize * GAME_BASE_HEIGHT
+                Sprite.SIZE * GAME_BASE_HEIGHT
             );
             graphics.ApplyChanges();
         }
@@ -105,8 +105,8 @@ namespace Puddle
         protected void WindowSizeChangeEvent(object sender, EventArgs e)
         {
             gameScale = Math.Min(
-                Window.ClientBounds.Width / (Sprite.spriteSize * GAME_BASE_WIDTH),
-                Window.ClientBounds.Height / (Sprite.spriteSize * GAME_BASE_HEIGHT)
+                Window.ClientBounds.Width / (Sprite.SIZE * GAME_BASE_WIDTH),
+                Window.ClientBounds.Height / (Sprite.SIZE * GAME_BASE_HEIGHT)
             );
 
             WindowSizeChange(
@@ -378,7 +378,7 @@ namespace Puddle
                     introScreenTimer -= elapsed;
                     spriteBatch.Draw(
                         introImage,
-                        new Rectangle(0, 0, 21 * Sprite.spriteSize, 17 * Sprite.spriteSize),
+                        new Rectangle(0, 0, 21 * Sprite.SIZE, 17 * Sprite.SIZE),
                         Color.White
                     );
                     if(introScreenTimer < 0 && slideCount != 5)
@@ -411,7 +411,7 @@ namespace Puddle
                         level.message,
                         new Vector2(
                             graphics.PreferredBackBufferWidth / 2 / gameScale, 
-                            graphics.PreferredBackBufferHeight / gameScale - Sprite.spriteSize
+                            graphics.PreferredBackBufferHeight / gameScale - Sprite.SIZE
                         ),
                         Color.White,
                         0f,

@@ -11,7 +11,7 @@ namespace Puddle
 {
     abstract class Sprite
     {
-        public static int spriteSize = 32;
+        public const int SIZE = 32;
         public static SpriteFont font;
 
         public int spriteX, spriteY;
@@ -43,8 +43,8 @@ namespace Puddle
 		public Sprite(int x, int y, double width=1, double height=1)
         {
 			this.name = "";
-            this.spriteX = x + spriteSize / 2; // TODO: x + spriteWidth / 2
-			this.spriteY = y + spriteSize / 2; // TODO: y + spriteHeight / 2
+            this.spriteX = x + SIZE / 2; // TODO: x + spriteWidth / 2
+			this.spriteY = y + SIZE / 2; // TODO: y + spriteHeight / 2
             this.baseWidth = width;
             this.baseHeight = height;
             this.baseCollisionWidth = width;
@@ -72,23 +72,23 @@ namespace Puddle
 
         // Properties
         public int spriteWidth
-        { get { return (int)(this.baseWidth * spriteSize); } }
+        { get { return (int)(this.baseWidth * SIZE); } }
 
         public int spriteHeight
-        { get { return (int)(this.baseHeight * spriteSize); } }
+        { get { return (int)(this.baseHeight * SIZE); } }
 
         public int collisionWidth
-        { get { return (int)(this.baseCollisionWidth * spriteSize); } }
+        { get { return (int)(this.baseCollisionWidth * SIZE); } }
 
         public int collisionHeight
-        { get { return (int)(this.baseCollisionHeight * spriteSize); } }
+        { get { return (int)(this.baseCollisionHeight * SIZE); } }
 
         public bool offScreen
         {
 			get 
 			{ 
-				return (rightWall < 0 || leftWall > spriteSize * 22 || 
-						bottomWall < 0 || topWall > spriteSize * 22); 
+				return (rightWall < 0 || leftWall > SIZE * 22 || 
+						bottomWall < 0 || topWall > SIZE * 22); 
 			}
         }
 

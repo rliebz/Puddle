@@ -27,8 +27,8 @@ namespace Puddle
 			baseCollisionHeight = 2;
 			baseWidth = 2;
             baseHeight = 2;
-			frameWidth = 2 * spriteSize;
-			frameHeight = 2 * spriteSize;
+			frameWidth = 2 * SIZE;
+			frameHeight = 2 * SIZE;
 			this.imageFile = "Enemies/hand";
 			speed = 1;
 			xVel = faceLeft ? 0 : speed;

@@ -16,7 +16,7 @@ namespace Puddle
         public int damage;
 
         public Shot(Player p, string dir = "none")
-            : base(p.spriteX - spriteSize / 2, p.spriteY - spriteSize / 2)
+            : base(p.spriteX - SIZE / 2, p.spriteY - SIZE / 2)
         {
             imageFile = "bubble";
 			image = p.images["bubble"];

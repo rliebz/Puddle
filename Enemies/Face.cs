@@ -24,8 +24,8 @@ namespace Puddle
 			baseCollisionHeight = 3;
 			baseWidth = 3;
 			baseHeight = 3;
-			frameWidth = 3 * spriteSize;
-			frameHeight = 3 * spriteSize;
+			frameWidth = 3 * SIZE;
+			frameHeight = 3 * SIZE;
 			this.imageFile = "Enemies/face";
 			speed = 2;
 			xVel = speed;
@@ -68,11 +68,11 @@ namespace Puddle
 
 		public override void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
         {
-            int healthWidth = spriteSize * 9;
-            int healthHeight = spriteSize / 2;
+            int healthWidth = SIZE * 9;
+            int healthHeight = SIZE / 2;
             Vector2 position = new Vector2(
                 graphics.PreferredBackBufferWidth / 2 / gameScale,
-                graphics.PreferredBackBufferHeight / gameScale - Sprite.spriteSize
+                graphics.PreferredBackBufferHeight / gameScale - Sprite.SIZE
             );
             Vector2 center = new Vector2(
                 (float)healthWidth / 2, 

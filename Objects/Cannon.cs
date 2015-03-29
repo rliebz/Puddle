@@ -16,7 +16,7 @@ namespace Puddle
 
         //TODO: add in function passing for individual button actions
         public Cannon(TmxObjectGroup.TmxObject obj) :
-            base(obj.X + spriteSize / 2, obj.Y)
+            base(obj.X + SIZE / 2, obj.Y)
         {
             this.imageFile = "cannon";
             this.name = obj.Name;

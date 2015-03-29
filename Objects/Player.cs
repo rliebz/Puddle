@@ -711,16 +711,16 @@ namespace Puddle
             {
                 sb.Draw(
                     images["heart"],
-                    new Rectangle(spriteSize * i, 0, spriteSize, spriteSize),
+                    new Rectangle(SIZE * i, 0, SIZE, SIZE),
                     Color.White
                 );
             }
 
             int hydrationBorderSize = 1;
-            int hydrationLeft = spriteSize * 1 / 2;
-            int hydrationTop = spriteSize * 5 / 4 + hydrationBorderSize;
-            int hydrationWidth = spriteSize * 4;
-            int hydrationHeight = spriteSize / 2;
+            int hydrationLeft = SIZE * 1 / 2;
+            int hydrationTop = SIZE * 5 / 4 + hydrationBorderSize;
+            int hydrationWidth = SIZE * 4;
+            int hydrationHeight = SIZE / 2;
 
             // Draw hydration level
             sb.Draw(
@@ -779,7 +779,7 @@ namespace Puddle
             // Draw hydration icon
             sb.Draw(
                 images["hydration"],
-                new Rectangle(0, spriteSize, spriteSize, spriteSize),
+                new Rectangle(0, SIZE, SIZE, SIZE),
                 Color.White
             );
 

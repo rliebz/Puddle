@@ -52,8 +52,8 @@ namespace Puddle
         {
             sb.Draw(
                 image,
-                new Rectangle(xPos, yPos, Sprite.spriteSize, Sprite.spriteSize),
-                new Rectangle(frameIndexX, frameIndexY, Sprite.spriteSize, Sprite.spriteSize),
+                new Rectangle(xPos, yPos, Sprite.SIZE, Sprite.SIZE),
+                new Rectangle(frameIndexX, frameIndexY, Sprite.SIZE, Sprite.SIZE),
                 Color.Goldenrod
             );
         }
@@ -70,13 +70,13 @@ namespace Puddle
             {
                 DrawBlock(
                     sb,
-                    startX + Sprite.spriteSize * i, startY, 
+                    startX + Sprite.SIZE * i, startY, 
                     0, 96
                 );
             }
             DrawBlock(
                 sb,
-                startX + Sprite.spriteSize * (width - 1), startY,
+                startX + Sprite.SIZE * (width - 1), startY,
                 0, 64
             );
 
@@ -85,20 +85,20 @@ namespace Puddle
             {
                 DrawBlock(
                     sb,
-                    startX, startY + Sprite.spriteSize * row,
+                    startX, startY + Sprite.SIZE * row,
                     64, 96
                 );
                 for (int i = 1; i < width - 1; i++)
                 {
                     DrawBlock(
                         sb,
-                        startX + Sprite.spriteSize * i, startY + Sprite.spriteSize * row,
+                        startX + Sprite.SIZE * i, startY + Sprite.SIZE * row,
                         32, 0
                     );
                 }
                 DrawBlock(
                     sb,
-                    startX + Sprite.spriteSize * (width - 1), startY + Sprite.spriteSize * row,
+                    startX + Sprite.SIZE * (width - 1), startY + Sprite.SIZE * row,
                     96, 96
                 );
             }
@@ -106,20 +106,20 @@ namespace Puddle
             // Bottom Row
             DrawBlock(
                 sb,
-                startX, startY + Sprite.spriteSize * (height - 1),
+                startX, startY + Sprite.SIZE * (height - 1),
                 64, 64
             );
             for (int i = 1; i < width - 1; i++)
             {
                 DrawBlock(
                     sb,
-                    startX + Sprite.spriteSize * i, startY + Sprite.spriteSize * (height - 1),
+                    startX + Sprite.SIZE * i, startY + Sprite.SIZE * (height - 1),
                     32, 96
                 );
             }
             DrawBlock(
                 sb,
-                startX + Sprite.spriteSize * (width - 1), startY + Sprite.spriteSize * (height - 1),
+                startX + Sprite.SIZE * (width - 1), startY + Sprite.SIZE * (height - 1),
                 32, 64
             );
         }
@@ -127,8 +127,8 @@ namespace Puddle
         public void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
         {
 
-            int startX = graphics.PreferredBackBufferWidth / 2 / gameScale - width * Sprite.spriteSize / 2;
-            int startY = graphics.PreferredBackBufferHeight / 2 / gameScale - height * Sprite.spriteSize / 2;
+            int startX = graphics.PreferredBackBufferWidth / 2 / gameScale - width * Sprite.SIZE / 2;
+            int startY = graphics.PreferredBackBufferHeight / 2 / gameScale - height * Sprite.SIZE / 2;
 
             DrawBackground(sb, startX, startY);
 
@@ -138,7 +138,7 @@ namespace Puddle
                 title,
                 new Vector2(
                     graphics.PreferredBackBufferWidth / 2 / gameScale,
-                    startY +  Sprite.spriteSize
+                    startY +  Sprite.SIZE
                 ),
                 Color.Black,
                 0,
@@ -157,7 +157,7 @@ namespace Puddle
                     option,
                     new Vector2(
                         graphics.PreferredBackBufferWidth / 2 / gameScale,
-                        startY + (count + 3) * Sprite.spriteSize * textSize / 2
+                        startY + (count + 3) * Sprite.SIZE * textSize / 2
                     ),
                     Color.Black,
                     0,
