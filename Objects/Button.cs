@@ -37,7 +37,7 @@ namespace Puddle
             soundFiles.Add("Sounds/HoldButtonRel");
             name = obj.Name;
 			baseCollisionWidth = 0.625;
-            baseCollisionHeight = 0.9375;
+            baseCollisionHeight = 0.625;
             depth = -1;
 
             if (obj.Properties["direction"].Equals("left"))
@@ -54,15 +54,11 @@ namespace Puddle
             {
                 rotationAngle = MathHelper.PiOver2 * 3;
                 spriteY -= 9;
-                baseCollisionWidth = 0.9375;
-                baseCollisionHeight = 0.75;
             }
             else
             {
                 rotationAngle = MathHelper.PiOver2;
                 spriteY += 9;
-                baseCollisionWidth = 0.9375;
-                baseCollisionHeight = 0.75;
             }
         }
 
