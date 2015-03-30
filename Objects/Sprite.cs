@@ -83,6 +83,7 @@ namespace Puddle
         public int collisionHeight
         { get { return (int)(this.baseCollisionHeight * SIZE); } }
 
+        // TODO: Incorrect based on scrolling
         public bool offScreen
         {
 			get 

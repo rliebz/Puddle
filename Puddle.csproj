@@ -38,8 +38,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Menu.cs" />
-    <Compile Include="Controls.cs" />
+    <Compile Include="UI\Menu.cs" />
+    <Compile Include="UI\Controls.cs" />
     <Compile Include="Enemies\Dying.cs" />
     <Compile Include="Enemies\Bird.cs" />
     <Compile Include="Enemies\SpikeBall.cs" />

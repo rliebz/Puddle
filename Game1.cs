@@ -276,27 +276,29 @@ namespace Puddle
 
 			pauseControls.Update(level);
 
-			// Return to level select
-			if (pauseControls.onPress(Keys.Escape, Buttons.Back) && paused)
-			{
-				// Can only return from inside a world
-				if (level.name.Equals("Select") || level.name.Equals("Menu"))
-					return;
+            if (pauseControls.onPress(Keys.Enter, Buttons.Start))
+            {
+                paused = !paused;
+                menu.LoadConfiguration();
+            }
 
-				// Reset powerup from that world to prevent content skipping
-				if (player1.worldPowerUp != null)
-					player1.powerup[player1.worldPowerUp] = false;
+            if (paused)
+            {
 
-				// Go to new level
-				player1.newMap = "Select";
-				paused = false;
-			}
+                if (pauseControls.onPress(Keys.Down, Buttons.DPadDown))
+                { menu.cursor++; }
 
-			if (pauseControls.onPress(Keys.Enter, Buttons.Start))
-				paused = !paused;
+                if (pauseControls.onPress(Keys.Up, Buttons.DPadUp))
+                { menu.cursor--; }
 
-			if (paused)
-				return;
+                if (pauseControls.onPress(Keys.D, Buttons.A))
+                { paused = menu.ExecuteAction(this, player1, level); }
+
+                if (pauseControls.onPress(Keys.S, Buttons.B))
+                { menu.LoadConfiguration(); }
+
+                return;
+            }
 				
             controls.Update(level);
 

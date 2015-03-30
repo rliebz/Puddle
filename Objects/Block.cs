@@ -139,7 +139,7 @@ namespace Puddle
             // Find neighboring blocks
             foreach (Sprite item in level.items)
             {
-                if (Intersects(item) && item is Block && 
+                if (Intersects(item) && item is Block &&
                     ((Block)item).blockType == "metal" && !((Block)item).transparent)
                 {
                     // TODO: Direction changing logic
