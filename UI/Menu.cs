@@ -46,7 +46,7 @@ namespace Puddle
             set {
                 if (allowCursor)
                 {
-                    _cursor = Math.Min(Math.Max(0, value), options.Count - 1); 
+                    _cursor = value < 0 ? options.Count - 1 : value % (options.Count);
                 }
             }
         }
@@ -99,6 +99,19 @@ namespace Puddle
                     optionsRight.Clear();
                     break;
 
+                case "confirmExit":
+                    centerAlign = false;
+                    allowCursor = true;
+                    textSize = 2f;
+                    title = "Really?";
+                    options = new List<string>()
+                    {
+                        "Really Exit",
+                        "Back To Menu"
+                    };
+                    optionsRight.Clear();
+                    break;
+
                 default:
                     centerAlign = false;
                     allowCursor = true;
@@ -128,6 +141,7 @@ namespace Puddle
             switch (action)
             {
                 case "Return":
+                    // TODO: Lingering input from selection key
                     return false;
 
                 case "Controls":
@@ -149,8 +163,16 @@ namespace Puddle
                     LoadConfiguration("credits");
                     return true;
 
-                case "Exit Game":
+                case "Really Exit":
                     game.Exit();
+                    return true;
+
+                case "Back To Menu":
+                    LoadConfiguration();
+                    return true;
+
+                case "Exit Game":
+                    LoadConfiguration("confirmExit");
                     return true;
 
                 default:

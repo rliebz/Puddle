@@ -291,10 +291,12 @@ namespace Puddle
                 if (pauseControls.onPress(Keys.Up, Buttons.DPadUp))
                 { menu.cursor--; }
 
-                if (pauseControls.onPress(Keys.D, Buttons.A))
+                if (pauseControls.onPress(Keys.D, Buttons.A) ||
+                    pauseControls.onPress(Keys.Right, Buttons.DPadRight))
                 { paused = menu.ExecuteAction(this, player1, level); }
 
-                if (pauseControls.onPress(Keys.S, Buttons.B))
+                if (pauseControls.onPress(Keys.S, Buttons.B) ||
+                    pauseControls.onPress(Keys.Left, Buttons.DPadLeft))
                 { menu.LoadConfiguration(); }
 
                 return;
