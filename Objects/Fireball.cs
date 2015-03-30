@@ -19,7 +19,7 @@ namespace Puddle
         {
             baseCollisionWidth = 0.9375;
             baseCollisionHeight = 0.875;
-            this.imageFile = "fireball";
+            this.imageFile = "Textures/fireball";
             
             this.dir = dir;
             if (this.dir == "up")

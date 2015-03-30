@@ -17,7 +17,7 @@ namespace Puddle
         public Roller(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y)
         {
-            imageFile = "roller_new";
+            imageFile = "Textures/roller";
 			name = obj.Name;
 
             faceLeft = obj.Properties.ContainsKey("left") && Boolean.Parse(obj.Properties["left"]);

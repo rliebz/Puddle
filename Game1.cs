@@ -145,7 +145,7 @@ namespace Puddle
 			foreach (Enemy enemy in level.enemies)
 				enemy.LoadContent(this.Content);
 
-            Sprite.font = Content.Load<SpriteFont>("PuddleFont");
+            Sprite.font = Content.Load<SpriteFont>("Fonts/Puddle");
             
         }
 
@@ -159,7 +159,7 @@ namespace Puddle
 						
 			// Load map and background
 			map = new TmxMap(String.Format(LEVEL_PATH, name));
-			background = Content.Load<Texture2D>("background");
+			background = Content.Load<Texture2D>("Textures/background");
 
 			// Decide if we're on the intro
 			intro = name.Equals("Menu");

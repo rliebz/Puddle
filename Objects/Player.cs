@@ -679,7 +679,7 @@ namespace Puddle
 
         public override void LoadContent(ContentManager content)
         {
-			blankImage = content.Load<Texture2D>("blank");
+			blankImage = content.Load<Texture2D>("Textures/blank");
 
 			// Player character sprites
             images["stand"] = content.Load<Texture2D>("PC/stand");
@@ -689,10 +689,10 @@ namespace Puddle
 			image = images["stand"];
 
 			// Misc. sprites
-			images["hydration"] = content.Load<Texture2D>("puddle");
-			images["heart"] = content.Load<Texture2D>("heart");
-			images["bubble"] = content.Load<Texture2D>("bubble");
-			images["charged"] = content.Load<Texture2D>("charged");
+			images["hydration"] = content.Load<Texture2D>("Textures/puddle");
+			images["heart"] = content.Load<Texture2D>("Textures/heart");
+			images["bubble"] = content.Load<Texture2D>("Textures/bubble");
+			images["charged"] = content.Load<Texture2D>("Textures/charged");
 
             foreach (string file in soundFiles)
             {

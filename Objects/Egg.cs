@@ -21,7 +21,7 @@ namespace Puddle
         {
             baseCollisionWidth = 0.59375;
             baseCollisionHeight = 0.75;
-            this.imageFile = "egg";
+            this.imageFile = "Textures/egg";
             speed = 4;
             health = 3;
         }

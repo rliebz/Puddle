@@ -22,7 +22,7 @@ namespace Puddle
         public Button(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y)
         {
-            imageFile = "button";
+            imageFile = "Textures/button";
             holdButton = obj.Properties.ContainsKey("hold") && Boolean.Parse(obj.Properties["hold"]);
             displayText = obj.Properties.ContainsKey("text") ? obj.Properties["text"] : "";
 			displayTextY = -40;

@@ -371,10 +371,10 @@ namespace Puddle
 
 		public override void LoadContent(ContentManager content)
         {
-            images["push"] = content.Load<Texture2D>("push_block");
-            images["metal"] = content.Load<Texture2D>("metal_block");
-            images["break"] = content.Load<Texture2D>("break_block");
-            images["temp"] = content.Load<Texture2D>("temp_block");
+            images["push"] = content.Load<Texture2D>("Textures/push_block");
+            images["metal"] = content.Load<Texture2D>("Textures/metal_block");
+            images["break"] = content.Load<Texture2D>("Textures/break_block");
+            images["temp"] = content.Load<Texture2D>("Textures/temp_block");
             image = images[this.blockType];
             foreach (string file in soundFiles)
             {

@@ -18,7 +18,7 @@ namespace Puddle
         public Shot(Player p, string dir = "none")
             : base(p.spriteX - SIZE / 2, p.spriteY - SIZE / 2)
         {
-            imageFile = "bubble";
+            imageFile = "Textures/bubble";
 			image = p.images["bubble"];
             
 			this.dir = dir;

@@ -26,7 +26,7 @@ namespace Puddle
 
         public Menu(string configuration=null)
         {
-            imageFile = "metal_block";
+            imageFile = "Textures/metal_block";
             options = new List<string>();
             optionsRight = new List<string>();
             width = 14;

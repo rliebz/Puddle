@@ -19,7 +19,7 @@ namespace Puddle
         public Geyser(TmxObjectGroup.TmxObject obj) :
 		base(obj.X, obj.Y - SIZE / 2)
         {
-            this.imageFile = "geyser";
+            this.imageFile = "Textures/geyser";
        
             name = obj.Name;
 			speed = -5;

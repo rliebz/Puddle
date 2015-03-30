@@ -10,7 +10,7 @@ namespace Puddle
         public PowerShot(Player p, string dir = "none")
             : base(p, dir)
         {
-			imageFile = "charged";
+			imageFile = "Textures/charged";
 			image = p.images["charged"];
 			baseCollisionWidth = 0.5625;
 			baseCollisionHeight = 0.5625;

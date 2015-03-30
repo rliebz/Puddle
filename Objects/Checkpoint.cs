@@ -19,7 +19,7 @@ namespace Puddle
         public Checkpoint(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y)
         {
-            imageFile = "checkpoint";
+            imageFile = "Textures/checkpoint";
             name = obj.Name.ToLower();
             activated = false;
             soundFiles.Add("Sounds/Checkpoint");

@@ -18,7 +18,7 @@ namespace Puddle
         public Cannon(TmxObjectGroup.TmxObject obj) :
             base(obj.X + SIZE / 2, obj.Y)
         {
-            this.imageFile = "cannon";
+            this.imageFile = "Textures/cannon";
             this.name = obj.Name;
 			isSolid = true;
             frameWidth = 64;

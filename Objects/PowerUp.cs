@@ -15,7 +15,7 @@ namespace Puddle
         public PowerUp(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y)
         {
-            imageFile = obj.Name + "";
+            imageFile = "Textures/" + obj.Name;
             name = obj.Name.ToLower();
         }
 
