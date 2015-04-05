@@ -38,33 +38,13 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="UI\Menu.cs" />
-    <Compile Include="UI\Controls.cs" />
-    <Compile Include="Enemies\Dying.cs" />
-    <Compile Include="Enemies\Bird.cs" />
-    <Compile Include="Enemies\SpikeBall.cs" />
-    <Compile Include="Enemies\Enemy.cs" />
-    <Compile Include="Enemies\Face.cs" />
-    <Compile Include="Enemies\Hand.cs" />
-    <Compile Include="Enemies\Rat.cs" />
+    <Compile Include="Enemies\*.*" />
+    <Compile Include="Objects\*.*" />
+    <Compile Include="UI\*.*" />
     <Compile Include="Level.cs" />
-    <Compile Include="Objects\Button.cs" />
-    <Compile Include="Objects\Cannon.cs" />
-    <Compile Include="Objects\Checkpoint.cs" />
-    <Compile Include="Objects\Egg.cs" />
-    <Compile Include="Objects\Roller.cs" />
-    <Compile Include="Objects\Fireball.cs" />
-    <Compile Include="Objects\Geyser.cs" />
-    <Compile Include="Objects\Pipe.cs" />
-    <Compile Include="Objects\PowerShot.cs" />
-    <Compile Include="Objects\PowerUp.cs" />
-    <Compile Include="Objects\Player.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Objects\Block.cs" />
-    <Compile Include="Objects\Shot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Objects\Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -87,8 +67,10 @@
     <Content Include="Levels\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TiledSharp.dll" />
     <Content Include="Icon.ico" />
+    <EmbeddedResource Include="TiledSharp.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="SDL.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
