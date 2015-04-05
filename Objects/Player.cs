@@ -204,13 +204,13 @@ namespace Puddle
         private void Move(Controls controls, Level level)
         {
             // Sideways Acceleration
-            if (controls.onPress(Keys.Right, Buttons.DPadRight))
+            if (controls.onPress(controls.Right))
                 xAccel += speed;
-            else if (controls.onRelease(Keys.Right, Buttons.DPadRight))
+            else if (controls.onRelease(controls.Right))
                 xAccel -= speed;
-            if (controls.onPress(Keys.Left, Buttons.DPadLeft))
+            if (controls.onPress(controls.Left))
                 xAccel -= speed;
-            else if (controls.onRelease(Keys.Left, Buttons.DPadLeft))
+            else if (controls.onRelease(controls.Left))
                 xAccel += speed;
 
             // Sideways Movement
@@ -248,7 +248,7 @@ namespace Puddle
 
         private void Puddle(Controls controls)
         {
-            if (controls.isPressed(Keys.Down, Buttons.DPadDown) &&
+            if (controls.isPressed(controls.Down) &&
                 !frozen && grounded && powerup["puddle"])
             {
                 puddled = true;
@@ -270,19 +270,19 @@ namespace Puddle
         {
             index = rand.Next(4);
             // New shots
-            if (controls.onPress(Keys.D, Buttons.RightShoulder) && !powerShotCharging)
+            if (controls.onPress(controls.PrimaryShot) && !powerShotCharging)
             {
                 shooting = true;
                 shotPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
             }
-            else if (controls.onRelease(Keys.D, Buttons.RightShoulder))
+            else if (controls.onRelease(controls.PrimaryShot))
             {
                 shooting = false;
             }
 
             if (powerup["charged"])
             {
-                if (controls.onPress(Keys.X, Buttons.RightTrigger))
+                if (controls.onPress(controls.SecondaryShot))
                 {
                     if (hydration >= powerShotCost)
                         powerShotCharging = true;
@@ -290,7 +290,7 @@ namespace Puddle
                     powerShotRelease = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                     tryShotHydration = 0;
                 }
-                else if (controls.isPressed(Keys.X, Buttons.RightTrigger) && powerShotCharging)
+                else if (controls.isPressed(controls.SecondaryShot) && powerShotCharging)
                 {
                     if (tryShotHydration < powerShotCost)
                     {
@@ -298,14 +298,14 @@ namespace Puddle
                         hydration -= 1;
                     }
                 }
-                else if (controls.onRelease(Keys.X, Buttons.RightTrigger) && powerShotCharging)
+                else if (controls.onRelease(controls.SecondaryShot) && powerShotCharging)
                 {
                     powerShotRelease = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                     if (((powerShotRelease - powerShotPoint) >= powerShotDelay) && tryShotHydration == powerShotCost)
                     {
                         powerShotCharging = false;
                         tryShotHydration = 0;
-                        string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
+                        string dir = controls.isPressed(controls.Up) ? "up" : "none";
                         PowerShot s = new PowerShot(this, dir);
                         if (index == 0)
                         {
@@ -343,7 +343,7 @@ namespace Puddle
                     && shooting && hydration >= shotCost)
                 {
                     shotPoint = currentTime1;
-                    string dir = controls.isPressed(Keys.Up, Buttons.DPadUp) ? "up" : "none";
+                    string dir = controls.isPressed(controls.Up) ? "up" : "none";
                     Shot s = new Shot(this, dir);
 					if (index == 0) 
                     {
@@ -368,7 +368,7 @@ namespace Puddle
                 // Jetpack (Midair jump and downward shots)
                 int currentTime2 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                 if ((currentTime2 - jumpPoint) >= jumpDelay && yVel > 3 && powerup["jetpack"] &&
-                    hydration >= jetpackCost && !grounded && controls.isPressed(Keys.S, Buttons.A))
+                    hydration >= jetpackCost && !grounded && controls.isPressed(controls.Jump))
                 {
                     // New shot
                     jumpPoint = currentTime2;
@@ -403,7 +403,7 @@ namespace Puddle
         private void Jump(Controls controls, Level level, GameTime gameTime)
         {
             // Jump on button press
-			if (controls.onPress(Keys.S, Buttons.A) && !frozen && grounded)
+			if (controls.onPress(controls.Jump) && !frozen && grounded)
             {
                 instance = soundList["Sounds/Jump"].CreateInstance();
                 instance.Volume = 0.4f;
@@ -413,7 +413,7 @@ namespace Puddle
             }
 
             // Cut jump short on button release
-            else if (controls.onRelease(Keys.S, Buttons.A) && yVel < 0)
+            else if (controls.onRelease(controls.Jump) && yVel < 0)
             {
                 yVel /= 2;
             }
@@ -659,7 +659,7 @@ namespace Puddle
                     frameIndexX = 0;
                 }
                 // Animate downward if puddling
-                else if (controls.isPressed(Keys.Down, Buttons.DPadDown))
+                else if (controls.isPressed(controls.Down))
                 {
                     if (frameIndexX < 5 * 32)
                         frameIndexX += 32;
