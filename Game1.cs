@@ -92,12 +92,10 @@ namespace Puddle
         protected void WindowSizeChange(int width, int height)
         {
             graphics.PreferredBackBufferWidth = Math.Max(
-                width,
-                Sprite.SIZE * GAME_BASE_WIDTH
+                width, Sprite.SIZE * GAME_BASE_WIDTH
             );
             graphics.PreferredBackBufferHeight = Math.Max(
-                height,
-                Sprite.SIZE * GAME_BASE_HEIGHT
+                height, Sprite.SIZE * GAME_BASE_HEIGHT
             );
             graphics.ApplyChanges();
         }
@@ -134,7 +132,6 @@ namespace Puddle
             menuSong = Content.Load<SoundEffect>("Sounds/Menu");
             menuInstance = menuSong.CreateInstance();
             menuInstance.IsLooped = true;
-            menuInstance.Play();
 
             // TODO: Load all content in level class
             player1.LoadContent(this.Content);
@@ -150,7 +147,7 @@ namespace Puddle
         }
 
         protected void LoadMap(string name)
-        {		
+        {
 			player1.ResetFields(true);
 
 			// Save state of levelSelect after exiting
@@ -284,7 +281,6 @@ namespace Puddle
 
             if (paused)
             {
-
                 if (pauseControls.onPress(Keys.Down, Buttons.DPadDown))
                 { menu.cursor++; }
 
@@ -303,9 +299,7 @@ namespace Puddle
             }
 				
             controls.Update(level);
-
             player1.Update(controls, level, gameTime);
-
             level.Update();
 
             base.Update(gameTime);
@@ -338,11 +332,11 @@ namespace Puddle
             // Draw
             if (loadingMap)
             {
+                // Draw Level Loading Screen
                 BeginSpriteBatch(defaultCamera);
 
 				string levelDisplay = player1.newMap.Equals("Win") ? "Congratulations!" :
 					String.Format("Level {0}", player1.newMap);
-
                 spriteBatch.DrawString(
                     Sprite.font,
                     levelDisplay,
@@ -395,6 +389,7 @@ namespace Puddle
                 
                 // Draw contents of the level
                 level.Draw(spriteBatch);
+
                 spriteBatch.End();
 
                 // Draw UI elements
