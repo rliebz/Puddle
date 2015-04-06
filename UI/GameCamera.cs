@@ -6,9 +6,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+
 namespace Puddle
 {
-    class Camera
+    class GameCamera
     {
         // Current camera positions
         private float currentX;
@@ -18,7 +19,7 @@ namespace Puddle
         private float destinationX;
         private float destinationY;
 
-        public Camera(Vector2 position)
+        public GameCamera(Vector2 position)
         {
             JumpToPosition(position);
         }

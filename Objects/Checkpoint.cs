@@ -8,13 +8,13 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Audio;
 using TiledSharp;
 
+
 namespace Puddle
 {
     class Checkpoint : Sprite
     {
 
         public bool activated;
-        private SoundEffectInstance instance;
 
         public Checkpoint(TmxObjectGroup.TmxObject obj) :
             base(obj.X, obj.Y)
@@ -48,20 +48,18 @@ namespace Puddle
                 Action(level.player);
                 if (!activated)
                 {
-                    instance = soundList["Sounds/Checkpoint"].CreateInstance();
-                    instance.Volume = 0.7f;
-                    instance.Play();
-                }
-                foreach (Sprite s in level.items)
-                {
-                    if (s != this && s is Checkpoint)
+                    soundList["Sounds/Checkpoint"].Play(0.7f, 0, 0);
+                    foreach (Sprite s in level.items)
                     {
-                        Checkpoint c = (Checkpoint)s;
-                        c.activated = false;
-                        c.frameIndexX = 0;
+                        if (s != this && s is Checkpoint)
+                        {
+                            Checkpoint c = (Checkpoint)s;
+                            c.activated = false;
+                            c.frameIndexX = 0;
+                        }
                     }
+                    activated = true;
                 }
-                activated = true;
             }
         }
 

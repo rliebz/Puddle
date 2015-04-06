@@ -145,9 +145,6 @@ namespace Puddle
         public virtual void Update(Level level)
         { }
 
-//        public virtual void Update(Level level, ContentManager content)
-//        { }
-
         public virtual void LoadContent(ContentManager content)
         {
 			blankImage = content.Load<Texture2D>("Textures/blank");

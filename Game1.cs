@@ -17,8 +17,8 @@ namespace Puddle
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        Camera defaultCamera;
-        Camera playerCamera;
+        GameCamera uiCamera;
+        GameCamera focusCamera;
         SpriteBatch spriteBatch;
         Level level;
         Player player1;
@@ -75,8 +75,8 @@ namespace Puddle
 				Convert.ToInt32(map.Properties["startX"]), 
 				Convert.ToInt32(map.Properties["startY"])
             );
-            defaultCamera = new Camera(new Vector2(0, 0));
-            playerCamera = new Camera(PlayerCameraCoordinates(player1, graphics, gameScale));
+            uiCamera = new GameCamera(new Vector2(0, 0));
+            focusCamera = new GameCamera(PlayerCameraCoordinates(player1, graphics, gameScale));
 			level = new Level(player1, "menu", this.Content);
             levelSelect = null;
             controls = new Controls();
@@ -234,7 +234,7 @@ namespace Puddle
             }
 
             // Reset player fields
-            playerCamera.JumpToPosition(PlayerCameraCoordinates(player1, graphics, gameScale));
+            focusCamera.JumpToPosition(PlayerCameraCoordinates(player1, graphics, gameScale));
             player1.checkpointXPos = player1.spriteX;
             player1.checkpointYPos = player1.spriteY;
 
@@ -298,7 +298,7 @@ namespace Puddle
                 return;
             }
 
-            playerCamera.Update();
+            focusCamera.Update();
             controls.Update(level);
             player1.Update(controls, level, gameTime);
             level.Update();
@@ -306,7 +306,7 @@ namespace Puddle
             base.Update(gameTime);
         }
 
-        private void BeginSpriteBatch(Camera camera)
+        private void BeginSpriteBatch(GameCamera camera)
         {
 
             Matrix scaleMatrix = Matrix.CreateScale(gameScale);
@@ -339,13 +339,13 @@ namespace Puddle
 
             GraphicsDevice.Clear(Color.Black);
 
-            playerCamera.GoToPosition(PlayerCameraCoordinates(player1, graphics, gameScale));
+            focusCamera.GoToPosition(PlayerCameraCoordinates(player1, graphics, gameScale));
 
             // Draw
             if (loadingMap)
             {
                 // Draw Level Loading Screen
-                BeginSpriteBatch(defaultCamera);
+                BeginSpriteBatch(uiCamera);
 
 				string levelDisplay = player1.newMap.Equals("Win") ? "Congratulations!" :
 					String.Format("Level {0}", player1.newMap);
@@ -368,7 +368,7 @@ namespace Puddle
             }
             else
             {
-                BeginSpriteBatch(playerCamera);
+                BeginSpriteBatch(focusCamera);
 
 				// Draw background
                 spriteBatch.Draw(
@@ -405,7 +405,7 @@ namespace Puddle
                 spriteBatch.End();
 
                 // Draw UI elements
-                BeginSpriteBatch(defaultCamera);
+                BeginSpriteBatch(uiCamera);
                 level.DrawUI(spriteBatch, graphics, gameScale);
 
                 // Draw pause screen
