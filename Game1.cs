@@ -17,8 +17,8 @@ namespace Puddle
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        Vector2 defaultCamera;
-        Vector2 playerCamera;
+        Camera defaultCamera;
+        Camera playerCamera;
         SpriteBatch spriteBatch;
         Level level;
         Player player1;
@@ -71,11 +71,12 @@ namespace Puddle
             previousMap = "";
 
             // Create built-in objects
-            defaultCamera = new Vector2(0, 0);
 			player1 = new Player(
 				Convert.ToInt32(map.Properties["startX"]), 
 				Convert.ToInt32(map.Properties["startY"])
-			);
+            );
+            defaultCamera = new Camera(new Vector2(0, 0));
+            playerCamera = new Camera(PlayerCameraCoordinates(player1, graphics, gameScale));
 			level = new Level(player1, "menu", this.Content);
             levelSelect = null;
             controls = new Controls();
@@ -233,6 +234,7 @@ namespace Puddle
             }
 
             // Reset player fields
+            playerCamera.JumpToPosition(PlayerCameraCoordinates(player1, graphics, gameScale));
             player1.checkpointXPos = player1.spriteX;
             player1.checkpointYPos = player1.spriteY;
 
@@ -295,7 +297,8 @@ namespace Puddle
 
                 return;
             }
-				
+
+            playerCamera.Update();
             controls.Update(level);
             player1.Update(controls, level, gameTime);
             level.Update();
@@ -303,7 +306,7 @@ namespace Puddle
             base.Update(gameTime);
         }
 
-        protected void BeginSpriteBatch(Vector2 camera)
+        private void BeginSpriteBatch(Camera camera)
         {
 
             Matrix scaleMatrix = Matrix.CreateScale(gameScale);
@@ -319,13 +322,24 @@ namespace Puddle
             );
         }
 
+
+        private Vector2 PlayerCameraCoordinates(Player player, GraphicsDeviceManager graphics, int gameScale)
+        {
+            Vector2 output = new Vector2();
+
+            output.X = graphics.PreferredBackBufferWidth / 2 - player.spriteX * gameScale;
+            int puddleYOffset = player.puddled ? 96 : 0;
+            output.Y = graphics.PreferredBackBufferHeight * 3 / 4 - (player.spriteY + puddleYOffset) * gameScale;
+
+            return output;
+        }
+
         protected override void Draw(GameTime gameTime)
         {
 
             GraphicsDevice.Clear(Color.Black);
 
-            playerCamera.X = graphics.PreferredBackBufferWidth / 2 - player1.spriteX * gameScale;
-            playerCamera.Y = graphics.PreferredBackBufferHeight * 3 / 4 - player1.spriteY * gameScale;
+            playerCamera.GoToPosition(PlayerCameraCoordinates(player1, graphics, gameScale));
 
             // Draw
             if (loadingMap)
