@@ -75,8 +75,8 @@ namespace Puddle
 				Convert.ToInt32(map.Properties["startX"]), 
 				Convert.ToInt32(map.Properties["startY"])
             );
-            uiCamera = new GameCamera(new Vector2(0, 0));
-            focusCamera = new GameCamera(PlayerCameraCoordinates(player1, graphics, gameScale));
+            uiCamera = new GameCamera(new Vector2(0, 0), graphics, gameScale);
+            focusCamera = new GameCamera(PlayerCameraCoordinates(player1, graphics, gameScale), graphics, gameScale);
 			level = new Level(player1, "menu", this.Content);
             levelSelect = null;
             controls = new Controls();
@@ -107,6 +107,9 @@ namespace Puddle
                 Window.ClientBounds.Width / (Sprite.SIZE * GAME_BASE_WIDTH),
                 Window.ClientBounds.Height / (Sprite.SIZE * GAME_BASE_HEIGHT)
             );
+
+            uiCamera.setGameScale(gameScale);
+            focusCamera.setGameScale(gameScale);
 
             WindowSizeChange(
                 Window.ClientBounds.Width,
