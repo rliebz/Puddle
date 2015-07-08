@@ -11,7 +11,7 @@ namespace Puddle
 {
     class Controls
     {
-        public enum Directions { up, down, left, right };
+        public enum Directions { up, down, left, right, X, Y };
 
         private KeyboardState kb;
         private KeyboardState kbo;
@@ -111,6 +111,28 @@ namespace Puddle
         }
 
         // Private Methods
+        private float getTilt(Directions direction)
+        {
+            switch (direction)
+            {
+                case Directions.X:
+                    if (kb.IsKeyDown(leftKey) || gp.IsButtonDown(leftButton))
+                    { return -1; }
+                    if (kb.IsKeyDown(rightKey) || gp.IsButtonDown(rightButton))
+                    { return 1; }
+                    return gp.ThumbSticks.Left.X;
+                // TODO: Untested. This also will likely never be used
+                case Directions.Y:
+                    if (kb.IsKeyDown(upKey) || gp.IsButtonDown(upButton))
+                    { return -1; }
+                    if (kb.IsKeyDown(downKey) || gp.IsButtonDown(downButton))
+                    { return 1; }
+                    return -1 * gp.ThumbSticks.Left.Y;
+                default:
+                    throw new ArgumentException("Tilt only applies to X and Y directions.");
+            }
+        }
+
         private bool isThumbstickHeld(GamePadState gamepad, Directions direction)
         {
             switch (direction)
@@ -124,7 +146,7 @@ namespace Puddle
                 case Directions.right:
                     return gamepad.ThumbSticks.Left.X > 0.5;
                 default:
-                    return false;
+                    throw new ArgumentException("You must pass one of the four basic directions.");
             }
         }
 
@@ -178,5 +200,11 @@ namespace Puddle
 
         public bool onRelease(Tuple<Keys, Buttons, Directions> input)
         { return onRelease(input.Item1, input.Item2, input.Item3); }
+
+        public float getXTilt()
+        { return getTilt(Directions.X); }
+
+        public float getYTilt()
+        { return getTilt(Directions.Y); }
     }
 }

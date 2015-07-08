@@ -211,13 +211,24 @@ namespace Puddle
             else if (controls.onRelease(controls.Left))
                 xAccel += speed;
 
-            // Sideways Movement
+            // Calculate situational friction
             double playerFriction = pushing ? (friction * 3) : friction;
-            xVel = xVel * (1 - playerFriction)
-                + (frozen ? 0 : xAccel * .10);
+
+            // Thumbstick tilt range needs to be positive
+            double tiltPercentage = Math.Abs(controls.getXTilt());
+            // Improve the spread from 0.5-1.0 to 0.0 to 1.0
+            tiltPercentage = 2 * (tiltPercentage - 0.5);
+
+            // Calculate X velocity and distance moved
+            xVel = xVel                 // Current speed from last frame
+                * (1 - playerFriction)  // Reduction in current speed from friction
+                + (frozen ? 0 : 1)      // Don't accelerate if frozen
+                * xAccel * .10          // Add current acceleration reduced by constant
+                * tiltPercentage;       // Speed reduction for partially tilted controller
 			movedX = Convert.ToInt32(xVel + rollerVel);
 			spriteX += movedX;
 
+            // Reset situational variables
 			pushing = false;
 			rollerVel = 0;
 
@@ -236,7 +247,7 @@ namespace Puddle
 			// Check up/down collisions
 			checkYCollisions(level);
 
-			// Determine direction
+			// Determine player facing
 			if (xVel > 0.1)
 				faceLeft = false;
 			else if (xVel < -0.1)
@@ -574,7 +585,7 @@ namespace Puddle
                         frameIndexX += 32;
                 }
                 // Grounded, not Moving
-				else if (Math.Abs(xVel) < 1)
+				else if (Math.Abs(xVel) < 0.5)
                 {
                     // Initialize sprite. No animation.
                     if (image != images["stand"])
