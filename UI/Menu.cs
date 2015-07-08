@@ -153,7 +153,7 @@ namespace Puddle
                         return true;
                     // Reset powerup from that world to prevent content skipping
                     if (player.worldPowerUp != null)
-                        player.powerup[player.worldPowerUp] = true;
+                        player.powerup[player.worldPowerUp] = false;
                     // Go to new level
                     player.newMap = "Select";
                     return false;
