@@ -14,6 +14,7 @@ namespace Puddle
         // Settings
         private GraphicsDeviceManager graphics;
         public bool useScroll;
+        public bool fixCamera;
         public int scrollSpeed;
         public int gameScale;
 
@@ -25,11 +26,12 @@ namespace Puddle
         private float destinationX;
         private float destinationY;
 
-        public GameCamera(Vector2 position, GraphicsDeviceManager g, int scale)
+        public GameCamera(Vector2 position, GraphicsDeviceManager g, int scale, bool keepFixed=false)
         {
             graphics = g;
             useScroll = true;
             scrollSpeed = 10;
+            fixCamera = keepFixed;
 
             gameScale = scale;
             JumpToPosition(position);
@@ -72,26 +74,39 @@ namespace Puddle
         {
             get
             {
-                return Math.Max(
-                    Math.Min(0, currentX),
-                    // TODO: Pass map size (22) from Game1.cs
-                    graphics.PreferredBackBufferWidth - Sprite.SIZE * 22 * gameScale
-                );
+                // TODO: Pass map size (22) from Game1.cs
+                int lowerBound = graphics.PreferredBackBufferWidth - Sprite.SIZE * 22 * gameScale;
+                int upperBound = 0;
+
+                return getPositionWithinBounds(lowerBound, upperBound, currentX);
             }
             set { destinationX = value; }
         }
 
         public float Y
         {
-            get 
-            { 
-                return Math.Max(
-                    Math.Min(0, currentY),
-                    // TODO: Pass map size (22) from Game1.cs
-                    graphics.PreferredBackBufferHeight - Sprite.SIZE * 22 * gameScale
-                );
+            get
+            {
+                // TODO: Pass map size (22) from Game1.cs
+                int lowerBound = graphics.PreferredBackBufferHeight - Sprite.SIZE * 22 * gameScale;
+                int upperBound = 0;
+
+                return getPositionWithinBounds(lowerBound, upperBound, currentY);
             }
             set { destinationY = value; }
+        }
+
+        private float getPositionWithinBounds(int lowerBound, int upperBound, float value)
+        {
+            // Bounds don't apply to fixed cameras
+            if (fixCamera)
+            { return value; }
+
+            // Center screen if scrolling isn't needed
+            if (lowerBound > 0)
+            { return lowerBound / 2; }
+
+            return Math.Max(Math.Min(upperBound, value), lowerBound);
         }
 
         // Set destination

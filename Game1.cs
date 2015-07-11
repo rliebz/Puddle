@@ -42,8 +42,8 @@ namespace Puddle
 		const string LEVEL_PATH = "Levels/Level{0}.tmx";
 		const float LOAD_SCREEN_TIME = 1.5f;
         const float INTRO_SCREEN_TIME = 3.0f;
-        const int GAME_BASE_WIDTH = 15;
-        const int GAME_BASE_HEIGHT = 10;
+        const int GAME_BASE_WIDTH = 15;     // Minimum number of visible tiles
+        const int GAME_BASE_HEIGHT = 10;    // based on game scale
 
         public Game1()
             : base()
@@ -75,7 +75,7 @@ namespace Puddle
 				Convert.ToInt32(map.Properties["startX"]), 
 				Convert.ToInt32(map.Properties["startY"])
             );
-            uiCamera = new GameCamera(new Vector2(0, 0), graphics, gameScale);
+            uiCamera = new GameCamera(new Vector2(0, 0), graphics, gameScale, true);
             focusCamera = new GameCamera(PlayerCameraCoordinates(player1, graphics, gameScale), graphics, gameScale);
 			level = new Level(player1, "menu", this.Content);
             levelSelect = null;
@@ -328,13 +328,16 @@ namespace Puddle
 
         private Vector2 PlayerCameraCoordinates(Player player, GraphicsDeviceManager graphics, int gameScale)
         {
-            Vector2 output = new Vector2();
+            // Relative character position along axis (0-1)
+            float relativeXPosition = 0.5f;
+            float relativeYPosition = 0.75f;
 
-            output.X = graphics.PreferredBackBufferWidth / 2 - player.spriteX * gameScale;
+            // Calculate position vector to place character at specified position on screen
+            float playerX = graphics.PreferredBackBufferWidth * relativeXPosition - player.spriteX * gameScale;
             int puddleYOffset = player.puddled ? 96 : 0;
-            output.Y = graphics.PreferredBackBufferHeight * 3 / 4 - (player.spriteY + puddleYOffset) * gameScale;
+            float playerY = graphics.PreferredBackBufferHeight * relativeYPosition - (player.spriteY + puddleYOffset) * gameScale;
 
-            return output;
+            return new Vector2(playerX, playerY);
         }
 
         protected override void Draw(GameTime gameTime)
