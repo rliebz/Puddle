@@ -65,7 +65,7 @@ namespace Puddle
             int healthHeight = SIZE / 2;
             Vector2 position = new Vector2(
                 graphics.PreferredBackBufferWidth / 2 / gameScale,
-                graphics.PreferredBackBufferHeight / gameScale - Sprite.SIZE
+                graphics.PreferredBackBufferHeight / gameScale - Sprite.SIZE / 2
             );
             Vector2 center = new Vector2(
                 (float)healthWidth / 2, 
