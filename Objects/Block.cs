@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Audio;
 using TiledSharp;
+
 namespace Puddle
 {
     class Block : Sprite

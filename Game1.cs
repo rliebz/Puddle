@@ -18,6 +18,7 @@ namespace Puddle
     {
         GraphicsDeviceManager graphics;
         GameCamera focusCamera;
+        MusicPlayer musicPlayer;
         SpriteBatch spriteBatch;
         Level level;
         Player player1;
@@ -27,8 +28,6 @@ namespace Puddle
         TmxMap map;
         Texture2D background;
         Texture2D introImage;
-        SoundEffect song, bossSong, menuSong;
-        SoundEffectInstance instance, bossInstance, menuInstance;
         Level levelSelect;
         bool loadingMap;
         bool paused;
@@ -74,7 +73,12 @@ namespace Puddle
                 Convert.ToInt32(map.Properties["startX"]), 
                 Convert.ToInt32(map.Properties["startY"])
             );
-            focusCamera = new GameCamera(PlayerCameraCoordinates(player1, graphics, gameScale), graphics, gameScale);
+            focusCamera = new GameCamera(
+                PlayerCameraCoordinates(player1, graphics, gameScale),
+                graphics,
+                gameScale
+            );
+            musicPlayer = new MusicPlayer();
             level = new Level(player1, "menu", this.Content);
             levelSelect = null;
             controls = new Controls();
@@ -122,17 +126,7 @@ namespace Puddle
 
             // Sound Content
             // TODO: Should sound be played here?
-            song = Content.Load<SoundEffect>("Sounds/InGame");
-            instance = song.CreateInstance();
-            instance.IsLooped = true;
-
-            bossSong = Content.Load<SoundEffect>("Sounds/Boss");
-            bossInstance = bossSong.CreateInstance();
-            bossInstance.IsLooped = true;
-
-            menuSong = Content.Load<SoundEffect>("Sounds/Menu");
-            menuInstance = menuSong.CreateInstance();
-            menuInstance.IsLooped = true;
+            musicPlayer.LoadContent(this.Content);
 
             // TODO: Load all content in level class
             player1.LoadContent(this.Content);
@@ -161,27 +155,6 @@ namespace Puddle
 
             // Decide if we're on the intro
             intro = name.Equals("Menu");
-
-            // Choose music
-            if (intro || name.Equals("Select"))
-            {
-                instance.Stop();
-                bossInstance.Stop();
-                menuInstance.Play();
-            }
-            else if (name.Equals("Boss"))
-            {
-                instance.Stop();
-                menuInstance.Stop();
-                bossInstance.Play();
-            }
-            else
-            {
-                bossInstance.Stop();
-                menuInstance.Stop();
-                instance.Play();
-            }
-
 
             // Create new level object
             if (name.Equals("Select") && levelSelect != null)
@@ -232,6 +205,9 @@ namespace Puddle
                 player1.spriteX = Convert.ToInt32(map.Properties["startX"]);
                 player1.spriteY = Convert.ToInt32(map.Properties["startY"]);
             }
+
+            // Choose music
+            musicPlayer.PlayLevelMusic(level);
 
             // Reset player fields
             focusCamera.JumpToPosition(PlayerCameraCoordinates(player1, graphics, gameScale));

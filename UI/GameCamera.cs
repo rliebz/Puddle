@@ -14,7 +14,6 @@ namespace Puddle
         // Settings
         private GraphicsDeviceManager graphics;
         public bool useScroll;
-        public bool fixCamera;
         public int scrollSpeed;
         public int gameScale;
 
@@ -97,10 +96,6 @@ namespace Puddle
 
         private float getPositionWithinBounds(int lowerBound, int upperBound, float value)
         {
-            // Bounds don't apply to fixed cameras
-            if (fixCamera)
-            { return value; }
-
             // Center screen if scrolling isn't needed
             if (lowerBound > 0)
             { return lowerBound / 2; }
