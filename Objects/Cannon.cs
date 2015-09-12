@@ -11,7 +11,7 @@ namespace Puddle
 {
     class Cannon : Sprite
     {
-		public string direction;
+        public string direction;
         public int speed;
 
         //TODO: add in function passing for individual button actions
@@ -20,26 +20,26 @@ namespace Puddle
         {
             this.imageFile = "Textures/cannon";
             this.name = obj.Name;
-			isSolid = true;
+            isSolid = true;
             frameWidth = 64;
             baseWidth = 2;
             baseCollisionWidth = 2;
             faceLeft = false;
-			direction = obj.Properties["direction"];
-			if (direction == "left")
+            direction = obj.Properties["direction"];
+            if (direction == "left")
                 faceLeft = true;
             speed = obj.Properties.ContainsKey("speed") ? Int32.Parse(obj.Properties["speed"]) : 125;
         }
 
         public override void Update(Level level)
         {
-			if (level.count % speed == 0)
+            if (level.count % speed == 0)
             {
-				Fireball fireball = new Fireball(
-					spriteX + (faceLeft ? -63 : 31), spriteY - 16, direction
-				);
-				fireball.LoadContent(level.content);
-				level.projectiles.Add((Sprite)fireball);
+                Fireball fireball = new Fireball(
+                    spriteX + (faceLeft ? -63 : 31), spriteY - 16, direction
+                );
+                fireball.LoadContent(level.content);
+                level.projectiles.Add((Sprite)fireball);
             }
         }
     }

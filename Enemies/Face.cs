@@ -9,57 +9,57 @@ using TiledSharp;
 
 namespace Puddle
 {
-	class Face : Enemy
+    class Face : Enemy
     {
-		public int maxHealth;
+        public int maxHealth;
 
-		public Face(TmxObjectGroup.TmxObject obj)
-			: this(obj.X, obj.Y)
-		{ }
+        public Face(TmxObjectGroup.TmxObject obj)
+            : this(obj.X, obj.Y)
+        { }
 
-		public Face(int x, int y)
-			: base(x, y, 3, 3)
-		{
-			this.imageFile = "Enemies/face";
-			speed = 2;
-			xVel = speed;
-			yVel = 0;
-
-			maxHealth = 30;
-			health = 30;
-
-			// Sprite business
-			seed = rnd.Next(0, 3);
-		}
-
-		public override void Update(Level level)
+        public Face(int x, int y)
+            : base(x, y, 3, 3)
         {
-			base.Update(level);
+            this.imageFile = "Enemies/face";
+            speed = 2;
+            xVel = speed;
+            yVel = 0;
+
+            maxHealth = 30;
+            health = 30;
+
+            // Sprite business
+            seed = rnd.Next(0, 3);
+        }
+
+        public override void Update(Level level)
+        {
+            base.Update(level);
 
             // Move
             Move(level);
 
-			// Shoot maybe
-			if (level.count % 30 == 0)
-				Shoot(level);
+            // Shoot maybe
+            if (level.count % 30 == 0)
+                Shoot(level);
 
-			Animate(level);
+            Animate(level);
 
-			if (destroyed)
-			{
-				foreach (Enemy e in level.enemies)
-					e.health = 0;
-			}
+            if (destroyed)
+            {
+                foreach (Enemy e in level.enemies)
+                    e.health = 0;
+            }
         }
-			
-		public void Shoot(Level level)
-		{
-			Fireball fireball = new Fireball(spriteX - 16, spriteY + 48, "down");
-			fireball.LoadContent(level.content);
-			level.projectiles.Add((Sprite)fireball);
-		}
+            
+        public void Shoot(Level level)
+        {
+            Fireball fireball = new Fireball(spriteX - 16, spriteY + 48, "down");
+            fireball.LoadContent(level.content);
+            level.projectiles.Add((Sprite)fireball);
+        }
 
-		public override void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
+        public override void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
         {
             int healthWidth = SIZE * 9;
             int healthHeight = SIZE / 2;
@@ -73,7 +73,7 @@ namespace Puddle
             );
 
 
-			// Draw boss health bar
+            // Draw boss health bar
             sb.Draw(
                 blankImage,
                 position,
@@ -85,7 +85,7 @@ namespace Puddle
                 SpriteEffects.None,
                 0
             );
-			sb.Draw(
+            sb.Draw(
                 blankImage,
                 position,
                 new Rectangle(0, 0, healthWidth, healthHeight),
@@ -95,23 +95,23 @@ namespace Puddle
                 1f,
                 SpriteEffects.None,
                 0
-			);
-			sb.Draw(
-				blankImage,
+            );
+            sb.Draw(
+                blankImage,
                 position,
-				new Rectangle(
+                new Rectangle(
                     0, 0,
                     healthWidth * health / maxHealth,
                     healthHeight
                 ),
-				Color.Firebrick,
+                Color.Firebrick,
                 0,
                 center,
                 1f,
                 SpriteEffects.None,
                 0
-			);
-		}
+            );
+        }
 
         public override void Animate(Level level)
         {

@@ -19,9 +19,9 @@ namespace Puddle
             : base(p.spriteX - SIZE / 2, p.spriteY - SIZE / 2)
         {
             imageFile = "Textures/bubble";
-			image = p.images["bubble"];
+            image = p.images["bubble"];
             
-			this.dir = dir;
+            this.dir = dir;
             baseCollisionWidth = 0.375;
             baseCollisionHeight = 0.375;
             speed = 6;
@@ -44,22 +44,22 @@ namespace Puddle
                 if (Intersects(e))
                 {
                     destroyed = true;
-					// TODO: Move enemy logic to enemy class
+                    // TODO: Move enemy logic to enemy class
                     e.health -= damage;
-					e.spriteColor = Color.Red;
-					e.hurtPoint = level.count;
+                    e.spriteColor = Color.Red;
+                    e.hurtPoint = level.count;
                 }
             }
 
             // check collisions with blocks
-			foreach (Sprite s in level.items)
+            foreach (Sprite s in level.items)
             {
-				if (s.isSolid && Intersects(s))
+                if (s.isSolid && Intersects(s))
                     destroyed = true;
             }
 
-			if (offScreen)
-				destroyed = true;
+            if (offScreen)
+                destroyed = true;
         }
 
         public void Move()

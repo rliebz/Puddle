@@ -13,16 +13,16 @@ namespace Puddle
     {
         
         public int seed;
-		public int speed;
+        public int speed;
 
         //TODO: add in function passing for individual button actions
         public Geyser(TmxObjectGroup.TmxObject obj) :
-		base(obj.X, obj.Y - SIZE / 2)
+        base(obj.X, obj.Y - SIZE / 2)
         {
             this.imageFile = "Textures/geyser";
        
             name = obj.Name;
-			speed = -5;
+            speed = -5;
 
             frameHeight = 4 * SIZE;
             baseHeight = 4;
@@ -35,14 +35,14 @@ namespace Puddle
         }
 
 
-		public void checkCollisions(Level level)
+        public void checkCollisions(Level level)
         {
             if (Intersects(level.player))
            {
-				level.player.yVel = speed;
-				level.player.grounded = false;
+                level.player.yVel = speed;
+                level.player.grounded = false;
 
-               	if (level.player.hydration < level.player.maxHydration - 2)
+                   if (level.player.hydration < level.player.maxHydration - 2)
                     level.player.hydration += 2;
             }
 
@@ -50,7 +50,7 @@ namespace Puddle
             {
                 if (Intersects(e))
                 {
-					e.yVel = speed;
+                    e.yVel = speed;
                     e.grounded = false;
                 }
             }
@@ -63,7 +63,7 @@ namespace Puddle
 
         public override void Update(Level level)
         {
-			checkCollisions(level);
+            checkCollisions(level);
             Animate(level);
         }
 

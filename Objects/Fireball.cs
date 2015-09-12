@@ -14,8 +14,8 @@ namespace Puddle
         public int speed;
         public int seed;
 
-		public Fireball(int x, int y, string dir = "right")
-			: base(x, y)
+        public Fireball(int x, int y, string dir = "right")
+            : base(x, y)
         {
             baseCollisionWidth = 0.9375;
             baseCollisionHeight = 0.875;
@@ -49,7 +49,7 @@ namespace Puddle
             else
                 spriteX -= speed;
 
-			depth = 1;
+            depth = 1;
 
             Random rnd = new Random();
             seed = rnd.Next(20); // For animation
@@ -85,14 +85,14 @@ namespace Puddle
             }
 
             // check collisions with blocks
-			foreach (Sprite s in level.items)
+            foreach (Sprite s in level.items)
             {
-				if (s.isSolid && Intersects(s))
+                if (s.isSolid && Intersects(s))
                     destroyed = true;
             }
 
-			if (offScreen)
-				destroyed = true;
+            if (offScreen)
+                destroyed = true;
         }
 
         public void Animate(Level level)

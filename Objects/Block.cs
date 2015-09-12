@@ -11,18 +11,18 @@ namespace Puddle
 {
     class Block : Sprite
     {
-		private bool pushLeft;
-		private bool pushRight;
-		private bool gravity;
+        private bool pushLeft;
+        private bool pushRight;
+        private bool gravity;
 
-		private bool rCol;
-		private bool lCol;
+        private bool rCol;
+        private bool lCol;
         private bool canBreak;
         private bool transparent;
         public bool neighborsFound;
 
         public double x_vel;
-		public double y_vel;
+        public double y_vel;
 
         public string blockType;
         public Color metalColor;
@@ -31,27 +31,27 @@ namespace Puddle
 
         private SoundEffectInstance sound;
 
-		// Tiled constructor
-		public Block(TmxObjectGroup.TmxObject obj)
-			: this(
-				obj.X, obj.Y, 
-				obj.Properties.ContainsKey("left") ? Boolean.Parse(obj.Properties["left"]) : false, 
-				obj.Properties.ContainsKey("right") ? Boolean.Parse(obj.Properties["right"]) : false,
-				obj.Properties.ContainsKey("gravity") ? Boolean.Parse(obj.Properties["gravity"]) : false,
+        // Tiled constructor
+        public Block(TmxObjectGroup.TmxObject obj)
+            : this(
+                obj.X, obj.Y, 
+                obj.Properties.ContainsKey("left") ? Boolean.Parse(obj.Properties["left"]) : false, 
+                obj.Properties.ContainsKey("right") ? Boolean.Parse(obj.Properties["right"]) : false,
+                obj.Properties.ContainsKey("gravity") ? Boolean.Parse(obj.Properties["gravity"]) : false,
                 obj.Properties.ContainsKey("canBreak") ? Boolean.Parse(obj.Properties["canBreak"]) : false,
                 obj.Properties.ContainsKey("transparent") ? Boolean.Parse(obj.Properties["transparent"]) : false,
                 obj.Properties.ContainsKey("solid") ? Boolean.Parse(obj.Properties["solid"]) : true,
-				obj.Name
-			)
-		{ }
+                obj.Name
+            )
+        { }
 
-		public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, bool transparent=false, bool solid=true, string name="Block 0")
+        public Block(int x, int y, bool left=false, bool right=false, bool gravity=false, bool canBreak=false, bool transparent=false, bool solid=true, string name="Block 0")
             : base(x, y)
         {
             this.pushLeft = left;
             this.pushRight = right;
             this.gravity = gravity;
-			this.name = name;
+            this.name = name;
             this.canBreak = canBreak;
             this.transparent = transparent;
             metalColor = new Color(40, 50, 40);
@@ -60,7 +60,7 @@ namespace Puddle
 
             neighborsFound = false;
 
-			isSolid = solid;
+            isSolid = solid;
 
             rCol = false;
             lCol = false;
@@ -94,15 +94,15 @@ namespace Puddle
 
         }
 
-		public bool rightPushable
-		{
-			get{ return (blockType == "push" && pushRight && !rCol); }
-		}
+        public bool rightPushable
+        {
+            get{ return (blockType == "push" && pushRight && !rCol); }
+        }
 
-		public bool leftPushable
-		{
-			get{ return (blockType == "push" && pushLeft && !lCol); }
-		}
+        public bool leftPushable
+        {
+            get{ return (blockType == "push" && pushLeft && !lCol); }
+        }
 
         public void setFrameIndex(Level level)
         {
@@ -295,10 +295,10 @@ namespace Puddle
             // Gravity
             if (gravity)
             {
-				y_vel += level.gravity;
-				if (y_vel > level.maxFallSpeed)
-					y_vel = level.maxFallSpeed;
-				spriteY += Convert.ToInt32(y_vel);
+                y_vel += level.gravity;
+                if (y_vel > level.maxFallSpeed)
+                    y_vel = level.maxFallSpeed;
+                spriteY += Convert.ToInt32(y_vel);
             }
 
             // Move sideways
@@ -317,7 +317,7 @@ namespace Puddle
                 sound.Stop();
             }
 
-			x_vel = 0;
+            x_vel = 0;
         }
 
         public void CheckCollisions(Level level)
@@ -326,50 +326,50 @@ namespace Puddle
             rCol = false;
             lCol = false;
 
-			if (blockType != "push")
-				return;
+            if (blockType != "push")
+                return;
 
             // Check collisions with other blocks
-			foreach (Sprite s in level.items)
+            foreach (Sprite s in level.items)
             {
-				if (this != s && s.isSolid && Intersects(s))
+                if (this != s && s.isSolid && Intersects(s))
                 {
-					// Collide with block below
-					if (spriteY < s.spriteY && bottomWall >= s.topWall) 
-					{
+                    // Collide with block below
+                    if (spriteY < s.spriteY && bottomWall >= s.topWall) 
+                    {
                         if (y_vel > 3)
                         {
                             soundList["Sounds/BlockFall"].Play();
-                        }						
-						y_vel = 0;
-						while (bottomWall >= s.topWall)
-							spriteY--;
-					}
+                        }                        
+                        y_vel = 0;
+                        while (bottomWall >= s.topWall)
+                            spriteY--;
+                    }
 
-					// Collide with block on right
-					else if (spriteX < s.spriteX && rightWall >= s.leftWall) 
-					{
-						rCol = true;
-						while (Intersects(s))
-							spriteX--;
-						while (Intersects(level.player))
-							level.player.spriteX--;
-					}
+                    // Collide with block on right
+                    else if (spriteX < s.spriteX && rightWall >= s.leftWall) 
+                    {
+                        rCol = true;
+                        while (Intersects(s))
+                            spriteX--;
+                        while (Intersects(level.player))
+                            level.player.spriteX--;
+                    }
 
-					// Collide with block on left
-					else if (spriteX > s.spriteX && leftWall <= s.rightWall) 
-					{
-						lCol = true;
-						while (Intersects(s))
-							spriteX++;
-						while (Intersects(level.player))
-							level.player.spriteX++;
-					}
+                    // Collide with block on left
+                    else if (spriteX > s.spriteX && leftWall <= s.rightWall) 
+                    {
+                        lCol = true;
+                        while (Intersects(s))
+                            spriteX++;
+                        while (Intersects(level.player))
+                            level.player.spriteX++;
+                    }
                 }
             }
         }
 
-		public override void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
             images["push"] = content.Load<Texture2D>("Textures/push_block");
             images["metal"] = content.Load<Texture2D>("Textures/metal_block");
@@ -387,7 +387,7 @@ namespace Puddle
             }
         }
 
-		public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             if (!transparent)
             {
