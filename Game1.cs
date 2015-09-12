@@ -17,7 +17,6 @@ namespace Puddle
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        GameCamera uiCamera;
         GameCamera focusCamera;
         SpriteBatch spriteBatch;
         Level level;
@@ -75,7 +74,6 @@ namespace Puddle
                 Convert.ToInt32(map.Properties["startX"]), 
                 Convert.ToInt32(map.Properties["startY"])
             );
-            uiCamera = new GameCamera(new Vector2(0, 0), graphics, gameScale, true);
             focusCamera = new GameCamera(PlayerCameraCoordinates(player1, graphics, gameScale), graphics, gameScale);
             level = new Level(player1, "menu", this.Content);
             levelSelect = null;
@@ -108,7 +106,6 @@ namespace Puddle
                 Window.ClientBounds.Height / (Sprite.SIZE * GAME_BASE_HEIGHT)
             );
 
-            uiCamera.setGameScale(gameScale);
             focusCamera.setGameScale(gameScale);
 
             WindowSizeChange(
@@ -309,6 +306,19 @@ namespace Puddle
             base.Update(gameTime);
         }
 
+        // Sprite batch for drawing UI elements
+        private void BeginUISpriteBatch()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp,
+                null, null, null,
+                Matrix.CreateScale(gameScale)
+            );
+        }
+
+        // Sprite batch for drawing objects relative to the camera position
         private void BeginSpriteBatch(GameCamera camera)
         {
 
@@ -351,7 +361,7 @@ namespace Puddle
             if (loadingMap)
             {
                 // Draw Level Loading Screen
-                BeginSpriteBatch(uiCamera);
+                BeginUISpriteBatch();
 
                 string levelDisplay = player1.newMap.Equals("Win") ? "Congratulations!" :
                     String.Format("Level {0}", player1.newMap);
@@ -411,7 +421,7 @@ namespace Puddle
                 spriteBatch.End();
 
                 // Draw UI elements
-                BeginSpriteBatch(uiCamera);
+                BeginUISpriteBatch();
                 level.DrawUI(spriteBatch, graphics, gameScale);
 
                 // Draw pause screen

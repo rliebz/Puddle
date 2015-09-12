@@ -26,12 +26,11 @@ namespace Puddle
         private float destinationX;
         private float destinationY;
 
-        public GameCamera(Vector2 position, GraphicsDeviceManager g, int scale, bool keepFixed=false)
+        public GameCamera(Vector2 position, GraphicsDeviceManager g, int scale)
         {
             graphics = g;
             useScroll = true;
             scrollSpeed = 10;
-            fixCamera = keepFixed;
 
             gameScale = scale;
             JumpToPosition(position);
