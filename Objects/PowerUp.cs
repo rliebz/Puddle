@@ -19,21 +19,21 @@ namespace Puddle
             name = obj.Name.ToLower();
         }
 
-		public override void Update(Level level)
-		{
-			if (level.player.powerup[name])
-				destroyed = true;
-		}
+        public override void Update(Level level)
+        {
+            if (level.player.powerup[name])
+                destroyed = true;
+        }
 
-		public void Action(Player player, Level level)
+        public void Action(Player player, Level level)
         {
             player.powerup[name] = true;
-			player.worldPowerUp = name;
-			level.message_point = level.count;
-			if (name == "jetpack")
-				level.message = "Press and hold the jump button to jetpack!";
-			else if (name == "charged")
-				level.message = "Press and hold the right trigger to charge a super shot!";
+            player.worldPowerUp = name;
+            level.message_point = level.count;
+            if (name == "jetpack")
+                level.message = "Press and hold the jump button to jetpack!";
+            else if (name == "charged")
+                level.message = "Press and hold the right trigger to charge a super shot!";
             else if (name == "puddle")
                 level.message = "Press and hold down to turn into a puddle and avoid damage!";
         }

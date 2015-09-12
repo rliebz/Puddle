@@ -16,15 +16,15 @@ namespace Puddle
         public bool puddled;
         public bool shooting;
         public bool pushing;
-		public double rollerVel;
-		public int movedX, movedY;
+        public double rollerVel;
+        public int movedX, movedY;
         public Dictionary<string, bool> powerup;
         public string newMap;
-		public bool piped;
+        public bool piped;
         public string pauseScreen;
         private bool powerShotCharging;
         public int lives;
-		public string worldPowerUp;
+        public string worldPowerUp;
 
         // Stats
         public double maxHydration;
@@ -40,9 +40,9 @@ namespace Puddle
         private int xAccel;
         private double friction;
         public double xVel;
-		public double yVel;
+        public double yVel;
 
-		// Checkpoint positions, defaulted to initial
+        // Checkpoint positions, defaulted to initial
         public int checkpointXPos;
         public int checkpointYPos;
 
@@ -51,25 +51,25 @@ namespace Puddle
         private int powerShotPoint;
         private int powerShotRelease;
         private int tryShotHydration;
-		private int jumpHeight;
+        private int jumpHeight;
         private int jumpPoint;
         private int jumpDelay;
         private int shotDelay;
         private int powerShotDelay;
         Random rand;
-		public const int MAX_LIVES = 5;
+        public const int MAX_LIVES = 5;
 
-		public Player(int x, int y) : base(x, y)
+        public Player(int x, int y) : base(x, y)
         {
             // Objects
             powerup = new Dictionary<string, bool>();
 
             // Properties
-			bool hasPowerUps = false;
-			powerup["puddle"] = hasPowerUps;
-			powerup["jetpack"] = hasPowerUps;
-			powerup["charged"] = hasPowerUps;
-			worldPowerUp = null;
+            bool hasPowerUps = false;
+            powerup["puddle"] = hasPowerUps;
+            powerup["jetpack"] = hasPowerUps;
+            powerup["charged"] = hasPowerUps;
+            worldPowerUp = null;
 
             lives = MAX_LIVES;
             grounded = false;
@@ -77,28 +77,28 @@ namespace Puddle
             faceLeft = false;
             shooting = false;
             pushing = false;
-			rollerVel = 0;
-			movedX = 0;
-			movedY = 0;
-			baseCollisionWidth = 0.5625;
-			baseCollisionHeight = 0.9375;
-			piped = false;
+            rollerVel = 0;
+            movedX = 0;
+            movedY = 0;
+            baseCollisionWidth = 0.5625;
+            baseCollisionHeight = 0.9375;
+            piped = false;
             powerShotCharging = false;
 
             // Stats
             maxHydration = 100;
             hydration = maxHydration;
-			hydrationRegen = maxHydration / 300;
+            hydrationRegen = maxHydration / 300;
             shotCost = 10;
             powerShotCost = shotCost * 2;
-			jetpackCost = shotCost * 2;
+            jetpackCost = shotCost * 2;
             puddleCost = 1.0;
 
             // Movement
-			speed = 3;
-			friction = .075;
-			jumpHeight = 10;
-			xAccel = 0;
+            speed = 3;
+            friction = .075;
+            jumpHeight = 10;
+            xAccel = 0;
             xVel = 0;
             yVel = 0;
 
@@ -138,49 +138,49 @@ namespace Puddle
             get { return (puddled); }
         }
 
-		// Property determining if the character is fully puddle
-		public bool fullyPuddled
-		{
-			get { return (puddled && frameIndexX == 5 * 32); }
-		}
+        // Property determining if the character is fully puddle
+        public bool fullyPuddled
+        {
+            get { return (puddled && frameIndexX == 5 * 32); }
+        }
 
         // Property determining if the character can be hurt
         public bool invulnerable
         {
-			// Or each "invulnerable" condition
-			get { return fullyPuddled; }
+            // Or each "invulnerable" condition
+            get { return fullyPuddled; }
         }
 
-		// Note that the variable collision height may cause unexpected issues
-		public override int topWall
-		{
-			get 
-			{
-				return puddled ? base.topWall + frameIndexX / 32 * 5 : base.topWall;
-			}
+        // Note that the variable collision height may cause unexpected issues
+        public override int topWall
+        {
+            get 
+            {
+                return puddled ? base.topWall + frameIndexX / 32 * 5 : base.topWall;
+            }
 
-		}
+        }
 
-		public int numPowers
-		{
-			get 
-			{
-				int output = 0;
-				if (powerup["jetpack"])
-					output++;
-				if (powerup["puddle"])
-					output++;
-				if (powerup["charged"])
-					output++;
+        public int numPowers
+        {
+            get 
+            {
+                int output = 0;
+                if (powerup["jetpack"])
+                    output++;
+                if (powerup["puddle"])
+                    output++;
+                if (powerup["charged"])
+                    output++;
 
-				return output;
-			}
-		}
+                return output;
+            }
+        }
 
         public void Update(Controls controls, Level level, GameTime gameTime)
         {
-			pauseScreen = String.Format("Slides/pause{0}", numPowers);
-				
+            pauseScreen = String.Format("Slides/pause{0}", numPowers);
+                
             if (hydration + hydrationRegen <= maxHydration && !powerShotCharging)
                 hydration += hydrationRegen;
 
@@ -188,7 +188,7 @@ namespace Puddle
 
             Puddle(controls);
 
-			Shoot(controls, level, gameTime);
+            Shoot(controls, level, gameTime);
 
             Jump(controls, level, gameTime);
 
@@ -225,34 +225,34 @@ namespace Puddle
                 + (frozen ? 0 : 1)      // Don't accelerate if frozen
                 * xAccel * .10          // Add current acceleration reduced by constant
                 * tiltPercentage;       // Speed reduction for partially tilted controller
-			movedX = Convert.ToInt32(xVel + rollerVel);
-			spriteX += movedX;
+            movedX = Convert.ToInt32(xVel + rollerVel);
+            spriteX += movedX;
 
             // Reset situational variables
-			pushing = false;
-			rollerVel = 0;
+            pushing = false;
+            rollerVel = 0;
 
-			// Check left/right collisions
-			checkXCollisions(level);
+            // Check left/right collisions
+            checkXCollisions(level);
 
             // Gravity
-			yVel += level.gravity;
-			if (yVel > level.maxFallSpeed)
-				yVel = level.maxFallSpeed;
-			// Round up to force movement every step
-			movedY = Convert.ToInt32(Math.Ceiling(yVel));
-			spriteY += movedY;
-			grounded = false;
+            yVel += level.gravity;
+            if (yVel > level.maxFallSpeed)
+                yVel = level.maxFallSpeed;
+            // Round up to force movement every step
+            movedY = Convert.ToInt32(Math.Ceiling(yVel));
+            spriteY += movedY;
+            grounded = false;
 
-			// Check up/down collisions
-			checkYCollisions(level);
+            // Check up/down collisions
+            checkYCollisions(level);
 
-			// Determine player facing
-			if (xVel > 0.1)
-				faceLeft = false;
-			else if (xVel < -0.1)
-				faceLeft = true;
-				
+            // Determine player facing
+            if (xVel > 0.1)
+                faceLeft = false;
+            else if (xVel < -0.1)
+                faceLeft = true;
+                
         }
 
         private void Puddle(Controls controls)
@@ -265,13 +265,13 @@ namespace Puddle
 
             if (puddled)
             {
-				if (hydration >= puddleCost)
-					hydration -= puddleCost;
-				else 
-				{
-					puddled = false;
-					piped = false;
-				}
+                if (hydration >= puddleCost)
+                    hydration -= puddleCost;
+                else 
+                {
+                    puddled = false;
+                    piped = false;
+                }
             }
         }
 
@@ -342,7 +342,7 @@ namespace Puddle
                     level.projectiles.Add(s);
                     hydration -= shotCost;
                 }
-					
+                    
                 // Jetpack (Midair jump and downward shots)
                 int currentTime2 = (int)(gameTime.TotalGameTime.TotalMilliseconds);
                 if ((currentTime2 - jumpPoint) >= jumpDelay && yVel > 3 && powerup["jetpack"] &&
@@ -357,8 +357,8 @@ namespace Puddle
 
                     // Slight upward boost
                     spriteY--;
-					movedY--;
-					yVel = -4.5;
+                    movedY--;
+                    yVel = -4.5;
                 }
             }
         }
@@ -366,10 +366,10 @@ namespace Puddle
         private void Jump(Controls controls, Level level, GameTime gameTime)
         {
             // Jump on button press
-			if (controls.onPress(controls.Jump) && !frozen && grounded)
+            if (controls.onPress(controls.Jump) && !frozen && grounded)
             {
                 PlaySound("jump");
-				yVel = -jumpHeight;
+                yVel = -jumpHeight;
                 jumpPoint = (int)(gameTime.TotalGameTime.TotalMilliseconds);
             }
 
@@ -395,174 +395,174 @@ namespace Puddle
                 }
             }
 
-			// Check misc. collisions
+            // Check misc. collisions
             foreach (Sprite item in level.items)
             {
-				// Pick up powerups 
+                // Pick up powerups 
                 if (item is PowerUp && Intersects(item))
                 {
-					((PowerUp)item).Action(this, level);
+                    ((PowerUp)item).Action(this, level);
                     item.destroyed = true;
                     PlaySound("powerup");
                 }
             }
         }
 
-		private void checkXCollisions(Level level)
-		{
-			foreach (Sprite s in level.items)
-			{
-				if (s.isSolid && Intersects(s))
-				{
-					// Pipe
-					if (s is Pipe && !((Pipe)s).direction.Equals("up") && !piped)
-					{
-						Pipe p = (Pipe)s;
-						if(p.name.Contains("endPipe"))
-						{
-							newMap = p.destination;
-						}
-						else
-						{
-							p.Action(level);
-							piped = true;
-						}
-					}
+        private void checkXCollisions(Level level)
+        {
+            foreach (Sprite s in level.items)
+            {
+                if (s.isSolid && Intersects(s))
+                {
+                    // Pipe
+                    if (s is Pipe && !((Pipe)s).direction.Equals("up") && !piped)
+                    {
+                        Pipe p = (Pipe)s;
+                        if(p.name.Contains("endPipe"))
+                        {
+                            newMap = p.destination;
+                        }
+                        else
+                        {
+                            p.Action(level);
+                            piped = true;
+                        }
+                    }
 
-					// Collision with right block
-					if (rightWall - movedX < s.leftWall)
-					{
-						// Push
-						if (s is Block && ((Block)s).rightPushable && grounded)
-						{
-							((Block)s).x_vel = movedX;
-							pushing = true;
-						}
+                    // Collision with right block
+                    if (rightWall - movedX < s.leftWall)
+                    {
+                        // Push
+                        if (s is Block && ((Block)s).rightPushable && grounded)
+                        {
+                            ((Block)s).x_vel = movedX;
+                            pushing = true;
+                        }
 
-						// Hit the wall
-						else
-						{
+                        // Hit the wall
+                        else
+                        {
                             while (rightWall >= s.leftWall)
                             {
                                 spriteX--;
                                 movedX--;
                             }
-						}
-					}
+                        }
+                    }
 
-					// Push to the left
-					else if (leftWall - movedX > s.rightWall)
-					{
-						// Push
-						if (s is Block && ((Block)s).leftPushable && grounded)
-						{
-							((Block)s).x_vel = movedX;
-							pushing = true;
-						}
+                    // Push to the left
+                    else if (leftWall - movedX > s.rightWall)
+                    {
+                        // Push
+                        if (s is Block && ((Block)s).leftPushable && grounded)
+                        {
+                            ((Block)s).x_vel = movedX;
+                            pushing = true;
+                        }
 
-						// Hit the wall
-						else
-						{
+                        // Hit the wall
+                        else
+                        {
                             while (leftWall <= s.rightWall)
                             {
                                 spriteX++;
                                 movedX++;
                             }
-						}
-					}
-				}
-			}
-		}
+                        }
+                    }
+                }
+            }
+        }
 
-		private void checkYCollisions(Level level)
-		{
+        private void checkYCollisions(Level level)
+        {
 
-			foreach (Sprite s in level.items)
-			{
-				if (s.isSolid && Intersects(s))
-				{
-					// Pipe
-					if (s is Pipe && !piped && fullyPuddled && 
-						Math.Abs(spriteX - s.spriteX) < 12)
-					{
-						Pipe p = (Pipe)s;
-						if(p.name.Contains("endPipe"))
-						{
-							newMap = p.destination;
-						}
-						else
-						{
-							p.Action(level);
-							piped = true;
-						}
-					}
+            foreach (Sprite s in level.items)
+            {
+                if (s.isSolid && Intersects(s))
+                {
+                    // Pipe
+                    if (s is Pipe && !piped && fullyPuddled && 
+                        Math.Abs(spriteX - s.spriteX) < 12)
+                    {
+                        Pipe p = (Pipe)s;
+                        if(p.name.Contains("endPipe"))
+                        {
+                            newMap = p.destination;
+                        }
+                        else
+                        {
+                            p.Action(level);
+                            piped = true;
+                        }
+                    }
 
-					// Up collision
-					if (topWall - movedY > s.bottomWall)
-					{
-						yVel = 0;
-						while (topWall <= s.bottomWall)
-						{
-							spriteY++;
-							movedY++;
-						}
-					}
+                    // Up collision
+                    if (topWall - movedY > s.bottomWall)
+                    {
+                        yVel = 0;
+                        while (topWall <= s.bottomWall)
+                        {
+                            spriteY++;
+                            movedY++;
+                        }
+                    }
 
-					// Down collision
-					else if ((bottomWall - movedY) < s.topWall)
-					{
-						grounded = true;
-						yVel = 0;
-						while (bottomWall >= s.topWall)
-						{
-							spriteY--;
-							movedY--;
-						}
+                    // Down collision
+                    else if ((bottomWall - movedY) < s.topWall)
+                    {
+                        grounded = true;
+                        yVel = 0;
+                        while (bottomWall >= s.topWall)
+                        {
+                            spriteY--;
+                            movedY--;
+                        }
 
-						// Roller
-						if (s is Roller)
-						{
-							rollerVel = ((Roller)s).speed;
-						}
-					}
-				}
-			}
-		}
+                        // Roller
+                        if (s is Roller)
+                        {
+                            rollerVel = ((Roller)s).speed;
+                        }
+                    }
+                }
+            }
+        }
 
         private void HandleCollisions(Level level)
         {
 
         }
 
-		public void ResetFields(bool maxLives=false)
-		{
-			if (maxLives)
-				lives = MAX_LIVES;
+        public void ResetFields(bool maxLives=false)
+        {
+            if (maxLives)
+                lives = MAX_LIVES;
 
-			xVel = 0;
-			yVel = 0;
-			puddled = false;
-			piped = false;
-			hydration = maxHydration;
-		}
+            xVel = 0;
+            yVel = 0;
+            puddled = false;
+            piped = false;
+            hydration = maxHydration;
+        }
 
         public void Death(Level level)
         {
-			// Go to checkpoint
+            // Go to checkpoint
             spriteX = checkpointXPos;
             spriteY = checkpointYPos;
 
-			ResetFields();
+            ResetFields();
 
             PlaySound("death");
 
-			if(!level.name.Equals("Select"))
-				lives--;
+            if(!level.name.Equals("Select"))
+                lives--;
 
             if (lives == 0)
             {
                 lives = Player.MAX_LIVES;
-				newMap = level.name;
+                newMap = level.name;
             }
         }
 
@@ -581,11 +581,11 @@ namespace Puddle
                         frameIndexX = 0;
                     }
                     // Animate
-					else if (frameIndexX < 2 * 32 && level.count % 6 == 0)
+                    else if (frameIndexX < 2 * 32 && level.count % 6 == 0)
                         frameIndexX += 32;
                 }
                 // Grounded, not Moving
-				else if (Math.Abs(xVel) < 0.5)
+                else if (Math.Abs(xVel) < 0.5)
                 {
                     // Initialize sprite. No animation.
                     if (image != images["stand"])
@@ -625,11 +625,11 @@ namespace Puddle
                 else
                 {
                     frameIndexX -= 32;
-					if (frameIndexX <= 0)
-					{
-						puddled = false;
-						piped = false;
-					}
+                    if (frameIndexX <= 0)
+                    {
+                        puddled = false;
+                        piped = false;
+                    }
                 }
             }
         }
@@ -675,17 +675,17 @@ namespace Puddle
         {
             base.LoadContent(content);
 
-			// Player character sprites
+            // Player character sprites
             images["stand"] = image;
             images["jump"] = content.Load<Texture2D>("PC/jump");
             images["walk"] = content.Load<Texture2D>("PC/walk");
-			images["puddle"] = content.Load<Texture2D>("PC/puddle");
+            images["puddle"] = content.Load<Texture2D>("PC/puddle");
 
-			// Misc. sprites
-			images["hydration"] = content.Load<Texture2D>("Textures/puddle");
-			images["heart"] = content.Load<Texture2D>("Textures/heart");
-			images["bubble"] = content.Load<Texture2D>("Textures/bubble");
-			images["charged"] = content.Load<Texture2D>("Textures/charged");
+            // Misc. sprites
+            images["hydration"] = content.Load<Texture2D>("Textures/puddle");
+            images["heart"] = content.Load<Texture2D>("Textures/heart");
+            images["bubble"] = content.Load<Texture2D>("Textures/bubble");
+            images["charged"] = content.Load<Texture2D>("Textures/charged");
         }
 
         public override void DrawUI(SpriteBatch sb, GraphicsDeviceManager graphics, int gameScale)
