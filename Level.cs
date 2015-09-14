@@ -58,7 +58,7 @@ namespace Puddle
         {
             count++;
 
-            if (String.IsNullOrEmpty(message) && (count - message_point) >= 400)
+            if (!String.IsNullOrEmpty(message) && (count - message_point) >= 400)
                 message = null;
 
             // Move shots
