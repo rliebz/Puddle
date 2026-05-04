@@ -1,3 +1,52 @@
 {
-  "agents": {}
+  "agents": {
+    "dallas": {
+      "persistent_name": "dallas",
+      "universe": "Alien",
+      "role": "Lead / Architect",
+      "created_at": "2026-05-03T17:14:09Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "ripley": {
+      "persistent_name": "ripley",
+      "universe": "Alien",
+      "role": "Engine Dev",
+      "created_at": "2026-05-03T17:14:09Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "parker": {
+      "persistent_name": "parker",
+      "universe": "Alien",
+      "role": "Web/Deploy",
+      "created_at": "2026-05-03T17:14:09Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "ash": {
+      "persistent_name": "ash",
+      "universe": "Alien",
+      "role": "Code Reviewer",
+      "created_at": "2026-05-03T17:14:09Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "lambert": {
+      "persistent_name": "lambert",
+      "universe": "Alien",
+      "role": "Designer",
+      "created_at": "2026-05-03T17:14:09Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "kane": {
+      "persistent_name": "kane",
+      "universe": "Alien",
+      "role": "Dev Designer",
+      "created_at": "2026-05-03T17:14:09Z",
+      "legacy_named": false,
+      "status": "active"
+    }
+  }
 }
